@@ -7,11 +7,12 @@
     <title>AMLBD</title>
     <link rel="icon" type="image/x-icon" href="http://www.amlbd.com/wp-content/uploads/2014/05/new-way-to-manage1.png">
     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     @livewireStyles
 </head>
 <body>
 
-    <div class="container" style="margin-top: 45px">
+    <div class="container-fluid" style="margin-top: 45px;">
 
                 <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>Igloo CHO</b></h4>
                 @livewire('countries')

@@ -13,10 +13,18 @@ class Countries extends Component
     public $upd_continent,$upd_country_name,$upd_capital_city,$cid;
     protected $listeners = ['delete','deleteCheckedCountries'];
     public $checkedCountry = [];
+
+    public $perPage =5;
+    public $orderBy = "user_name";
+    public $sortBy = "asc";
+    public $search;
     public function render()
     {
         return view('livewire.countries',[
-            'countries'=>Country::orderBy('user_name','asc')->paginate(5)
+            //'countries'=>Country::orderBy('user_name','asc')->paginate(5)
+            'countries'=>Country::search(trim($this->search))
+            ->orderBy($this->orderBy,$this->sortBy)
+            ->paginate($this->perPage)
         ]);
     }
 
