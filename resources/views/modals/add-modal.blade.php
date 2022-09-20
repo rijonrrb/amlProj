@@ -49,7 +49,7 @@
                          <input type="text" class="form-control" placeholder="Serial No" wire:model="serial_no">
                          <span class="text-danger"> @error('serial_no') {{ $message }}@enderror</span>
                      </div>
-                     <div class="form-group">
+                     <!-- <div class="form-group">
                          <label for="">Previous User</label>
                          <input type="text" class="form-control" placeholder="Previous User" wire:model="previous_user">
                          <span class="text-danger"> @error('previous_user') {{ $message }}@enderror</span>
@@ -58,7 +58,7 @@
                          <label for="">Issue Date</label>
                          <input type="text" class="form-control" placeholder="Issue Date" wire:model="issue_date">
                          <span class="text-danger"> @error('issue_date') {{ $message }}@enderror</span>
-                     </div>
+                     </div> -->
                      <div class="form-group">
                          <label for="">Configuration</label>
                          <input type="text" class="form-control" placeholder="Configuration" wire:model="configuration">

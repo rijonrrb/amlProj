@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('serial_no');
             $table->string('previous_user');
             $table->string('issue_date');
+            $table->string('p_issue_date');
             $table->string('configuration');
             $table->timestamps();
         });

@@ -8,6 +8,9 @@
     <link rel="icon" type="image/x-icon" href="http://www.amlbd.com/wp-content/uploads/2014/05/new-way-to-manage1.png">
     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @livewireStyles
 </head>
 <body>
@@ -20,10 +23,10 @@
     </div>
     
 
-    <script src="{{ asset('jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     @livewireScripts
     <script>
            window.addEventListener('OpenAddCountryModal', function(){
@@ -100,5 +103,73 @@
            });
 
     </script>
+<script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+    <script>
+ $(document).ready(function(){
+
+
+  $(document).on('keydown', '.update', function(e){
+    if (event.ctrlKey && event.key === "s") {
+     
+        e.preventDefault();
+   var id = $(this).data("id");
+   var column_name = $(this).data("column");
+   var value = $(this).text();
+
+   $.ajax({
+    url:"{{route('updatez')}}",
+    method:"POST",
+    data:{id:id, column_name:column_name, value:value},
+    success:function(data)
+    {
+            Swal.fire({
+                icon: 'success',
+                title: 'Updated..',
+                text: 'Your DataSet has been Updated.',
+                showConfirmButton: false,
+                timer: 800
+              })
+              window.location.reload();
+    }
+   });
+
+    }
+
+
+  
+  })
+
+
+
+ });
+</script>
+
+<script>
+
+    function html_table_to_excel(type)
+    {
+        var data = document.getElementById('Igloo');
+
+        var file = XLSX.utils.table_to_book(data, {sheet: "Igloo CHO"});
+
+        XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
+
+        XLSX.writeFile(file, 'Igloo CHO.' + type);
+    }
+
+    const export_button = document.getElementById('export');
+
+    export_button.addEventListener('click', () =>  {
+        html_table_to_excel('xlsx');
+    });
+
+</script>
+
 </body>
 </html>

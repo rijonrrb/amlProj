@@ -29,6 +29,7 @@ class Country extends Model
             ->orWhere('serial_no','like',$term)
             ->orWhere('previous_user','like',$term)
             ->orWhere('issue_date','like',$term)
+            ->orWhere('p_issue_date','like',$term)
             ->orWhere('configuration','like',$term);
          });
      }

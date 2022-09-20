@@ -10,4 +10,5 @@ Route::get('/', function () {
 
 
 Route::get('/Dataset',[MainController::class,'index']);
+Route::post('/updatez',[MainController::class,'updatez'])->name('updatez');
 

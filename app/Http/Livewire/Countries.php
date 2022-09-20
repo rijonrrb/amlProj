@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Continent;
 use App\Models\Country;
+use App\Models\Dept;
 use Livewire\WithPagination;
 class Countries extends Component
 {
@@ -14,6 +15,7 @@ class Countries extends Component
     protected $listeners = ['delete','deleteCheckedCountries'];
     public $checkedCountry = [];
 
+    public $byDept =null;
     public $perPage =5;
     public $orderBy = "user_name";
     public $sortBy = "asc";
@@ -21,8 +23,11 @@ class Countries extends Component
     public function render()
     {
         return view('livewire.countries',[
-            //'countries'=>Country::orderBy('user_name','asc')->paginate(5)
-            'countries'=>Country::search(trim($this->search))
+            'depts'=>Dept::orderBy('dept_name','asc')->get(),
+            'countries'=>Country::when($this->byDept,function($query){
+                $query->where('dept',$this->byDept);
+            })
+            ->search(trim($this->search))
             ->orderBy($this->orderBy,$this->sortBy)
             ->paginate($this->perPage)
         ]);
@@ -39,11 +44,14 @@ class Countries extends Component
         $this->serial_no = '';
         $this->previous_user = '';
         $this->issue_date = '';
+        $this->p_issue_date = '';
         $this->configuration = '';
         $this->dispatchBrowserEvent('OpenAddCountryModal');
     }
 
     public function save(){
+        date_default_timezone_set('Asia/Dhaka');
+        $time =  date('d F Y h:i:s A');
 
         $save = Country::insert([
               'user_name'=>$this->user_name,
@@ -55,9 +63,27 @@ class Countries extends Component
               'asset_no'=>$this->asset_no,
               'serial_no'=>$this->serial_no,
               'previous_user'=>$this->previous_user,
-              'issue_date'=>$this->issue_date,
+              'issue_date'=>$time,
+              'p_issue_date'=>$this->p_issue_date,
               'configuration'=>$this->configuration,
         ]);
+
+
+
+        if(!empty($this->dept))
+
+        {
+        $dept = Dept::where('dept_name',$this->dept)->first();
+ 
+                if(!$dept)
+                {  
+                    $res = Dept::insert([
+
+                        'dept_name'=>$this->dept,
+                    ]);
+                }
+                else{}
+        }else{}
 
         if($save){
             $this->dispatchBrowserEvent('CloseAddCountryModal');
