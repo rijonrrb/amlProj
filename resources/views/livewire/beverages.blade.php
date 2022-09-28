@@ -1,11 +1,11 @@
 
 <div class="card">
-<h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>Igloo CHO</b></h4>
+<h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>Beverage</b></h4>
 <div class="row mb-3 p-2 d-flex justify-content-between">
-<button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddCountryModal()">Add New Dataset</button>
+<button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddBeverageModal()">Add New Dataset</button>
     <div>
-       @if ($checkedCountry)
-            <button class="btn btn-danger btn-md mr-4" wire:click="deleteCountries()"> Delete Selected DataSet ({{ count($checkedCountry) }})</button>
+       @if ($checkedBeverage)
+            <button class="btn btn-danger btn-md mr-4" wire:click="deleteBeverages()"> Delete Selected DataSet ({{ count($checkedBeverage) }})</button>
        @endif
     </div>
 </div>
@@ -64,7 +64,7 @@
     </div>
 
     <div style="overflow-x:auto;" class="card-body">
-    <table class="table table-hover table-bordered" id="Igloo">
+    <table class="table table-hover table-bordered" id="Beverages">
         <thead class="thead-inverse">
             <tr>
                 <th></th>
@@ -88,26 +88,27 @@
                         @php        
                         $i = 1;
                         @endphp
-                @forelse ($countries as $country)
-                    <tr class="{{ $this->isChecked($country->id) }}">
-                    <td><input type="checkbox" value="{{ $country->id }}" wire:model="checkedCountry"></td>
-                    <td>{{ $i++ }}</td>
-                    <td contenteditable="true" class="update" data-id="{{ $country->id }}" data-column="user_name" title="Click to edit">{{ $country->user_name }}</td>
-                    <td contenteditable="true" class="update" data-id="{{ $country->id }}" data-column="desigation" title="Click to edit">{{ $country->desigation }}</td>
-                    <td contenteditable="true" class="update" data-id="{{ $country->id }}" data-column="dept" title="Click to edit">{{ $country->dept }}</td>
-                    <td contenteditable="true" class="update" data-id="{{ $country->id }}" data-column="unit" title="Click to edit">{{ $country->unit }}</td>
-                    <td contenteditable="true" class="update" data-id="{{ $country->id }}" data-column="item" title="Click to edit">{{ $country->item }}</td>
-                    <td contenteditable="true" class="update" data-id="{{ $country->id }}" data-column="laptop_name" title="Click to edit">{{ $country->laptop_name }}</td>
-                    <td contenteditable="true" class="update" data-id="{{ $country->id }}" data-column="asset_no" title="Click to edit">{{ $country->asset_no }}</td>
-                    <td contenteditable="true" class="update" data-id="{{ $country->id }}" data-column="serial_no" title="Click to edit">{{ $country->serial_no }}</td>
-                    <td contenteditable="true" class="update" data-id="{{ $country->id }}" data-column="previous_user" title="Click to edit">{{ $country->previous_user }}</td>
-                    <td contenteditable="true" class="update" data-id="{{ $country->id }}" data-column="issue_date" title="Click to edit">{{ $country->issue_date }}</td>
-                    <td contenteditable="true" class="update" data-id="{{ $country->id }}" data-column="p_issue_date" title="Click to edit">{{ $country->p_issue_date }}</td>
-                    <td contenteditable="true" class="update" data-id="{{ $country->id }}" data-column="configuration" title="Click to edit">{{ $country->configuration }}</td>
+
+                @forelse ($Beverages as $Beverage)
+                    <tr class="{{ $this->isChecked($Beverage->id) }}">
+                    <td><input type="checkbox" value="{{ $Beverage->id }}" wire:model="checkedBeverage"></td>
+                    <td>{{$i++}}</td>
+                    <td contenteditable="true" class="update" data-id="{{ $Beverage->id }}" data-column="user_name" title="Click to edit">{{ $Beverage->user_name }}</td>
+                    <td contenteditable="true" class="update" data-id="{{ $Beverage->id }}" data-column="desigation" title="Click to edit">{{ $Beverage->desigation }}</td>
+                    <td contenteditable="true" class="update" data-id="{{ $Beverage->id }}" data-column="dept" title="Click to edit">{{ $Beverage->dept }}</td>
+                    <td contenteditable="true" class="update" data-id="{{ $Beverage->id }}" data-column="unit" title="Click to edit">{{ $Beverage->unit }}</td>
+                    <td contenteditable="true" class="update" data-id="{{ $Beverage->id }}" data-column="item" title="Click to edit">{{ $Beverage->item }}</td>
+                    <td contenteditable="true" class="update" data-id="{{ $Beverage->id }}" data-column="laptop_name" title="Click to edit">{{ $Beverage->laptop_name }}</td>
+                    <td contenteditable="true" class="update" data-id="{{ $Beverage->id }}" data-column="asset_no" title="Click to edit">{{ $Beverage->asset_no }}</td>
+                    <td contenteditable="true" class="update" data-id="{{ $Beverage->id }}" data-column="serial_no" title="Click to edit">{{ $Beverage->serial_no }}</td>
+                    <td contenteditable="true" class="update" data-id="{{ $Beverage->id }}" data-column="previous_user" title="Click to edit">{{ $Beverage->previous_user }}</td>
+                    <td contenteditable="true" class="update" data-id="{{ $Beverage->id }}" data-column="issue_date" title="Click to edit">{{ $Beverage->issue_date }}</td>
+                    <td contenteditable="true" class="update" data-id="{{ $Beverage->id }}" data-column="p_issue_date" title="Click to edit">{{ $Beverage->p_issue_date }}</td>
+                    <td contenteditable="true" class="update" data-id="{{ $Beverage->id }}" data-column="configuration" title="Click to edit">{{ $Beverage->configuration }}</td>
                     <td>
                         <div class="btn-group container">
                         
-						<a href="#" wire:click="deleteConfirm({{$country->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+						<a href="#" wire:click="deleteConfirm({{$Beverage->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
                         
                         </div>
                     </td>
@@ -121,16 +122,14 @@
 </div>
 
    <div class="d-flex justify-content-between bg-dark card-footer">
-    @if (count($countries))
-        {{ $countries->links('livewire-pagination-links') }}
+    @if (count($Beverages))
+        {{ $Beverages->links('livewire-pagination-links') }}
     @endif
 
     <button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
     </div>
 
     @include('modals.add-modal')
-
-
 </div>
 
       

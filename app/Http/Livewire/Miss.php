@@ -3,18 +3,16 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Country;
-use App\Models\Invoice;
+use App\Models\Mis;
 use App\Models\Dept;
 use Livewire\WithPagination;
-use Session;
-use Illuminate\Support\Facades\DB;
-class Countries extends Component
-{
-    use WithPagination;
 
-    protected $listeners = ['delete','deleteCheckedCountries'];
-    public $checkedCountry = [];
+class Miss extends Component
+{
+
+    use WithPagination;
+    protected $listeners = ['delete','deleteCheckedMisss'];
+    public $checkedMiss = [];
 
     public $byDept =null;
     public $perPage =5;
@@ -23,9 +21,9 @@ class Countries extends Component
     public $search;
     public function render()
     {
-        return view('livewire.countries',[
+        return view('livewire.miss',[
             'depts'=>Dept::orderBy('dept_name','asc')->get(),
-            'countries'=>Country::when($this->byDept,function($query){
+            'Misss'=>Mis::when($this->byDept,function($query){
                 $query->where('dept',$this->byDept);
             })
             ->search(trim($this->search))
@@ -34,8 +32,7 @@ class Countries extends Component
         ]);
     }
 
-    public function OpenAddCountryModal(){
-
+    public function OpenAddMissModal(){
 
         $this->user_name = '';
         $this->desigation = '';
@@ -49,23 +46,14 @@ class Countries extends Component
         $this->issue_date = '';
         $this->p_issue_date = '';
         $this->configuration = '';
-        $this->abc = '';
-
-        $this->H_user = '';
-        $this->H_designation = '';
-        $this->H_dept = '';
-        $this->H_unit = '';
-        $this->dispatchBrowserEvent('OpenAddCountryModal');
+        $this->dispatchBrowserEvent('OpenAddMissModal');
     }
 
     public function save(){
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
-        $id=DB::select("SHOW TABLE STATUS LIKE 'countries'");
-        $next_id=$id[0]->Auto_increment;
-        Session::put('id', $next_id);
 
-        $save = Country::insert([
+        $save = Mis::insert([
 
               'user_name'=>$this->user_name,
               'desigation'=>$this->desigation,
@@ -80,28 +68,6 @@ class Countries extends Component
               'p_issue_date'=>$this->p_issue_date,
               'configuration'=>$this->configuration,
         ]);
-
-
-        Invoice::insert([
-
-            'handedBy'=>$this->H_user,
-            'h_desigation'=>$this->H_designation,
-            'h_dept'=>$this->H_dept,
-            'h_unit'=>$this->H_unit,
-            't_id'=> $next_id,
-            'takenBy'=>$this->user_name,
-            't_desigation'=>$this->desigation,
-            't_dept'=>$this->dept,
-            't_unit'=>$this->unit,
-            'remarks'=>'For Official use',
-            'qty'=>'1',
-            'laptop_name'=>$this->laptop_name,
-            'configuration'=>$this->configuration,
-            'asset_no'=>$this->asset_no,
-            'serial_no'=>$this->serial_no,
-            'business_area'=>'Igloo CHO',
-        ]);
-
         if(!empty($this->dept))
 
         {
@@ -118,15 +84,14 @@ class Countries extends Component
                 }
 
         if($save){
-            $this->dispatchBrowserEvent('CloseAddCountryModal');
-            $this->checkedCountry = [];
+            $this->dispatchBrowserEvent('CloseAddMissModal');
+            $this->checkedMiss = [];
         }
     }
 
-    
 
     public function deleteConfirm($id){
-        $info = Country::find($id);
+        $info = Mis::find($id);
         $this->dispatchBrowserEvent('SwalConfirm',[
             'title'=>'Are you sure?',
             'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
@@ -136,26 +101,26 @@ class Countries extends Component
 
 
     public function delete($id){
-        $del =  Country::find($id)->delete();
+        $del =  Mis::find($id)->delete();
         if($del){
             $this->dispatchBrowserEvent('deleted');
         }
-        $this->checkedCountry = [];
+        $this->checkedMiss = [];
     }
 
-    public function deleteCountries(){
-        $this->dispatchBrowserEvent('swal:deleteCountries',[
+    public function deleteMisss(){
+        $this->dispatchBrowserEvent('swal:deleteMisss',[
             'title'=>'Are you sure?',
             'html'=>'You want to delete this items',
-            'checkedIDs'=>$this->checkedCountry,
+            'checkedIDs'=>$this->checkedMiss,
         ]);
     }
-    public function deleteCheckedCountries($ids){
-        Country::whereKey($ids)->delete();
-        $this->checkedCountry = [];
+    public function deleteCheckedMisss($ids){
+        Mis::whereKey($ids)->delete();
+        $this->checkedMiss = [];
     }
 
-    public function isChecked($countryId){
-        return in_array($countryId, $this->checkedCountry) ? 'bg-info text-white' : '';
+    public function isChecked($MissId){
+        return in_array($MissId, $this->checkedMiss) ? 'bg-info text-white' : '';
     }
 }

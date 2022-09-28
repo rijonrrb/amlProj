@@ -1,0 +1,56 @@
+button {
+background-color: #04AA6D;
+color: #ffffff;
+border: none;
+padding: 6px 12px;
+font-size: 12px;
+font-family: Raleway;
+cursor: pointer;
+}
+
+button:hover {
+opacity: 0.8;
+}
+
+#prevBtn {
+background-color: #bbbbbb;
+}
+#close {
+background-color: red;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+height: 15px;
+width: 15px;
+margin: 0 2px;
+background-color: #bbbbbb;
+border: none;  
+border-radius: 50%;
+display: inline-block;
+opacity: 0.5;
+}
+
+.actives {
+height: 15px;
+width: 15px;
+margin: 0 2px;
+background-color:green;
+border: none;  
+border-radius: 50%;
+display: inline-block;
+opacity: 0.5;
+opacity: 1;
+}
+
+.finish {
+height: 15px;
+width: 15px;
+margin: 0 2px;
+background-color:green;
+border: none;  
+border-radius: 50%;
+display: inline-block;
+opacity: 0.5;
+opacity: 1;
+}
