@@ -3,20 +3,18 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Country;
+use App\Models\Suger;
 use App\Models\Dept;
 use Livewire\WithPagination;
 use Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Invoice;
 
-
-class Countries extends Component
+class Sugers extends Component
 {
     use WithPagination;
-
-    protected $listeners = ['delete','deleteCheckedCountries'];
-    public $checkedCountry = [];
+    protected $listeners = ['delete','deleteCheckedSugers'];
+    public $checkedSuger = [];
 
     public $byDept =null;
     public $perPage =5;
@@ -25,9 +23,9 @@ class Countries extends Component
     public $search;
     public function render()
     {
-        return view('livewire.countries',[
+        return view('livewire.sugers',[
             'depts'=>Dept::orderBy('dept_name','asc')->get(),
-            'countries'=>Country::when($this->byDept,function($query){
+            'Sugers'=>Suger::when($this->byDept,function($query){
                 $query->where('dept',$this->byDept);
             })
             ->search(trim($this->search))
@@ -36,9 +34,7 @@ class Countries extends Component
         ]);
     }
 
-    public function OpenAddCountryModal(){
-
-
+    public function OpenAddSugerModal(){
         $this->user_name = '';
         $this->desigation = '';
         $this->dept = '';
@@ -57,17 +53,17 @@ class Countries extends Component
         $this->H_designation = '';
         $this->H_dept = '';
         $this->H_unit = '';
-        $this->dispatchBrowserEvent('OpenAddCountryModal');
+        $this->dispatchBrowserEvent('OpenAddSugerModal');
     }
 
     public function save(){
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
-        $id=DB::select("SHOW TABLE STATUS LIKE 'countries'");
+        $id=DB::select("SHOW TABLE STATUS LIKE 'sugers'");
         $next_id=$id[0]->Auto_increment;
         Session::put('id', $next_id);
 
-        $save = Country::insert([
+        $save = Suger::insert([
 
               'user_name'=>$this->user_name,
               'desigation'=>$this->desigation,
@@ -82,7 +78,6 @@ class Countries extends Component
               'p_issue_date'=>$this->p_issue_date,
               'configuration'=>$this->configuration,
         ]);
-
         Invoice::insert([
 
             'handedBy'=>$this->H_user,
@@ -102,7 +97,6 @@ class Countries extends Component
             'serial_no'=>$this->serial_no,
             'business_area'=>'Igloo CHO',
         ]);
-        
         if(!empty($this->dept))
 
         {
@@ -119,13 +113,13 @@ class Countries extends Component
                 }
 
         if($save){
-            $this->dispatchBrowserEvent('CloseAddCountryModal');
-            $this->checkedCountry = [];
+            $this->dispatchBrowserEvent('CloseAddSugerModal');
+            $this->checkedSuger = [];
         }
     }
 
-    public function OpenEditCountryModal($id){
-        $info = Country::find($id);
+    public function OpenEditSugerModal($id){
+        $info = Suger::find($id);
 
         $this->upd_user_name = $info->user_name;
         $this->upd_desigation = $abc;
@@ -139,7 +133,7 @@ class Countries extends Component
         $this->upd_issue_date = $info->issue_date;
         $this->upd_configuration = $info->configuration;
         $this->cid = $info->id;
-        $this->dispatchBrowserEvent('OpenEditCountryModal',[
+        $this->dispatchBrowserEvent('OpenEditSugerModal',[
             'id'=>$id
         ]);
     }
@@ -147,7 +141,7 @@ class Countries extends Component
     public function update(){
         $cid = $this->cid;
 
-        $update = Country::find($cid)->update([
+        $update = Suger::find($cid)->update([
             'user_name'=>$this->upd_user_name,
             'desigation'=>$this->upd_desigation,
             'dept'=>$this->upd_dept,
@@ -162,14 +156,14 @@ class Countries extends Component
         ]);
 
         if($update){
-            $this->dispatchBrowserEvent('CloseEditCountryModal');
-            $this->checkedCountry = [];
+            $this->dispatchBrowserEvent('CloseEditSugerModal');
+            $this->checkedSuger = [];
         }
     }
     
 
     public function deleteConfirm($id){
-        $info = Country::find($id);
+        $info = Suger::find($id);
         $this->dispatchBrowserEvent('SwalConfirm',[
             'title'=>'Are you sure?',
             'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
@@ -179,26 +173,26 @@ class Countries extends Component
 
 
     public function delete($id){
-        $del =  Country::find($id)->delete();
+        $del =  Suger::find($id)->delete();
         if($del){
             $this->dispatchBrowserEvent('deleted');
         }
-        $this->checkedCountry = [];
+        $this->checkedSuger = [];
     }
 
-    public function deleteCountries(){
-        $this->dispatchBrowserEvent('swal:deleteCountries',[
+    public function deleteSugers(){
+        $this->dispatchBrowserEvent('swal:deleteSugers',[
             'title'=>'Are you sure?',
             'html'=>'You want to delete this items',
-            'checkedIDs'=>$this->checkedCountry,
+            'checkedIDs'=>$this->checkedSuger,
         ]);
     }
-    public function deleteCheckedCountries($ids){
-        Country::whereKey($ids)->delete();
-        $this->checkedCountry = [];
+    public function deleteCheckedSugers($ids){
+        Suger::whereKey($ids)->delete();
+        $this->checkedSuger = [];
     }
 
-    public function isChecked($countryId){
-        return in_array($countryId, $this->checkedCountry) ? 'bg-info text-white' : '';
+    public function isChecked($SugerId){
+        return in_array($SugerId, $this->checkedSuger) ? 'bg-info text-white' : '';
     }
 }

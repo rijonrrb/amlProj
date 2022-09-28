@@ -3,20 +3,19 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Country;
+use App\Models\cusIgloo;
 use App\Models\Dept;
 use Livewire\WithPagination;
 use Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Invoice;
 
-
-class Countries extends Component
+class CusIgloos extends Component
 {
-    use WithPagination;
 
-    protected $listeners = ['delete','deleteCheckedCountries'];
-    public $checkedCountry = [];
+    use WithPagination;
+    protected $listeners = ['delete','deleteCheckedcusIgloos'];
+    public $checkedcusIgloo = [];
 
     public $byDept =null;
     public $perPage =5;
@@ -25,9 +24,9 @@ class Countries extends Component
     public $search;
     public function render()
     {
-        return view('livewire.countries',[
+        return view('livewire.cus-igloos',[
             'depts'=>Dept::orderBy('dept_name','asc')->get(),
-            'countries'=>Country::when($this->byDept,function($query){
+            'cusIgloos'=>cusIgloo::when($this->byDept,function($query){
                 $query->where('dept',$this->byDept);
             })
             ->search(trim($this->search))
@@ -36,8 +35,7 @@ class Countries extends Component
         ]);
     }
 
-    public function OpenAddCountryModal(){
-
+    public function OpenAddcusIglooModal(){
 
         $this->user_name = '';
         $this->desigation = '';
@@ -57,17 +55,17 @@ class Countries extends Component
         $this->H_designation = '';
         $this->H_dept = '';
         $this->H_unit = '';
-        $this->dispatchBrowserEvent('OpenAddCountryModal');
+        $this->dispatchBrowserEvent('OpenAddcusIglooModal');
     }
 
     public function save(){
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
-        $id=DB::select("SHOW TABLE STATUS LIKE 'countries'");
+        $id=DB::select("SHOW TABLE STATUS LIKE 'cus_igloos'");
         $next_id=$id[0]->Auto_increment;
         Session::put('id', $next_id);
 
-        $save = Country::insert([
+        $save = cusIgloo::insert([
 
               'user_name'=>$this->user_name,
               'desigation'=>$this->desigation,
@@ -102,7 +100,7 @@ class Countries extends Component
             'serial_no'=>$this->serial_no,
             'business_area'=>'Igloo CHO',
         ]);
-        
+
         if(!empty($this->dept))
 
         {
@@ -119,13 +117,13 @@ class Countries extends Component
                 }
 
         if($save){
-            $this->dispatchBrowserEvent('CloseAddCountryModal');
-            $this->checkedCountry = [];
+            $this->dispatchBrowserEvent('CloseAddcusIglooModal');
+            $this->checkedcusIgloo = [];
         }
     }
 
-    public function OpenEditCountryModal($id){
-        $info = Country::find($id);
+    public function OpenEditcusIglooModal($id){
+        $info = cusIgloo::find($id);
 
         $this->upd_user_name = $info->user_name;
         $this->upd_desigation = $abc;
@@ -139,7 +137,7 @@ class Countries extends Component
         $this->upd_issue_date = $info->issue_date;
         $this->upd_configuration = $info->configuration;
         $this->cid = $info->id;
-        $this->dispatchBrowserEvent('OpenEditCountryModal',[
+        $this->dispatchBrowserEvent('OpenEditcusIglooModal',[
             'id'=>$id
         ]);
     }
@@ -147,7 +145,7 @@ class Countries extends Component
     public function update(){
         $cid = $this->cid;
 
-        $update = Country::find($cid)->update([
+        $update = cusIgloo::find($cid)->update([
             'user_name'=>$this->upd_user_name,
             'desigation'=>$this->upd_desigation,
             'dept'=>$this->upd_dept,
@@ -162,14 +160,14 @@ class Countries extends Component
         ]);
 
         if($update){
-            $this->dispatchBrowserEvent('CloseEditCountryModal');
-            $this->checkedCountry = [];
+            $this->dispatchBrowserEvent('CloseEditcusIglooModal');
+            $this->checkedcusIgloo = [];
         }
     }
     
 
     public function deleteConfirm($id){
-        $info = Country::find($id);
+        $info = cusIgloo::find($id);
         $this->dispatchBrowserEvent('SwalConfirm',[
             'title'=>'Are you sure?',
             'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
@@ -179,26 +177,26 @@ class Countries extends Component
 
 
     public function delete($id){
-        $del =  Country::find($id)->delete();
+        $del =  cusIgloo::find($id)->delete();
         if($del){
             $this->dispatchBrowserEvent('deleted');
         }
-        $this->checkedCountry = [];
+        $this->checkedcusIgloo = [];
     }
 
-    public function deleteCountries(){
-        $this->dispatchBrowserEvent('swal:deleteCountries',[
+    public function deletecusIgloos(){
+        $this->dispatchBrowserEvent('swal:deletecusIgloos',[
             'title'=>'Are you sure?',
             'html'=>'You want to delete this items',
-            'checkedIDs'=>$this->checkedCountry,
+            'checkedIDs'=>$this->checkedcusIgloo,
         ]);
     }
-    public function deleteCheckedCountries($ids){
-        Country::whereKey($ids)->delete();
-        $this->checkedCountry = [];
+    public function deleteCheckedcusIgloos($ids){
+        cusIgloo::whereKey($ids)->delete();
+        $this->checkedcusIgloo = [];
     }
 
-    public function isChecked($countryId){
-        return in_array($countryId, $this->checkedCountry) ? 'bg-info text-white' : '';
+    public function isChecked($cusIglooId){
+        return in_array($cusIglooId, $this->checkedcusIgloo) ? 'bg-info text-white' : '';
     }
 }

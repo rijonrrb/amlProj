@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Country extends Model
+class Hr extends Model
 {
     use HasFactory;
-    
     protected $fillable = [
         'user_name','desigation','dept','unit','item','laptop_name','asset_no','serial_no','previous_user','issue_date','configuration'
      ];

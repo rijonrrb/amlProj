@@ -1,73 +1,116 @@
-<div class="modal fade addCountry" wire:ignore.self tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+<div class="modal fade addCountry mt-5" wire:ignore.self tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add New Row</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
             <div class="modal-body">
                  <form wire:submit.prevent="save">
+                 <div class="tabU">
+                     
+                     <h3 align ="center">User Info</h3>
                      <div class="form-group">
                          <label for="">User Name</label>
-                         <input type="text" class="form-control" placeholder="User Name" wire:model="user_name">
+                         <input type="text" class="form-control" placeholder="User Name"  wire:model="user_name">
                          <span class="text-danger"> @error('user_name') {{ $message }}@enderror</span>
                      </div>
+
+                     <div class="form-group">
+                        <label for="">Department</label>
+                        <div class="container row">
+                        <input type="text" class="form-control col-9 mr-3" placeholder="Department" wire:model="dept"  style="display: block;" id="idept">
+                        <select wire:model ="dept" class="form-control col-9 mr-3"  style="display: none;" id="sdept">
+                        <option value="" disabled selected>Select Department</option>
+                        @foreach ($depts as $dept)
+                        <option value="{{ $dept->dept_name }}">{{$dept->dept_name}}</option> 
+                        @endforeach
+                        </select>
+                        <button type="button" class="btn btn-primary btn-sm col-2" id="cdept" style="display: block;">Options</button>
+                        </div>
+                     </div>
+
+
                      <div class="form-group">
                          <label for="">Desigation</label>
-                         <input type="text" class="form-control" placeholder="Desigation" wire:model="desigation">
+                         <input type="text" class="form-control" placeholder="Desigation" wire:model="desigation" >
                          <span class="text-danger"> @error('desigation') {{ $message }}@enderror</span>
                      </div>
-                     <div class="form-group">
-                         <label for="">Dept</label>
-                         <input type="text" class="form-control" placeholder="Dept" wire:model="dept">
-                         <span class="text-danger"> @error('dept') {{ $message }}@enderror</span>
-                     </div>
+
                      <div class="form-group">
                          <label for="">Unit</label>
-                         <input type="text" class="form-control" placeholder="Unit" wire:model="unit">
+                         <input type="text" class="form-control" placeholder="Unit" wire:model="unit" >
                          <span class="text-danger"> @error('unit') {{ $message }}@enderror</span>
                      </div>
                      <div class="form-group">
                          <label for="">Item</label>
-                         <input type="text" class="form-control" placeholder="Item" wire:model="item">
+                         <input type="text" class="form-control" placeholder="Item" wire:model="item" >
                          <span class="text-danger"> @error('item') {{ $message }}@enderror</span>
                      </div>
                      <div class="form-group">
                          <label for="">Laptop Name</label>
-                         <input type="text" class="form-control" placeholder="Laptop Name" wire:model="laptop_name">
+                         <input type="text" class="form-control" placeholder="Laptop Name" wire:model="laptop_name" >
                          <span class="text-danger"> @error('laptop_name') {{ $message }}@enderror</span>
                      </div>
                      <div class="form-group">
                          <label for="">Asset No</label>
-                         <input type="text" class="form-control" placeholder="Asset No" wire:model="asset_no">
+                         <input type="text" class="form-control" placeholder="Asset No" wire:model="asset_no" >
                          <span class="text-danger"> @error('asset_no') {{ $message }}@enderror</span>
                      </div>
                      <div class="form-group">
                          <label for="">Serial No</label>
-                         <input type="text" class="form-control" placeholder="Serial No" wire:model="serial_no">
+                         <input type="text" class="form-control" placeholder="Serial No" wire:model="serial_no" >
                          <span class="text-danger"> @error('serial_no') {{ $message }}@enderror</span>
                      </div>
-                     <!-- <div class="form-group">
-                         <label for="">Previous User</label>
-                         <input type="text" class="form-control" placeholder="Previous User" wire:model="previous_user">
-                         <span class="text-danger"> @error('previous_user') {{ $message }}@enderror</span>
-                     </div>
-                     <div class="form-group">
-                         <label for="">Issue Date</label>
-                         <input type="text" class="form-control" placeholder="Issue Date" wire:model="issue_date">
-                         <span class="text-danger"> @error('issue_date') {{ $message }}@enderror</span>
-                     </div> -->
+
                      <div class="form-group">
                          <label for="">Configuration</label>
-                         <input type="text" class="form-control" placeholder="Configuration" wire:model="configuration">
+                         <textarea  class="form-control" placeholder="Configuration" wire:model="configuration" ></textarea>
+                         <span class="text-danger"> @error('configuration') {{ $message }}@enderror</span>
+                     </div>
+                     </div>
+       
+                    <div class="tabH" style="display: none;">
+                    <h3 align ="center">Handover Info</h3>
+                    <div class="form-group">
+                         <label for="">Handover by</label>
+                         <input type="text" class="form-control" placeholder="Handover by" wire:model.debounce.500000ms="H_user" >
                          <span class="text-danger"> @error('configuration') {{ $message }}@enderror</span>
                      </div>
                      <div class="form-group">
-                         <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                         <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                         <label for="">Designation</label>
+                         <input type="text" class="form-control" placeholder="Designation" wire:model.debounce.500000ms="H_designation" >
+                         <span class="text-danger"> @error('configuration') {{ $message }}@enderror</span>
                      </div>
+                     <div class="form-group">
+                        <label for="">Department</label>
+                        <div class="container row">
+                            
+                        <input type="text" class="form-control col-9 mr-3" placeholder="Department" wire:model.debounce.500000ms="H_dept"  style="display: block;" id="H_idept">
+                        <select wire:model.debounce.500000ms ="H_dept" class="form-control col-9 mr-3"  style="display: none;" id="H_sdept">
+                        <option value="" disabled selected>Select Department</option>
+                        @foreach ($depts as $dept)
+                        <option value="{{ $dept->dept_name }}">{{$dept->dept_name}}</option> 
+                        @endforeach
+                        </select>
+                        <button type="button" class="btn btn-primary btn-sm col-2" id="H_cdept" style="display: block;">Options</button>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                         <label for="">Unit</label>
+                         <input type="text" class="form-control" placeholder="Unit" wire:model.debounce.500000ms="H_unit" >
+                         <span class="text-danger"> @error('configuration') {{ $message }}@enderror</span>
+                     </div>
+                    </div>
+
+                    <div class="form-group">
+                         <button type="button" id="close" data-dismiss="modal">Close</button>
+                         <button type="button" style="display: none;" id="prevBtn" onclick="prev()">Previous</button>
+                         <button type="button" id="nextBtn" onclick="next()">Next</button>
+                         <button type="submit" style="display: none;" id="sub">Save</button>
+                     </div>
+
+                        <div style="text-align:center;margin-top:10px;">
+                        <span class="actives"></span>
+                        <span class="step"></span>
+                        </div>
+
                  </form>
                 
             </div>
