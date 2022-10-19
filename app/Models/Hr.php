@@ -9,7 +9,7 @@ class Hr extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_name','desigation','dept','unit','item','laptop_name','asset_no','serial_no','previous_user','issue_date','configuration'
+        'user_name','desigation','dept','unit','item','laptop_name','asset_no','serial_no','previous_user','issue_date', 'p_issue_date', 'configuration'
      ];
 
      public function scopeSearch($query, $term){

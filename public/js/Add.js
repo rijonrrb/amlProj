@@ -34,3 +34,38 @@ n.style.display = "inline";
 s.style.display = "none";
 icon.className = "step";
 }
+
+function r_next() {
+
+var r_x = document.getElementsByClassName("r_tabU")[0];
+var r_y = document.getElementsByClassName("r_tabH")[0];
+var r_z = document.getElementById("r_prevBtn");
+var r_n = document.getElementById("r_nextBtn");
+var r_s = document.getElementById("r_sub");
+var r_icon = document.getElementsByClassName("r_step")[0];
+
+r_x.style.display = "none";
+r_y.style.display = "inline";
+r_z.style.display = "inline";
+r_n.style.display = "none";
+r_s.style.display = "inline";
+r_icon.className = "r_finish";
+}
+
+function r_prev() {
+
+var r_x = document.getElementsByClassName("r_tabU")[0];
+var r_y = document.getElementsByClassName("r_tabH")[0];
+var r_z = document.getElementById("r_prevBtn");
+var r_n = document.getElementById("r_nextBtn");
+var r_s = document.getElementById("r_sub");
+
+var r_icon = document.getElementsByClassName("r_finish")[0];
+
+r_x.style.display = "inline";
+r_y.style.display = "none";
+r_z.style.display = "none";
+r_n.style.display = "inline";
+r_s.style.display = "none";
+r_icon.className = "r_step";
+}

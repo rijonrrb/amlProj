@@ -58,6 +58,52 @@
               
            });
 
+           window.addEventListener('OpenReturnCountryModal', function(event){
+               $('.returnCountry').find('span').html('');
+               $('.returnCountry').modal('show');
+           });
+           window.addEventListener('CloseReturnCountryModal', function(event){
+               $('.returnCountry').find('span').html('');
+               $('.returnCountry').find('form')[0].reset();
+               $('.returnCountry').modal('hide');
+               Swal.fire({
+                title: '<strong>Done!</strong>',
+                icon: 'success',
+                html:'Your Dataset has been successfully updated',
+                showCloseButton: true,
+                showCancelButton: true,
+                cancelButtonText:`Ok`,
+                confirmButtonText:`Print`
+                }).then((result) => {
+                if (result.value) {
+                window.location.href = "{{route('invoice')}}"
+                }
+                });
+           });
+
+           window.addEventListener('OpenReuseModal', function(event){
+            $('.reuse').find('span').html('');
+            $('.reuse').modal('show');
+            });
+            window.addEventListener('CloseReuseModal', function(event){
+            $('.reuse').find('span').html('');
+            $('.reuse').find('form')[0].reset();
+            $('.reuse').modal('hide');
+            Swal.fire({
+            title: '<strong>Done!</strong>',
+            icon: 'success',
+            html:'Your Dataset has been successfully updated',
+            showCloseButton: true,
+            showCancelButton: true,
+            cancelButtonText:`Ok`,
+            confirmButtonText:`Print`
+            }).then((result) => {
+            if (result.value) {
+            window.location.href = "{{route('invoice')}}"
+            }
+            });
+            });
+
            window.addEventListener('SwalConfirm', function(event){
                swal.fire({
                 title:event.detail.title,
@@ -110,9 +156,7 @@
  $(document).ready(function(){
 
         //Column Update
-        $(document).on('keydown', '.update', function(e){
-        if (event.ctrlKey && event.key === "s") {
-
+        $(document).on('blur', '.update', function(e){
         e.preventDefault();
         var id = $(this).data("id");
         var column_name = $(this).data("column");
@@ -134,7 +178,7 @@
         window.location.reload();
         }
         });
-        }
+
         })
 
  });

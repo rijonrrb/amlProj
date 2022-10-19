@@ -1,4 +1,3 @@
-
 <div class="card">
 <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>IT Custudy Igloo</b></h4>
 <div class="row mb-3 p-2 d-flex justify-content-between">
@@ -10,7 +9,7 @@
     </div>
 </div>
 
-    <div class="row mb-3 p-2 card-header">
+    <div class="row mb-3 p-2 card-header" style= "margin-right: 0px; margin-left: 0px;">
     <div class="col-md-4">
         <label for="">Search</label>
         <input type="text" class="form-control" wire:model.debounce.350ms="search">
@@ -82,6 +81,8 @@
                 <th>Previous Issue Date</th>
                 <th>Configuration</th>
                 <th>Actions</th>
+                <th>Return</th>
+                <th>Reuse</th>
             </tr>
             </thead>
             <tbody>
@@ -106,11 +107,19 @@
                     <td contenteditable="true" class="update" data-id="{{ $cusIgloo->id }}" data-column="p_issue_date" title="Click to edit">{{ $cusIgloo->p_issue_date }}</td>
                     <td contenteditable="true" class="update" data-id="{{ $cusIgloo->id }}" data-column="configuration" title="Click to edit">{{ $cusIgloo->configuration }}</td>
                     <td>
-                        <div class="btn-group container">
-                        
-						<a href="#" wire:click="deleteConfirm({{$cusIgloo->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
-                        
-                        </div>
+                    <div class="btn-group container">
+                    &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$cusIgloo->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                    </div>
+                    </td>
+                    <td>
+                    <div class="btn-group container">
+                    &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenReturnCountryModal({{$cusIgloo->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Item"></img></a>
+                    </div>
+                    </td>
+                    <td>
+                    <div class="btn-group container">
+                    &nbsp;<a href="#" wire:click="OpenReuseModal({{$cusIgloo->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Reuse Item"></img></a>
+                    </div>
                     </td>
                 </tr>
                 @empty
@@ -128,8 +137,7 @@
 
     <button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
     </div>
-
     @include('modals.add-modal')
+@include('modals.edit-modal')
+@include('modals.reuse-modal')
 </div>
-
-      

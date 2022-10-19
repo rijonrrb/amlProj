@@ -42,5 +42,6 @@ class MainController extends Controller
       $opts = Dept::all();
 
     }
+    
 
 }

@@ -7,7 +7,6 @@ use App\Http\Controllers\Update;
 
 
 Route::get('/',[MainController::class,'index'])->name('home');
-
 Route::get('/invoice',[InvoiceController::class,'invoice'])->name('invoice');
 Route::get('/Beverages',[MainController::class,'beverages'])->name('beverages');
 Route::get('/custudy-Igloo',[MainController::class,'cusIgloo'])->name('cusIgloo');
@@ -33,4 +32,3 @@ Route::get('/dept',[MainController::class,'dept'])->name('dept');
 Route::get('/nav', function () {
     return view('navbar');
 })->name('nav');
-

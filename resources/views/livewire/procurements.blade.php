@@ -82,6 +82,8 @@
                 <th>Previous Issue Date</th>
                 <th>Configuration</th>
                 <th>Actions</th>
+                <th>Return</th>
+                <th>Reuse</th>
             </tr>
             </thead>
             <tbody>
@@ -106,11 +108,19 @@
                     <td contenteditable="true" class="updateProc" data-id="{{ $Procurement->id }}" data-column="p_issue_date" title="Click to edit">{{ $Procurement->p_issue_date }}</td>
                     <td contenteditable="true" class="updateProc" data-id="{{ $Procurement->id }}" data-column="configuration" title="Click to edit">{{ $Procurement->configuration }}</td>
                     <td>
-                        <div class="btn-group container">
-                        
-						<a href="#" wire:click="deleteConfirm({{$Procurement->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
-                        
-                        </div>
+                    <div class="btn-group container">
+                    &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Procurement->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                    </div>
+                    </td>
+                    <td>
+                    <div class="btn-group container">
+                    &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenReturnCountryModal({{$Procurement->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Item"></img></a>
+                    </div>
+                    </td>
+                    <td>
+                    <div class="btn-group container">
+                    &nbsp;<a href="#" wire:click="OpenReuseModal({{$Procurement->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Reuse Item"></img></a>
+                    </div>
                     </td>
                 </tr>
                 @empty

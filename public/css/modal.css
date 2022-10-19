@@ -54,3 +54,47 @@ display: inline-block;
 opacity: 0.5;
 opacity: 1;
 }
+
+
+#r_prevBtn {
+background-color: #bbbbbb;
+}
+#r_close {
+background-color: red;
+}
+
+/* Make circles that indicate the steps of the form: */
+.r_step {
+height: 15px;
+width: 15px;
+margin: 0 2px;
+background-color: #bbbbbb;
+border: none;  
+border-radius: 50%;
+display: inline-block;
+opacity: 0.5;
+}
+
+.r_actives {
+height: 15px;
+width: 15px;
+margin: 0 2px;
+background-color:green;
+border: none;  
+border-radius: 50%;
+display: inline-block;
+opacity: 0.5;
+opacity: 1;
+}
+
+.r_finish {
+height: 15px;
+width: 15px;
+margin: 0 2px;
+background-color:green;
+border: none;  
+border-radius: 50%;
+display: inline-block;
+opacity: 0.5;
+opacity: 1;
+}

@@ -60,9 +60,10 @@ class CusBev extends Component
     public function save(){
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
-        $id=DB::select("SHOW TABLE STATUS LIKE 'countries'");
+        $id=DB::select("SHOW TABLE STATUS LIKE 'cus_beves'");
         $next_id=$id[0]->Auto_increment;
         Session::put('id', $next_id);
+        Session::put('b_area', 'CustudyBev');
 
         $save = CusBeve::insert([
 
@@ -97,7 +98,7 @@ class CusBev extends Component
             'configuration'=>$this->configuration,
             'asset_no'=>$this->asset_no,
             'serial_no'=>$this->serial_no,
-            'business_area'=>'Igloo CHO',
+            'business_area'=>'CustudyBev',
         ]);
     
         if(!empty($this->dept))
@@ -120,46 +121,185 @@ class CusBev extends Component
             $this->checkedCusBeve = [];
         }
     }
-
-    public function OpenEditCusBeveModal($id){
+    public function OpenReturnCountryModal($id){
         $info = CusBeve::find($id);
-
-        $this->upd_user_name = $info->user_name;
-        $this->upd_desigation = $abc;
-        $this->upd_dept = $info->dept;
-        $this->upd_unit = $info->unit;
-        $this->upd_item = $info->item;
-        $this->upd_laptop_name = $info->laptop_name;
-        $this->upd_asset_no = $info->asset_no;
-        $this->upd_serial_no = $info->serial_no;
-        $this->upd_previous_user = $info->previous_user;
-        $this->upd_issue_date = $info->issue_date;
-        $this->upd_configuration = $info->configuration;
+        $this->upd_H_user = '';
+        $this->upd_H_designation = '';
+        $this->upd_H_dept = '';
+        $this->upd_H_unit = '';
         $this->cid = $info->id;
-        $this->dispatchBrowserEvent('OpenEditCusBeveModal',[
+        $this->dispatchBrowserEvent('OpenReturnCountryModal',[
             'id'=>$id
         ]);
     }
 
     public function update(){
+
+       
+        date_default_timezone_set('Asia/Dhaka');
+        $time =  date('d F Y h:i:s A');
         $cid = $this->cid;
+        $info = CusBeve::find($cid);
+
+        if (empty($info->previous_user))
+        {
+            $previous_user = $info->user_name;
+        }
+        elseif (empty($info->user_name))
+        {
+            $previous_user = $info->previous_user;
+        }
+        else
+        {
+            $previous_user = $info->previous_user."  ||  ".$info->user_name;
+        }
+        Session::put('id', $cid);
+        Session::put('b_area', 'CustudyBev');
 
         $update = CusBeve::find($cid)->update([
-            'user_name'=>$this->upd_user_name,
-            'desigation'=>$this->upd_desigation,
-            'dept'=>$this->upd_dept,
-            'unit'=>$this->upd_unit,
-            'item'=>$this->upd_item,
-            'laptop_name'=>$this->upd_laptop_name,
-            'asset_no'=>$this->upd_asset_no,
-            'serial_no'=>$this->upd_serial_no,
-            'previous_user'=>$this->upd_previous_user,
-            'issue_date'=>$this->upd_issue_date,
-            'configuration'=>$this->upd_configuration
+
+            'user_name'=>Null,
+            'desigation'=>Null,
+            'dept'=>Null,
+            'unit'=>Null,
+            'item'=>$info->item,
+            'laptop_name'=> $info->laptop_name,
+            'asset_no'=> $info->asset_no,
+            'serial_no'=>$info->serial_no,
+            'previous_user'=>$previous_user,
+            'issue_date'=>$time,
+            'p_issue_date'=>$info->issue_date,
+            'configuration'=>$info->configuration
         ]);
 
-        if($update){
-            $this->dispatchBrowserEvent('CloseEditCusBeveModal');
+
+        $savex = Invoice::where('t_id',$cid)->update([
+
+            'handedBy'=>$info->user_name,
+            'h_desigation'=>$info->desigation,
+            'h_dept'=> $info->dept,
+            'h_unit'=>$info->unit,
+            't_id'=> $cid,
+            'takenBy'=>$this->upd_H_user,
+            't_desigation'=>$this->upd_H_designation,
+            't_dept'=>$this->upd_H_dept,
+            't_unit'=>$this->upd_H_unit,
+            'remarks'=>'Return Product',
+            'qty'=>'1',
+            'laptop_name'=>$info->laptop_name,
+            'configuration'=>$info->configuration,
+            'asset_no'=>$info->asset_no,
+            'serial_no'=>$info->serial_no,
+            'business_area'=>'CustudyBev',
+        ]);
+
+        if($savex){
+            $this->dispatchBrowserEvent('CloseReturnCountryModal');
+            $this->checkedCusBeve = [];
+        }
+    }
+    public function OpenReuseModal($id){
+        $info = CusBeve::find($id);
+        $this->r_user_name = '';
+        $this->r_desigation = '';
+        $this->r_dept = '';
+        $this->r_unit = '';
+        $this->r_H_user = '';
+        $this->r_H_designation = '';
+        $this->r_H_dept = '';
+        $this->r_H_unit = '';
+        $this->rid = $info->id;
+        $this->dispatchBrowserEvent('OpenReuseModal',[
+            'id'=>$id
+        ]);
+    }
+
+    public function reuseProd(){
+
+       
+        date_default_timezone_set('Asia/Dhaka');
+        $time =  date('d F Y h:i:s A');
+        $rid = $this->rid;
+        $info = CusBeve::find($rid);
+
+        if (empty($info->previous_user))
+        {
+            $previous_user = $info->user_name;
+        }
+        elseif (empty($info->user_name))
+        {
+            $previous_user = $info->previous_user;
+        }
+        else
+        {
+            $previous_user = $info->previous_user."  ||  ".$info->user_name;
+        }
+
+        if (empty($info->p_issue_date))
+        {
+            $p_i_date = $info->issue_date;
+        }
+        elseif (empty($info->user_name))
+        {
+            $p_i_date = $info->p_issue_date;
+        }
+        else
+        {
+            $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
+        }
+
+
+        Session::put('id', $rid);
+        Session::put('b_area', 'CustudyBev');
+
+        $update = CusBeve::find($rid)->update([
+
+            'user_name'=>$this->r_user_name,
+            'desigation'=>$this->r_desigation,
+            'dept'=>$this->r_dept,
+            'unit'=>$this->r_unit,
+            'previous_user'=>$previous_user,
+            'issue_date'=>$time,
+            'p_issue_date'=>$p_i_date,
+        ]);
+
+        $savex = Invoice::where('t_id',$rid)->update([
+          'handedBy'=>$this->r_H_user,
+          'h_desigation'=>$this->r_H_designation,
+          'h_dept'=>$this->r_H_dept,
+          'h_unit'=>$this->r_H_unit,
+          'takenBy'=>$this->r_user_name,
+          't_desigation'=>$this->r_desigation,
+          't_dept'=>$this->r_dept,
+          't_unit'=>$this->r_unit,
+          'remarks'=>'For Official use',
+          'qty'=>'1',
+          'business_area'=>'CustudyBev',
+        ]);
+
+        if(!empty($this->r_dept))
+        {
+        $deptT = Dept::where('dept_name',$this->r_dept)->first();
+        if(!$deptT)
+        {  
+            $saave= Dept::insert([
+        'dept_name'=>$this->r_dept
+        ]);
+        }
+        }
+        if(!empty($this->r_H_dept))
+        {
+        $deptH = Dept::where('dept_name',$this->r_H_dept)->first();
+        if(!$deptH)
+        {  
+            $saave= Dept::insert([
+        'dept_name'=>$this->r_H_dept
+        ]);
+        }
+        }
+
+        if($savex){
+            $this->dispatchBrowserEvent('CloseReuseModal');
             $this->checkedCusBeve = [];
         }
     }

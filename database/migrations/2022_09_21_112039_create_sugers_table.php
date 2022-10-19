@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('sugers', function (Blueprint $table) {
             $table->id();
-            $table->string('user_name');
-            $table->string('desigation');
-            $table->string('dept');
-            $table->string('unit');
+            $table->string('user_name')->nullable();
+            $table->string('desigation')->nullable();
+            $table->string('dept')->nullable();
+            $table->string('unit')->nullable();
             $table->string('item');
             $table->string('laptop_name');
             $table->string('asset_no');
