@@ -81,11 +81,8 @@
                 <th>Previous Issue Date</th>
                 <th>Configuration</th>
                 <th>Actions</th>
-<<<<<<< HEAD
                 <th>Return</th>
                 <th>Reuse</th>
-=======
->>>>>>> 3f2cde185619403f33e32054b04f9aae276d6bee
             </tr>
             </thead>
             <tbody>
