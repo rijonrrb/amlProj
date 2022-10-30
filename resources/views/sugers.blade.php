@@ -178,7 +178,6 @@
         window.location.reload();
         }
         });
-
         })
 
  });

@@ -309,6 +309,7 @@ class Countries extends Component
             $this->checkedCountry = [];
         }
     }
+    
 
     public function deleteConfirm($id){
         $info = Country::find($id);
