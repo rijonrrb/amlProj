@@ -69,7 +69,7 @@ class Beverages extends Component
         'desigation.required'=>"The Designation field is required.",
         'dept.required'=>"The Department field is required.",
         'unit.required'=>"The Unit field is required."]
-    );
+        );
 
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');

@@ -109,7 +109,7 @@
                     <td contenteditable="true" class="updateProc" data-id="{{ $Procurement->id }}" data-column="configuration" title="Click to edit">{{ $Procurement->configuration }}</td>
                     <td>
                     <div class="btn-group container">
-                    &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Procurement->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                    &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirmP({{$Procurement->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
                     </div>
                     </td>
                     <td>
@@ -140,6 +140,8 @@
     </div>
 
     @include('modals.addP-modal')
+    @include('modals.edit-modal')
+@include('modals.reuse-modal')
 </div>
 
       

@@ -55,7 +55,7 @@
       );
       });
 
-      window.addEventListener('SwalConfirm', function(event){
+      window.addEventListener('SwalConfirmH', function(event){
       swal.fire({
       title:event.detail.title,
       html:event.detail.html,
@@ -66,11 +66,11 @@
       confirmButtonText: 'Yes, delete it!'
       }).then(function(result){
       if(result.value){
-      window.livewire.emit('delete',event.detail.id);
+      window.livewire.emit('delete',event.detail.id,"hr");
       }
       })
       })
-      window.addEventListener('deleted', function(event){
+      window.addEventListener('deletedH', function(event){
       Swal.fire(
       'Deleted!',
       'Your DataSet has been deleted.',
@@ -182,7 +182,7 @@ Swal.fire(
 'success'
 );
 });
-window.addEventListener('SwalConfirm', function(event){
+window.addEventListener('SwalConfirmM', function(event){
 swal.fire({
 title:event.detail.title,
 html:event.detail.html,
@@ -193,11 +193,11 @@ cancelButtonColor: '#d33',
 confirmButtonText: 'Yes, delete it!'
 }).then(function(result){
 if(result.value){
-window.livewire.emit('delete',event.detail.id);
+window.livewire.emit('delete',event.detail.id,"miss");
 }
 })
 })
-window.addEventListener('deleted', function(event){
+window.addEventListener('deletedM', function(event){
 Swal.fire(
 'Deleted!',
 'Your DataSet has been deleted.',
@@ -308,7 +308,7 @@ Swal.fire(
 );
 });
 
-window.addEventListener('SwalConfirm', function(event){
+window.addEventListener('SwalConfirmP', function(event){
 swal.fire({
 title:event.detail.title,
 html:event.detail.html,
@@ -319,11 +319,11 @@ cancelButtonColor: '#d33',
 confirmButtonText: 'Yes, delete it!'
 }).then(function(result){
 if(result.value){
-window.livewire.emit('delete',event.detail.id);
+window.livewire.emit('delete',event.detail.id,"proc");
 }
 })
 })
-window.addEventListener('deleted', function(event){
+window.addEventListener('deletedP', function(event){
 Swal.fire(
 'Deleted!',
 'Your DataSet has been deleted.',
@@ -413,6 +413,9 @@ document.getElementById("cdeptP").onclick = function() {
 
 
 </script>
+<script src="{{ asset('js/Opt.js') }}"></script>
+<script src="{{ asset('js/Add.js') }}"></script>
 
 </body>
 </html>
+

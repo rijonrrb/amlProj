@@ -109,7 +109,7 @@
                     <td contenteditable="true" class="updateHr" data-id="{{ $Hr->id }}" data-column="configuration" title="Click to edit">{{ $Hr->configuration }}</td>
                     <td>
                     <div class="btn-group container">
-                    &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Hr->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                    &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirmH({{$Hr->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
                     </div>
                     </td>
                     <td>
@@ -140,6 +140,8 @@
     </div>
 
     @include('modals.add-modal')
+    @include('modals.edit-modal')
+@include('modals.reuse-modal')
 </div>
 
       

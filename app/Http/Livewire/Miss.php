@@ -90,9 +90,9 @@ class Miss extends Component
     }
 
 
-    public function deleteConfirm($id){
+    public function deleteConfirmM($id){
         $info = Mis::find($id);
-        $this->dispatchBrowserEvent('SwalConfirm',[
+        $this->dispatchBrowserEvent('SwalConfirmM',[
             'title'=>'Are you sure?',
             'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
             'id'=>$id
@@ -100,12 +100,16 @@ class Miss extends Component
     }
 
 
-    public function delete($id){
-        $del =  Mis::find($id)->delete();
-        if($del){
-            $this->dispatchBrowserEvent('deleted');
+    public function delete($id,$miss){
+        if ( $miss == "miss")
+        {
+            $del =  Mis::find($id)->delete();
+            if($del){
+                $this->dispatchBrowserEvent('deletedM');
+            }
+            $this->checkedMiss = [];
         }
-        $this->checkedMiss = [];
+
     }
 
     public function deleteMisss(){

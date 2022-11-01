@@ -89,9 +89,9 @@ class Hrs extends Component
     }
     
 
-    public function deleteConfirm($id){
+    public function deleteConfirmH($id){
         $info = Hr::find($id);
-        $this->dispatchBrowserEvent('SwalConfirm',[
+        $this->dispatchBrowserEvent('SwalConfirmH',[
             'title'=>'Are you sure?',
             'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
             'id'=>$id
@@ -99,12 +99,16 @@ class Hrs extends Component
     }
 
 
-    public function delete($id){
-        $del =  Hr::find($id)->delete();
-        if($del){
-            $this->dispatchBrowserEvent('deleted');
+    public function delete($id,$hr){
+        if ( $hr == "hr")
+        {
+            $del =  Hr::find($id)->delete();
+            if($del){
+                $this->dispatchBrowserEvent('deletedH');
+            }
+            $this->checkedHr = [];
         }
-        $this->checkedHr = [];
+
     }
 
     public function deleteHrs(){

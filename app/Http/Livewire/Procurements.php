@@ -90,9 +90,9 @@ class Procurements extends Component
     }
 
 
-    public function deleteConfirm($id){
+    public function deleteConfirmP($id){
         $info = Procurement::find($id);
-        $this->dispatchBrowserEvent('SwalConfirm',[
+        $this->dispatchBrowserEvent('SwalConfirmP',[
             'title'=>'Are you sure?',
             'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
             'id'=>$id
@@ -100,12 +100,17 @@ class Procurements extends Component
     }
 
 
-    public function delete($id){
-        $del =  Procurement::find($id)->delete();
-        if($del){
-            $this->dispatchBrowserEvent('deleted');
+    public function delete($id,$proc){
+        if ( $proc == "proc")
+        {
+            $del =  Procurement::find($id)->delete();
+            if($del){
+                $this->dispatchBrowserEvent('deletedP');
+            }
+            $this->checkedProcurement = [];
         }
-        $this->checkedProcurement = [];
+
+
     }
 
     public function deleteProcurements(){
