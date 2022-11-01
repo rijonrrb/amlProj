@@ -67,22 +67,35 @@ class Countries extends Component
         $next_id=$id[0]->Auto_increment;
         Session::put('id', $next_id);
         Session::put('b_area', 'Igloo');
+        
+        $this->validate([
+            "user_name"=>"required",
+            "desigation"=>"required",
+            'dept'=>"required",
+            "unit"=>"required"
+        ],
+        ['user_name.required'=>"The User Name field is required.",
+        'desigation.required'=>"The Designation field is required.",
+        'dept.required'=>"The Department field is required.",
+        'unit.required'=>"The Unit field is required."]
+    );
+
 
         $save = Country::insert([
 
-              'user_name'=>$this->user_name,
-              'desigation'=>$this->desigation,
-              'dept'=>$this->dept,
-              'unit'=>$this->unit,
-              'item'=>$this->item,
-              'laptop_name'=>$this->laptop_name,
-              'asset_no'=>$this->asset_no,
-              'serial_no'=>$this->serial_no,
-              'previous_user'=>$this->previous_user,
-              'issue_date'=>$time,
-              'p_issue_date'=>$this->p_issue_date,
-              'configuration'=>$this->configuration,
-        ]);
+          'user_name'=>$this->user_name,
+          'desigation'=>$this->desigation,
+          'dept'=>$this->dept,
+          'unit'=>$this->unit,
+          'item'=>$this->item,
+          'laptop_name'=>$this->laptop_name,
+          'asset_no'=>$this->asset_no,
+          'serial_no'=>$this->serial_no,
+          'previous_user'=>$this->previous_user,
+          'issue_date'=>$time,
+          'p_issue_date'=>$this->p_issue_date,
+          'configuration'=>$this->configuration,
+      ]);
 
         Invoice::insert([
 
@@ -107,17 +120,17 @@ class Countries extends Component
         if(!empty($this->dept))
 
         {
-        $dept = Dept::where('dept_name',$this->dept)->first();
- 
-                if(!$dept)
-                {  
+            $dept = Dept::where('dept_name',$this->dept)->first();
+            
+            if(!$dept)
+            {  
                 $saave = Dept::insert([
 
-                'dept_name'=>$this->dept
+                    'dept_name'=>$this->dept
                 ]);
 
-                }
-                }
+            }
+        }
 
         if($save){
             $this->dispatchBrowserEvent('CloseAddCountryModal');
@@ -139,7 +152,7 @@ class Countries extends Component
 
     public function update(){
 
-       
+     
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $cid = $this->cid;
@@ -159,6 +172,20 @@ class Countries extends Component
         }
         Session::put('id', $cid);
         Session::put('b_area', 'Igloo');
+
+        $this->validate([
+            "upd_H_user"=>"required",
+            "upd_H_designation"=>"required",
+            'upd_H_dept'=>"required",
+            "upd_H_unit"=>"required"
+        ],
+        ['upd_H_user.required'=>"The User Name field is required.",
+        'upd_H_designation.required'=>"The Designation field is required.",
+        'upd_H_dept.required'=>"The Department field is required.",
+        'upd_H_unit.required'=>"The Unit field is required."]
+    );
+
+
 
         $update = Country::find($cid)->update([
 
@@ -221,7 +248,7 @@ class Countries extends Component
 
     public function reuseProd(){
 
-       
+     
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $rid = $this->rid;
@@ -257,6 +284,26 @@ class Countries extends Component
         Session::put('id', $rid);
         Session::put('b_area', 'Igloo');
 
+        $this->validate([
+            "r_H_user"=>"required",
+            "r_H_designation"=>"required",
+            'r_H_dept'=>"required",
+            "r_H_unit"=>"required",
+            "r_user_name"=>"required",
+            "r_desigation"=>"required",
+            'r_dept'=>"required",
+            "r_unit"=>"required"
+        ],
+        ['r_H_user.required'=>"The User Name field is required.",
+        'r_H_designation.required'=>"The Designation field is required.",
+        'r_H_dept.required'=>"The Department field is required.",
+        'r_H_unit.required'=>"The Unit field is required.",
+        'r_user_name.required'=>"The User Name field is required.",
+        'r_desigation.required'=>"The Designation field is required.",
+        'r_dept.required'=>"The Department field is required.",
+        'r_unit.required'=>"The Unit field is required."]
+    );
+
         $update = Country::find($rid)->update([
 
             'user_name'=>$this->r_user_name,
@@ -281,27 +328,27 @@ class Countries extends Component
           'remarks'=>'For Official use',
           'qty'=>'1',
           'business_area'=>'Igloo',
-        ]);
+      ]);
 
         if(!empty($this->r_dept))
         {
-        $deptT = Dept::where('dept_name',$this->r_dept)->first();
-        if(!$deptT)
-        {  
-            $saave= Dept::insert([
-        'dept_name'=>$this->r_dept
-        ]);
-        }
+            $deptT = Dept::where('dept_name',$this->r_dept)->first();
+            if(!$deptT)
+            {  
+                $saave= Dept::insert([
+                    'dept_name'=>$this->r_dept
+                ]);
+            }
         }
         if(!empty($this->r_H_dept))
         {
-        $deptH = Dept::where('dept_name',$this->r_H_dept)->first();
-        if(!$deptH)
-        {  
-            $saave= Dept::insert([
-        'dept_name'=>$this->r_H_dept
-        ]);
-        }
+            $deptH = Dept::where('dept_name',$this->r_H_dept)->first();
+            if(!$deptH)
+            {  
+                $saave= Dept::insert([
+                    'dept_name'=>$this->r_H_dept
+                ]);
+            }
         }
 
         if($savex){

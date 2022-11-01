@@ -58,6 +58,19 @@ class Beverages extends Component
     }
 
     public function save(){
+
+        $this->validate([
+            "user_name"=>"required",
+            "desigation"=>"required",
+            'dept'=>"required",
+            "unit"=>"required"
+        ],
+        ['user_name.required'=>"The User Name field is required.",
+        'desigation.required'=>"The Designation field is required.",
+        'dept.required'=>"The Department field is required.",
+        'unit.required'=>"The Unit field is required."]
+    );
+
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $id=DB::select("SHOW TABLE STATUS LIKE 'beverages'");
@@ -67,19 +80,19 @@ class Beverages extends Component
 
         $save = Beverage::insert([
 
-              'user_name'=>$this->user_name,
-              'desigation'=>$this->desigation,
-              'dept'=>$this->dept,
-              'unit'=>$this->unit,
-              'item'=>$this->item,
-              'laptop_name'=>$this->laptop_name,
-              'asset_no'=>$this->asset_no,
-              'serial_no'=>$this->serial_no,
-              'previous_user'=>$this->previous_user,
-              'issue_date'=>$time,
-              'p_issue_date'=>$this->p_issue_date,
-              'configuration'=>$this->configuration,
-        ]);
+          'user_name'=>$this->user_name,
+          'desigation'=>$this->desigation,
+          'dept'=>$this->dept,
+          'unit'=>$this->unit,
+          'item'=>$this->item,
+          'laptop_name'=>$this->laptop_name,
+          'asset_no'=>$this->asset_no,
+          'serial_no'=>$this->serial_no,
+          'previous_user'=>$this->previous_user,
+          'issue_date'=>$time,
+          'p_issue_date'=>$this->p_issue_date,
+          'configuration'=>$this->configuration,
+      ]);
 
         Invoice::insert([
 
@@ -101,19 +114,19 @@ class Beverages extends Component
             'business_area'=>'Beverage',
         ]);
         
-            if(!empty($this->dept))
-            {
+        if(!empty($this->dept))
+        {
             $dept = Dept::where('dept_name',$this->dept)->first();
 
             if(!$dept)
             {  
-            $saave = Dept::insert([
+                $saave = Dept::insert([
 
-            'dept_name'=>$this->dept
-            ]);
+                    'dept_name'=>$this->dept
+                ]);
 
             }
-            }
+        }
 
         if($save){
             $this->dispatchBrowserEvent('CloseAddBeverageModal');
@@ -135,7 +148,7 @@ class Beverages extends Component
 
     public function update(){
 
-       
+     
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $cid = $this->cid;
@@ -155,6 +168,18 @@ class Beverages extends Component
         }
         Session::put('id', $cid);
         Session::put('b_area', 'Beverage');
+
+        $this->validate([
+            "upd_H_user"=>"required",
+            "upd_H_designation"=>"required",
+            'upd_H_dept'=>"required",
+            "upd_H_unit"=>"required"
+        ],
+        ['upd_H_user.required'=>"The User Name field is required.",
+        'upd_H_designation.required'=>"The Designation field is required.",
+        'upd_H_dept.required'=>"The Department field is required.",
+        'upd_H_unit.required'=>"The Unit field is required."]
+    );
 
         $update = Beverage::find($cid)->update([
 
@@ -217,7 +242,7 @@ class Beverages extends Component
 
     public function reuseProd(){
 
-       
+     
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $rid = $this->rid;
@@ -253,6 +278,26 @@ class Beverages extends Component
         Session::put('id', $rid);
         Session::put('b_area', 'Beverage');
 
+        $this->validate([
+            "r_H_user"=>"required",
+            "r_H_designation"=>"required",
+            'r_H_dept'=>"required",
+            "r_H_unit"=>"required",
+            "r_user_name"=>"required",
+            "r_desigation"=>"required",
+            'r_dept'=>"required",
+            "r_unit"=>"required"
+        ],
+        ['r_H_user.required'=>"The User Name field is required.",
+        'r_H_designation.required'=>"The Designation field is required.",
+        'r_H_dept.required'=>"The Department field is required.",
+        'r_H_unit.required'=>"The Unit field is required.",
+        'r_user_name.required'=>"The User Name field is required.",
+        'r_desigation.required'=>"The Designation field is required.",
+        'r_dept.required'=>"The Department field is required.",
+        'r_unit.required'=>"The Unit field is required."]
+    );
+
         $update = Beverage::find($rid)->update([
 
             'user_name'=>$this->r_user_name,
@@ -276,27 +321,27 @@ class Beverages extends Component
           'remarks'=>'For Official use',
           'qty'=>'1',
           'business_area'=>'Beverage',
-        ]);
+      ]);
 
         if(!empty($this->r_dept))
         {
-        $deptT = Dept::where('dept_name',$this->r_dept)->first();
-        if(!$deptT)
-        {  
-            $saave= Dept::insert([
-        'dept_name'=>$this->r_dept
-        ]);
-        }
+            $deptT = Dept::where('dept_name',$this->r_dept)->first();
+            if(!$deptT)
+            {  
+                $saave= Dept::insert([
+                    'dept_name'=>$this->r_dept
+                ]);
+            }
         }
         if(!empty($this->r_H_dept))
         {
-        $deptH = Dept::where('dept_name',$this->r_H_dept)->first();
-        if(!$deptH)
-        {  
-            $saave= Dept::insert([
-        'dept_name'=>$this->r_H_dept
-        ]);
-        }
+            $deptH = Dept::where('dept_name',$this->r_H_dept)->first();
+            if(!$deptH)
+            {  
+                $saave= Dept::insert([
+                    'dept_name'=>$this->r_H_dept
+                ]);
+            }
         }
 
         if($savex){

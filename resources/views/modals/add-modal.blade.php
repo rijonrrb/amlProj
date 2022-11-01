@@ -24,6 +24,7 @@
                         </select>
                         <button type="button" class="btn btn-primary btn-sm col-2" id="cdept" style="display: block;">Options</button>
                         </div>
+                        <span class="text-danger"> @error('dept') {{ $message }}@enderror</span>
                      </div>
 
 
@@ -41,28 +42,24 @@
                      <div class="form-group">
                          <label for="">Item</label>
                          <input type="text" class="form-control" placeholder="Item" wire:model="item" >
-                         <span class="text-danger"> @error('item') {{ $message }}@enderror</span>
                      </div>
                      <div class="form-group">
                          <label for="">Laptop Name</label>
                          <input type="text" class="form-control" placeholder="Laptop Name" wire:model="laptop_name" >
-                         <span class="text-danger"> @error('laptop_name') {{ $message }}@enderror</span>
                      </div>
                      <div class="form-group">
                          <label for="">Asset No</label>
                          <input type="text" class="form-control" placeholder="Asset No" wire:model="asset_no" >
-                         <span class="text-danger"> @error('asset_no') {{ $message }}@enderror</span>
                      </div>
                      <div class="form-group">
                          <label for="">Serial No</label>
                          <input type="text" class="form-control" placeholder="Serial No" wire:model="serial_no" >
-                         <span class="text-danger"> @error('serial_no') {{ $message }}@enderror</span>
                      </div>
 
                      <div class="form-group">
                          <label for="">Configuration</label>
                          <textarea  class="form-control" placeholder="Configuration" wire:model="configuration" ></textarea>
-                         <span class="text-danger"> @error('configuration') {{ $message }}@enderror</span>
+
                      </div>
                      </div>
        
@@ -71,12 +68,11 @@
                     <div class="form-group">
                          <label for="">Handover by</label>
                          <input type="text" class="form-control" placeholder="Handover by" wire:model.debounce.500000ms="H_user" >
-                         <span class="text-danger"> @error('configuration') {{ $message }}@enderror</span>
                      </div>
                      <div class="form-group">
                          <label for="">Designation</label>
                          <input type="text" class="form-control" placeholder="Designation" wire:model.debounce.500000ms="H_designation" >
-                         <span class="text-danger"> @error('configuration') {{ $message }}@enderror</span>
+
                      </div>
                      <div class="form-group">
                         <label for="">Department</label>
@@ -95,7 +91,6 @@
                      <div class="form-group">
                          <label for="">Unit</label>
                          <input type="text" class="form-control" placeholder="Unit" wire:model.debounce.500000ms="H_unit" >
-                         <span class="text-danger"> @error('configuration') {{ $message }}@enderror</span>
                      </div>
                     </div>
 

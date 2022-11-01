@@ -31,9 +31,7 @@ return new class extends Migration
             $table->string('asset_no');
             $table->string('serial_no');
             $table->string('business_area');
-
             $table->timestamps();
-
         });
     }
 

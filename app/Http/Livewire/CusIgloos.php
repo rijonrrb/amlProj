@@ -66,6 +66,18 @@ class CusIgloos extends Component
         Session::put('id', $next_id);
         Session::put('b_area', 'CustudyIgloo');
 
+        $this->validate([
+            "user_name"=>"required",
+            "desigation"=>"required",
+            'dept'=>"required",
+            "unit"=>"required"
+            ],
+            ['user_name.required'=>"The User Name field is required.",
+            'desigation.required'=>"The Designation field is required.",
+            'dept.required'=>"The Department field is required.",
+            'unit.required'=>"The Unit field is required."]
+            );
+
         $save = cusIgloo::insert([
 
               'user_name'=>$this->user_name,
@@ -158,6 +170,19 @@ class CusIgloos extends Component
         
         Session::put('id', $cid);
         Session::put('b_area', 'CustudyIgloo');
+
+        $this->validate([
+            "upd_H_user"=>"required",
+            "upd_H_designation"=>"required",
+            'upd_H_dept'=>"required",
+            "upd_H_unit"=>"required"
+            ],
+            ['upd_H_user.required'=>"The User Name field is required.",
+            'upd_H_designation.required'=>"The Designation field is required.",
+            'upd_H_dept.required'=>"The Department field is required.",
+            'upd_H_unit.required'=>"The Unit field is required."]
+            );
+
 
         $update = cusIgloo::find($cid)->update([
 
@@ -255,6 +280,26 @@ class CusIgloos extends Component
 
         Session::put('id', $rid);
         Session::put('b_area', 'CustudyIgloo');
+
+        $this->validate([
+            "r_H_user"=>"required",
+            "r_H_designation"=>"required",
+            'r_H_dept'=>"required",
+            "r_H_unit"=>"required",
+            "r_user_name"=>"required",
+            "r_desigation"=>"required",
+            'r_dept'=>"required",
+            "r_unit"=>"required"
+            ],
+            ['r_H_user.required'=>"The User Name field is required.",
+            'r_H_designation.required'=>"The Designation field is required.",
+            'r_H_dept.required'=>"The Department field is required.",
+            'r_H_unit.required'=>"The Unit field is required.",
+            'r_user_name.required'=>"The User Name field is required.",
+            'r_desigation.required'=>"The Designation field is required.",
+            'r_dept.required'=>"The Department field is required.",
+            'r_unit.required'=>"The Unit field is required."]
+            );
 
         $update = cusIgloo::find($rid)->update([
 

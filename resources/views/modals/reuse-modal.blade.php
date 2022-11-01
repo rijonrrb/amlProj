@@ -25,6 +25,7 @@
                         </select>
                         <button type="button" class="btn btn-primary btn-sm col-2" id="r_cdept" style="display: block;">Options</button>
                         </div>
+                        <span class="text-danger"> @error('r_dept') {{ $message }}@enderror</span>
                      </div>
 
 
@@ -47,12 +48,12 @@
                     <div class="form-group">
                          <label for="">Handover by</label>
                          <input type="text" class="form-control" placeholder="Handover by" wire:model.debounce.500000ms="r_H_user" >
-                         <span class="text-danger"> @error('r_configuration') {{ $message }}@enderror</span>
+                         <span class="text-danger"> @error('r_H_user') {{ $message }}@enderror</span>
                      </div>
                      <div class="form-group">
                          <label for="">Designation</label>
                          <input type="text" class="form-control" placeholder="Designation" wire:model.debounce.500000ms="r_H_designation" >
-                         <span class="text-danger"> @error('r_configuration') {{ $message }}@enderror</span>
+                         <span class="text-danger"> @error('r_H_designation') {{ $message }}@enderror</span>
                      </div>
                      <div class="form-group">
                         <label for="">Department</label>
@@ -67,11 +68,12 @@
                         </select>
                         <button type="button" class="btn btn-primary btn-sm col-2" id="r_H_cdept" style="display: block;">Options</button>
                         </div>
+                        <span class="text-danger"> @error('r_H_dept') {{ $message }}@enderror</span>
                      </div>
                      <div class="form-group">
                          <label for="">Unit</label>
                          <input type="text" class="form-control" placeholder="Unit" wire:model.debounce.500000ms="r_H_unit" >
-                         <span class="text-danger"> @error('r_configuration') {{ $message }}@enderror</span>
+                         <span class="text-danger"> @error('r_H_unit') {{ $message }}@enderror</span>
                      </div>
                     </div>
 
