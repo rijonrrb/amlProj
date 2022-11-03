@@ -8,6 +8,7 @@
     <link rel="icon" type="image/x-icon" href="http://www.amlbd.com/wp-content/uploads/2014/05/new-way-to-manage1.png">
     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="{{asset('css/modal.css')}}">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -44,16 +45,26 @@
       $('.addCountry').find('form')[0].reset();
       $('.addCountry').modal('show');
       });
+
       window.addEventListener('CloseAddHrModal', function(){
-      $('.addCountry').find('span').html('');
-      $('.addCountry').find('form')[0].reset();
-      $('.addCountry').modal('hide');
-      Swal.fire(
-      'Done!',
-      'New DataSet Has been Saved Successfully!',
-      'success'
-      );
-      });
+               $('.addCountry').find('span').html('');
+               $('.addCountry').find('form')[0].reset();
+               $('.addCountry').modal('hide');
+               Swal.fire({
+                title: '<strong>Done!</strong>',
+                icon: 'success',
+                html:'Your Dataset has been successfully added',
+                showCloseButton: true,
+                showCancelButton: true,
+                cancelButtonText:`Ok`,
+                confirmButtonText:`Print`
+                }).then((result) => {
+                if (result.value) {
+                window.location.href = "{{route('invoice')}}"
+                }
+                });
+              
+           });
 
       window.addEventListener('SwalConfirmH', function(event){
       swal.fire({
@@ -95,43 +106,44 @@
       });
       });
 
-      $.ajaxSetup({
-      headers: {
-      'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-      }
-      });
 
-      $(document).ready(function(){
 
-      //Column Update
-      $(document).on('keydown', '.updateHr', function(e){
-      if (event.ctrlKey && event.key === "s") {
 
-      e.preventDefault();
-      var id = $(this).data("id");
-      var column_name = $(this).data("column");
-      var value = $(this).text();
 
-      $.ajax({
-      url:"{{route('updateHr')}}",
-      method:"POST",
-      data:{id:id, column_name:column_name, value:value},
-      success:function(data)
-      {
-      Swal.fire({
-      icon: 'success',
-      title: 'Updated..',
-      text: 'Your DataSet has been Updated.',
-      showConfirmButton: false,
-      timer: 800
-      })
-      window.location.reload();
-      }
-      });
-      }
-      })
+ $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-      });
+
+        $(document).ready(function(){
+        //Column Update
+        $(document).on('blur', '.updateHr', function(e){
+        e.preventDefault();
+        var id = $(this).data("id");
+        var column_name = $(this).data("column");
+        var value = $(this).text();
+        $.ajax({
+        url:"{{route('updateHr')}}",
+        method:"POST",
+        data:{id:id, column_name:column_name, value:value},
+        success:function(data)
+        {
+        Swal.fire({
+        icon: 'success',
+        title: 'Updated..',
+        text: 'Your DataSet has been Updated.',
+        showConfirmButton: false,
+        timer: 800
+        })
+        window.location.reload();
+        }
+        });
+
+        })
+ });
+
 
 
       function html_table_to_excel(type)
@@ -151,37 +163,40 @@
       html_table_to_excel('xlsx');
       });
 
-
-
-      document.getElementById("cdept").onclick = function() {
-      document.getElementById("idept").style.display = "none";
-      document.getElementById("sdept").disabled = false;
-      document.getElementById("idept").disabled = true;
-      document.getElementById("sdept").style.display = "block";
-
-      document.getElementById("cdept").style.display = "none";
-      }
-
-
       </script>
 
 <script>
 
+
+
 window.addEventListener('OpenAddMissModal', function(){
-$('.addM').find('span').html('');
-$('.addM').find('form')[0].reset();
-$('.addM').modal('show');
-});
-window.addEventListener('CloseAddMissModal', function(){
-$('.addM').find('span').html('');
-$('.addM').find('form')[0].reset();
-$('.addM').modal('hide');
-Swal.fire(
-'Done!',
-'New DataSet Has been Saved Successfully!',
-'success'
-);
-});
+      $('.addM').find('span').html('');
+      $('.addM').find('form')[0].reset();
+      $('.addM').modal('show');
+      });
+
+      window.addEventListener('CloseAddMissModal', function(){
+               $('.addM').find('span').html('');
+               $('.addM').find('form')[0].reset();
+               $('.addM').modal('hide');
+               Swal.fire({
+                title: '<strong>Done!</strong>',
+                icon: 'success',
+                html:'Your Dataset has been successfully added',
+                showCloseButton: true,
+                showCancelButton: true,
+                cancelButtonText:`Ok`,
+                confirmButtonText:`Print`
+                }).then((result) => {
+                if (result.value) {
+                window.location.href = "{{route('invoice')}}"
+                }
+                });
+              
+           });
+
+
+
 window.addEventListener('SwalConfirmM', function(event){
 swal.fire({
 title:event.detail.title,
@@ -275,38 +290,36 @@ btn_mis.addEventListener('click', () =>  {
 table_Mis('xlsx');
 });
 
-
-
-document.getElementById("cdeptM").onclick = function() {
-      document.getElementById("ideptM").style.display = "none";
-      document.getElementById("sdeptM").disabled = false;
-      document.getElementById("ideptM").disabled = true;
-      document.getElementById("sdeptM").style.display = "block";
-
-      document.getElementById("cdeptM").style.display = "none";
-      }
-
-
-
 </script>
 
 <script>
 
 window.addEventListener('OpenAddProcurementModal', function(){
-$('.addP').find('span').html('');
-$('.addP').find('form')[0].reset();
-$('.addP').modal('show');
-});
-window.addEventListener('CloseAddProcurementModal', function(){
-$('.addP').find('span').html('');
-$('.addP').find('form')[0].reset();
-$('.addP').modal('hide');
-Swal.fire(
-'Done!',
-'New DataSet Has been Saved Successfully!',
-'success'
-);
-});
+      $('.addP').find('span').html('');
+      $('.addP').find('form')[0].reset();
+      $('.addP').modal('show');
+      });
+
+      window.addEventListener('CloseAddProcurementModal', function(){
+               $('.addP').find('span').html('');
+               $('.addP').find('form')[0].reset();
+               $('.addP').modal('hide');
+               Swal.fire({
+                title: '<strong>Done!</strong>',
+                icon: 'success',
+                html:'Your Dataset has been successfully added',
+                showCloseButton: true,
+                showCancelButton: true,
+                cancelButtonText:`Ok`,
+                confirmButtonText:`Print`
+                }).then((result) => {
+                if (result.value) {
+                window.location.href = "{{route('invoice')}}"
+                }
+                });
+              
+           });
+
 
 window.addEventListener('SwalConfirmP', function(event){
 swal.fire({
@@ -399,17 +412,6 @@ const btn_p = document.getElementById('exportP');
 btn_p.addEventListener('click', () =>  {
   table_Procurement('xlsx');
 });
-
-
-document.getElementById("cdeptP").onclick = function() {
-      document.getElementById("ideptP").style.display = "none";
-      document.getElementById("sdeptP").disabled = false;
-      document.getElementById("ideptP").disabled = true;
-      document.getElementById("sdeptP").style.display = "block";
-
-      document.getElementById("cdeptP").style.display = "none";
-      }
-
 
 
 </script>

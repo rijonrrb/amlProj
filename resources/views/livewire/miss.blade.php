@@ -2,7 +2,7 @@
 <div class="card">
 <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>Mis</b></h4>
 <div class="row mb-3 p-2 d-flex justify-content-between">
-<button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddMissModal()">Add New Dataset</button>
+<button class="btn btn-primary btn-md ml-4" id="addMis" wire:click="OpenAddMissModal()">Add New Dataset</button>
     <div>
        @if ($checkedMiss)
             <button class="btn btn-danger btn-md mr-4" wire:click="deleteMisss()"> Delete Selected DataSet ({{ count($checkedMiss) }})</button>
@@ -141,7 +141,7 @@
 
     @include('modals.addM-modal')
     @include('modals.edit-modal')
-@include('modals.reuse-modal')
+    @include('modals.reuse-modal')
 </div>
 
       

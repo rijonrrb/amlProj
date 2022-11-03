@@ -35,6 +35,77 @@ s.style.display = "none";
 icon.className = "step";
 }
 
+
+
+    function Mnext() {
+    var x = document.getElementsByClassName("MtabU")[0];
+    var y = document.getElementsByClassName("MtabH")[0];
+    var z = document.getElementById("MprevBtn");
+    var n = document.getElementById("MnextBtn");
+    var s = document.getElementById("Msub");
+    var icon = document.getElementsByClassName("Mstep")[0];
+    
+    x.style.display = "none";
+    y.style.display = "inline";
+    z.style.display = "inline";
+    n.style.display = "none";
+    s.style.display = "inline";
+    icon.className = "Mfinish";
+    }
+    
+    function Mprev() {
+    
+    var x = document.getElementsByClassName("MtabU")[0];
+    var y = document.getElementsByClassName("MtabH")[0];
+    var z = document.getElementById("MprevBtn");
+    var n = document.getElementById("MnextBtn");
+    var s = document.getElementById("Msub");
+    
+    var icon = document.getElementsByClassName("Mfinish")[0];
+    
+    x.style.display = "inline";
+    y.style.display = "none";
+    z.style.display = "none";
+    n.style.display = "inline";
+    s.style.display = "none";
+    icon.className = "Mstep";
+    }
+
+    function Pnext() {
+        var x = document.getElementsByClassName("PtabU")[0];
+        var y = document.getElementsByClassName("PtabH")[0];
+        var z = document.getElementById("PprevBtn");
+        var n = document.getElementById("PnextBtn");
+        var s = document.getElementById("Psub");
+        var icon = document.getElementsByClassName("Pstep")[0];
+        
+        x.style.display = "none";
+        y.style.display = "inline";
+        z.style.display = "inline";
+        n.style.display = "none";
+        s.style.display = "inline";
+        icon.className = "Pfinish";
+        }
+        
+        function Pprev() {
+        
+        var x = document.getElementsByClassName("PtabU")[0];
+        var y = document.getElementsByClassName("PtabH")[0];
+        var z = document.getElementById("PprevBtn");
+        var n = document.getElementById("PnextBtn");
+        var s = document.getElementById("Psub");
+        
+        var icon = document.getElementsByClassName("Pfinish")[0];
+        
+        x.style.display = "inline";
+        y.style.display = "none";
+        z.style.display = "none";
+        n.style.display = "inline";
+        s.style.display = "none";
+        icon.className = "Pstep";
+        }
+
+
 function r_next() {
 
 var r_x = document.getElementsByClassName("r_tabU")[0];

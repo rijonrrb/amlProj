@@ -1,9 +1,9 @@
-<div class="modal fade addM" wire:ignore.self tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+<div class="modal fade addM mt-5" wire:ignore.self tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
+        <div class="modal-content">
             <div class="modal-body">
                  <form wire:submit.prevent="save">
-                 <div class="tabU">
+                 <div class="MtabU">
                      
                      <h3 align ="center">User Info</h3>
                      <div class="form-group">
@@ -15,14 +15,14 @@
                      <div class="form-group">
                         <label for="">Department</label>
                         <div class="container row">
-                        <input type="text" class="form-control col-9 mr-3" placeholder="Department" wire:model="dept"  style="display: block;" id="idept">
-                        <select wire:model ="dept" class="form-control col-9 mr-3"  style="display: none;" id="sdept">
+                        <input type="text" class="form-control col-9 mr-3" placeholder="Department" wire:model="dept"  style="display: block;" id="ideptM">
+                        <select wire:model ="dept" class="form-control col-9 mr-3"  style="display: none;" id="sdeptM">
                         <option value="" disabled selected>Select Department</option>
                         @foreach ($depts as $dept)
                         <option value="{{ $dept->dept_name }}">{{$dept->dept_name}}</option> 
                         @endforeach
                         </select>
-                        <button type="button" class="btn btn-primary btn-sm col-2" id="cdept" style="display: block;">Options</button>
+                        <button type="button" class="btn btn-primary btn-sm col-2" id="cdeptM" style="display: block;">Options</button>
                         </div>
                         <span class="text-danger"> @error('dept') {{ $message }}@enderror</span>
                      </div>
@@ -63,7 +63,7 @@
                      </div>
                      </div>
        
-                    <div class="tabH" style="display: none;">
+                    <div class="MtabH" style="display: none;">
                     <h3 align ="center">Handover Info</h3>
                     <div class="form-group">
                          <label for="">Handover by</label>
@@ -78,14 +78,14 @@
                         <label for="">Department</label>
                         <div class="container row">
                             
-                        <input type="text" class="form-control col-9 mr-3" placeholder="Department" wire:model.debounce.500000ms="H_dept"  style="display: block;" id="H_idept">
-                        <select wire:model.debounce.500000ms ="H_dept" class="form-control col-9 mr-3"  style="display: none;" id="H_sdept">
+                        <input type="text" class="form-control col-9 mr-3" placeholder="Department" wire:model.debounce.500000ms="H_dept"  style="display: block;" id="H_ideptM">
+                        <select wire:model.debounce.500000ms ="H_dept" class="form-control col-9 mr-3"  style="display: none;" id="H_sdeptM">
                         <option value="" disabled selected>Select Department</option>
                         @foreach ($depts as $dept)
                         <option value="{{ $dept->dept_name }}">{{$dept->dept_name}}</option> 
                         @endforeach
                         </select>
-                        <button type="button" class="btn btn-primary btn-sm col-2" id="H_cdept" style="display: block;">Options</button>
+                        <button type="button" class="btn btn-primary btn-sm col-2" id="H_cdeptM" style="display: block;">Options</button>
                         </div>
                      </div>
                      <div class="form-group">
@@ -96,14 +96,14 @@
 
                     <div class="form-group">
                          <button type="button" id="close" data-dismiss="modal">Close</button>
-                         <button type="button" style="display: none;" id="prevBtn" onclick="prev()">Previous</button>
-                         <button type="button" id="nextBtn" onclick="next()">Next</button>
-                         <button type="submit" style="display: none;" id="sub">Save</button>
+                         <button type="button" style="display: none;" id="MprevBtn" onclick="Mprev()">Previous</button>
+                         <button type="button" id="MnextBtn" onclick="Mnext()">Next</button>
+                         <button type="submit" style="display: none;" id="Msub">Save</button>
                      </div>
 
                         <div style="text-align:center;margin-top:10px;">
                         <span class="actives"></span>
-                        <span class="step"></span>
+                        <span class="Mstep"></span>
                         </div>
 
                  </form>

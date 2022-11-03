@@ -1867,49 +1867,20 @@ class Update extends Controller
       date_default_timezone_set('Asia/Dhaka');
       $time =  date('d F Y h:i:s A');
 
+
       if( $request->column_name == "user_name")
       {
          
-         $user->user_name = $request->value;
-         if (empty($p_user->previous_user))
+         if(empty($request->value))
          {
-             $user->previous_user = $p_user->user_name;
+            $user->user_name = '';
+            $user->save();
          }
          else
          {
-            if (is_null($p_user->user_name))
-            {
-               $user->previous_user = $p_user->previous_user;
-            }
-            else
-            {
-               $user->previous_user = $p_user->previous_user."  ||  ".$p_user->user_name;
-            }
-
-             
-         }
-        
-
-         $user->issue_date = $time;
-         if (empty($p_user->p_issue_date))
-         {
-             $user->p_issue_date = $p_user->issue_date;
-         }
-         else
-         {
-            if (is_null($p_user->user_name))
-            {
-               $user->p_issue_date = $p_user->p_issue_date;
-            }
-            else
-            {
-               $user->p_issue_date = $p_user->p_issue_date."  ||  ".$p_user->issue_date;
-            }
-
-            
-         }
-
-         $user->save();
+            $user->user_name = $request->value;
+            $user->save();
+         } 
  
       }
       elseif ( $request->column_name == "desigation")
@@ -2071,6 +2042,5 @@ class Update extends Controller
          }
 
       }
-
-       }
+   }
 }

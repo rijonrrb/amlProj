@@ -6,6 +6,9 @@ use Livewire\Component;
 use App\Models\Procurement;
 use App\Models\Dept;
 use Livewire\WithPagination;
+use Session;
+use Illuminate\Support\Facades\DB;
+use App\Models\Invoice;
 
 class Procurements extends Component
 {
@@ -31,7 +34,7 @@ class Procurements extends Component
             ->paginate($this->perPage)
         ]);
     }
-
+    
     public function OpenAddProcurementModal(){
 
         $this->user_name = '';
@@ -46,48 +49,93 @@ class Procurements extends Component
         $this->issue_date = '';
         $this->p_issue_date = '';
         $this->configuration = '';
+        $this->abc = '';
+
+        $this->H_user = '';
+        $this->H_designation = '';
+        $this->H_dept = '';
+        $this->H_unit = '';
         $this->dispatchBrowserEvent('OpenAddProcurementModal');
     }
 
     public function save(){
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
+        $id=DB::select("SHOW TABLE STATUS LIKE 'procurements'");
+        $next_id=$id[0]->Auto_increment;
+        Session::put('id', $next_id);
+        Session::put('b_area', 'PROC');
+
+        $this->validate([
+            "user_name"=>"required",
+            "desigation"=>"required",
+            'dept'=>"required",
+            "unit"=>"required"
+        ],
+        ['user_name.required'=>"The User Name field is required.",
+        'desigation.required'=>"The Designation field is required.",
+        'dept.required'=>"The Department field is required.",
+        'unit.required'=>"The Unit field is required."]
+    );
 
         $save = Procurement::insert([
 
-              'user_name'=>$this->user_name,
-              'desigation'=>$this->desigation,
-              'dept'=>$this->dept,
-              'unit'=>$this->unit,
-              'item'=>$this->item,
-              'laptop_name'=>$this->laptop_name,
-              'asset_no'=>$this->asset_no,
-              'serial_no'=>$this->serial_no,
-              'previous_user'=>$this->previous_user,
-              'issue_date'=>$time,
-              'p_issue_date'=>$this->p_issue_date,
-              'configuration'=>$this->configuration,
+          'user_name'=>$this->user_name,
+          'desigation'=>$this->desigation,
+          'dept'=>$this->dept,
+          'unit'=>$this->unit,
+          'item'=>$this->item,
+          'laptop_name'=>$this->laptop_name,
+          'asset_no'=>$this->asset_no,
+          'serial_no'=>$this->serial_no,
+          'previous_user'=>$this->previous_user,
+          'issue_date'=>$time,
+          'p_issue_date'=>$this->p_issue_date,
+          'configuration'=>$this->configuration,
+      ]);
+
+      Invoice::insert([
+
+            'handedBy'=>$this->H_user,
+            'h_desigation'=>$this->H_designation,
+            'h_dept'=>$this->H_dept,
+            'h_unit'=>$this->H_unit,
+            't_id'=> $next_id,
+            'takenBy'=>$this->user_name,
+            't_desigation'=>$this->desigation,
+            't_dept'=>$this->dept,
+            't_unit'=>$this->unit,
+            'remarks'=>'For Official use',
+            'qty'=>'1',
+            'laptop_name'=>$this->laptop_name,
+            'configuration'=>$this->configuration,
+            'asset_no'=>$this->asset_no,
+            'serial_no'=>$this->serial_no,
+            'business_area'=>'PROC',
         ]);
+        
         if(!empty($this->dept))
 
         {
-        $dept = Dept::where('dept_name',$this->dept)->first();
- 
-                if(!$dept)
-                {  
+            $dept = Dept::where('dept_name',$this->dept)->first();
+            
+            if(!$dept)
+            {  
                 $saave = Dept::insert([
 
-                'dept_name'=>$this->dept
+                    'dept_name'=>$this->dept
                 ]);
 
-                }
-                }
+            }
+        }
 
         if($save){
             $this->dispatchBrowserEvent('CloseAddProcurementModal');
             $this->checkedProcurement = [];
         }
     }
+
+
 
 
     public function deleteConfirmP($id){
