@@ -62,8 +62,7 @@ class Miss extends Component
     public function save(){
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
-        $id=DB::select("SHOW TABLE STATUS LIKE 'mis'");
-        $next_id=$id[0]->Auto_increment;
+        $next_id = uniqid('MIS', true);
         Session::put('id', $next_id);
         Session::put('b_area', 'MIS');
 
@@ -101,7 +100,7 @@ class Miss extends Component
             'h_desigation'=>$this->H_designation,
             'h_dept'=>$this->H_dept,
             'h_unit'=>$this->H_unit,
-            't_id'=> $next_id,
+            'sid'=> $next_id,
             'takenBy'=>$this->user_name,
             't_desigation'=>$this->desigation,
             't_dept'=>$this->dept,

@@ -73,7 +73,7 @@ class Beverages extends Component
 
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
-        $next_id = uniqid('b_area', true);
+        $next_id = uniqid('Beverage', true);
         Session::put('id', $next_id);
         Session::put('b_area', 'Beverage');
 
