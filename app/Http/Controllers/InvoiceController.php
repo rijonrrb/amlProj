@@ -12,7 +12,7 @@ class InvoiceController extends Controller
 
         $value = Session::get('id');
         $value2 = Session::get('b_area');
-        $invoice = Invoice::where('t_id',$value)->where('business_area',$value2)->first();
+        $invoice = Invoice::where('sid',$value)->where('business_area',$value2)->first();
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y');
         return view('receipt')->with('invoice', $invoice)->with('time', $time);

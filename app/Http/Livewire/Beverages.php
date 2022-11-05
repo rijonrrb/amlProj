@@ -73,8 +73,7 @@ class Beverages extends Component
 
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
-        $id=DB::select("SHOW TABLE STATUS LIKE 'beverages'");
-        $next_id=$id[0]->Auto_increment;
+        $next_id = uniqid('b_area', true);
         Session::put('id', $next_id);
         Session::put('b_area', 'Beverage');
 
@@ -100,7 +99,6 @@ class Beverages extends Component
             'h_desigation'=>$this->H_designation,
             'h_dept'=>$this->H_dept,
             'h_unit'=>$this->H_unit,
-            't_id'=> $next_id,
             'takenBy'=>$this->user_name,
             't_desigation'=>$this->desigation,
             't_dept'=>$this->dept,
@@ -112,6 +110,7 @@ class Beverages extends Component
             'asset_no'=>$this->asset_no,
             'serial_no'=>$this->serial_no,
             'business_area'=>'Beverage',
+            'sid'=>$next_id,
         ]);
         
         if(!empty($this->dept))

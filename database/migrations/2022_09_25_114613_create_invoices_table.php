@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('h_desigation');
             $table->string('h_dept');
             $table->string('h_unit');
-            $table->bigInteger('t_id');
             $table->string('takenBy');
             $table->string('t_desigation');
             $table->string('t_dept');
@@ -31,6 +30,7 @@ return new class extends Migration
             $table->string('asset_no');
             $table->string('serial_no');
             $table->string('business_area');
+            $table->string('sid');
             $table->timestamps();
         });
     }
