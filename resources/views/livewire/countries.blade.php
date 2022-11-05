@@ -14,7 +14,7 @@
 <input type="text" class="form-control" wire:model.debounce.350ms="search">
 </div>
 <div class="col-md-1">
-<label for="">DataSet Limit</label>
+<label for="">Data Limit</label>
 <select class="form-control" wire:model="perPage">
 <option value="5">5</option>
 <option value="10">10</option>

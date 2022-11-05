@@ -167,7 +167,20 @@ class CusIgloos extends Component
         {
             $previous_user = $info->previous_user."  ||  ".$info->user_name;
         }
-        
+
+        if (empty($info->p_issue_date))
+        {
+            $p_i_date = $info->issue_date;
+        }
+        elseif (empty($info->user_name))
+        {
+            $p_i_date = $info->p_issue_date;
+        }
+        else
+        {
+            $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
+        }
+
         Session::put('id', $cid);
         Session::put('b_area', 'CustudyIgloo');
 
@@ -196,7 +209,7 @@ class CusIgloos extends Component
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
-            'p_issue_date'=>$info->issue_date,
+            'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration
         ]);
 

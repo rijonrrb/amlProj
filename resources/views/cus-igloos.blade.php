@@ -153,34 +153,37 @@
         });
     </script>
     <script>
- $(document).ready(function(){
 
-        //Column Update
-        $(document).on('blur', '.update', function(e){
-        e.preventDefault();
-        var id = $(this).data("id");
-        var column_name = $(this).data("column");
-        var value = $(this).text();
+    $(document).ready(function(){
+    //Column Update
+    $('.update').on('focus', function() {
+    before = $(this).html();
+    }).on('blur', function() { 
+    if (before != $(this).html()) { $(this).trigger('change'); }
+    });
+    $('.update').on('change', function(e) {
+    var id = $(this).data("id");
+    var column_name = $(this).data("column");
+    var value = $(this).text();
+    $.ajax({
+    url:"{{route('updatecusIgloo')}}",
+    method:"POST",
+    data:{id:id, column_name:column_name, value:value},
+    success:function(data)
+    {
+    Swal.fire({
+    icon: 'success',
+    title: 'Updated..',
+    text: 'Your DataSet has been Updated.',
+    showConfirmButton: false,
+    timer: 800
+    })
+    window.location.reload();
+    }
+    });
+    });
+    });
 
-        $.ajax({
-        url:"{{route('updatecusIgloo')}}",
-        method:"POST",
-        data:{id:id, column_name:column_name, value:value},
-        success:function(data)
-        {
-        Swal.fire({
-        icon: 'success',
-        title: 'Updated..',
-        text: 'Your DataSet has been Updated.',
-        showConfirmButton: false,
-        timer: 800
-        })
-        window.location.reload();
-        }
-        });
-        })
-
- });
 </script>
 
 <script>

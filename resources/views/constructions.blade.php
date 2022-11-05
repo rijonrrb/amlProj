@@ -150,10 +150,15 @@
     'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
     }
     });
+
     $(document).ready(function(){
     //Column Update
-    $(document).on('blur', '.update', function(e){
-    e.preventDefault();
+    $('.update').on('focus', function() {
+    before = $(this).html();
+    }).on('blur', function() { 
+    if (before != $(this).html()) { $(this).trigger('change'); }
+    });
+    $('.update').on('change', function(e) {
     var id = $(this).data("id");
     var column_name = $(this).data("column");
     var value = $(this).text();
@@ -173,8 +178,9 @@
     window.location.reload();
     }
     });
-    })
     });
+    });
+    
     function html_table_to_excel(type)
     {
     var data = document.getElementById('Cons');
