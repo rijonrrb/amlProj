@@ -416,6 +416,8 @@ btn_p.addEventListener('click', () =>  {
 
 </script>
 <script src="{{ asset('js/Opt.js') }}"></script>
+<script src="{{ asset('js/OptM.js') }}"></script>
+<script src="{{ asset('js/OptP.js') }}"></script>
 <script src="{{ asset('js/Add.js') }}"></script>
 
 </body>

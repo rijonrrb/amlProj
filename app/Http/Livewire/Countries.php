@@ -94,6 +94,7 @@ class Countries extends Component
           'issue_date'=>$time,
           'p_issue_date'=>$this->p_issue_date,
           'configuration'=>$this->configuration,
+          'sid'=> $next_id,
       ]);
 
         Invoice::insert([
@@ -184,7 +185,7 @@ class Countries extends Component
         }
 
 
-        Session::put('id', $cid);
+        Session::put('id', $info->sid);
         Session::put('b_area', 'Igloo');
 
         $this->validate([
@@ -218,13 +219,12 @@ class Countries extends Component
         ]);
 
 
-        $savex = Invoice::where('t_id',$cid)->update([
+        $savex = Invoice::where('sid',$info->sid)->update([
 
             'handedBy'=>$info->user_name,
             'h_desigation'=>$info->desigation,
             'h_dept'=> $info->dept,
             'h_unit'=>$info->unit,
-            't_id'=> $cid,
             'takenBy'=>$this->upd_H_user,
             't_desigation'=>$this->upd_H_designation,
             't_dept'=>$this->upd_H_dept,
@@ -295,7 +295,7 @@ class Countries extends Component
         }
 
 
-        Session::put('id', $rid);
+        Session::put('id', $info->sid);
         Session::put('b_area', 'Igloo');
 
         $this->validate([
@@ -330,7 +330,7 @@ class Countries extends Component
 
         ]);
 
-        $savex = Invoice::where('t_id',$rid)->update([
+        $savex = Invoice::where('sid',$info->sid)->update([
           'handedBy'=>$this->r_H_user,
           'h_desigation'=>$this->r_H_designation,
           'h_dept'=>$this->r_H_dept,

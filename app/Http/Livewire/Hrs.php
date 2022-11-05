@@ -90,6 +90,7 @@ class Hrs extends Component
           'issue_date'=>$time,
           'p_issue_date'=>$this->p_issue_date,
           'configuration'=>$this->configuration,
+          'sid'=> $next_id,
       ]);
 
       Invoice::insert([
