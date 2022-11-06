@@ -15,8 +15,8 @@
                      <div class="form-group">
                         <label for="">Department</label>
                         <div class="container row">
-                        <input type="text" class="form-control col-9 mr-3" placeholder="Department" wire:model="dept"  style="display: block;" id="ideptM">
-                        <select wire:model ="dept" class="form-control col-9 mr-3"  style="display: none;" id="sdeptM">
+                        <input type="text" class="form-control col-8 mr-3" placeholder="Department" wire:model="dept"  style="display: block;" id="ideptM">
+                        <select wire:model ="dept" class="form-control col-3 mr-3"  style="display: none;" id="sdeptM">
                         <option value="" disabled selected>Select Department</option>
                         @foreach ($depts as $dept)
                         <option value="{{ $dept->dept_name }}">{{$dept->dept_name}}</option> 
@@ -78,14 +78,14 @@
                         <label for="">Department</label>
                         <div class="container row">
                             
-                        <input type="text" class="form-control col-9 mr-3" placeholder="Department" wire:model.debounce.500000ms="H_dept"  style="display: block;" id="H_ideptM">
+                        <input type="text" class="form-control col-8 mr-3" placeholder="Department" wire:model.debounce.500000ms="H_dept"  style="display: block;" id="H_ideptM">
                         <select wire:model.debounce.500000ms ="H_dept" class="form-control col-9 mr-3"  style="display: none;" id="H_sdeptM">
                         <option value="" disabled selected>Select Department</option>
                         @foreach ($depts as $dept)
                         <option value="{{ $dept->dept_name }}">{{$dept->dept_name}}</option> 
                         @endforeach
                         </select>
-                        <button type="button" class="btn btn-primary btn-sm col-2" id="H_cdeptM" style="display: block;">Options</button>
+                        <button type="button" class="btn btn-primary btn-sm col-3" id="H_cdeptM" style="display: block;">Options</button>
                         </div>
                      </div>
                      <div class="form-group">

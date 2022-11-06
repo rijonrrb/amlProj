@@ -19,14 +19,14 @@
                         <label for="">Department</label>
                         <div class="container row">
                             
-                        <input type="text" class="form-control col-9 mr-3" placeholder="Department" wire:model="upd_H_dept"  style="display: block;" id="UH_idept">
+                        <input type="text" class="form-control col-8 mr-3" placeholder="Department" wire:model="upd_H_dept"  style="display: block;" id="UH_idept">
                         <select wire:model="upd_H_dept" class="form-control col-9 mr-3"  style="display: none;" id="UH_sdept">
                         <option value="" disabled selected>Select Department</option>
                         @foreach ($depts as $dept)
                         <option value="{{ $dept->dept_name }}">{{$dept->dept_name}}</option> 
                         @endforeach
                         </select>
-                        <button type="button" class="btn btn-primary btn-sm col-2" id="UH_cdept" style="display: block;">Options</button>
+                        <button type="button" class="btn btn-primary btn-sm col-3" id="UH_cdept" style="display: block;">Options</button>
                         </div>
                         <span class="text-danger"> @error('upd_H_dept') {{ $message }}@enderror</span>
                      </div>

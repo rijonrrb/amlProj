@@ -15,14 +15,14 @@
                      <div class="form-group">
                         <label for="">Department</label>
                         <div class="container row">
-                        <input type="text" class="form-control col-9 mr-3" placeholder="Department" wire:model="dept"  style="display: block;" id="ideptP">
+                        <input type="text" class="form-control col-8 mr-3" placeholder="Department" wire:model="dept"  style="display: block;" id="ideptP">
                         <select wire:model ="dept" class="form-control col-9 mr-3"  style="display: none;" id="sdeptP">
                         <option value="" disabled selected>Select Department</option>
                         @foreach ($depts as $dept)
                         <option value="{{ $dept->dept_name }}">{{$dept->dept_name}}</option> 
                         @endforeach
                         </select>
-                        <button type="button" class="btn btn-primary btn-sm col-2" id="cdeptP" style="display: block;">Options</button>
+                        <button type="button" class="btn btn-primary btn-sm col-3" id="cdeptP" style="display: block;">Options</button>
                         </div>
                         <span class="text-danger"> @error('dept') {{ $message }}@enderror</span>
                      </div>
@@ -78,14 +78,14 @@
                         <label for="">Department</label>
                         <div class="container row">
                             
-                        <input type="text" class="form-control col-9 mr-3" placeholder="Department" wire:model.debounce.500000ms="H_dept"  style="display: block;" id="H_ideptP">
+                        <input type="text" class="form-control col-8 mr-3" placeholder="Department" wire:model.debounce.500000ms="H_dept"  style="display: block;" id="H_ideptP">
                         <select wire:model.debounce.500000ms ="H_dept" class="form-control col-9 mr-3"  style="display: none;" id="H_sdeptP">
                         <option value="" disabled selected>Select Department</option>
                         @foreach ($depts as $dept)
                         <option value="{{ $dept->dept_name }}">{{$dept->dept_name}}</option> 
                         @endforeach
                         </select>
-                        <button type="button" class="btn btn-primary btn-sm col-2" id="H_cdeptP" style="display: block;">Options</button>
+                        <button type="button" class="btn btn-primary btn-sm col-3" id="H_cdeptP" style="display: block;">Options</button>
                         </div>
                      </div>
                      <div class="form-group">
