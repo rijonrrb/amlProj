@@ -5,6 +5,9 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Itcus;
 use App\Models\Country;
+use App\Models\Construction;
+use App\Models\Beverage;
+use App\Models\Suger;
 use App\Models\Dept;
 use Livewire\WithPagination;
 use Session;
@@ -317,9 +320,8 @@ class Custudys extends Component
     );
 
        if($this->r_unit == "Igloo" || $this->r_unit == "igloo")
-{
-        $update = Country::insert([
-
+         {
+            $update = Country::insert([
             'user_name'=>$this->r_user_name,
             'desigation'=>$this->r_desigation,
             'dept'=>$this->r_dept,
@@ -333,10 +335,62 @@ class Custudys extends Component
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
             'sid'=> $info->sid,
-
-        ]);
-
-}
+            ]);
+        }
+        elseif($this->r_unit == "Beverage" || $this->r_unit == "beverage")
+        {
+            $update = Beverage::insert([
+            'user_name'=>$this->r_user_name,
+            'desigation'=>$this->r_desigation,
+            'dept'=>$this->r_dept,
+            'unit'=>$this->r_unit,
+            'item'=>$info->item,
+            'laptop_name'=>$info->laptop_name,
+            'asset_no'=>$info->asset_no,
+            'serial_no'=>$info->serial_no,
+            'previous_user'=>$previous_user,
+            'issue_date'=>$time,
+            'p_issue_date'=>$p_i_date,
+            'configuration'=>$info->configuration,
+            'sid'=> $info->sid,
+            ]);
+        }
+        elseif($this->r_unit == "Sugar" || $this->r_unit == "sugar")
+        {
+            $update = Suger::insert([
+            'user_name'=>$this->r_user_name,
+            'desigation'=>$this->r_desigation,
+            'dept'=>$this->r_dept,
+            'unit'=>$this->r_unit,
+            'item'=>$info->item,
+            'laptop_name'=>$info->laptop_name,
+            'asset_no'=>$info->asset_no,
+            'serial_no'=>$info->serial_no,
+            'previous_user'=>$previous_user,
+            'issue_date'=>$time,
+            'p_issue_date'=>$p_i_date,
+            'configuration'=>$info->configuration,
+            'sid'=> $info->sid,
+            ]);
+        }
+        elseif($this->r_unit == "Construction" || $this->r_unit == "Construction")
+        {
+            $update = Construction::insert([
+            'user_name'=>$this->r_user_name,
+            'desigation'=>$this->r_desigation,
+            'dept'=>$this->r_dept,
+            'unit'=>$this->r_unit,
+            'item'=>$info->item,
+            'laptop_name'=>$info->laptop_name,
+            'asset_no'=>$info->asset_no,
+            'serial_no'=>$info->serial_no,
+            'previous_user'=>$previous_user,
+            'issue_date'=>$time,
+            'p_issue_date'=>$p_i_date,
+            'configuration'=>$info->configuration,
+            'sid'=> $info->sid,
+            ]);
+        }
         $savex = Invoice::where('sid',$info->sid)->update([
           'handedBy'=>$this->r_H_user,
           'h_desigation'=>$this->r_H_designation,
