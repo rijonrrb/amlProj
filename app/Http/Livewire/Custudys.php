@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Itcus;
+use App\Models\Country;
 use App\Models\Dept;
 use Livewire\WithPagination;
 use Session;
@@ -315,16 +316,27 @@ class Custudys extends Component
         'r_unit.required'=>"The Unit field is required."]
     );
 
-        $update = Itcus::find($rid)->update([
+       if($this->r_unit == "Igloo" || $this->r_unit == "igloo")
+{
+        $update = Country::insert([
+
             'user_name'=>$this->r_user_name,
             'desigation'=>$this->r_desigation,
             'dept'=>$this->r_dept,
             'unit'=>$this->r_unit,
+            'item'=>$info->item,
+            'laptop_name'=>$info->laptop_name,
+            'asset_no'=>$info->asset_no,
+            'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
             'p_issue_date'=>$p_i_date,
+            'configuration'=>$info->configuration,
+            'sid'=> $info->sid,
+
         ]);
 
+}
         $savex = Invoice::where('sid',$info->sid)->update([
           'handedBy'=>$this->r_H_user,
           'h_desigation'=>$this->r_H_designation,
@@ -361,6 +373,7 @@ class Custudys extends Component
         }
 
         if($savex){
+            $del =  Itcus::find($rid)->delete();
             $this->dispatchBrowserEvent('CloseReuseModal');
             $this->checkedItcus = [];
         }

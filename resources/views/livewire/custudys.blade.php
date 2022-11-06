@@ -4,7 +4,7 @@
 <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddItcusModal()">Add New Dataset</button>
     <div>
        @if ($checkedItcus)
-            <button class="btn btn-danger btn-md mr-4" wire:click="deleteItcuss()"> Delete Selected DataSet ({{ count($checkedItcus) }})</button>
+            <button class="btn btn-danger btn-md mr-4" wire:click="deleteItcuss()"> Delete items ({{ count($checkedItcus) }})</button>
        @endif
     </div>
 </div>
@@ -33,7 +33,7 @@
     <option value="dept">Dept</option>
     <option value="unit">Unit</option>
     <option value="item">Item</option>
-    <option value="laptop_name">Laptop Name</option>
+    <option value="laptop_name">Item Name</option>
     <option value="asset_no">Asset No</option>
     <option value="serial_no">Serial No</option>
     <option value="previous_user">Previous User</option>
@@ -73,7 +73,7 @@
                 <th>Dept</th>
                 <th>Unit</th>
                 <th>Item</th>
-                <th>Laptop Name</th>
+                <th>Item Name</th>
                 <th>Asset No</th>
                 <th>Serial No</th>
                 <th>Previous User</th>
@@ -81,7 +81,6 @@
                 <th>Previous Issue Date</th>
                 <th>Configuration</th>
                 <th>Actions</th>
-                <th>Return</th>
                 <th>Reuse</th>
             </tr>
             </thead>
@@ -113,11 +112,6 @@
                     </td>
                     <td>
                     <div class="btn-group container">
-                    &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenReturnCountryModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Item"></img></a>
-                    </div>
-                    </td>
-                    <td>
-                    <div class="btn-group container">
                     &nbsp;<a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Reuse Item"></img></a>
                     </div>
                     </td>
@@ -138,6 +132,6 @@
     <button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
     </div>
     @include('modals.add-modal')
-@include('modals.edit-modal')
-@include('modals.reuse-modal')
-</div>
+    @include('modals.edit-modal')
+    @include('modals.reuse-modal')
+    </div>

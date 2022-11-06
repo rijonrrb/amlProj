@@ -44,8 +44,8 @@
                          <input type="text" class="form-control" placeholder="Item" wire:model="item" >
                      </div>
                      <div class="form-group">
-                         <label for="">Laptop Name</label>
-                         <input type="text" class="form-control" placeholder="Laptop Name" wire:model="laptop_name" >
+                         <label for="">Item Name</label>
+                         <input type="text" class="form-control" placeholder="Item Name" wire:model="laptop_name" >
                      </div>
                      <div class="form-group">
                          <label for="">Asset No</label>

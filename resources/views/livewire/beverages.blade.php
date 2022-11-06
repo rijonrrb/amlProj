@@ -4,7 +4,7 @@
 <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddBeverageModal()">Add New Dataset</button>
 <div>
 @if ($checkedBeverage)
-<button class="btn btn-danger btn-md mr-4" wire:click="deleteBeverages()"> Delete Selected DataSet ({{ count($checkedBeverage) }})</button>
+<button class="btn btn-danger btn-md mr-4" wire:click="deleteBeverages()"> Delete items ({{ count($checkedBeverage) }})</button>
 @endif
 </div>
 </div>
@@ -21,7 +21,7 @@
 </div>
 <div class="col-md-3">
 <label for="">Order By</label>
-<select class="form-control" wire:model="orderBy"><option value="user_name">User name</option><option value="desigation">Desigation</option><option value="dept">Dept</option><option value="unit">Unit</option><option value="item">Item</option><option value="laptop_name">Laptop Name</option><option value="asset_no">Asset No</option><option value="serial_no">Serial No</option><option value="previous_user">Previous User</option><option value="issue_date">Previous User</option><option value="p_issue_date">Previous Issue Date</option><option value="configuration">Configuration</option>
+<select class="form-control" wire:model="orderBy"><option value="user_name">User name</option><option value="desigation">Desigation</option><option value="dept">Dept</option><option value="unit">Unit</option><option value="item">Item</option><option value="laptop_name">Item Name</option><option value="asset_no">Asset No</option><option value="serial_no">Serial No</option><option value="previous_user">Previous User</option><option value="issue_date">Previous User</option><option value="p_issue_date">Previous Issue Date</option><option value="configuration">Configuration</option>
 </select>
 </div>
 <div class="col-md-3">
@@ -51,7 +51,7 @@
 <th>Dept</th>
 <th>Unit</th>
 <th>Item</th>
-<th>Laptop Name</th>
+<th>Item Name</th>
 <th>Asset No</th>
 <th>Serial No</th>
 <th>Previous User</th>

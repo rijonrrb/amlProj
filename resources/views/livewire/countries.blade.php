@@ -4,7 +4,7 @@
 <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddCountryModal()">Add New Dataset</button>
 <div>
 @if ($checkedCountry)
-<button class="btn btn-danger btn-md mr-4" wire:click="deleteCountries()"> Delete Selected DataSet ({{ count($checkedCountry) }})</button>
+<button class="btn btn-danger btn-md mr-4" wire:click="deleteCountries()"> Delete items ({{ count($checkedCountry) }})</button>
 @endif
 </div>
 </div>
@@ -32,7 +32,7 @@
 <option value="dept">Dept</option>
 <option value="unit">Unit</option>
 <option value="item">Item</option>
-<option value="laptop_name">Laptop Name</option>
+<option value="laptop_name">Item Name</option>
 <option value="asset_no">Asset No</option>
 <option value="serial_no">Serial No</option>
 <option value="previous_user">Previous User</option>
@@ -69,7 +69,7 @@
 <th>Dept</th>
 <th>Unit</th>
 <th>Item</th>
-<th>Laptop Name</th>
+<th>Item Name</th>
 <th>Asset No</th>
 <th>Serial No</th>
 <th>Previous User</th>

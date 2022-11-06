@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Country;
+use App\Models\Itcus;
 use App\Models\Dept;
 use Livewire\WithPagination;
 use Session;
@@ -202,12 +203,12 @@ class Countries extends Component
 
 
 
-        $update = Country::find($cid)->update([
+        $update = Itcus::insert([
 
             'user_name'=>Null,
             'desigation'=>Null,
             'dept'=>Null,
-            'unit'=>Null,
+            'unit'=>"Igloo",
             'item'=>$info->item,
             'laptop_name'=> $info->laptop_name,
             'asset_no'=> $info->asset_no,
@@ -215,7 +216,8 @@ class Countries extends Component
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
             'p_issue_date'=>$p_i_date,
-            'configuration'=>$info->configuration
+            'configuration'=>$info->configuration,
+            'sid'=>$info->sid
         ]);
 
 
@@ -239,6 +241,7 @@ class Countries extends Component
         ]);
 
         if($savex){
+            $del =  Country::find($cid)->delete();
             $this->dispatchBrowserEvent('CloseReturnCountryModal');
             $this->checkedCountry = [];
         }
