@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Livewire;
-
 use Livewire\Component;
 use App\Models\Cuscon;
 use App\Models\Dept;
@@ -9,14 +7,11 @@ use Livewire\WithPagination;
 use Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Invoice;
-
 class Cuscons extends Component
 {
-
     use WithPagination;
     protected $listeners = ['delete','deleteCheckedcuscons'];
     public $checkedcuscon = [];
-
     public $byDept =null;
     public $perPage =5;
     public $orderBy = "user_name";
@@ -34,9 +29,7 @@ class Cuscons extends Component
             ->paginate($this->perPage)
         ]);
     }
-
     public function OpenAddcusconModal(){
-
         $this->user_name = '';
         $this->desigation = '';
         $this->dept = '';
@@ -50,21 +43,18 @@ class Cuscons extends Component
         $this->p_issue_date = '';
         $this->configuration = '';
         $this->abc = '';
-
         $this->H_user = '';
         $this->H_designation = '';
         $this->H_dept = '';
         $this->H_unit = '';
         $this->dispatchBrowserEvent('OpenAddcusconModal');
     }
-
     public function save(){
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $next_id = uniqid('CustudyConstruction', true);
         Session::put('id', $next_id);
         Session::put('b_area', 'CustudyConstruction');
-
         $this->validate([
             "user_name"=>"required",
             "desigation"=>"required",
@@ -76,10 +66,7 @@ class Cuscons extends Component
         'dept.required'=>"The Department field is required.",
         'unit.required'=>"The Unit field is required."]
     );
-
-
         $save = Cuscon::insert([
-
           'user_name'=>$this->user_name,
           'desigation'=>$this->desigation,
           'dept'=>$this->dept,
@@ -94,9 +81,7 @@ class Cuscons extends Component
           'configuration'=>$this->configuration,
           'sid'=> $next_id,
       ]);
-
         Invoice::insert([
-
             'handedBy'=>$this->H_user,
             'h_desigation'=>$this->H_designation,
             'h_dept'=>$this->H_dept,
@@ -116,26 +101,21 @@ class Cuscons extends Component
         ]);
         
         if(!empty($this->dept))
-
         {
             $dept = Dept::where('dept_name',$this->dept)->first();
             
             if(!$dept)
             {  
                 $saave = Dept::insert([
-
                     'dept_name'=>$this->dept
                 ]);
-
             }
         }
-
         if($save){
             $this->dispatchBrowserEvent('CloseAddcusconModal');
             $this->checkedcuscon = [];
         }
     }
-
     public function OpenReturnCountryModal($id){
         $info = Cuscon::find($id);
         $this->upd_H_user = '';
@@ -147,15 +127,12 @@ class Cuscons extends Component
             'id'=>$id
         ]);
     }
-
     public function update(){
-
-       
+     
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $cid = $this->cid;
         $info = Cuscon::find($cid);
-
         if (empty($info->previous_user))
         {
             $previous_user = $info->user_name;
@@ -168,7 +145,6 @@ class Cuscons extends Component
         {
             $previous_user = $info->previous_user."  ||  ".$info->user_name;
         }
-
         if (empty($info->p_issue_date))
         {
             $p_i_date = $info->issue_date;
@@ -181,12 +157,9 @@ class Cuscons extends Component
         {
             $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
         }
-
         
         Session::put('id', $info->sid);
         Session::put('b_area', 'CustudyConstruction');
-
-
         $this->validate([
             "upd_H_user"=>"required",
             "upd_H_designation"=>"required",
@@ -198,10 +171,7 @@ class Cuscons extends Component
         'upd_H_dept.required'=>"The Department field is required.",
         'upd_H_unit.required'=>"The Unit field is required."]
     );
-
-
         $update = Cuscon::find($cid)->update([
-
             'user_name'=>Null,
             'desigation'=>Null,
             'dept'=>Null,
@@ -215,10 +185,7 @@ class Cuscons extends Component
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration
         ]);
-
-
         $savex = Invoice::where('sid',$info->sid)->update([
-
             'handedBy'=>$info->user_name,
             'h_desigation'=>$info->desigation,
             'h_dept'=> $info->dept,
@@ -235,14 +202,12 @@ class Cuscons extends Component
             'serial_no'=>$info->serial_no,
             'business_area'=>'CustudyConstruction',
         ]);
-
         if($savex){
             $this->dispatchBrowserEvent('CloseReturnCountryModal');
             $this->checkedcuscon = [];
         }
     }
     
-
     public function OpenReuseModal($id){
         $info = Cuscon::find($id);
         $this->r_user_name = '';
@@ -258,15 +223,12 @@ class Cuscons extends Component
             'id'=>$id
         ]);
     }
-
     public function reuseProd(){
-
-       
+     
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $rid = $this->rid;
         $info = Cuscon::find($rid);
-
         if (empty($info->previous_user))
         {
             $previous_user = $info->user_name;
@@ -279,7 +241,6 @@ class Cuscons extends Component
         {
             $previous_user = $info->previous_user."  ||  ".$info->user_name;
         }
-
         if (empty($info->p_issue_date))
         {
             $p_i_date = $info->issue_date;
@@ -292,12 +253,8 @@ class Cuscons extends Component
         {
             $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
         }
-
-
         Session::put('id', $info->sid);
         Session::put('b_area', 'CustudyConstruction');
-
-
         $this->validate([
             "r_H_user"=>"required",
             "r_H_designation"=>"required",
@@ -317,9 +274,7 @@ class Cuscons extends Component
         'r_dept.required'=>"The Department field is required.",
         'r_unit.required'=>"The Unit field is required."]
     );
-
         $update = Cuscon::find($rid)->update([
-
             'user_name'=>$this->r_user_name,
             'desigation'=>$this->r_desigation,
             'dept'=>$this->r_dept,
@@ -328,7 +283,6 @@ class Cuscons extends Component
             'issue_date'=>$time,
             'p_issue_date'=>$p_i_date,
         ]);
-
         $savex = Invoice::where('sid',$info->sid)->update([
           'handedBy'=>$this->r_H_user,
           'h_desigation'=>$this->r_H_designation,
@@ -342,7 +296,6 @@ class Cuscons extends Component
           'qty'=>'1',
           'business_area'=>'CustudyConstruction',
       ]);
-
         if(!empty($this->r_dept))
         {
             $deptT = Dept::where('dept_name',$this->r_dept)->first();
@@ -363,13 +316,11 @@ class Cuscons extends Component
                 ]);
             }
         }
-
         if($savex){
             $this->dispatchBrowserEvent('CloseReuseModal');
             $this->checkedcuscon = [];
         }
     }
-
     public function deleteConfirm($id){
         $info = Cuscon::find($id);
         $this->dispatchBrowserEvent('SwalConfirm',[
@@ -378,8 +329,6 @@ class Cuscons extends Component
             'id'=>$id
         ]);
     }
-
-
     public function delete($id){
         $del =  Cuscon::find($id)->delete();
         if($del){
@@ -387,7 +336,6 @@ class Cuscons extends Component
         }
         $this->checkedcuscon = [];
     }
-
     public function deletecuscons(){
         $this->dispatchBrowserEvent('swal:deletecuscons',[
             'title'=>'Are you sure?',
@@ -399,7 +347,6 @@ class Cuscons extends Component
         Cuscon::whereKey($ids)->delete();
         $this->checkedcuscon = [];
     }
-
     public function isChecked($cusconId){
         return in_array($cusconId, $this->checkedcuscon) ? 'bg-info text-white' : '';
     }

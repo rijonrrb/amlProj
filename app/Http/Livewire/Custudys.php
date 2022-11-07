@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Livewire;
-
 use Livewire\Component;
 use App\Models\Itcus;
 use App\Models\Country;
@@ -13,14 +11,11 @@ use Livewire\WithPagination;
 use Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Invoice;
-
 class Custudys extends Component
 {
-
     use WithPagination;
     protected $listeners = ['delete','deleteCheckedItcuss'];
     public $checkedItcus = [];
-
     public $byDept =null;
     public $perPage =5;
     public $orderBy = "user_name";
@@ -38,107 +33,56 @@ class Custudys extends Component
             ->paginate($this->perPage)
         ]);
     }
-
     public function OpenAddItcusModal(){
 
-        $this->user_name = '';
-        $this->desigation = '';
-        $this->dept = '';
-        $this->unit = '';
         $this->item = '';
         $this->laptop_name = '';
-        $this->asset_no = '';
         $this->serial_no = '';
-        $this->previous_user = '';
-        $this->issue_date = '';
-        $this->p_issue_date = '';
         $this->configuration = '';
-        $this->abc = '';
-
-        $this->H_user = '';
-        $this->H_designation = '';
-        $this->H_dept = '';
-        $this->H_unit = '';
+        $this->previous_user = '';
+        $this->p_issue_date = '';
         $this->dispatchBrowserEvent('OpenAddItcusModal');
     }
-
     public function save(){
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
+        $asst = substr($this->item, 0,3)."-".rand(100,1000)."-".rand(10000,1000000);
         $next_id = uniqid('CUSTUDY', true);
         Session::put('id', $next_id);
         Session::put('b_area', 'CUSTUDY');
-
         $this->validate([
-            "user_name"=>"required",
-            "desigation"=>"required",
-            'dept'=>"required",
-            "unit"=>"required"
+            "item"=>"required",
+            "laptop_name"=>"required",
+            'serial_no'=>"required",
+            "configuration"=>"required"
         ],
-        ['user_name.required'=>"The User Name field is required.",
-        'desigation.required'=>"The Designation field is required.",
-        'dept.required'=>"The Department field is required.",
-        'unit.required'=>"The Unit field is required."]
+        ['item.required'=>"Product Type field is required.",
+        'laptop_name.required'=>"Product Model field is required.",
+        'serial_no.required'=>"Product S/N field is required.",
+        'configuration.required'=>"Configuration / Accessories field is required."]
     );
-
         $save = Itcus::insert([
-
-          'user_name'=>$this->user_name,
-          'desigation'=>$this->desigation,
-          'dept'=>$this->dept,
-          'unit'=>$this->unit,
-          'item'=>$this->item,
-          'laptop_name'=>$this->laptop_name,
-          'asset_no'=>$this->asset_no,
-          'serial_no'=>$this->serial_no,
-          'previous_user'=>$this->previous_user,
-          'issue_date'=>$time,
-          'p_issue_date'=>$this->p_issue_date,
-          'configuration'=>$this->configuration,
-          'sid'=> $next_id,
-      ]);
-
-        Invoice::insert([
-
-            'handedBy'=>$this->H_user,
-            'h_desigation'=>$this->H_designation,
-            'h_dept'=>$this->H_dept,
-            'h_unit'=>$this->H_unit,
-            'sid'=> $next_id,
-            'takenBy'=>$this->user_name,
-            't_desigation'=>$this->desigation,
-            't_dept'=>$this->dept,
-            't_unit'=>$this->unit,
-            'remarks'=>'For Official use',
-            'qty'=>'1',
+            'user_name'=>Null,
+            'desigation'=>Null,
+            'dept'=>Null,
+            'unit'=>Null,
+            'item'=>$this->item,
             'laptop_name'=>$this->laptop_name,
-            'configuration'=>$this->configuration,
-            'asset_no'=>$this->asset_no,
+            'asset_no'=>$asst,
             'serial_no'=>$this->serial_no,
-            'business_area'=>'CUSTUDY',
-        ]);
-        
-        if(!empty($this->dept))
+            'previous_user'=>$this->previous_user,
+            'issue_date'=>$time,
+            'p_issue_date'=>$this->p_issue_date,
+            'configuration'=>$this->configuration,
+            'sid'=> $next_id,
 
-        {
-            $dept = Dept::where('dept_name',$this->dept)->first();
-            
-            if(!$dept)
-            {  
-                $saave = Dept::insert([
-
-                    'dept_name'=>$this->dept
-                ]);
-
-            }
-        }
+      ]);
 
         if($save){
             $this->dispatchBrowserEvent('CloseAddItcusModal');
             $this->checkedItcus = [];
         }
     }
-
     public function OpenReturnCountryModal($id){
         $info = Itcus::find($id);
         $this->upd_H_user = '';
@@ -150,15 +94,12 @@ class Custudys extends Component
             'id'=>$id
         ]);
     }
-
     public function update(){
-
-     
+       
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $cid = $this->cid;
         $info = Itcus::find($cid);
-
         if (empty($info->previous_user))
         {
             $previous_user = $info->user_name;
@@ -171,7 +112,6 @@ class Custudys extends Component
         {
             $previous_user = $info->previous_user."  ||  ".$info->user_name;
         }
-
         if (empty($info->p_issue_date))
         {
             $p_i_date = $info->issue_date;
@@ -184,11 +124,8 @@ class Custudys extends Component
         {
             $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
         }
-
         Session::put('id', $info->sid);
         Session::put('b_area', 'CUSTUDY');
-
-
         $this->validate([
             "upd_H_user"=>"required",
             "upd_H_designation"=>"required",
@@ -200,10 +137,7 @@ class Custudys extends Component
         'upd_H_dept.required'=>"The Department field is required.",
         'upd_H_unit.required'=>"The Unit field is required."]
     );
-
-
         $update = Itcus::find($cid)->update([
-
             'user_name'=>Null,
             'desigation'=>Null,
             'dept'=>Null,
@@ -217,10 +151,7 @@ class Custudys extends Component
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration
         ]);
-
-
         $savex = Invoice::where('sid',$info->sid)->update([
-
             'handedBy'=>$info->user_name,
             'h_desigation'=>$info->desigation,
             'h_dept'=> $info->dept,
@@ -237,13 +168,11 @@ class Custudys extends Component
             'serial_no'=>$info->serial_no,
             'business_area'=>'CUSTUDY',
         ]);
-
         if($savex){
             $this->dispatchBrowserEvent('CloseReturnCountryModal');
             $this->checkedItcus = [];
         }
     }
-
     public function OpenReuseModal($id){
         $info = Itcus::find($id);
         $this->r_user_name = '';
@@ -259,15 +188,12 @@ class Custudys extends Component
             'id'=>$id
         ]);
     }
-
     public function reuseProd(){
-
-     
+       
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $rid = $this->rid;
         $info = Itcus::find($rid);
-
         if (empty($info->previous_user))
         {
             $previous_user = $info->user_name;
@@ -280,7 +206,6 @@ class Custudys extends Component
         {
             $previous_user = $info->previous_user."  ||  ".$info->user_name;
         }
-
         if (empty($info->p_issue_date))
         {
             $p_i_date = $info->issue_date;
@@ -293,12 +218,8 @@ class Custudys extends Component
         {
             $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
         }
-
-
         Session::put('id', $info->sid);
         Session::put('b_area', 'CUSTUDY');
-
-
         $this->validate([
             "r_H_user"=>"required",
             "r_H_designation"=>"required",
@@ -318,77 +239,76 @@ class Custudys extends Component
         'r_dept.required'=>"The Department field is required.",
         'r_unit.required'=>"The Unit field is required."]
     );
-
-       if($this->r_unit == "Igloo" || $this->r_unit == "igloo")
-         {
+        if($this->r_unit == "Igloo" || $this->r_unit == "igloo")
+        {
             $update = Country::insert([
-            'user_name'=>$this->r_user_name,
-            'desigation'=>$this->r_desigation,
-            'dept'=>$this->r_dept,
-            'unit'=>$this->r_unit,
-            'item'=>$info->item,
-            'laptop_name'=>$info->laptop_name,
-            'asset_no'=>$info->asset_no,
-            'serial_no'=>$info->serial_no,
-            'previous_user'=>$previous_user,
-            'issue_date'=>$time,
-            'p_issue_date'=>$p_i_date,
-            'configuration'=>$info->configuration,
-            'sid'=> $info->sid,
+                'user_name'=>$this->r_user_name,
+                'desigation'=>$this->r_desigation,
+                'dept'=>$this->r_dept,
+                'unit'=>$this->r_unit,
+                'item'=>$info->item,
+                'laptop_name'=>$info->laptop_name,
+                'asset_no'=>$info->asset_no,
+                'serial_no'=>$info->serial_no,
+                'previous_user'=>$previous_user,
+                'issue_date'=>$time,
+                'p_issue_date'=>$p_i_date,
+                'configuration'=>$info->configuration,
+                'sid'=> $info->sid,
             ]);
         }
         elseif($this->r_unit == "Beverage" || $this->r_unit == "beverage")
         {
             $update = Beverage::insert([
-            'user_name'=>$this->r_user_name,
-            'desigation'=>$this->r_desigation,
-            'dept'=>$this->r_dept,
-            'unit'=>$this->r_unit,
-            'item'=>$info->item,
-            'laptop_name'=>$info->laptop_name,
-            'asset_no'=>$info->asset_no,
-            'serial_no'=>$info->serial_no,
-            'previous_user'=>$previous_user,
-            'issue_date'=>$time,
-            'p_issue_date'=>$p_i_date,
-            'configuration'=>$info->configuration,
-            'sid'=> $info->sid,
+                'user_name'=>$this->r_user_name,
+                'desigation'=>$this->r_desigation,
+                'dept'=>$this->r_dept,
+                'unit'=>$this->r_unit,
+                'item'=>$info->item,
+                'laptop_name'=>$info->laptop_name,
+                'asset_no'=>$info->asset_no,
+                'serial_no'=>$info->serial_no,
+                'previous_user'=>$previous_user,
+                'issue_date'=>$time,
+                'p_issue_date'=>$p_i_date,
+                'configuration'=>$info->configuration,
+                'sid'=> $info->sid,
             ]);
         }
         elseif($this->r_unit == "Sugar" || $this->r_unit == "sugar")
         {
             $update = Suger::insert([
-            'user_name'=>$this->r_user_name,
-            'desigation'=>$this->r_desigation,
-            'dept'=>$this->r_dept,
-            'unit'=>$this->r_unit,
-            'item'=>$info->item,
-            'laptop_name'=>$info->laptop_name,
-            'asset_no'=>$info->asset_no,
-            'serial_no'=>$info->serial_no,
-            'previous_user'=>$previous_user,
-            'issue_date'=>$time,
-            'p_issue_date'=>$p_i_date,
-            'configuration'=>$info->configuration,
-            'sid'=> $info->sid,
+                'user_name'=>$this->r_user_name,
+                'desigation'=>$this->r_desigation,
+                'dept'=>$this->r_dept,
+                'unit'=>$this->r_unit,
+                'item'=>$info->item,
+                'laptop_name'=>$info->laptop_name,
+                'asset_no'=>$info->asset_no,
+                'serial_no'=>$info->serial_no,
+                'previous_user'=>$previous_user,
+                'issue_date'=>$time,
+                'p_issue_date'=>$p_i_date,
+                'configuration'=>$info->configuration,
+                'sid'=> $info->sid,
             ]);
         }
         elseif($this->r_unit == "Construction" || $this->r_unit == "Construction")
         {
             $update = Construction::insert([
-            'user_name'=>$this->r_user_name,
-            'desigation'=>$this->r_desigation,
-            'dept'=>$this->r_dept,
-            'unit'=>$this->r_unit,
-            'item'=>$info->item,
-            'laptop_name'=>$info->laptop_name,
-            'asset_no'=>$info->asset_no,
-            'serial_no'=>$info->serial_no,
-            'previous_user'=>$previous_user,
-            'issue_date'=>$time,
-            'p_issue_date'=>$p_i_date,
-            'configuration'=>$info->configuration,
-            'sid'=> $info->sid,
+                'user_name'=>$this->r_user_name,
+                'desigation'=>$this->r_desigation,
+                'dept'=>$this->r_dept,
+                'unit'=>$this->r_unit,
+                'item'=>$info->item,
+                'laptop_name'=>$info->laptop_name,
+                'asset_no'=>$info->asset_no,
+                'serial_no'=>$info->serial_no,
+                'previous_user'=>$previous_user,
+                'issue_date'=>$time,
+                'p_issue_date'=>$p_i_date,
+                'configuration'=>$info->configuration,
+                'sid'=> $info->sid,
             ]);
         }
         $savex = Invoice::where('sid',$info->sid)->update([
@@ -404,7 +324,6 @@ class Custudys extends Component
           'qty'=>'1',
           'business_area'=>'CUSTUDY',
       ]);
-
         if(!empty($this->r_dept))
         {
             $deptT = Dept::where('dept_name',$this->r_dept)->first();
@@ -425,14 +344,12 @@ class Custudys extends Component
                 ]);
             }
         }
-
         if($savex){
             $del =  Itcus::find($rid)->delete();
             $this->dispatchBrowserEvent('CloseReuseModal');
             $this->checkedItcus = [];
         }
     }
-
     public function deleteConfirm($id){
         $info = Itcus::find($id);
         $this->dispatchBrowserEvent('SwalConfirm',[
@@ -441,8 +358,6 @@ class Custudys extends Component
             'id'=>$id
         ]);
     }
-
-
     public function delete($id){
         $del =  Itcus::find($id)->delete();
         if($del){
@@ -450,7 +365,6 @@ class Custudys extends Component
         }
         $this->checkedItcus = [];
     }
-
     public function deleteItcuss(){
         $this->dispatchBrowserEvent('swal:deleteItcuss',[
             'title'=>'Are you sure?',
@@ -462,9 +376,7 @@ class Custudys extends Component
         Itcus::whereKey($ids)->delete();
         $this->checkedItcus = [];
     }
-
     public function isChecked($ItcusId){
         return in_array($ItcusId, $this->checkedItcus) ? 'bg-info text-white' : '';
     }
-
 }

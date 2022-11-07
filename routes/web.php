@@ -1,11 +1,8 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\Update;
-
-
 Route::get('/',[MainController::class,'index'])->name('home');
 Route::get('/invoice',[InvoiceController::class,'invoice'])->name('invoice');
 Route::get('/Beverages',[MainController::class,'beverages'])->name('beverages');
@@ -29,6 +26,4 @@ Route::post('/update-It-custudy-construction',[Update::class,'updatecusCon'])->n
 Route::post('/update-It-custudy-Beverage',[Update::class,'updatecusBeve'])->name('updatecusBeve');
 Route::post('/update-It-custudy',[Update::class,'updateItcus'])->name('updateItcus');
 Route::get('/dept',[MainController::class,'dept'])->name('dept');
-Route::get('/nav', function () {
-    return view('navbar');
-})->name('nav');
+Route::get('/nav', function () {return view('navbar');})->name('nav');

@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Livewire;
-
 use Livewire\Component;
 use App\Models\Construction;
 use App\Models\Itcus;
@@ -10,13 +8,11 @@ use Livewire\WithPagination;
 use Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Invoice;
-
 class Constructions extends Component
 {
     use WithPagination;
     protected $listeners = ['delete','deleteCheckedConstructions'];
     public $checkedConstruction = [];
-
     public $byDept =null;
     public $perPage =5;
     public $orderBy = "user_name";
@@ -34,9 +30,7 @@ class Constructions extends Component
             ->paginate($this->perPage)
         ]);
     }
-
     public function OpenAddConstructionModal(){
-
         $this->user_name = '';
         $this->desigation = '';
         $this->dept = '';
@@ -50,21 +44,18 @@ class Constructions extends Component
         $this->p_issue_date = '';
         $this->configuration = '';
         $this->abc = '';
-
         $this->H_user = '';
         $this->H_designation = '';
         $this->H_dept = '';
         $this->H_unit = '';
         $this->dispatchBrowserEvent('OpenAddConstructionModal');
     }
-
     public function save(){
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $next_id = uniqid('Construction', true);
         Session::put('id', $next_id);
         Session::put('b_area', 'Construction');
-
         $this->validate([
             "user_name"=>"required",
             "desigation"=>"required",
@@ -76,10 +67,7 @@ class Constructions extends Component
         'dept.required'=>"The Department field is required.",
         'unit.required'=>"The Unit field is required."]
     );
-
-
         $save = Construction::insert([
-
           'user_name'=>$this->user_name,
           'desigation'=>$this->desigation,
           'dept'=>$this->dept,
@@ -94,9 +82,7 @@ class Constructions extends Component
           'configuration'=>$this->configuration,
           'sid'=> $next_id,
       ]);
-
         Invoice::insert([
-
             'handedBy'=>$this->H_user,
             'h_desigation'=>$this->H_designation,
             'h_dept'=>$this->H_dept,
@@ -114,7 +100,6 @@ class Constructions extends Component
             'serial_no'=>$this->serial_no,
             'business_area'=>'Construction',
         ]);
-
         
         if(!empty($this->dept))
         {
@@ -122,18 +107,15 @@ class Constructions extends Component
             if(!$dept)
             {  
                 $saave = Dept::insert([
-
                     'dept_name'=>$this->dept
                 ]);
             }
         }
-
         if($save){
             $this->dispatchBrowserEvent('CloseAddConstructionModal');
             $this->checkedConstruction = [];
         }
     }
-
     public function OpenReturnCountryModal($id){
         $info = Construction::find($id);
         $this->upd_H_user = '';
@@ -145,15 +127,12 @@ class Constructions extends Component
             'id'=>$id
         ]);
     }
-
     public function update(){
-
      
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $cid = $this->cid;
         $info = Construction::find($cid);
-
         if (empty($info->previous_user))
         {
             $previous_user = $info->user_name;
@@ -166,7 +145,6 @@ class Constructions extends Component
         {
             $previous_user = $info->previous_user."  ||  ".$info->user_name;
         }
-
         if (empty($info->p_issue_date))
         {
             $p_i_date = $info->issue_date;
@@ -179,11 +157,8 @@ class Constructions extends Component
         {
             $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
         }
-
         Session::put('id', $info->sid);
         Session::put('b_area', 'Construction');
-
-
         $this->validate([
             "upd_H_user"=>"required",
             "upd_H_designation"=>"required",
@@ -195,9 +170,7 @@ class Constructions extends Component
         'upd_H_dept.required'=>"The Department field is required.",
         'upd_H_unit.required'=>"The Unit field is required."]
     );
-
         $update = Itcus::insert([
-
             'user_name'=>Null,
             'desigation'=>Null,
             'dept'=>Null,
@@ -212,11 +185,7 @@ class Constructions extends Component
             'configuration'=>$info->configuration,
             'sid'=>$info->sid
         ]);
-
-
-
         $savex = Invoice::where('sid',$info->sid)->update([
-
             'handedBy'=>$info->user_name,
             'h_desigation'=>$info->desigation,
             'h_dept'=> $info->dept,
@@ -233,15 +202,12 @@ class Constructions extends Component
             'serial_no'=>$info->serial_no,
             'business_area'=>'Construction',
         ]);
-
         if($savex){
             $del =  Construction::find($cid)->delete();
             $this->dispatchBrowserEvent('CloseReturnCountryModal');
             $this->checkedConstruction = [];
         }
     }
-
-
     public function OpenReuseModal($id){
         $info = Construction::find($id);
         $this->r_user_name = '';
@@ -257,15 +223,12 @@ class Constructions extends Component
             'id'=>$id
         ]);
     }
-
     public function reuseProd(){
-
      
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $rid = $this->rid;
         $info = Construction::find($rid);
-
         if (empty($info->previous_user))
         {
             $previous_user = $info->user_name;
@@ -278,8 +241,6 @@ class Constructions extends Component
         {
             $previous_user = $info->previous_user."  ||  ".$info->user_name;
         }
-
-
         if (empty($info->p_issue_date))
         {
             $p_i_date = $info->issue_date;
@@ -292,12 +253,8 @@ class Constructions extends Component
         {
             $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
         }
-
-
         Session::put('id', $info->sid);
         Session::put('b_area', 'Construction');
-
-
         $this->validate([
             "r_H_user"=>"required",
             "r_H_designation"=>"required",
@@ -317,9 +274,7 @@ class Constructions extends Component
         'r_dept.required'=>"The Department field is required.",
         'r_unit.required'=>"The Unit field is required."]
     );
-
         $update = Construction::find($rid)->update([
-
             'user_name'=>$this->r_user_name,
             'desigation'=>$this->r_desigation,
             'dept'=>$this->r_dept,
@@ -330,7 +285,6 @@ class Constructions extends Component
             
             
         ]);
-
         $savex = Invoice::where('sid',$info->sid)->update([
           'handedBy'=>$this->r_H_user,
           'h_desigation'=>$this->r_H_designation,
@@ -344,8 +298,6 @@ class Constructions extends Component
           'qty'=>'1',
           'business_area'=>'Construction',
       ]);
-
-
         if(!empty($this->r_dept))
         {
             $deptT = Dept::where('dept_name',$this->r_dept)->first();
@@ -373,7 +325,6 @@ class Constructions extends Component
         }
     }
     
-
     public function deleteConfirm($id){
         $info = Construction::find($id);
         $this->dispatchBrowserEvent('SwalConfirm',[
@@ -382,8 +333,6 @@ class Constructions extends Component
             'id'=>$id
         ]);
     }
-
-
     public function delete($id){
         $del =  Construction::find($id)->delete();
         if($del){
@@ -391,7 +340,6 @@ class Constructions extends Component
         }
         $this->checkedConstruction = [];
     }
-
     public function deleteConstructions(){
         $this->dispatchBrowserEvent('swal:deleteConstructions',[
             'title'=>'Are you sure?',
@@ -403,9 +351,7 @@ class Constructions extends Component
         Construction::whereKey($ids)->delete();
         $this->checkedConstruction = [];
     }
-
     public function isChecked($ConstructionId){
         return in_array($ConstructionId, $this->checkedConstruction) ? 'bg-info text-white' : '';
     }
-
 }

@@ -1,8 +1,5 @@
 <?php
-
-
 namespace App\Http\Livewire;
-
 use Livewire\Component;
 use App\Models\Beverage;
 use App\Models\Itcus;
@@ -11,14 +8,11 @@ use Livewire\WithPagination;
 use Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Invoice;
-
 class Beverages extends Component
 {
-
     use WithPagination;
     protected $listeners = ['delete','deleteCheckedBeverages'];
     public $checkedBeverage = [];
-
     public $byDept =null;
     public $perPage =5;
     public $orderBy = "user_name";
@@ -36,7 +30,6 @@ class Beverages extends Component
             ->paginate($this->perPage)
         ]);
     }
-
     public function OpenAddBeverageModal(){
         $this->user_name = '';
         $this->desigation = '';
@@ -57,9 +50,7 @@ class Beverages extends Component
         $this->H_unit = '';
         $this->dispatchBrowserEvent('OpenAddBeverageModal');
     }
-
     public function save(){
-
         $this->validate([
             "user_name"=>"required",
             "desigation"=>"required",
@@ -70,16 +61,13 @@ class Beverages extends Component
         'desigation.required'=>"The Designation field is required.",
         'dept.required'=>"The Department field is required.",
         'unit.required'=>"The Unit field is required."]
-        );
-
+    );
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $next_id = uniqid('Beverage', true);
         Session::put('id', $next_id);
         Session::put('b_area', 'Beverage');
-
         $save = Beverage::insert([
-
           'user_name'=>$this->user_name,
           'desigation'=>$this->desigation,
           'dept'=>$this->dept,
@@ -94,9 +82,7 @@ class Beverages extends Component
           'configuration'=>$this->configuration,
           'sid'=> $next_id,
       ]);
-
         Invoice::insert([
-
             'handedBy'=>$this->H_user,
             'h_desigation'=>$this->H_designation,
             'h_dept'=>$this->H_dept,
@@ -118,23 +104,18 @@ class Beverages extends Component
         if(!empty($this->dept))
         {
             $dept = Dept::where('dept_name',$this->dept)->first();
-
             if(!$dept)
             {  
                 $saave = Dept::insert([
-
                     'dept_name'=>$this->dept
                 ]);
-
             }
         }
-
         if($save){
             $this->dispatchBrowserEvent('CloseAddBeverageModal');
             $this->checkedBeverage = [];
         }
     }
-
     public function OpenReturnCountryModal($id){
         $info = Beverage::find($id);
         $this->upd_H_user = '';
@@ -146,16 +127,13 @@ class Beverages extends Component
             'id'=>$id
         ]);
     }
-
     public function update(){
-
-     
+       
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $cid = $this->cid;
         $info = Beverage::find($cid);
-
- 
+        
         if (empty($info->previous_user))
         {
             $previous_user = $info->user_name;
@@ -168,7 +146,6 @@ class Beverages extends Component
         {
             $previous_user = $info->previous_user."  ||  ".$info->user_name;
         }
-
         if (empty($info->p_issue_date))
         {
             $p_i_date = $info->issue_date;
@@ -181,11 +158,8 @@ class Beverages extends Component
         {
             $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
         }
-
-
         Session::put('id', $info->sid);
         Session::put('b_area', 'Beverage');
-
         $this->validate([
             "upd_H_user"=>"required",
             "upd_H_designation"=>"required",
@@ -198,7 +172,6 @@ class Beverages extends Component
         'upd_H_unit.required'=>"The Unit field is required."]
     );
         $update = Itcus::insert([
-
             'user_name'=>Null,
             'desigation'=>Null,
             'dept'=>Null,
@@ -213,11 +186,7 @@ class Beverages extends Component
             'configuration'=>$info->configuration,
             'sid'=>$info->sid
         ]);
-
-
-
         $savex = Invoice::where('sid',$info->sid)->update([
-
             'handedBy'=>$info->user_name,
             'h_desigation'=>$info->desigation,
             'h_dept'=> $info->dept,
@@ -234,7 +203,6 @@ class Beverages extends Component
             'serial_no'=>$info->serial_no,
             'business_area'=>'Beverage',
         ]);
-
         if($savex){
             $del =  Beverage::find($cid)->delete();
             $this->dispatchBrowserEvent('CloseReturnCountryModal');
@@ -242,7 +210,6 @@ class Beverages extends Component
         }
     }
     
-
     public function OpenReuseModal($id){
         $info = Beverage::find($id);
         $this->r_user_name = '';
@@ -258,15 +225,12 @@ class Beverages extends Component
             'id'=>$id
         ]);
     }
-
     public function reuseProd(){
-
-     
+       
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $rid = $this->rid;
         $info = Beverage::find($rid);
-
         if (empty($info->previous_user))
         {
             $previous_user = $info->user_name;
@@ -279,7 +243,6 @@ class Beverages extends Component
         {
             $previous_user = $info->previous_user."  ||  ".$info->user_name;
         }
-
         if (empty($info->p_issue_date))
         {
             $p_i_date = $info->issue_date;
@@ -292,11 +255,8 @@ class Beverages extends Component
         {
             $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
         }
-
-
         Session::put('id', $info->sid);
         Session::put('b_area', 'Beverage');
-
         $this->validate([
             "r_H_user"=>"required",
             "r_H_designation"=>"required",
@@ -316,9 +276,7 @@ class Beverages extends Component
         'r_dept.required'=>"The Department field is required.",
         'r_unit.required'=>"The Unit field is required."]
     );
-
         $update = Beverage::find($rid)->update([
-
             'user_name'=>$this->r_user_name,
             'desigation'=>$this->r_desigation,
             'dept'=>$this->r_dept,
@@ -327,7 +285,6 @@ class Beverages extends Component
             'issue_date'=>$time,
             'p_issue_date'=>$p_i_date,
         ]);
-
         $savex = Invoice::where('sid',$info->sid)->update([
           'handedBy'=>$this->r_H_user,
           'h_desigation'=>$this->r_H_designation,
@@ -341,7 +298,6 @@ class Beverages extends Component
           'qty'=>'1',
           'business_area'=>'Beverage',
       ]);
-
         if(!empty($this->r_dept))
         {
             $deptT = Dept::where('dept_name',$this->r_dept)->first();
@@ -362,14 +318,11 @@ class Beverages extends Component
                 ]);
             }
         }
-
         if($savex){
             $this->dispatchBrowserEvent('CloseReuseModal');
             $this->checkedBeverage = [];
         }
     }
-
-
     public function deleteConfirm($id){
         $info = Beverage::find($id);
         $this->dispatchBrowserEvent('SwalConfirm',[
@@ -378,8 +331,6 @@ class Beverages extends Component
             'id'=>$id
         ]);
     }
-
-
     public function delete($id){
         $del =  Beverage::find($id)->delete();
         if($del){
@@ -387,7 +338,6 @@ class Beverages extends Component
         }
         $this->checkedBeverage = [];
     }
-
     public function deleteBeverages(){
         $this->dispatchBrowserEvent('swal:deleteBeverages',[
             'title'=>'Are you sure?',
@@ -399,7 +349,6 @@ class Beverages extends Component
         Beverage::whereKey($ids)->delete();
         $this->checkedBeverage = [];
     }
-
     public function isChecked($BeverageId){
         return in_array($BeverageId, $this->checkedBeverage) ? 'bg-info text-white' : '';
     }

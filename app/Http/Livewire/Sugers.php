@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Livewire;
-
 use Livewire\Component;
 use App\Models\Suger;
 use App\Models\Itcus;
@@ -10,13 +8,11 @@ use Livewire\WithPagination;
 use Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Invoice;
-
 class Sugers extends Component
 {
     use WithPagination;
     protected $listeners = ['delete','deleteCheckedSugers'];
     public $checkedSuger = [];
-
     public $byDept =null;
     public $perPage =5;
     public $orderBy = "user_name";
@@ -34,7 +30,6 @@ class Sugers extends Component
             ->paginate($this->perPage)
         ]);
     }
-
     public function OpenAddSugerModal(){
         $this->user_name = '';
         $this->desigation = '';
@@ -49,14 +44,12 @@ class Sugers extends Component
         $this->p_issue_date = '';
         $this->configuration = '';
         $this->abc = '';
-
         $this->H_user = '';
         $this->H_designation = '';
         $this->H_dept = '';
         $this->H_unit = '';
         $this->dispatchBrowserEvent('OpenAddSugerModal');
     }
-
     public function save(){
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
@@ -75,10 +68,7 @@ class Sugers extends Component
         'dept.required'=>"The Department field is required.",
         'unit.required'=>"The Unit field is required."]
     );
-
-
         $save = Suger::insert([
-
           'user_name'=>$this->user_name,
           'desigation'=>$this->desigation,
           'dept'=>$this->dept,
@@ -94,7 +84,6 @@ class Sugers extends Component
           'sid'=> $next_id,
       ]);
         Invoice::insert([
-
             'handedBy'=>$this->H_user,
             'h_desigation'=>$this->H_designation,
             'h_dept'=>$this->H_dept,
@@ -113,26 +102,21 @@ class Sugers extends Component
             'business_area'=>'Sugar',
         ]);
         if(!empty($this->dept))
-
         {
             $dept = Dept::where('dept_name',$this->dept)->first();
             
             if(!$dept)
             {  
                 $saave = Dept::insert([
-
                     'dept_name'=>$this->dept
                 ]);
-
             }
         }
-
         if($save){
             $this->dispatchBrowserEvent('CloseAddSugerModal');
             $this->checkedSuger = [];
         }
     }
-
     public function OpenReturnCountryModal($id){
         $info = Suger::find($id);
         $this->upd_H_user = '';
@@ -144,15 +128,12 @@ class Sugers extends Component
             'id'=>$id
         ]);
     }
-
     public function update(){
-
-     
+       
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $cid = $this->cid;
         $info = Suger::find($cid);
-
         if (empty($info->previous_user))
         {
             $previous_user = $info->user_name;
@@ -165,7 +146,6 @@ class Sugers extends Component
         {
             $previous_user = $info->previous_user."  ||  ".$info->user_name;
         }
-
         if (empty($info->p_issue_date))
         {
             $p_i_date = $info->issue_date;
@@ -178,11 +158,8 @@ class Sugers extends Component
         {
             $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
         }
-
-
         Session::put('id', $info->sid);
         Session::put('b_area', 'Sugar');
-
         $this->validate([
             "upd_H_user"=>"required",
             "upd_H_designation"=>"required",
@@ -194,11 +171,7 @@ class Sugers extends Component
         'upd_H_dept.required'=>"The Department field is required.",
         'upd_H_unit.required'=>"The Unit field is required."]
     );
-
-
-
         $update = Itcus::insert([
-
             'user_name'=>Null,
             'desigation'=>Null,
             'dept'=>Null,
@@ -213,10 +186,7 @@ class Sugers extends Component
             'configuration'=>$info->configuration,
             'sid'=>$info->sid
         ]);
-
-
         $savex = Invoice::where('sid',$info->sid)->update([
-
             'handedBy'=>$info->user_name,
             'h_desigation'=>$info->desigation,
             'h_dept'=> $info->dept,
@@ -233,14 +203,12 @@ class Sugers extends Component
             'serial_no'=>$info->serial_no,
             'business_area'=>'Sugar',
         ]);
-
         if($savex){
             $del =  Suger::find($cid)->delete();
             $this->dispatchBrowserEvent('CloseReturnCountryModal');
             $this->checkedSuger = [];
         }
     }
-
     public function OpenReuseModal($id){
         $info = Suger::find($id);
         $this->r_user_name = '';
@@ -256,15 +224,12 @@ class Sugers extends Component
             'id'=>$id
         ]);
     }
-
     public function reuseProd(){
-
-     
+       
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $rid = $this->rid;
         $info = Suger::find($rid);
-
         if (empty($info->previous_user))
         {
             $previous_user = $info->user_name;
@@ -277,7 +242,6 @@ class Sugers extends Component
         {
             $previous_user = $info->previous_user."  ||  ".$info->user_name;
         }
-
         if (empty($info->p_issue_date))
         {
             $p_i_date = $info->issue_date;
@@ -290,12 +254,8 @@ class Sugers extends Component
         {
             $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
         }
-
-
         Session::put('id', $info->sid);
         Session::put('b_area', 'Sugar');
-
-
         $this->validate([
             "r_H_user"=>"required",
             "r_H_designation"=>"required",
@@ -315,9 +275,7 @@ class Sugers extends Component
         'r_dept.required'=>"The Department field is required.",
         'r_unit.required'=>"The Unit field is required."]
     );
-
         $update = Suger::find($rid)->update([
-
             'user_name'=>$this->r_user_name,
             'desigation'=>$this->r_desigation,
             'dept'=>$this->r_dept,
@@ -326,7 +284,6 @@ class Sugers extends Component
             'issue_date'=>$time,
             'p_issue_date'=>$p_i_date,
         ]);
-
         $savex = Invoice::where('sid',$info->sid)->update([
           'handedBy'=>$this->r_H_user,
           'h_desigation'=>$this->r_H_designation,
@@ -340,7 +297,6 @@ class Sugers extends Component
           'qty'=>'1',
           'business_area'=>'Sugar',
       ]);
-
         if(!empty($this->r_dept))
         {
             $deptT = Dept::where('dept_name',$this->r_dept)->first();
@@ -361,13 +317,11 @@ class Sugers extends Component
                 ]);
             }
         }
-
         if($savex){
             $this->dispatchBrowserEvent('CloseReuseModal');
             $this->checkedSuger = [];
         }
     }
-
     public function deleteConfirm($id){
         $info = Suger::find($id);
         $this->dispatchBrowserEvent('SwalConfirm',[
@@ -376,8 +330,6 @@ class Sugers extends Component
             'id'=>$id
         ]);
     }
-
-
     public function delete($id){
         $del =  Suger::find($id)->delete();
         if($del){
@@ -385,7 +337,6 @@ class Sugers extends Component
         }
         $this->checkedSuger = [];
     }
-
     public function deleteSugers(){
         $this->dispatchBrowserEvent('swal:deleteSugers',[
             'title'=>'Are you sure?',
@@ -397,7 +348,6 @@ class Sugers extends Component
         Suger::whereKey($ids)->delete();
         $this->checkedSuger = [];
     }
-
     public function isChecked($SugerId){
         return in_array($SugerId, $this->checkedSuger) ? 'bg-info text-white' : '';
     }

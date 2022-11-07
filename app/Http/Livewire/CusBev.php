@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Livewire;
-
 use Livewire\Component;
 use App\Models\CusBeve;
 use App\Models\Dept;
@@ -9,13 +7,11 @@ use Livewire\WithPagination;
 use Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Invoice;
-
 class CusBev extends Component
 {
     use WithPagination;
     protected $listeners = ['delete','deleteCheckedCusBeves'];
     public $checkedCusBeve = [];
-
     public $byDept =null;
     public $perPage =5;
     public $orderBy = "user_name";
@@ -33,9 +29,7 @@ class CusBev extends Component
             ->paginate($this->perPage)
         ]);
     }
-
     public function OpenAddCusBeveModal(){
-
         $this->user_name = '';
         $this->desigation = '';
         $this->dept = '';
@@ -49,21 +43,18 @@ class CusBev extends Component
         $this->p_issue_date = '';
         $this->configuration = '';
         $this->abc = '';
-
         $this->H_user = '';
         $this->H_designation = '';
         $this->H_dept = '';
         $this->H_unit = '';
         $this->dispatchBrowserEvent('OpenAddCusBeveModal');
     }
-
     public function save(){
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $next_id = uniqid('CustudyBev', true);
         Session::put('id', $next_id);
         Session::put('b_area', 'CustudyBev');
-
         $this->validate([
             "user_name"=>"required",
             "desigation"=>"required",
@@ -75,10 +66,7 @@ class CusBev extends Component
         'dept.required'=>"The Department field is required.",
         'unit.required'=>"The Unit field is required."]
     );
-
-
         $save = CusBeve::insert([
-
           'user_name'=>$this->user_name,
           'desigation'=>$this->desigation,
           'dept'=>$this->dept,
@@ -93,9 +81,7 @@ class CusBev extends Component
           'configuration'=>$this->configuration,
           'sid'=> $next_id,
       ]);
-
         Invoice::insert([
-
             'handedBy'=>$this->H_user,
             'h_desigation'=>$this->H_designation,
             'h_dept'=>$this->H_dept,
@@ -113,22 +99,16 @@ class CusBev extends Component
             'serial_no'=>$this->serial_no,
             'business_area'=>'CustudyBev',
         ]);
-
         if(!empty($this->dept))
-
         {
             $dept = Dept::where('dept_name',$this->dept)->first();
-
             if(!$dept)
             {  
                 $saave = Dept::insert([
-
                     'dept_name'=>$this->dept
                 ]);
-
             }
         }
-
         if($save){
             $this->dispatchBrowserEvent('CloseAddCusBeveModal');
             $this->checkedCusBeve = [];
@@ -145,15 +125,11 @@ class CusBev extends Component
             'id'=>$id
         ]);
     }
-
     public function update(){
-
-
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $cid = $this->cid;
         $info = CusBeve::find($cid);
-
         if (empty($info->previous_user))
         {
             $previous_user = $info->user_name;
@@ -166,7 +142,6 @@ class CusBev extends Component
         {
             $previous_user = $info->previous_user."  ||  ".$info->user_name;
         }
-
         if (empty($info->p_issue_date))
         {
             $p_i_date = $info->issue_date;
@@ -179,12 +154,8 @@ class CusBev extends Component
         {
             $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
         }
-
         Session::put('id', $info->sid);
         Session::put('b_area', 'CustudyBev');
-
-
-
         $this->validate([
             "upd_H_user"=>"required",
             "upd_H_designation"=>"required",
@@ -195,10 +166,8 @@ class CusBev extends Component
         'upd_H_designation.required'=>"The Designation field is required.",
         'upd_H_dept.required'=>"The Department field is required.",
         'upd_H_unit.required'=>"The Unit field is required."]
-       );
-
+    );
         $update = CusBeve::find($cid)->update([
-
             'user_name'=>Null,
             'desigation'=>Null,
             'dept'=>Null,
@@ -212,10 +181,7 @@ class CusBev extends Component
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration
         ]);
-
-
         $savex = Invoice::where('sid',$info->sid)->update([
-
             'handedBy'=>$info->user_name,
             'h_desigation'=>$info->desigation,
             'h_dept'=> $info->dept,
@@ -232,7 +198,6 @@ class CusBev extends Component
             'serial_no'=>$info->serial_no,
             'business_area'=>'CustudyBev',
         ]);
-
         if($savex){
             $this->dispatchBrowserEvent('CloseReturnCountryModal');
             $this->checkedCusBeve = [];
@@ -253,15 +218,11 @@ class CusBev extends Component
             'id'=>$id
         ]);
     }
-
     public function reuseProd(){
-
-
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $rid = $this->rid;
         $info = CusBeve::find($rid);
-
         if (empty($info->previous_user))
         {
             $previous_user = $info->user_name;
@@ -274,7 +235,6 @@ class CusBev extends Component
         {
             $previous_user = $info->previous_user."  ||  ".$info->user_name;
         }
-
         if (empty($info->p_issue_date))
         {
             $p_i_date = $info->issue_date;
@@ -287,12 +247,8 @@ class CusBev extends Component
         {
             $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
         }
-
-
         Session::put('id', $info->sid);
         Session::put('b_area', 'CustudyBev');
-
-
         $this->validate([
             "r_H_user"=>"required",
             "r_H_designation"=>"required",
@@ -312,9 +268,7 @@ class CusBev extends Component
         'r_dept.required'=>"The Department field is required.",
         'r_unit.required'=>"The Unit field is required."]
     );
-
         $update = CusBeve::find($rid)->update([
-
             'user_name'=>$this->r_user_name,
             'desigation'=>$this->r_desigation,
             'dept'=>$this->r_dept,
@@ -323,7 +277,6 @@ class CusBev extends Component
             'issue_date'=>$time,
             'p_issue_date'=>$p_i_date,
         ]);
-
         $savex = Invoice::where('sid',$info->sid)->update([
           'handedBy'=>$this->r_H_user,
           'h_desigation'=>$this->r_H_designation,
@@ -337,7 +290,6 @@ class CusBev extends Component
           'qty'=>'1',
           'business_area'=>'CustudyBev',
       ]);
-
         if(!empty($this->r_dept))
         {
             $deptT = Dept::where('dept_name',$this->r_dept)->first();
@@ -358,14 +310,12 @@ class CusBev extends Component
                 ]);
             }
         }
-
         if($savex){
             $this->dispatchBrowserEvent('CloseReuseModal');
             $this->checkedCusBeve = [];
         }
     }
     
-
     public function deleteConfirm($id){
         $info = CusBeve::find($id);
         $this->dispatchBrowserEvent('SwalConfirm',[
@@ -374,8 +324,6 @@ class CusBev extends Component
             'id'=>$id
         ]);
     }
-
-
     public function delete($id){
         $del =  CusBeve::find($id)->delete();
         if($del){
@@ -383,7 +331,6 @@ class CusBev extends Component
         }
         $this->checkedCusBeve = [];
     }
-
     public function deleteCusBeves(){
         $this->dispatchBrowserEvent('swal:deleteCusBeves',[
             'title'=>'Are you sure?',
@@ -395,7 +342,6 @@ class CusBev extends Component
         CusBeve::whereKey($ids)->delete();
         $this->checkedCusBeve = [];
     }
-
     public function isChecked($CusBeveId){
         return in_array($CusBeveId, $this->checkedCusBeve) ? 'bg-info text-white' : '';
     }

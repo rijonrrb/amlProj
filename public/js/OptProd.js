@@ -1,35 +1,4 @@
 //Add product
-document.getElementById("cdept").onclick = function() {
-document.getElementById("idept").style.display = "none";
-document.getElementById("sdept").disabled = false;
-document.getElementById("idept").disabled = true;
-document.getElementById("sdept").style.display = "block";
-document.getElementById("cdept").style.display = "none";
-}
-
-document.getElementById("cdes").onclick = function() {
-document.getElementById("ides").style.display = "none";
-document.getElementById("sdes").disabled = false;
-document.getElementById("ides").disabled = true;
-document.getElementById("sdes").style.display = "block";
-document.getElementById("cdes").style.display = "none";
-}
-  
-document.getElementById("H_cdept").onclick = function() {
-document.getElementById("H_idept").style.display = "none";
-document.getElementById("H_sdept").disabled = false;
-document.getElementById("H_idept").disabled = true;
-document.getElementById("H_sdept").style.display = "block";
-document.getElementById("H_cdept").style.display = "none";
-}
-
-document.getElementById("H_cdes").onclick = function() {
-document.getElementById("H_ides").style.display = "none";
-document.getElementById("H_sdes").disabled = false;
-document.getElementById("H_ides").disabled = true;
-document.getElementById("H_sdes").style.display = "block";
-document.getElementById("H_cdes").style.display = "none";
-}
 
 
 //Re-Issue Product
