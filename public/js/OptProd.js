@@ -1,6 +1,11 @@
 //Add product
-
-
+document.getElementById("cProd").onclick = function() {
+document.getElementById("iProd").style.display = "none";
+document.getElementById("sProd").disabled = false;
+document.getElementById("iProd").disabled = true;
+document.getElementById("sProd").style.display = "block";
+document.getElementById("cProd").style.display = "none";
+}
 //Re-Issue Product
 document.getElementById("r_cdept").onclick = function() {
 document.getElementById("r_idept").style.display = "none";

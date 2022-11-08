@@ -260,17 +260,14 @@
         <ul class="navbar-nav ml-auto">
          <li><a href="{{route('Igloo_CHO')}}" class="nav-item nav-link" style="font-size: 80%;">Igloo Ice Cream Unit</a></li>
          <li><a href="#" class="nav-item nav-link" style="font-size: 80%;">Igloo Dairy Unit</a></li>
-         <li><a href="#" class="nav-item nav-link" style="font-size: 80%;">Igloo Foods Unit</a></li>
+         <li><a href="{{route('foods')}}" class="nav-item nav-link" style="font-size: 80%;">Igloo Foods Unit</a></li>
          <li><a href="{{route('constructions')}}" class="nav-item nav-link" style="font-size: 80%;">AML Construction Unit</a></li>
          <li><a href="#" class="nav-item nav-link" style="font-size: 80%;">AML Dredging Unit</a></li>
          <li><a href="{{route('sugers')}}" class="nav-item nav-link" style="font-size: 80%;">AML Sugar Refinery Unit</a></li>
          <li><a href="{{route('beverages')}}" class="nav-item nav-link" style="font-size: 80%;">AML Beverage Unit</a></li>
          <li><a href="#" class="nav-item nav-link" style="font-size: 80%;">AML Bran Oil Unit</a></li>
-         <!-- <li><a href="{{route('hmp')}}" class="nav-item nav-link" style="font-size: 80%;">HR & Admin,Procurement, MIS</a></li> -->
          <li><a href="{{route('Itcus')}}" class="nav-item nav-link" style="font-size: 80%;">IT Store</a></li>
-          <!-- <li><a href="{{route('cusIgloo')}}" class="nav-item nav-link" style="font-size: 80%;">IT Custudy Igloo</a></li>
-          <li><a href="{{route('CusCon')}}" class="nav-item nav-link" style="font-size: 80%;">IT Custudy Construction</a></li>
-          <li><a href="{{route('cusBev')}}" class="nav-item nav-link" style="font-size: 80%;">IT Custudy Bev,Amsrl,Bocl</a></li> -->
+
         </ul>
       </div>
     </div>

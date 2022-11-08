@@ -125,7 +125,7 @@
                 </div>
                 <span class="text-danger"> @error('r_H_dept') {{ $message }}@enderror</span>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                <label for="">Unit</label>
                <select  wire:model.debounce.500000ms="r_H_unit" class="form-control" >
                                 <option value="" disabled selected hidden>Select Unit</option>
@@ -139,7 +139,7 @@
                                 <option value="AML Bran Oil Unit">AML Bran Oil Unit</option>
                         </select>
                <span class="text-danger"> @error('r_H_unit') {{ $message }}@enderror</span>
-           </div>
+           </div> -->
        </div>
        <div class="form-group">
            <button type="button" id="r_close" data-dismiss="modal">Close</button>

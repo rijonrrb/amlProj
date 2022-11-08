@@ -13,8 +13,11 @@ class MainController extends Controller
     }
     function beverages(){
       return view('beverages');
-   }
-   function constructions(){
+    }
+    function foods(){
+      return view('foods');
+    }
+    function constructions(){
       return view('constructions');
     }
     function sugers(){

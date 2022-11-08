@@ -1,10 +1,10 @@
-    <div class="card">
-        <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>AML Sugar Refinery Unit</b></h4>
+<div class="card">
+        <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>Igloo Foods Unit</b></h4>
         <div class="row mb-3 p-2 d-flex justify-content-between">
-            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddSugerModal()">Add New Dataset</button>
+            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddFoodModal()">Add New Dataset</button>
             <div>
-                @if ($checkedSuger)
-                <button class="btn btn-danger btn-md mr-4" wire:click="deleteSugers()"> Delete items ({{ count($checkedSuger) }})</button>
+                @if ($checkedFood)
+                <button class="btn btn-danger btn-md mr-4" wire:click="deleteFoods()"> Delete items ({{ count($checkedFood) }})</button>
                 @endif
             </div>
         </div>
@@ -59,7 +59,7 @@
             </div>
         </div>
         <div style="overflow-x:auto;" class="card-body">
-            <table class="table table-hover table-bordered" id="Sugar">
+            <table class="table table-hover table-bordered" id="foods">
                 <thead class="thead-inverse">
                     <tr>
                         <th></th>
@@ -85,47 +85,47 @@
                     @php        
                     $i = 1;
                     @endphp
-                    @forelse ($Sugers as $Suger)
-                    <tr class="{{ $this->isChecked($Suger->id) }}">
-                        <td><input type="checkbox" value="{{ $Suger->id }}" wire:model="checkedSuger"></td>
-                        <td>{{$i++}}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="user_name" >{{ $Suger->user_name }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="desigation" >{{ $Suger->desigation }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="dept" >{{ $Suger->dept }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="unit" >{{ $Suger->unit }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="item" >{{ $Suger->item }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="laptop_name" >{{ $Suger->laptop_name }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="asset_no" >{{ $Suger->asset_no }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="serial_no" >{{ $Suger->serial_no }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="previous_user" >{{ $Suger->previous_user }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="issue_date" >{{ $Suger->issue_date }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="p_issue_date" >{{ $Suger->p_issue_date }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="configuration" >{{ $Suger->configuration }}</td>
+                    @forelse ($Foods as $Food)
+                    <tr class="{{ $this->isChecked($Food->id) }}">
+                        <td><input type="checkbox" value="{{ $Food->id }}" wire:model="checkedFood"></td>
+                        <td>{{ $i++ }}</td>
+                        <td  data-id="{{ $Food->id }}" data-column="user_name" >{{ $Food->user_name }}</td>
+                        <td  data-id="{{ $Food->id }}" data-column="desigation" >{{ $Food->desigation }}</td>
+                        <td  data-id="{{ $Food->id }}" data-column="dept" >{{ $Food->dept }}</td>
+                        <td  data-id="{{ $Food->id }}" data-column="unit" >{{ $Food->unit }}</td>
+                        <td  data-id="{{ $Food->id }}" data-column="item" >{{ $Food->item }}</td>
+                        <td  data-id="{{ $Food->id }}" data-column="laptop_name" >{{ $Food->laptop_name }}</td>
+                        <td  data-id="{{ $Food->id }}" data-column="asset_no" >{{ $Food->asset_no }}</td>
+                        <td  data-id="{{ $Food->id }}" data-column="serial_no" >{{ $Food->serial_no }}</td>
+                        <td  data-id="{{ $Food->id }}" data-column="previous_user" >{{ $Food->previous_user }}</td>
+                        <td  data-id="{{ $Food->id }}" data-column="issue_date" >{{ $Food->issue_date }}</td>
+                        <td  data-id="{{ $Food->id }}" data-column="p_issue_date" >{{ $Food->p_issue_date }}</td>
+                        <td  data-id="{{ $Food->id }}" data-column="configuration" >{{ $Food->configuration }}</td>
                         <td>
                             <div class="btn-group container">
-                                <a href="#" wire:click="deleteConfirm({{$Suger->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Food->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
                             </div>
                         </td>
                         <td>
                             <div class="btn-group container">
-                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenReturnCountryModal({{$Suger->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Item"></img></a>
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenReturnCountryModal({{$Food->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Item"></img></a>
                             </div>
                         </td>
     <!-- <td>
     <div class="btn-group container">
-    &nbsp;<a href="#" wire:click="OpenReuseModal({{$Suger->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Reuse Item"></img></a>
+    &nbsp;<a href="#" wire:click="OpenReuseModal({{$Food->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Reuse Item"></img></a>
     </div>
 </td> -->
 </tr>
 @empty
 <code>No DataSet found!</code>
-@endforelse              
+@endforelse
 </tbody>
 </table>
 </div>
 <div class="d-flex justify-content-between bg-dark card-footer">
-    @if (count($Sugers))
-    {{ $Sugers->links('livewire-pagination-links') }}
+    @if (count($Foods))
+    {{ $Foods->links('livewire-pagination-links') }}
     @endif
     <button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
 </div>

@@ -4,6 +4,7 @@ use Livewire\Component;
 use App\Models\Itcus;
 use App\Models\Country;
 use App\Models\Construction;
+use App\Models\Food;
 use App\Models\Beverage;
 use App\Models\Suger;
 use App\Models\Dept;
@@ -17,7 +18,7 @@ class Custudys extends Component
     protected $listeners = ['delete','deleteCheckedItcuss'];
     public $checkedItcus = [];
     public $byDept =null;
-    public $perPage =5;
+    public $perPage =20;
     public $orderBy = "user_name";
     public $sortBy = "asc";
     public $search;
@@ -194,7 +195,11 @@ class Custudys extends Component
         $time =  date('d F Y h:i:s A');
         $rid = $this->rid;
         $info = Itcus::find($rid);
-        if (empty($info->previous_user))
+        if (empty($info->previous_user) && empty($info->user_name))
+        {
+            $previous_user = '';
+        }
+        elseif (empty($info->previous_user) && !empty($info->user_name))
         {
             $previous_user = $info->user_name;
         }
@@ -206,7 +211,12 @@ class Custudys extends Component
         {
             $previous_user = $info->previous_user."  ||  ".$info->user_name;
         }
-        if (empty($info->p_issue_date))
+
+        if (empty($info->p_issue_date) && empty($info->user_name))
+        {
+            $p_i_date = '';
+        }
+        elseif (empty($info->p_issue_date) && !empty($info->user_name))
         {
             $p_i_date = $info->issue_date;
         }
@@ -239,7 +249,7 @@ class Custudys extends Component
         'r_dept.required'=>"The Department field is required.",
         'r_unit.required'=>"The Unit field is required."]
     );
-        if($this->r_unit == "Igloo" || $this->r_unit == "igloo")
+        if($this->r_unit == "Igloo Ice Cream Unit")
         {
             $update = Country::insert([
                 'user_name'=>$this->r_user_name,
@@ -257,7 +267,7 @@ class Custudys extends Component
                 'sid'=> $info->sid,
             ]);
         }
-        elseif($this->r_unit == "Beverage" || $this->r_unit == "beverage")
+        elseif($this->r_unit == "AML Beverage Unit")
         {
             $update = Beverage::insert([
                 'user_name'=>$this->r_user_name,
@@ -275,7 +285,7 @@ class Custudys extends Component
                 'sid'=> $info->sid,
             ]);
         }
-        elseif($this->r_unit == "Sugar" || $this->r_unit == "sugar")
+        elseif($this->r_unit == "AML Sugar Refinery Unit")
         {
             $update = Suger::insert([
                 'user_name'=>$this->r_user_name,
@@ -293,7 +303,7 @@ class Custudys extends Component
                 'sid'=> $info->sid,
             ]);
         }
-        elseif($this->r_unit == "Construction" || $this->r_unit == "Construction")
+        elseif($this->r_unit == "AML Construction Unit")
         {
             $update = Construction::insert([
                 'user_name'=>$this->r_user_name,
@@ -311,19 +321,62 @@ class Custudys extends Component
                 'sid'=> $info->sid,
             ]);
         }
-        $savex = Invoice::where('sid',$info->sid)->update([
-          'handedBy'=>$this->r_H_user,
-          'h_desigation'=>$this->r_H_designation,
-          'h_dept'=>$this->r_H_dept,
-          'h_unit'=>$this->r_H_unit,
-          'takenBy'=>$this->r_user_name,
-          't_desigation'=>$this->r_desigation,
-          't_dept'=>$this->r_dept,
-          't_unit'=>$this->r_unit,
-          'remarks'=>'For Official use',
-          'qty'=>'1',
-          'business_area'=>'CUSTUDY',
-      ]);
+        elseif($this->r_unit == "Igloo Foods Unit")
+        {
+            $update = Food::insert([
+                'user_name'=>$this->r_user_name,
+                'desigation'=>$this->r_desigation,
+                'dept'=>$this->r_dept,
+                'unit'=>$this->r_unit,
+                'item'=>$info->item,
+                'laptop_name'=>$info->laptop_name,
+                'asset_no'=>$info->asset_no,
+                'serial_no'=>$info->serial_no,
+                'previous_user'=>$previous_user,
+                'issue_date'=>$time,
+                'p_issue_date'=>$p_i_date,
+                'configuration'=>$info->configuration,
+                'sid'=> $info->sid,
+            ]);
+        }
+        if(empty($info->previous_user) && empty($info->user_name))
+        {
+            $savex = Invoice::insert([
+                'handedBy'=>$this->r_H_user,
+                'h_desigation'=>$this->r_H_designation,
+                'h_dept'=>$this->r_H_dept,
+                'h_unit'=>"IT Unit",
+                'takenBy'=>$this->r_user_name,
+                't_desigation'=>$this->r_desigation,
+                't_dept'=>$this->r_dept,
+                't_unit'=>$this->r_unit,
+                'remarks'=>'For Official use',
+                'qty'=>'1',
+                'laptop_name'=>$info->laptop_name,
+                'configuration'=>$info->configuration,
+                'asset_no'=>$info->asset_no,
+                'serial_no'=>$info->serial_no,
+                'business_area'=>'CUSTUDY',
+                'sid'=>$info->sid,
+            ]);
+        }
+        else
+        {
+            $savex = Invoice::where('sid',$info->sid)->update([
+                'handedBy'=>$this->r_H_user,
+                'h_desigation'=>$this->r_H_designation,
+                'h_dept'=>$this->r_H_dept,
+                'h_unit'=>"IT Unit",
+                'takenBy'=>$this->r_user_name,
+                't_desigation'=>$this->r_desigation,
+                't_dept'=>$this->r_dept,
+                't_unit'=>$this->r_unit,
+                'remarks'=>'For Official use',
+                'qty'=>'1',
+                'business_area'=>'CUSTUDY',
+            ]);
+        }
+
         if(!empty($this->r_dept))
         {
             $deptT = Dept::where('dept_name',$this->r_dept)->first();

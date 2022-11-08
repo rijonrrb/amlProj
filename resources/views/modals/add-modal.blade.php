@@ -72,11 +72,27 @@
                    </div>
                    <div class="form-group">
                        <label for="">Product Type</label>
-                       <input type="text" class="form-control" placeholder="Item" wire:model="item" >
+                       <div class="container row">
+                            <input type="text" class="form-control col-8 mr-3" placeholder="Product Type" wire:model="item" style="display: block;" id="iProd">
+                            <select wire:model ="item" class="form-control col-9 mr-3"  style="display: none;" id="sProd">
+                                <option value="" disabled selected hidden>Select Product</option>
+                                <option value="Laptop">Laptop</option>
+                                <option value="Desktop">Desktop</option>
+                                <option value="Printer">Printer</option>
+                                <option value="Scanner">Scanner</option>
+                                <option value="Projector">Projector</option>
+                                <option value="Mouse">Mouse</option>
+                                <option value="Keyboard">Keyboard</option>
+                                <option value="RAM">RAM</option>
+                                <option value="SSD">SSD</option> 
+                                <option value="HDD">HDD</option> 
+                            </select>
+                            <button type="button" class="btn btn-primary btn-sm col-3" id="cProd" style="display: block;">Options</button>
+                        </div>    
                    </div>
                    <div class="form-group">
                        <label for="">Product Model</label>
-                       <input type="text" class="form-control" placeholder="Item Name" wire:model="laptop_name" >
+                       <input type="text" class="form-control" placeholder="Product Model" wire:model="laptop_name" >
                    </div>
                      <!-- <div class="form-group">
                          <label for="">Asset No</label>
@@ -141,7 +157,7 @@
                     <button type="button" class="btn btn-primary btn-sm col-3" id="H_cdept" style="display: block;">Options</button>
                 </div>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                <label for="">Unit</label>
                <select wire:model.debounce.500000ms="H_unit" class="form-control" >
                                 <option value="" disabled selected hidden>Select Unit</option>
@@ -154,7 +170,7 @@
                                 <option value="AML Beverage Unit">AML Beverage Unit</option>
                                 <option value="AML Bran Oil Unit">AML Bran Oil Unit</option>
                 </select>
-           </div>
+           </div> -->
        </div>
        <div class="form-group">
            <button type="button" id="close" data-dismiss="modal">Close</button>

@@ -14,7 +14,15 @@ document.getElementById("ides").disabled = true;
 document.getElementById("sdes").style.display = "block";
 document.getElementById("cdes").style.display = "none";
 }
-  
+
+document.getElementById("cProd").onclick = function() {
+document.getElementById("iProd").style.display = "none";
+document.getElementById("sProd").disabled = false;
+document.getElementById("iProd").disabled = true;
+document.getElementById("sProd").style.display = "block";
+document.getElementById("cProd").style.display = "none";
+}
+
 document.getElementById("H_cdept").onclick = function() {
 document.getElementById("H_idept").style.display = "none";
 document.getElementById("H_sdept").disabled = false;
