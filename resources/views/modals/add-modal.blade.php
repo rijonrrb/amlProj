@@ -55,7 +55,7 @@
                         </div>                          
                        <span class="text-danger"> @error('desigation') {{ $message }}@enderror</span>
                    </div>
-                   <div class="form-group">
+                   <!-- <div class="form-group">
                        <label for="">Unit</label>
                        <select wire:model="unit" class="form-control" >
                                 <option value="" disabled selected hidden>Select Unit</option>
@@ -69,7 +69,7 @@
                                 <option value="AML Bran Oil Unit">AML Bran Oil Unit</option>
                         </select>
                        <span class="text-danger"> @error('unit') {{ $message }}@enderror</span>
-                   </div>
+                   </div> -->
                    <div class="form-group">
                        <label for="">Product Type</label>
                        <div class="container row">
