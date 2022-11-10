@@ -89,19 +89,19 @@
             <tr class="{{ $this->isChecked($Itcus->id) }}">
                 <td><input type="checkbox" value="{{ $Itcus->id }}" wire:model="checkedItcus"></td>
                 <td>{{$i++}}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="user_name" title="Click to edit">{{ $Itcus->user_name }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="desigation" title="Click to edit">{{ $Itcus->desigation }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="dept" title="Click to edit">{{ $Itcus->dept }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="wstation" title="Click to edit">{{ $Itcus->wstation }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="unit" title="Click to edit">{{ $Itcus->unit }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="item" title="Click to edit">{{ $Itcus->item }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="laptop_name" title="Click to edit">{{ $Itcus->laptop_name }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="asset_no" title="Click to edit">{{ $Itcus->asset_no }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="serial_no" title="Click to edit">{{ $Itcus->serial_no }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="previous_user" title="Click to edit">{{ $Itcus->previous_user }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="issue_date" title="Click to edit">{{ $Itcus->issue_date }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="p_issue_date" title="Click to edit">{{ $Itcus->p_issue_date }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="configuration" title="Click to edit">{{ $Itcus->configuration }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="user_name" >{{ $Itcus->user_name }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="desigation" >{{ $Itcus->desigation }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="dept" >{{ $Itcus->dept }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="wstation" >{{ $Itcus->wstation }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="unit" >{{ $Itcus->unit }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="item" >{{ $Itcus->item }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="laptop_name" >{{ $Itcus->laptop_name }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="asset_no" >{{ $Itcus->asset_no }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="serial_no" >{{ $Itcus->serial_no }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="previous_user" >{{ $Itcus->previous_user }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="issue_date" >{{ $Itcus->issue_date }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="p_issue_date" >{{ $Itcus->p_issue_date }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="configuration" >{{ $Itcus->configuration }}</td>
                 <td>
                     <div class="btn-group container">
                         &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
