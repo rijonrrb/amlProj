@@ -29,6 +29,15 @@ class MainController extends Controller
     function cusIgloo(){
       return view('cus-igloos');
     }
+    function branOils(){
+      return view('bran-oils');
+    }
+    function dairys(){
+      return view('dairys');
+    }
+    function dredgings(){
+      return view('dredgings');
+    }
     function cusCon(){
       return view('cuscons');
     }

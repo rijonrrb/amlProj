@@ -55,6 +55,17 @@
                         </div>                          
                        <span class="text-danger"> @error('desigation') {{ $message }}@enderror</span>
                    </div>
+                    <div class="form-group">
+                       <label for="">Work-Station</label>
+                       <select wire:model="wstation" class="form-control" >
+                                <option value="" disabled selected hidden>Select Work-Station</option>
+                                <option value="CHO">CHO</option>
+                                <option value="Depo">Depo</option>
+                                <option value="Factory">Factory</option>
+                                <option value="Project">Project</option>
+                        </select>
+                       <span class="text-danger"> @error('wstation') {{ $message }}@enderror</span>
+                   </div>
                    <!-- <div class="form-group">
                        <label for="">Unit</label>
                        <select wire:model="unit" class="form-control" >

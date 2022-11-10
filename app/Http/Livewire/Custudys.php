@@ -6,6 +6,9 @@ use App\Models\Country;
 use App\Models\Construction;
 use App\Models\Food;
 use App\Models\Beverage;
+use App\Models\Branoil;
+use App\Models\Dairy;
+use App\Models\Dredging;
 use App\Models\Suger;
 use App\Models\Dept;
 use Livewire\WithPagination;
@@ -249,6 +252,8 @@ class Custudys extends Component
         'r_dept.required'=>"The Department field is required.",
         'r_unit.required'=>"The Unit field is required."]
     );
+
+    //Data Inserted Igloo Ice Cream Unit
         if($this->r_unit == "Igloo Ice Cream Unit")
         {
             $update = Country::insert([
@@ -267,6 +272,7 @@ class Custudys extends Component
                 'sid'=> $info->sid,
             ]);
         }
+    //Data Inserted AML Beverage Unit
         elseif($this->r_unit == "AML Beverage Unit")
         {
             $update = Beverage::insert([
@@ -285,6 +291,7 @@ class Custudys extends Component
                 'sid'=> $info->sid,
             ]);
         }
+    //Data Inserted AML Sugar Refinery Unit
         elseif($this->r_unit == "AML Sugar Refinery Unit")
         {
             $update = Suger::insert([
@@ -303,6 +310,7 @@ class Custudys extends Component
                 'sid'=> $info->sid,
             ]);
         }
+    //Data Inserted AML Construction Unit
         elseif($this->r_unit == "AML Construction Unit")
         {
             $update = Construction::insert([
@@ -321,6 +329,7 @@ class Custudys extends Component
                 'sid'=> $info->sid,
             ]);
         }
+    //Data Inserted Igloo Foods Unit
         elseif($this->r_unit == "Igloo Foods Unit")
         {
             $update = Food::insert([
@@ -339,6 +348,65 @@ class Custudys extends Component
                 'sid'=> $info->sid,
             ]);
         }
+    //Data Inserted Igloo Dairy Unit
+        elseif($this->r_unit == "Igloo Dairy Unit")
+        {
+            $update = Dairy::insert([
+                'user_name'=>$this->r_user_name,
+                'desigation'=>$this->r_desigation,
+                'dept'=>$this->r_dept,
+                'unit'=>$this->r_unit,
+                'item'=>$info->item,
+                'laptop_name'=>$info->laptop_name,
+                'asset_no'=>$info->asset_no,
+                'serial_no'=>$info->serial_no,
+                'previous_user'=>$previous_user,
+                'issue_date'=>$time,
+                'p_issue_date'=>$p_i_date,
+                'configuration'=>$info->configuration,
+                'sid'=> $info->sid,
+            ]);
+        }
+    //Data Inserted AML Dredging Unit
+        elseif($this->r_unit == "AML Dredging Unit")
+        {
+            $update = Dredging::insert([
+                'user_name'=>$this->r_user_name,
+                'desigation'=>$this->r_desigation,
+                'dept'=>$this->r_dept,
+                'unit'=>$this->r_unit,
+                'item'=>$info->item,
+                'laptop_name'=>$info->laptop_name,
+                'asset_no'=>$info->asset_no,
+                'serial_no'=>$info->serial_no,
+                'previous_user'=>$previous_user,
+                'issue_date'=>$time,
+                'p_issue_date'=>$p_i_date,
+                'configuration'=>$info->configuration,
+                'sid'=> $info->sid,
+            ]);
+        }
+    //Data Inserted AML Bran Oil Unit
+        elseif($this->r_unit == "AML Bran Oil Unit")
+        {
+            $update = Branoil::insert([
+                'user_name'=>$this->r_user_name,
+                'desigation'=>$this->r_desigation,
+                'dept'=>$this->r_dept,
+                'unit'=>$this->r_unit,
+                'item'=>$info->item,
+                'laptop_name'=>$info->laptop_name,
+                'asset_no'=>$info->asset_no,
+                'serial_no'=>$info->serial_no,
+                'previous_user'=>$previous_user,
+                'issue_date'=>$time,
+                'p_issue_date'=>$p_i_date,
+                'configuration'=>$info->configuration,
+                'sid'=> $info->sid,
+            ]);
+        }
+
+
         if(empty($info->previous_user) && empty($info->user_name))
         {
             $savex = Invoice::insert([
