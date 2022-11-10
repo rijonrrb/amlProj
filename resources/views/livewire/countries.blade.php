@@ -67,6 +67,7 @@
 					<th>User name</th>
 					<th>Desigation</th>
 					<th>Dept</th>
+					<th>Work-Station</th>
 					<th>Unit</th>
 					<th>Product Type</th>
 					<th>Product Model</th>
@@ -92,6 +93,7 @@
 					<td  data-id="{{ $country->id }}" data-column="user_name" >{{ $country->user_name }}</td>
 					<td  data-id="{{ $country->id }}" data-column="desigation" >{{ $country->desigation }}</td>
 					<td  data-id="{{ $country->id }}" data-column="dept" >{{ $country->dept }}</td>
+					<td  data-id="{{ $country->id }}" data-column="wstation" >{{ $country->wstation }}</td>
 					<td  data-id="{{ $country->id }}" data-column="unit" >{{ $country->unit }}</td>
 					<td  data-id="{{ $country->id }}" data-column="item" >{{ $country->item }}</td>
 					<td  data-id="{{ $country->id }}" data-column="laptop_name" >{{ $country->laptop_name }}</td>

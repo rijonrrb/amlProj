@@ -55,6 +55,7 @@
 					<th>User name</th>
 					<th>Desigation</th>
 					<th>Dept</th>
+                    <th>Work-Station</th>
 					<th>Unit</th>
 					<th>Product Type</th>
 					<th>Product Model</th>
@@ -80,6 +81,7 @@
 					<td  data-id="{{ $Branoil->id }}" data-column="user_name" >{{ $Branoil->user_name }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="desigation" >{{ $Branoil->desigation }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="dept" >{{ $Branoil->dept }}</td>
+                    <td  data-id="{{ $Branoil->id }}" data-column="wstation" >{{ $Branoil->wstation }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="unit" >{{ $Branoil->unit }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="item" >{{ $Branoil->item }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="laptop_name" >{{ $Branoil->laptop_name }}</td>

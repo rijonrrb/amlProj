@@ -55,6 +55,7 @@
 					<th>User name</th>
 					<th>Desigation</th>
 					<th>Dept</th>
+					<th>Work-Station</th>
 					<th>Unit</th>
 					<th>Product Type</th>
 					<th>Product Model</th>
@@ -80,6 +81,7 @@
 					<td  data-id="{{ $Beverage->id }}" data-column="user_name" >{{ $Beverage->user_name }}</td>
 					<td  data-id="{{ $Beverage->id }}" data-column="desigation" >{{ $Beverage->desigation }}</td>
 					<td  data-id="{{ $Beverage->id }}" data-column="dept" >{{ $Beverage->dept }}</td>
+					<td  data-id="{{ $Beverage->id }}" data-column="wstation" >{{ $Beverage->wstation }}</td>
 					<td  data-id="{{ $Beverage->id }}" data-column="unit" >{{ $Beverage->unit }}</td>
 					<td  data-id="{{ $Beverage->id }}" data-column="item" >{{ $Beverage->item }}</td>
 					<td  data-id="{{ $Beverage->id }}" data-column="laptop_name" >{{ $Beverage->laptop_name }}</td>
@@ -99,25 +101,25 @@
 							<a href="#" wire:click="OpenReturnCountryModal({{$Beverage->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Item"></img></a>
 						</div>
 					</td>
-<!-- <td>
-<div class="btn-group container">
-&nbsp;<a href="#" wire:click="OpenReuseModal({{$Beverage->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Reuse Item"></img></a>
-</div>
-</td> -->
-</tr>
-@empty
-<code>No DataSet found!</code>
-@endforelse
-</tbody>
-</table>
-</div>
-<div class="d-flex justify-content-between bg-dark card-footer">
-	@if (count($Beverages))
-	{{ $Beverages->links('livewire-pagination-links') }}
-	@endif
-	<button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
-</div>
-@include('modals.add-modal')
-@include('modals.edit-modal')
-@include('modals.reuse-modal')
-</div>
+					<!-- <td>
+					<div class="btn-group container">
+					&nbsp;<a href="#" wire:click="OpenReuseModal({{$Beverage->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Reuse Item"></img></a>
+					</div>
+					</td> -->
+					</tr>
+					@empty
+					<code>No DataSet found!</code>
+					@endforelse
+					</tbody>
+					</table>
+					</div>
+					<div class="d-flex justify-content-between bg-dark card-footer">
+						@if (count($Beverages))
+						{{ $Beverages->links('livewire-pagination-links') }}
+						@endif
+						<button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
+					</div>
+					@include('modals.add-modal')
+					@include('modals.edit-modal')
+					@include('modals.reuse-modal')
+					</div>

@@ -67,6 +67,7 @@
                 <th>User name</th>
                 <th>Desigation</th>
                 <th>Dept</th>
+                <th>Work-Station</th>
                 <th>Unit</th>
                 <th>Product Type</th>
                 <th>Product Model</th>
@@ -91,6 +92,7 @@
                 <td  data-id="{{ $Itcus->id }}" data-column="user_name" title="Click to edit">{{ $Itcus->user_name }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="desigation" title="Click to edit">{{ $Itcus->desigation }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="dept" title="Click to edit">{{ $Itcus->dept }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="wstation" title="Click to edit">{{ $Itcus->wstation }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="unit" title="Click to edit">{{ $Itcus->unit }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="item" title="Click to edit">{{ $Itcus->item }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="laptop_name" title="Click to edit">{{ $Itcus->laptop_name }}</td>

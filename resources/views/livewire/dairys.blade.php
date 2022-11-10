@@ -55,6 +55,7 @@
 					<th>User name</th>
 					<th>Desigation</th>
 					<th>Dept</th>
+                    <th>Work-Station</th>
 					<th>Unit</th>
 					<th>Product Type</th>
 					<th>Product Model</th>
@@ -80,6 +81,7 @@
 					<td  data-id="{{ $Dairy->id }}" data-column="user_name" >{{ $Dairy->user_name }}</td>
 					<td  data-id="{{ $Dairy->id }}" data-column="desigation" >{{ $Dairy->desigation }}</td>
 					<td  data-id="{{ $Dairy->id }}" data-column="dept" >{{ $Dairy->dept }}</td>
+                    <td  data-id="{{ $Dairy->id }}" data-column="wstation" >{{ $Dairy->wstation }}</td>
 					<td  data-id="{{ $Dairy->id }}" data-column="unit" >{{ $Dairy->unit }}</td>
 					<td  data-id="{{ $Dairy->id }}" data-column="item" >{{ $Dairy->item }}</td>
 					<td  data-id="{{ $Dairy->id }}" data-column="laptop_name" >{{ $Dairy->laptop_name }}</td>

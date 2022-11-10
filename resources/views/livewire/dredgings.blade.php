@@ -55,6 +55,7 @@
 					<th>User name</th>
 					<th>Desigation</th>
 					<th>Dept</th>
+                    <th>Work-Station</th>
 					<th>Unit</th>
 					<th>Product Type</th>
 					<th>Product Model</th>
@@ -80,6 +81,7 @@
 					<td  data-id="{{ $Dredging->id }}" data-column="user_name" >{{ $Dredging->user_name }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="desigation" >{{ $Dredging->desigation }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="dept" >{{ $Dredging->dept }}</td>
+                    <td  data-id="{{ $Dredging->id }}" data-column="wstation" >{{ $Dredging->wstation }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="unit" >{{ $Dredging->unit }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="item" >{{ $Dredging->item }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="laptop_name" >{{ $Dredging->laptop_name }}</td>
