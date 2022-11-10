@@ -119,14 +119,14 @@
             
         </tbody>
     </table>
-</div>
-<div class="d-flex justify-content-between bg-dark card-footer">
+    </div>
+    <div class="d-flex justify-content-between bg-dark card-footer">
     @if (count($Itcuss))
     {{ $Itcuss->links('livewire-pagination-links') }}
     @endif
     <button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
-</div>
-@include('modals.addProd-modal')
-@include('modals.edit-modal')
-@include('modals.reuse-modal')
-</div>
+    </div>
+    @include('modals.addProd-modal')
+    @include('modals.edit-modal')
+    @include('modals.reuse-modal')
+    </div>

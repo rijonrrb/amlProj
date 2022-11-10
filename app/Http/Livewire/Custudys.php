@@ -57,18 +57,17 @@ class Custudys extends Component
         $this->validate([
             "item"=>"required",
             "laptop_name"=>"required",
-            'serial_no'=>"required",
-            "configuration"=>"required"
+            'serial_no'=>"required"
         ],
         ['item.required'=>"Product Type field is required.",
         'laptop_name.required'=>"Product Model field is required.",
-        'serial_no.required'=>"Product S/N field is required.",
-        'configuration.required'=>"Configuration / Accessories field is required."]
+        'serial_no.required'=>"Product S/N field is required."]
     );
         $save = Itcus::insert([
             'user_name'=>Null,
             'desigation'=>Null,
             'dept'=>Null,
+            'wstation'=>Null,
             'unit'=>Null,
             'item'=>$this->item,
             'laptop_name'=>$this->laptop_name,
@@ -182,10 +181,12 @@ class Custudys extends Component
         $this->r_user_name = '';
         $this->r_desigation = '';
         $this->r_dept = '';
+        $this->r_wstation = '';
         $this->r_unit = '';
         $this->r_H_user = '';
         $this->r_H_designation = '';
         $this->r_H_dept = '';
+        $this->r_H_wstation = '';
         $this->r_H_unit = '';
         $this->rid = $info->id;
         $this->dispatchBrowserEvent('OpenReuseModal',[
@@ -237,19 +238,23 @@ class Custudys extends Component
             "r_H_user"=>"required",
             "r_H_designation"=>"required",
             'r_H_dept'=>"required",
+            'r_H_wstation'=>"required",
             "r_H_unit"=>"required",
             "r_user_name"=>"required",
             "r_desigation"=>"required",
             'r_dept'=>"required",
+            'r_wstation'=>"required",
             "r_unit"=>"required"
         ],
         ['r_H_user.required'=>"The User Name field is required.",
         'r_H_designation.required'=>"The Designation field is required.",
         'r_H_dept.required'=>"The Department field is required.",
+        'r_H_wstation.required'=>"The Work Station field is required.",
         'r_H_unit.required'=>"The Unit field is required.",
         'r_user_name.required'=>"The User Name field is required.",
         'r_desigation.required'=>"The Designation field is required.",
         'r_dept.required'=>"The Department field is required.",
+        'r_wstation.required'=>"The Work Station field is required.",
         'r_unit.required'=>"The Unit field is required."]
     );
 
@@ -260,6 +265,7 @@ class Custudys extends Component
                 'user_name'=>$this->r_user_name,
                 'desigation'=>$this->r_desigation,
                 'dept'=>$this->r_dept,
+                'wstation'=>$this->r_wstation,
                 'unit'=>$this->r_unit,
                 'item'=>$info->item,
                 'laptop_name'=>$info->laptop_name,
@@ -279,6 +285,7 @@ class Custudys extends Component
                 'user_name'=>$this->r_user_name,
                 'desigation'=>$this->r_desigation,
                 'dept'=>$this->r_dept,
+                'wstation'=>$this->r_wstation,
                 'unit'=>$this->r_unit,
                 'item'=>$info->item,
                 'laptop_name'=>$info->laptop_name,
@@ -298,6 +305,7 @@ class Custudys extends Component
                 'user_name'=>$this->r_user_name,
                 'desigation'=>$this->r_desigation,
                 'dept'=>$this->r_dept,
+                'wstation'=>$this->r_wstation,
                 'unit'=>$this->r_unit,
                 'item'=>$info->item,
                 'laptop_name'=>$info->laptop_name,
@@ -317,6 +325,7 @@ class Custudys extends Component
                 'user_name'=>$this->r_user_name,
                 'desigation'=>$this->r_desigation,
                 'dept'=>$this->r_dept,
+                'wstation'=>$this->r_wstation,
                 'unit'=>$this->r_unit,
                 'item'=>$info->item,
                 'laptop_name'=>$info->laptop_name,
@@ -336,6 +345,7 @@ class Custudys extends Component
                 'user_name'=>$this->r_user_name,
                 'desigation'=>$this->r_desigation,
                 'dept'=>$this->r_dept,
+                'wstation'=>$this->r_wstation,
                 'unit'=>$this->r_unit,
                 'item'=>$info->item,
                 'laptop_name'=>$info->laptop_name,
@@ -355,6 +365,7 @@ class Custudys extends Component
                 'user_name'=>$this->r_user_name,
                 'desigation'=>$this->r_desigation,
                 'dept'=>$this->r_dept,
+                'wstation'=>$this->r_wstation,
                 'unit'=>$this->r_unit,
                 'item'=>$info->item,
                 'laptop_name'=>$info->laptop_name,
@@ -374,6 +385,7 @@ class Custudys extends Component
                 'user_name'=>$this->r_user_name,
                 'desigation'=>$this->r_desigation,
                 'dept'=>$this->r_dept,
+                'wstation'=>$this->r_wstation,
                 'unit'=>$this->r_unit,
                 'item'=>$info->item,
                 'laptop_name'=>$info->laptop_name,
@@ -393,6 +405,7 @@ class Custudys extends Component
                 'user_name'=>$this->r_user_name,
                 'desigation'=>$this->r_desigation,
                 'dept'=>$this->r_dept,
+                'wstation'=>$this->r_wstation,
                 'unit'=>$this->r_unit,
                 'item'=>$info->item,
                 'laptop_name'=>$info->laptop_name,
@@ -413,10 +426,12 @@ class Custudys extends Component
                 'handedBy'=>$this->r_H_user,
                 'h_desigation'=>$this->r_H_designation,
                 'h_dept'=>$this->r_H_dept,
+                'h_wstation'=>$this->r_H_wstation,
                 'h_unit'=>"IT Unit",
                 'takenBy'=>$this->r_user_name,
                 't_desigation'=>$this->r_desigation,
                 't_dept'=>$this->r_dept,
+                't_wstation'=>$this->r_wstation,
                 't_unit'=>$this->r_unit,
                 'remarks'=>'For Official use',
                 'qty'=>'1',
@@ -434,10 +449,12 @@ class Custudys extends Component
                 'handedBy'=>$this->r_H_user,
                 'h_desigation'=>$this->r_H_designation,
                 'h_dept'=>$this->r_H_dept,
+                'h_wstation'=>$this->r_H_wstation,
                 'h_unit'=>"IT Unit",
                 'takenBy'=>$this->r_user_name,
                 't_desigation'=>$this->r_desigation,
                 't_dept'=>$this->r_dept,
+                't_wstation'=>$this->r_wstation,
                 't_unit'=>$this->r_unit,
                 'remarks'=>'For Official use',
                 'qty'=>'1',

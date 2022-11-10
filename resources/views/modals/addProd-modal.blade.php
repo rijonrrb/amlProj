@@ -37,7 +37,7 @@
                  <div class="form-group">
                      <label for="">Configuration / Accessories</label>
                      <textarea  class="form-control" placeholder="Configuration" wire:model="configuration" ></textarea>
-                     <span class="text-danger"> @error('configuration') {{ $message }}@enderror</span>
+                     <!-- <span class="text-danger"> @error('configuration') {{ $message }}@enderror</span> -->
                  </div>
                  <div class="form-group">
                      <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>

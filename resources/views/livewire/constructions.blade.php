@@ -113,25 +113,25 @@
                                 &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenReturnCountryModal({{$Construction->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Item"></img></a>
                             </div>
                         </td>
-    <!-- <td>
-    <div class="btn-group container">
-    &nbsp;<a href="#" wire:click="OpenReuseModal({{$Construction->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Reuse Item"></img></a>
-    </div>
-</td> -->
-</tr>
-@empty
-<code>No DataSet found!</code>
-@endforelse
-</tbody>
-</table>
-</div>
-<div class="d-flex justify-content-between bg-dark card-footer">
-    @if (count($Constructions))
-    {{ $Constructions->links('livewire-pagination-links') }}
-    @endif
-    <button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
-</div>
-@include('modals.add-modal')
-@include('modals.edit-modal')
-@include('modals.reuse-modal')
-</div>
+                        <!-- <td>
+                        <div class="btn-group container">
+                        &nbsp;<a href="#" wire:click="OpenReuseModal({{$Construction->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Reuse Item"></img></a>
+                        </div>
+                    </td> -->
+                    </tr>
+                    @empty
+                    <code>No DataSet found!</code>
+                    @endforelse
+                    </tbody>
+                    </table>
+                    </div>
+                    <div class="d-flex justify-content-between bg-dark card-footer">
+                        @if (count($Constructions))
+                        {{ $Constructions->links('livewire-pagination-links') }}
+                        @endif
+                        <button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
+                    </div>
+                    @include('modals.add-modal')
+                    @include('modals.edit-modal')
+                    @include('modals.reuse-modal')
+                    </div>

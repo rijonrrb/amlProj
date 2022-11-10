@@ -34,6 +34,7 @@ class Sugers extends Component
         $this->user_name = '';
         $this->desigation = '';
         $this->dept = '';
+        $this->wstation = '';
         $this->unit = '';
         $this->item = '';
         $this->laptop_name = '';
@@ -47,6 +48,7 @@ class Sugers extends Component
         $this->H_user = '';
         $this->H_designation = '';
         $this->H_dept = '';
+        $this->H_wstation = '';
         $this->H_unit = '';
         $this->dispatchBrowserEvent('OpenAddSugerModal');
     }
@@ -61,17 +63,20 @@ class Sugers extends Component
             "user_name"=>"required",
             "desigation"=>"required",
             'dept'=>"required",
+            'wstation'=>"required",
             "unit"=>"required"
         ],
         ['user_name.required'=>"The User Name field is required.",
         'desigation.required'=>"The Designation field is required.",
         'dept.required'=>"The Department field is required.",
+        'wstation.required'=>"The Work Station field is required.",
         'unit.required'=>"The Unit field is required."]
     );
         $save = Suger::insert([
           'user_name'=>$this->user_name,
           'desigation'=>$this->desigation,
           'dept'=>$this->dept,
+          'wstation'=>$this->wstation,
           'unit'=>"AML Sugar Refinery Unit",
           'item'=>$this->item,
           'laptop_name'=>$this->laptop_name,
@@ -87,11 +92,13 @@ class Sugers extends Component
             'handedBy'=>$this->H_user,
             'h_desigation'=>$this->H_designation,
             'h_dept'=>$this->H_dept,
+            'h_wstation'=>$this->H_wstation,
             'h_unit'=>"IT Unit",
             'sid'=> $next_id,
             'takenBy'=>$this->user_name,
             't_desigation'=>$this->desigation,
             't_dept'=>$this->dept,
+            't_wstation'=>$this->wstation,
             't_unit'=>"AML Sugar Refinery Unit",
             'remarks'=>'For Official use',
             'qty'=>'1',
@@ -164,16 +171,19 @@ class Sugers extends Component
             "upd_H_user"=>"required",
             "upd_H_designation"=>"required",
             'upd_H_dept'=>"required",
+            'upd_H_wstation'=>"required",
             "upd_H_unit"=>"required"
         ],
         ['upd_H_user.required'=>"The User Name field is required.",
         'upd_H_designation.required'=>"The Designation field is required.",
         'upd_H_dept.required'=>"The Department field is required.",
+        'upd_H_wstation.required'=>"The Work Station field is required.",
         'upd_H_unit.required'=>"The Unit field is required."]
     );
         $update = Itcus::insert([
             'user_name'=>Null,
             'desigation'=>Null,
+            'dept'=>Null,
             'dept'=>Null,
             'unit'=>"AML Sugar Refinery Unit",
             'item'=>$info->item,
@@ -190,10 +200,12 @@ class Sugers extends Component
             'handedBy'=>$info->user_name,
             'h_desigation'=>$info->desigation,
             'h_dept'=> $info->dept,
+            'h_wstation'=> $info->wstation,
             'h_unit'=>"AML Sugar Refinery Unit",
             'takenBy'=>$this->upd_H_user,
             't_desigation'=>$this->upd_H_designation,
             't_dept'=>$this->upd_H_dept,
+            't_wstation'=>$this->upd_H_wstation,
             't_unit'=>$this->upd_H_unit,
             'remarks'=>'Return Product',
             'qty'=>'1',

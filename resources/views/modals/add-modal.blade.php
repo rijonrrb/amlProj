@@ -168,6 +168,17 @@
                     <button type="button" class="btn btn-primary btn-sm col-3" id="H_cdept" style="display: block;">Options</button>
                 </div>
             </div>
+            <div class="form-group">
+                       <label for="">Work-Station</label>
+                       <select wire:model.debounce.500000ms="H_wstation" class="form-control" >
+                                <option value="" disabled selected hidden>Select Work-Station</option>
+                                <option value="CHO">CHO</option>
+                                <option value="Depo">Depo</option>
+                                <option value="Factory">Factory</option>
+                                <option value="Project">Project</option>
+                        </select>
+                <span class="text-danger"> @error('H_wstation') {{ $message }}@enderror</span>
+            </div>
             <!-- <div class="form-group">
                <label for="">Unit</label>
                <select wire:model.debounce.500000ms="H_unit" class="form-control" >

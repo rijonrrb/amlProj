@@ -18,10 +18,12 @@ return new class extends Migration
             $table->string('handedBy');
             $table->string('h_desigation');
             $table->string('h_dept');
+            $table->string('h_wstation');
             $table->string('h_unit');
             $table->string('takenBy');
             $table->string('t_desigation');
             $table->string('t_dept');
+            $table->string('t_wstation');
             $table->string('t_unit');
             $table->string('remarks');
             $table->string('qty');

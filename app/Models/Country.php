@@ -10,7 +10,7 @@ class Country extends Model
     use HasFactory;
     
     protected $fillable = [
-        'user_name','desigation','dept','unit','item','laptop_name','asset_no','serial_no','previous_user','issue_date', 'p_issue_date', 'configuration'
+        'user_name','desigation','dept','wstation','unit','item','laptop_name','asset_no','serial_no','previous_user','issue_date', 'p_issue_date', 'configuration'
      ];
 
      public function scopeSearch($query, $term){
@@ -19,6 +19,7 @@ class Country extends Model
             $query->where('user_name','like',$term)
             ->orWhere('desigation','like',$term)
             ->orWhere('dept','like',$term)
+            ->orWhere('wstation','like',$term)
             ->orWhere('unit','like',$term)
             ->orWhere('item','like',$term)
             ->orWhere('laptop_name','like',$term)
