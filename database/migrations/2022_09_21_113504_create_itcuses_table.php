@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('user_name')->nullable();
             $table->string('desigation')->nullable();
             $table->string('dept')->nullable();
+            $table->string('wstation')->nullable();
             $table->string('unit')->nullable();
             $table->string('item');
             $table->string('laptop_name');
