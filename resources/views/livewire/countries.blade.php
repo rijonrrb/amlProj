@@ -4,7 +4,7 @@
 		<button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddCountryModal()">Add New Dataset</button>
 		<div>
 			@if ($checkedCountry)
-			<button class="btn btn-danger btn-md mr-4" wire:click="deleteCountries()"> Delete items ({{ count($checkedCountry) }})</button>
+			<button class="btn btn-danger btn-md mr-4" wire:click="deleteCountries()"> Delete rows ({{ count($checkedCountry) }})</button>
 			@endif
 		</div>
 	</div>
@@ -31,8 +31,8 @@
 				<option value="desigation">Desigation</option>
 				<option value="dept">Dept</option>
 				<option value="unit">Unit</option>
-				<option value="item">Item</option>
-				<option value="laptop_name">Item Name</option>
+				<option value="item">Product</option>
+				<option value="laptop_name">Product Model</option>
 				<option value="asset_no">Asset No</option>
 				<option value="serial_no">Serial No</option>
 				<option value="previous_user">Previous User</option>
@@ -110,7 +110,7 @@
 					</td>
 					<td>
 						<div class="btn-group container">
-							&nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenReturnCountryModal({{$country->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Item"></img></a>
+							&nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenReturnCountryModal({{$country->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
 						</div>
 					</td>
 					<!-- <td>

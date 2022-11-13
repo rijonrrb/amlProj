@@ -4,7 +4,7 @@
         <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddItcusModal()">Add New Dataset</button>
         <div>
          @if ($checkedItcus)
-         <button class="btn btn-danger btn-md mr-4" wire:click="deleteItcuss()"> Delete items ({{ count($checkedItcus) }})</button>
+         <button class="btn btn-danger btn-md mr-4" wire:click="deleteItcuss()"> Delete rows ({{ count($checkedItcus) }})</button>
          @endif
      </div>
  </div>
@@ -31,14 +31,17 @@
             <option value="desigation">Desigation</option>
             <option value="dept">Dept</option>
             <option value="unit">Unit</option>
-            <option value="item">Item</option>
-            <option value="laptop_name">Item Name</option>
+            <option value="wstation">Work Station</option>
+            <option value="item">Product</option>
+            <option value="laptop_name">Product Model</option>
             <option value="asset_no">Asset No</option>
             <option value="serial_no">Serial No</option>
             <option value="previous_user">Previous User</option>
-            <option value="issue_date">Previous User</option>
+            <option value="issue_date">Issue date</option>
             <option value="p_issue_date">Previous Issue Date</option>
             <option value="configuration">Configuration</option>
+            <option value="condition">Condition</option>
+            
         </select>
     </div>
     <div class="col-md-3">

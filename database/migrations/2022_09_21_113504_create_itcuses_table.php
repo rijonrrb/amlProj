@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('issue_date');
             $table->string('p_issue_date');
             $table->string('configuration');
+            $table->string('condition');
             $table->string('sid');
             $table->timestamps();
         });

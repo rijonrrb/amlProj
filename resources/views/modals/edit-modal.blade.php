@@ -73,7 +73,7 @@
                       <label for="Damaged">Damaged</label>
                       <input type="radio"wire:model="upd_H_condition" name="condition" value="Out of order">
                       <label for="Out of order">Out of order</label>
-                    <span class="text-danger"> @error('upd_H_condition') {{ $message }}@enderror</span>
+                    <br><span class="text-danger"> @error('upd_H_condition') {{ $message }}@enderror</span>
                 </div>
                 <!-- <div class="form-group">
                    <label for="">Unit</label>

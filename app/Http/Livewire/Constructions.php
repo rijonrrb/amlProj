@@ -127,7 +127,7 @@ class Constructions extends Component
         $this->upd_H_designation = '';
         $this->upd_H_dept = '';
         $this->upd_H_wstation = '';
-        $this->upd_H_unit = '';
+        $this->upd_H_condition = '';
         $this->cid = $info->id;
         $this->dispatchBrowserEvent('OpenReturnCountryModal',[
             'id'=>$id
@@ -168,13 +168,15 @@ class Constructions extends Component
         $this->validate([
             "upd_H_user"=>"required",
             "upd_H_designation"=>"required",
-            'upd_H_dept'=>"required",
-            'upd_H_wstation'=>"required"
+            "upd_H_dept"=>"required",
+            "upd_H_wstation"=>"required",
+            "upd_H_condition"=>"required"
         ],
         ['upd_H_user.required'=>"The User Name field is required.",
         'upd_H_designation.required'=>"The Designation field is required.",
         'upd_H_dept.required'=>"The Department field is required.",
-        'upd_H_wstation.required'=>"The Work Station field is required."]
+        'upd_H_wstation.required'=>"The Work Station field is required.",
+        'upd_H_condition.required'=>"The Condition field is required."]
     );
         $update = Itcus::insert([
             'user_name'=>Null,
@@ -190,6 +192,7 @@ class Constructions extends Component
             'issue_date'=>$time,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
+            'condition'=>$this->upd_H_condition,
             'sid'=>$info->sid
         ]);
         $savex = Invoice::where('sid',$info->sid)->update([
@@ -202,7 +205,7 @@ class Constructions extends Component
             't_desigation'=>$this->upd_H_designation,
             't_dept'=>$this->upd_H_dept,
             't_wstation'=>$this->upd_H_wstation,
-            't_unit'=>$this->upd_H_unit,
+            't_unit'=>"IT Unit",
             'remarks'=>'Return Product',
             'qty'=>'1',
             'laptop_name'=>$info->laptop_name,
