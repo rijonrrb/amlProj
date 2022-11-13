@@ -40,6 +40,16 @@
                      <!-- <span class="text-danger"> @error('configuration') {{ $message }}@enderror</span> -->
                  </div>
                  <div class="form-group">
+                      <p>Select the Condition of the Product:</p>
+                      <input type="radio" wire:model="condition" name="condition" value="Good">
+                      <label for="Good">Good</label>
+                      <input type="radio" wire:model="condition" name="condition" value="Damaged">
+                      <label for="Damaged">Damaged</label>
+                      <input type="radio" wire:model="condition" name="condition" value="Out of order">
+                      <label for="Out of order">Out of order</label>
+                    <br><span class="text-danger"> @error('condition') {{ $message }}@enderror</span>
+                </div>
+                 <div class="form-group">
                      <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
                      <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
                  </div>

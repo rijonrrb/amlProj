@@ -43,6 +43,7 @@ class Custudys extends Component
         $this->laptop_name = '';
         $this->serial_no = '';
         $this->configuration = '';
+        $this->condition = '';
         $this->previous_user = '';
         $this->p_issue_date = '';
         $this->dispatchBrowserEvent('OpenAddItcusModal');
@@ -57,11 +58,13 @@ class Custudys extends Component
         $this->validate([
             "item"=>"required",
             "laptop_name"=>"required",
-            'serial_no'=>"required"
+            "serial_no"=>"required",
+            "condition"=>"required"
         ],
         ['item.required'=>"Product Type field is required.",
         'laptop_name.required'=>"Product Model field is required.",
-        'serial_no.required'=>"Product S/N field is required."]
+        'serial_no.required'=>"Product S/N field is required.",
+        'condition.required'=>"Product condition is required."]
         );
         $save = Itcus::insert([
             'user_name'=>Null,
@@ -77,6 +80,7 @@ class Custudys extends Component
             'issue_date'=>$time,
             'p_issue_date'=>$this->p_issue_date,
             'configuration'=>$this->configuration,
+            'condition'=>$this->condition,
             'sid'=> $next_id,
 
       ]);
