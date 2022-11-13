@@ -14,7 +14,7 @@ class Sugers extends Component
     protected $listeners = ['delete','deleteCheckedSugers'];
     public $checkedSuger = [];
     public $byDept =null;
-    public $perPage =5;
+    public $perPage =20;
     public $orderBy = "user_name";
     public $sortBy = "asc";
     public $search;
@@ -63,14 +63,12 @@ class Sugers extends Component
             "user_name"=>"required",
             "desigation"=>"required",
             'dept'=>"required",
-            'wstation'=>"required",
-            "unit"=>"required"
+            'wstation'=>"required"
         ],
         ['user_name.required'=>"The User Name field is required.",
         'desigation.required'=>"The Designation field is required.",
         'dept.required'=>"The Department field is required.",
-        'wstation.required'=>"The Work Station field is required.",
-        'unit.required'=>"The Unit field is required."]
+        'wstation.required'=>"The Work Station field is required."]
     );
         $save = Suger::insert([
           'user_name'=>$this->user_name,
@@ -129,6 +127,7 @@ class Sugers extends Component
         $this->upd_H_user = '';
         $this->upd_H_designation = '';
         $this->upd_H_dept = '';
+        $this->upd_H_wstation = '';
         $this->upd_H_unit = '';
         $this->cid = $info->id;
         $this->dispatchBrowserEvent('OpenReturnCountryModal',[
@@ -171,14 +170,12 @@ class Sugers extends Component
             "upd_H_user"=>"required",
             "upd_H_designation"=>"required",
             'upd_H_dept'=>"required",
-            'upd_H_wstation'=>"required",
-            "upd_H_unit"=>"required"
+            'upd_H_wstation'=>"required"
         ],
         ['upd_H_user.required'=>"The User Name field is required.",
         'upd_H_designation.required'=>"The Designation field is required.",
         'upd_H_dept.required'=>"The Department field is required.",
-        'upd_H_wstation.required'=>"The Work Station field is required.",
-        'upd_H_unit.required'=>"The Unit field is required."]
+        'upd_H_wstation.required'=>"The Work Station field is required."]
     );
         $update = Itcus::insert([
             'user_name'=>Null,

@@ -60,14 +60,12 @@ class Foods extends Component
             "user_name"=>"required",
             "desigation"=>"required",
             'dept'=>"required",
-            'wstation'=>"required",
-            "unit"=>"required"
+            'wstation'=>"required"
         ],
         ['user_name.required'=>"The User Name field is required.",
         'desigation.required'=>"The Designation field is required.",
         'dept.required'=>"The Department field is required.",
-        'wstation.required'=>"The Work Station field is required.",
-        'unit.required'=>"The Unit field is required."]
+        'wstation.required'=>"The Work Station field is required."]
     );
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
@@ -132,6 +130,7 @@ class Foods extends Component
         $this->upd_H_user = '';
         $this->upd_H_designation = '';
         $this->upd_H_dept = '';
+        $this->upd_H_wstation = '';
         $this->upd_H_unit = '';
         $this->cid = $info->id;
         $this->dispatchBrowserEvent('OpenReturnCountryModal',[
@@ -175,14 +174,12 @@ class Foods extends Component
             "upd_H_user"=>"required",
             "upd_H_designation"=>"required",
             'upd_H_dept'=>"required",
-            'upd_H_wstation'=>"required",
-            "upd_H_unit"=>"required"
+            'upd_H_wstation'=>"required"
         ],
         ['upd_H_user.required'=>"The User Name field is required.",
         'upd_H_designation.required'=>"The Designation field is required.",
         'upd_H_dept.required'=>"The Department field is required.",
-        'upd_H_wstation.required'=>"The Work Station field is required.",
-        'upd_H_unit.required'=>"The Unit field is required."]
+        'upd_H_wstation.required'=>"The Work Station field is required."]
     );
         $update = Itcus::insert([
             'user_name'=>Null,

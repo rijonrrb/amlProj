@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -351,4 +351,4 @@ $(document).on('keydown', '.updateProc', function(e){
 <script src="{{ asset('js/OptP.js') }}"></script>
 <script src="{{ asset('js/Add.js') }}"></script>
 </body>
-</html>
+</html> -->

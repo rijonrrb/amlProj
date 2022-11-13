@@ -1,4 +1,4 @@
-<div class="card">
+<!-- <div class="card">
     <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>Procurement</b></h4>
     <div class="row mb-3 p-2 d-flex justify-content-between">
         <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddProcurementModal()">Add New Dataset</button>
@@ -133,4 +133,4 @@
 @include('modals.addP-modal')
 @include('modals.edit-modal')
 @include('modals.reuse-modal')
-</div>
+</div> -->

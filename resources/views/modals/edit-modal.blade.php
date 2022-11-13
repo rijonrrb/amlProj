@@ -63,8 +63,18 @@
                                 <option value="Factory">Factory</option>
                                 <option value="Project">Project</option>
                         </select>
-                       <span class="text-danger"> @error('upd_H_wstation') {{ $message }}@enderror</span>
-                   </div>
+                    <span class="text-danger"> @error('upd_H_wstation') {{ $message }}@enderror</span>
+                </div>
+                <div class="form-group">
+                      <p>Select the Condition of the Product:</p>
+                      <input type="radio"  wire:model="upd_H_condition" name="condition" value="Good">
+                      <label for="Good">Good</label>
+                      <input type="radio"  wire:model="upd_H_condition" name="condition" value="Damaged">
+                      <label for="Damaged">Damaged</label>
+                      <input type="radio"wire:model="upd_H_condition" name="condition" value="Out of order">
+                      <label for="Out of order">Out of order</label>
+                    <span class="text-danger"> @error('upd_H_condition') {{ $message }}@enderror</span>
+                </div>
                 <!-- <div class="form-group">
                    <label for="">Unit</label>
                    <select wire:model="upd_H_unit" class="form-control" >

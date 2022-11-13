@@ -62,7 +62,7 @@ class Custudys extends Component
         ['item.required'=>"Product Type field is required.",
         'laptop_name.required'=>"Product Model field is required.",
         'serial_no.required'=>"Product S/N field is required."]
-    );
+        );
         $save = Itcus::insert([
             'user_name'=>Null,
             'desigation'=>Null,
@@ -86,96 +86,94 @@ class Custudys extends Component
             $this->checkedItcus = [];
         }
     }
-    public function OpenReturnCountryModal($id){
-        $info = Itcus::find($id);
-        $this->upd_H_user = '';
-        $this->upd_H_designation = '';
-        $this->upd_H_dept = '';
-        $this->upd_H_unit = '';
-        $this->cid = $info->id;
-        $this->dispatchBrowserEvent('OpenReturnCountryModal',[
-            'id'=>$id
-        ]);
-    }
-    public function update(){
+    // public function OpenReturnCountryModal($id){
+    //     $info = Itcus::find($id);
+    //     $this->upd_H_user = '';
+    //     $this->upd_H_designation = '';
+    //     $this->upd_H_dept = '';
+    //     $this->upd_H_unit = '';
+    //     $this->cid = $info->id;
+    //     $this->dispatchBrowserEvent('OpenReturnCountryModal',[
+    //         'id'=>$id
+    //     ]);
+    // }
+    // public function update(){
        
-        date_default_timezone_set('Asia/Dhaka');
-        $time =  date('d F Y h:i:s A');
-        $cid = $this->cid;
-        $info = Itcus::find($cid);
-        if (empty($info->previous_user))
-        {
-            $previous_user = $info->user_name;
-        }
-        elseif (empty($info->user_name))
-        {
-            $previous_user = $info->previous_user;
-        }
-        else
-        {
-            $previous_user = $info->previous_user."  ||  ".$info->user_name;
-        }
-        if (empty($info->p_issue_date))
-        {
-            $p_i_date = $info->issue_date;
-        }
-        elseif (empty($info->user_name))
-        {
-            $p_i_date = $info->p_issue_date;
-        }
-        else
-        {
-            $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
-        }
-        Session::put('id', $info->sid);
-        Session::put('b_area', 'CUSTUDY');
-        $this->validate([
-            "upd_H_user"=>"required",
-            "upd_H_designation"=>"required",
-            'upd_H_dept'=>"required",
-            "upd_H_unit"=>"required"
-        ],
-        ['upd_H_user.required'=>"The User Name field is required.",
-        'upd_H_designation.required'=>"The Designation field is required.",
-        'upd_H_dept.required'=>"The Department field is required.",
-        'upd_H_unit.required'=>"The Unit field is required."]
-    );
-        $update = Itcus::find($cid)->update([
-            'user_name'=>Null,
-            'desigation'=>Null,
-            'dept'=>Null,
-            'unit'=>Null,
-            'item'=>$info->item,
-            'laptop_name'=> $info->laptop_name,
-            'asset_no'=> $info->asset_no,
-            'serial_no'=>$info->serial_no,
-            'previous_user'=>$previous_user,
-            'issue_date'=>$time,
-            'p_issue_date'=>$p_i_date,
-            'configuration'=>$info->configuration
-        ]);
-        $savex = Invoice::where('sid',$info->sid)->update([
-            'handedBy'=>$info->user_name,
-            'h_desigation'=>$info->desigation,
-            'h_dept'=> $info->dept,
-            'h_unit'=>$info->unit,
-            'takenBy'=>$this->upd_H_user,
-            't_desigation'=>$this->upd_H_designation,
-            't_dept'=>$this->upd_H_dept,
-            't_unit'=>$this->upd_H_unit,
-            'remarks'=>'Return Product',
-            'qty'=>'1',
-            'laptop_name'=>$info->laptop_name,
-            'configuration'=>$info->configuration,
-            'asset_no'=>$info->asset_no,
-            'serial_no'=>$info->serial_no,
-            'business_area'=>'CUSTUDY',
-        ]);
-        if($savex){
-            $this->dispatchBrowserEvent('CloseReturnCountryModal');
-            $this->checkedItcus = [];
-        }
-    }
+    //     date_default_timezone_set('Asia/Dhaka');
+    //     $time =  date('d F Y h:i:s A');
+    //     $cid = $this->cid;
+    //     $info = Itcus::find($cid);
+    //     if (empty($info->previous_user))
+    //     {
+    //         $previous_user = $info->user_name;
+    //     }
+    //     elseif (empty($info->user_name))
+    //     {
+    //         $previous_user = $info->previous_user;
+    //     }
+    //     else
+    //     {
+    //         $previous_user = $info->previous_user."  ||  ".$info->user_name;
+    //     }
+    //     if (empty($info->p_issue_date))
+    //     {
+    //         $p_i_date = $info->issue_date;
+    //     }
+    //     elseif (empty($info->user_name))
+    //     {
+    //         $p_i_date = $info->p_issue_date;
+    //     }
+    //     else
+    //     {
+    //         $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
+    //     }
+    //     Session::put('id', $info->sid);
+    //     Session::put('b_area', 'CUSTUDY');
+    //     $this->validate([
+    //         "upd_H_user"=>"required",
+    //         "upd_H_designation"=>"required",
+    //         'upd_H_dept'=>"required"
+    //     ],
+    //     ['upd_H_user.required'=>"The User Name field is required.",
+    //     'upd_H_designation.required'=>"The Designation field is required.",
+    //     'upd_H_dept.required'=>"The Department field is required."]
+    // );
+    //     $update = Itcus::find($cid)->update([
+    //         'user_name'=>Null,
+    //         'desigation'=>Null,
+    //         'dept'=>Null,
+    //         'unit'=>Null,
+    //         'item'=>$info->item,
+    //         'laptop_name'=> $info->laptop_name,
+    //         'asset_no'=> $info->asset_no,
+    //         'serial_no'=>$info->serial_no,
+    //         'previous_user'=>$previous_user,
+    //         'issue_date'=>$time,
+    //         'p_issue_date'=>$p_i_date,
+    //         'configuration'=>$info->configuration
+    //     ]);
+    //     $savex = Invoice::where('sid',$info->sid)->update([
+    //         'handedBy'=>$info->user_name,
+    //         'h_desigation'=>$info->desigation,
+    //         'h_dept'=> $info->dept,
+    //         'h_unit'=>$info->unit,
+    //         'takenBy'=>$this->upd_H_user,
+    //         't_desigation'=>$this->upd_H_designation,
+    //         't_dept'=>$this->upd_H_dept,
+    //         't_unit'=>$this->upd_H_unit,
+    //         'remarks'=>'Return Product',
+    //         'qty'=>'1',
+    //         'laptop_name'=>$info->laptop_name,
+    //         'configuration'=>$info->configuration,
+    //         'asset_no'=>$info->asset_no,
+    //         'serial_no'=>$info->serial_no,
+    //         'business_area'=>'CUSTUDY',
+    //     ]);
+    //     if($savex){
+    //         $this->dispatchBrowserEvent('CloseReturnCountryModal');
+    //         $this->checkedItcus = [];
+    //     }
+    // }
     public function OpenReuseModal($id){
         $info = Itcus::find($id);
         $this->r_user_name = '';
@@ -187,14 +185,33 @@ class Custudys extends Component
         $this->r_H_designation = '';
         $this->r_H_dept = '';
         $this->r_H_wstation = '';
-        $this->r_H_unit = '';
         $this->rid = $info->id;
         $this->dispatchBrowserEvent('OpenReuseModal',[
             'id'=>$id
         ]);
     }
     public function reuseProd(){
-       
+        $this->validate([
+            "r_user_name"=>"required",
+            "r_desigation"=>"required",
+            "r_dept"=>"required",
+            "r_unit"=>"required",
+            "r_wstation"=>"required",
+            "r_H_user"=>"required",
+            "r_H_designation"=>"required",
+            "r_H_dept"=>"required",
+            "r_H_wstation"=>"required"
+        ],
+        ['r_user_name.required'=>"The User Name field is required.",
+        'r_desigation.required'=>"The Designation field is required.",
+        'r_dept.required'=>"The Department field is required.",
+        'r_wstation.required'=>"The Work Station field is required.",
+        'r_unit.required'=>"The Unit field is required.",
+        'r_H_user.required'=>"The User Name field is required.",
+        'r_H_designation.required'=>"The Designation field is required.",
+        'r_H_dept.required'=>"The Department field is required.",
+        'r_H_wstation.required'=>"The Work Station field is required."]
+    );       
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $rid = $this->rid;
@@ -234,29 +251,7 @@ class Custudys extends Component
         }
         Session::put('id', $info->sid);
         Session::put('b_area', 'CUSTUDY');
-        $this->validate([
-            "r_H_user"=>"required",
-            "r_H_designation"=>"required",
-            'r_H_dept'=>"required",
-            'r_H_wstation'=>"required",
-            "r_H_unit"=>"required",
-            "r_user_name"=>"required",
-            "r_desigation"=>"required",
-            'r_dept'=>"required",
-            'r_wstation'=>"required",
-            "r_unit"=>"required"
-        ],
-        ['r_H_user.required'=>"The User Name field is required.",
-        'r_H_designation.required'=>"The Designation field is required.",
-        'r_H_dept.required'=>"The Department field is required.",
-        'r_H_wstation.required'=>"The Work Station field is required.",
-        'r_H_unit.required'=>"The Unit field is required.",
-        'r_user_name.required'=>"The User Name field is required.",
-        'r_desigation.required'=>"The Designation field is required.",
-        'r_dept.required'=>"The Department field is required.",
-        'r_wstation.required'=>"The Work Station field is required.",
-        'r_unit.required'=>"The Unit field is required."]
-    );
+
 
     //Data Inserted Igloo Ice Cream Unit
         if($this->r_unit == "Igloo Ice Cream Unit")

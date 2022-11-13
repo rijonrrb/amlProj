@@ -27,7 +27,20 @@
 		</div>
 		<div class="col-md-3">
 			<label for="">Order By</label>
-			<select class="form-control" wire:model="orderBy"><option value="user_name">User name</option><option value="desigation">Desigation</option><option value="dept">Dept</option><option value="unit">Unit</option><option value="item">Item</option><option value="laptop_name">Item Name</option><option value="asset_no">Asset No</option><option value="serial_no">Serial No</option><option value="previous_user">Previous User</option><option value="issue_date">Previous User</option><option value="p_issue_date">Previous Issue Date</option><option value="configuration">Configuration</option>
+			<select class="form-control" wire:model="orderBy">
+			<option value="user_name">User name</option>
+			<option value="desigation">Desigation</option>
+			<option value="dept">Department</option>
+			<option value="wstation">Work-Station</option>
+			<option value="unit">Unit</option>
+			<option value="item">Item</option>
+			<option value="laptop_name">Item Name</option>
+			<option value="asset_no">Asset No</option>
+			<option value="serial_no">Serial No</option>
+			<option value="previous_user">Previous User</option>
+			<option value="issue_date">Previous User</option>
+			<option value="p_issue_date">Previous Issue Date</option>
+			<option value="configuration">Configuration</option>
 			</select>
 		</div>
 		<div class="col-md-3">

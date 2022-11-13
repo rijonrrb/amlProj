@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -190,4 +190,4 @@
 <script src="{{ asset('js/Opt.js') }}"></script>
 <script src="{{ asset('js/Add.js') }}"></script>
 </body>
-</html>
+</html> -->

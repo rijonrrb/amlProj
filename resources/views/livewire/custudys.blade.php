@@ -77,6 +77,7 @@
                 <th>Issue Date</th>
                 <th>Previous Issue Date</th>
                 <th>Configuration</th>
+                <th>Condition</th>
                 <th>Actions</th>
                 <th>Issue /<br> Re-Issue</th>
             </tr>
@@ -102,6 +103,7 @@
                 <td  data-id="{{ $Itcus->id }}" data-column="issue_date" >{{ $Itcus->issue_date }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="p_issue_date" >{{ $Itcus->p_issue_date }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="configuration" >{{ $Itcus->configuration }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="condition" >{{ $Itcus->condition }}</td>
                 <td>
                     <div class="btn-group container">
                         &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>

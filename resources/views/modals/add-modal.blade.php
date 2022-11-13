@@ -66,21 +66,7 @@
                         </select>
                        <span class="text-danger"> @error('wstation') {{ $message }}@enderror</span>
                    </div>
-                   <!-- <div class="form-group">
-                       <label for="">Unit</label>
-                       <select wire:model="unit" class="form-control" >
-                                <option value="" disabled selected hidden>Select Unit</option>
-                                <option value="Igloo Ice Cream Unit">Igloo Ice Cream Unit</option>
-                                <option value="Igloo Dairy Unit">Igloo Dairy Unit</option>
-                                <option value="Igloo Foods Unit">Igloo Foods Unit</option>
-                                <option value="AML Construction Unit">AML Construction Unit</option>
-                                <option value="AML Dredging Unit">AML Dredging Unit</option>
-                                <option value="AML Sugar Refinery Unit">AML Sugar Refinery Unit</option>
-                                <option value="AML Beverage Unit">AML Beverage Unit</option>
-                                <option value="AML Bran Oil Unit">AML Bran Oil Unit</option>
-                        </select>
-                       <span class="text-danger"> @error('unit') {{ $message }}@enderror</span>
-                   </div> -->
+
                    <div class="form-group">
                        <label for="">Product Type</label>
                        <div class="container row">
@@ -105,10 +91,7 @@
                        <label for="">Product Model</label>
                        <input type="text" class="form-control" placeholder="Product Model" wire:model="laptop_name" >
                    </div>
-                     <!-- <div class="form-group">
-                         <label for="">Asset No</label>
-                         <input type="text" class="form-control" placeholder="Asset No" wire:model="asset_no" >
-                     </div> -->
+
                      <div class="form-group">
                        <label for="">Product Serial No</label>
                        <input type="text" class="form-control" placeholder="Serial No" wire:model="serial_no" >
@@ -177,22 +160,8 @@
                                 <option value="Factory">Factory</option>
                                 <option value="Project">Project</option>
                         </select>
-                <span class="text-danger"> @error('H_wstation') {{ $message }}@enderror</span>
             </div>
-            <!-- <div class="form-group">
-               <label for="">Unit</label>
-               <select wire:model.debounce.500000ms="H_unit" class="form-control" >
-                                <option value="" disabled selected hidden>Select Unit</option>
-                                <option value="Igloo Ice Cream Unit">Igloo Ice Cream Unit</option>
-                                <option value="Igloo Dairy Unit">Igloo Dairy Unit</option>
-                                <option value="Igloo Foods Unit">Igloo Foods Unit</option>
-                                <option value="AML Construction Unit">AML Construction Unit</option>
-                                <option value="AML Dredging Unit">AML Dredging Unit</option>
-                                <option value="AML Sugar Refinery Unit">AML Sugar Refinery Unit</option>
-                                <option value="AML Beverage Unit">AML Beverage Unit</option>
-                                <option value="AML Bran Oil Unit">AML Bran Oil Unit</option>
-                </select>
-           </div> -->
+
        </div>
        <div class="form-group">
            <button type="button" id="close" data-dismiss="modal">Close</button>

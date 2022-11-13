@@ -60,14 +60,12 @@ class BranOils extends Component
             "user_name"=>"required",
             "desigation"=>"required",
             'dept'=>"required",
-            'wstation'=>"required",
-            "unit"=>"required"
+            'wstation'=>"required"
         ],
         ['user_name.required'=>"The User Name field is required.",
         'desigation.required'=>"The Designation field is required.",
         'dept.required'=>"The Department field is required.",
-        'wstation.required'=>"The Work Station field is required.",
-        'unit.required'=>"The Unit field is required."]
+        'wstation.required'=>"The Work Station field is required."]
     );
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
@@ -132,6 +130,7 @@ class BranOils extends Component
         $this->upd_H_user = '';
         $this->upd_H_designation = '';
         $this->upd_H_dept = '';
+        $this->upd_H_wstation = '';
         $this->upd_H_unit = '';
         $this->cid = $info->id;
         $this->dispatchBrowserEvent('OpenReturnCountryModal',[
@@ -175,14 +174,12 @@ class BranOils extends Component
             "upd_H_user"=>"required",
             "upd_H_designation"=>"required",
             'upd_H_dept'=>"required",
-            'upd_H_wstation'=>"required",
-            "upd_H_unit"=>"required"
+            'upd_H_wstation'=>"required"
         ],
         ['upd_H_user.required'=>"The User Name field is required.",
         'upd_H_designation.required'=>"The Designation field is required.",
         'upd_H_dept.required'=>"The Department field is required.",
-        'upd_H_wstation.required'=>"The Work Station field is required.",
-        'upd_H_unit.required'=>"The Unit field is required."]
+        'upd_H_wstation.required'=>"The Work Station field is required."]
     );
         $update = Itcus::insert([
             'user_name'=>Null,
@@ -226,119 +223,119 @@ class BranOils extends Component
         }
     }
     
-    public function OpenReuseModal($id){
-        $info = Branoil::find($id);
-        $this->r_user_name = '';
-        $this->r_desigation = '';
-        $this->r_dept = '';
-        $this->r_unit = '';
-        $this->r_H_user = '';
-        $this->r_H_designation = '';
-        $this->r_H_dept = '';
-        $this->r_H_unit = '';
-        $this->rid = $info->id;
-        $this->dispatchBrowserEvent('OpenReuseModal',[
-            'id'=>$id
-        ]);
-    }
-    public function reuseProd(){
+    // public function OpenReuseModal($id){
+    //     $info = Branoil::find($id);
+    //     $this->r_user_name = '';
+    //     $this->r_desigation = '';
+    //     $this->r_dept = '';
+    //     $this->r_unit = '';
+    //     $this->r_H_user = '';
+    //     $this->r_H_designation = '';
+    //     $this->r_H_dept = '';
+    //     $this->r_H_unit = '';
+    //     $this->rid = $info->id;
+    //     $this->dispatchBrowserEvent('OpenReuseModal',[
+    //         'id'=>$id
+    //     ]);
+    // }
+    // public function reuseProd(){
        
-        date_default_timezone_set('Asia/Dhaka');
-        $time =  date('d F Y h:i:s A');
-        $rid = $this->rid;
-        $info = Branoil::find($rid);
-        if (empty($info->previous_user))
-        {
-            $previous_user = $info->user_name;
-        }
-        elseif (empty($info->user_name))
-        {
-            $previous_user = $info->previous_user;
-        }
-        else
-        {
-            $previous_user = $info->previous_user."  ||  ".$info->user_name;
-        }
-        if (empty($info->p_issue_date))
-        {
-            $p_i_date = $info->issue_date;
-        }
-        elseif (empty($info->user_name))
-        {
-            $p_i_date = $info->p_issue_date;
-        }
-        else
-        {
-            $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
-        }
-        Session::put('id', $info->sid);
-        Session::put('b_area', 'Branoil');
-        $this->validate([
-            "r_H_user"=>"required",
-            "r_H_designation"=>"required",
-            'r_H_dept'=>"required",
-            "r_H_unit"=>"required",
-            "r_user_name"=>"required",
-            "r_desigation"=>"required",
-            'r_dept'=>"required",
-            "r_unit"=>"required"
-        ],
-        ['r_H_user.required'=>"The User Name field is required.",
-        'r_H_designation.required'=>"The Designation field is required.",
-        'r_H_dept.required'=>"The Department field is required.",
-        'r_H_unit.required'=>"The Unit field is required.",
-        'r_user_name.required'=>"The User Name field is required.",
-        'r_desigation.required'=>"The Designation field is required.",
-        'r_dept.required'=>"The Department field is required.",
-        'r_unit.required'=>"The Unit field is required."]
-    );
-        $update = Branoil::find($rid)->update([
-            'user_name'=>$this->r_user_name,
-            'desigation'=>$this->r_desigation,
-            'dept'=>$this->r_dept,
-            'unit'=>$this->r_unit,
-            'previous_user'=>$previous_user,
-            'issue_date'=>$time,
-            'p_issue_date'=>$p_i_date,
-        ]);
-        $savex = Invoice::where('sid',$info->sid)->update([
-          'handedBy'=>$this->r_H_user,
-          'h_desigation'=>$this->r_H_designation,
-          'h_dept'=>$this->r_H_dept,
-          'h_unit'=>"IT Unit",
-          'takenBy'=>$this->r_user_name,
-          't_desigation'=>$this->r_desigation,
-          't_dept'=>$this->r_dept,
-          't_unit'=>$this->r_unit,
-          'remarks'=>'For Official use',
-          'qty'=>'1',
-          'business_area'=>'Branoil',
-      ]);
-        if(!empty($this->r_dept))
-        {
-            $deptT = Dept::where('dept_name',$this->r_dept)->first();
-            if(!$deptT)
-            {  
-                $saave= Dept::insert([
-                    'dept_name'=>$this->r_dept
-                ]);
-            }
-        }
-        if(!empty($this->r_H_dept))
-        {
-            $deptH = Dept::where('dept_name',$this->r_H_dept)->first();
-            if(!$deptH)
-            {  
-                $saave= Dept::insert([
-                    'dept_name'=>$this->r_H_dept
-                ]);
-            }
-        }
-        if($savex){
-            $this->dispatchBrowserEvent('CloseReuseModal');
-            $this->checkedBranoil = [];
-        }
-    }
+    //     date_default_timezone_set('Asia/Dhaka');
+    //     $time =  date('d F Y h:i:s A');
+    //     $rid = $this->rid;
+    //     $info = Branoil::find($rid);
+    //     if (empty($info->previous_user))
+    //     {
+    //         $previous_user = $info->user_name;
+    //     }
+    //     elseif (empty($info->user_name))
+    //     {
+    //         $previous_user = $info->previous_user;
+    //     }
+    //     else
+    //     {
+    //         $previous_user = $info->previous_user."  ||  ".$info->user_name;
+    //     }
+    //     if (empty($info->p_issue_date))
+    //     {
+    //         $p_i_date = $info->issue_date;
+    //     }
+    //     elseif (empty($info->user_name))
+    //     {
+    //         $p_i_date = $info->p_issue_date;
+    //     }
+    //     else
+    //     {
+    //         $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
+    //     }
+    //     Session::put('id', $info->sid);
+    //     Session::put('b_area', 'Branoil');
+    //     $this->validate([
+    //         "r_H_user"=>"required",
+    //         "r_H_designation"=>"required",
+    //         'r_H_dept'=>"required",
+    //         "r_H_unit"=>"required",
+    //         "r_user_name"=>"required",
+    //         "r_desigation"=>"required",
+    //         'r_dept'=>"required",
+    //         "r_unit"=>"required"
+    //     ],
+    //     ['r_H_user.required'=>"The User Name field is required.",
+    //     'r_H_designation.required'=>"The Designation field is required.",
+    //     'r_H_dept.required'=>"The Department field is required.",
+    //     'r_H_unit.required'=>"The Unit field is required.",
+    //     'r_user_name.required'=>"The User Name field is required.",
+    //     'r_desigation.required'=>"The Designation field is required.",
+    //     'r_dept.required'=>"The Department field is required.",
+    //     'r_unit.required'=>"The Unit field is required."]
+    // );
+    //     $update = Branoil::find($rid)->update([
+    //         'user_name'=>$this->r_user_name,
+    //         'desigation'=>$this->r_desigation,
+    //         'dept'=>$this->r_dept,
+    //         'unit'=>$this->r_unit,
+    //         'previous_user'=>$previous_user,
+    //         'issue_date'=>$time,
+    //         'p_issue_date'=>$p_i_date,
+    //     ]);
+    //     $savex = Invoice::where('sid',$info->sid)->update([
+    //       'handedBy'=>$this->r_H_user,
+    //       'h_desigation'=>$this->r_H_designation,
+    //       'h_dept'=>$this->r_H_dept,
+    //       'h_unit'=>"IT Unit",
+    //       'takenBy'=>$this->r_user_name,
+    //       't_desigation'=>$this->r_desigation,
+    //       't_dept'=>$this->r_dept,
+    //       't_unit'=>$this->r_unit,
+    //       'remarks'=>'For Official use',
+    //       'qty'=>'1',
+    //       'business_area'=>'Branoil',
+    //   ]);
+    //     if(!empty($this->r_dept))
+    //     {
+    //         $deptT = Dept::where('dept_name',$this->r_dept)->first();
+    //         if(!$deptT)
+    //         {  
+    //             $saave= Dept::insert([
+    //                 'dept_name'=>$this->r_dept
+    //             ]);
+    //         }
+    //     }
+    //     if(!empty($this->r_H_dept))
+    //     {
+    //         $deptH = Dept::where('dept_name',$this->r_H_dept)->first();
+    //         if(!$deptH)
+    //         {  
+    //             $saave= Dept::insert([
+    //                 'dept_name'=>$this->r_H_dept
+    //             ]);
+    //         }
+    //     }
+    //     if($savex){
+    //         $this->dispatchBrowserEvent('CloseReuseModal');
+    //         $this->checkedBranoil = [];
+    //     }
+    // }
     public function deleteConfirm($id){
         $info = Branoil::find($id);
         $this->dispatchBrowserEvent('SwalConfirm',[
