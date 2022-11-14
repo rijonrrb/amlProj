@@ -3,12 +3,12 @@
     <div class="row mb-3 p-2 d-flex justify-content-between">
         <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddItcusModal()">Add New Dataset</button>
         <div>
-         @if ($checkedItcus)
-         <button class="btn btn-danger btn-md mr-4" wire:click="deleteItcuss()"> Delete rows ({{ count($checkedItcus) }})</button>
-         @endif
-     </div>
- </div>
- <div class="row mb-3 p-2 card-header" style= "margin-right: 0px; margin-left: 0px;">
+           @if ($checkedItcus)
+           <button class="btn btn-danger btn-md mr-4" wire:click="deleteItcuss()"> Delete rows ({{ count($checkedItcus) }})</button>
+           @endif
+       </div>
+   </div>
+   <div class="row mb-3 p-2 card-header" style= "margin-right: 0px; margin-left: 0px;">
     <div class="col-md-4">
         <label for="">Search</label>
         <input type="text" class="form-control" wire:model.debounce.350ms="search">
@@ -124,14 +124,14 @@
             
         </tbody>
     </table>
-    </div>
-    <div class="d-flex justify-content-between bg-dark card-footer">
+</div>
+<div class="d-flex justify-content-between bg-dark card-footer">
     @if (count($Itcuss))
     {{ $Itcuss->links('livewire-pagination-links') }}
     @endif
     <button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
-    </div>
-    @include('modals.addProd-modal')
-    @include('modals.edit-modal')
-    @include('modals.reuse-modal')
-    </div>
+</div>
+@include('modals.addProd-modal')
+@include('modals.edit-modal')
+@include('modals.reuse-modal')
+</div>

@@ -77,7 +77,7 @@ class Beverages extends Component
         'desigation.required'=>"The Designation field is required.",
         'dept.required'=>"The Department field is required.",
         'wstation.required'=>"The Work Station field is required."]
-        );
+    );
         $save = Beverage::insert([
           'user_name'=>$this->user_name,
           'desigation'=>$this->desigation,
@@ -93,7 +93,7 @@ class Beverages extends Component
           'p_issue_date'=>$this->p_issue_date,
           'configuration'=>$this->configuration,
           'sid'=> $next_id,
-         ]);
+      ]);
         Invoice::insert([
             'handedBy'=>$this->H_user,
             'h_desigation'=>$this->H_designation,
@@ -125,7 +125,7 @@ class Beverages extends Component
                 ]);
             }
         }
-     
+        
         if($save){
             $this->dispatchBrowserEvent('CloseAddBeverageModal');
             $this->checkedBeverage = [];
@@ -145,7 +145,7 @@ class Beverages extends Component
         ]);
     }
     public function update(){
-       
+     
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $cid = $this->cid;
@@ -249,7 +249,7 @@ class Beverages extends Component
     //     ]);
     // }
     // public function reuseProd(){
-       
+    
     //     date_default_timezone_set('Asia/Dhaka');
     //     $time =  date('d F Y h:i:s A');
     //     $rid = $this->rid;

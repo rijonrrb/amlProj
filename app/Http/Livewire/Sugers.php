@@ -14,6 +14,8 @@ class Sugers extends Component
     protected $listeners = ['delete','deleteCheckedSugers'];
     public $checkedSuger = [];
     public $byDept =null;
+    public $desig =null;
+    public $wstat =null;
     public $perPage =20;
     public $orderBy = "user_name";
     public $sortBy = "asc";
@@ -24,6 +26,10 @@ class Sugers extends Component
             'depts'=>Dept::orderBy('dept_name','asc')->get(),
             'Sugers'=>Suger::when($this->byDept,function($query){
                 $query->where('dept',$this->byDept);
+            })->when($this->desig,function($query){
+                $query->where('desigation',$this->desig);
+            })->when($this->wstat,function($query){
+                $query->where('wstation',$this->wstat);
             })
             ->search(trim($this->search))
             ->orderBy($this->orderBy,$this->sortBy)

@@ -21,6 +21,7 @@ class Custudys extends Component
     protected $listeners = ['delete','deleteCheckedItcuss'];
     public $checkedItcus = [];
     public $byDept =null;
+    
     public $perPage =20;
     public $orderBy = "user_name";
     public $sortBy = "asc";

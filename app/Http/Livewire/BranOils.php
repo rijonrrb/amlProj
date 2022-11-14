@@ -17,6 +17,8 @@ class BranOils extends Component
     protected $listeners = ['delete','deleteCheckedBranoils'];
     public $checkedBranoil = [];
     public $byDept =null;
+    public $desig =null;
+    public $wstat =null;
     public $perPage =20;
     public $orderBy = "user_name";
     public $sortBy = "asc";
@@ -27,6 +29,10 @@ class BranOils extends Component
             'depts'=>Dept::orderBy('dept_name','asc')->get(),
             'Branoils'=>Branoil::when($this->byDept,function($query){
                 $query->where('dept',$this->byDept);
+            })->when($this->desig,function($query){
+                $query->where('desigation',$this->desig);
+            })->when($this->wstat,function($query){
+                $query->where('wstation',$this->wstat);
             })
             ->search(trim($this->search))
             ->orderBy($this->orderBy,$this->sortBy)
@@ -138,7 +144,7 @@ class BranOils extends Component
         ]);
     }
     public function update(){
-       
+     
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $cid = $this->cid;
@@ -242,7 +248,7 @@ class BranOils extends Component
     //     ]);
     // }
     // public function reuseProd(){
-       
+    
     //     date_default_timezone_set('Asia/Dhaka');
     //     $time =  date('d F Y h:i:s A');
     //     $rid = $this->rid;
