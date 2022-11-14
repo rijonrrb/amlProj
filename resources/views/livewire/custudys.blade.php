@@ -9,11 +9,11 @@
        </div>
    </div>
    <div class="row mb-3 p-2 card-header" style= "margin-right: 0px; margin-left: 0px;">
-    <div class="col-md-2 mt-1 mb-4">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
         <label for="" style="color:#c94c4c"><b>Search</b></label>
         <input type="text" class="form-control" wire:model.debounce.350ms="search">
     </div>
-    <div class="col-md-1 mt-1 mb-4">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-1 mt-1 mb-4">
         <label for="" style="color:#c94c4c"><b>Data Limit</b></label>
         <select class="form-control" wire:model="perPage">
             <option value="20">20</option>
@@ -24,7 +24,7 @@
             <option value="1000">1000</option>
         </select>
     </div>
-    <div class="col-md-2 mt-1 mb-4">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
         <label for="" style="color:#c94c4c"><b>Unit</b></label>
         <select wire:model ="byUnit" class="form-control">
             <option value="">Select Option</option>
@@ -39,7 +39,7 @@
 
         </select>
     </div>
-    <div class="col-md-2 mt-1 mb-4">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
         <label for="" style="color:#c94c4c"><b>Product Type</b></label>
         <select class="form-control" wire:model="byPtype">
             <option value="">Select Product Type</option>
@@ -57,7 +57,7 @@
             <option value="HDD">HDD</option>
         </select>
     </div>
-    <div class="col-md-2 mt-1 mb-4">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
         <label for="" style="color:#c94c4c"><b>Product Condition</b></label>
         <select class="form-control" wire:model="byPcond">
             <option value="">Select Condition</option>
@@ -66,7 +66,7 @@
             <option value="Out of order">Out of order</option>
         </select>
     </div>
-    <div class="col-md-2 mt-1 mb-4">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
         <label for="" style="color:#c94c4c"><b>Order By</b></label>
         <select class="form-control" wire:model="orderBy">
             <option value="unit">Unit</option>
@@ -82,7 +82,7 @@
             
         </select>
     </div>
-    <div class="col-md-1 mt-1 mb-4">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-1 mt-1 mb-4">
         <label for="" style="color:#c94c4c"><b>Sort By</b></label>
         <select class="form-control" wire:model="sortBy">
             <option value="asc">ASC</option>
