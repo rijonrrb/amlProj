@@ -45,8 +45,6 @@
                       <label for="Good">Good</label>
                       <input type="radio" wire:model="condition" name="condition" value="Damaged">
                       <label for="Damaged">Damaged</label>
-                      <input type="radio" wire:model="condition" name="condition" value="Out of order">
-                      <label for="Out of order">Out of order</label>
                     <br><span class="text-danger"> @error('condition') {{ $message }}@enderror</span>
                 </div>
                  <div class="form-group">
