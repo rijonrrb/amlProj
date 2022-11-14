@@ -14,8 +14,8 @@ class Constructions extends Component
     protected $listeners = ['delete','deleteCheckedConstructions'];
     public $checkedConstruction = [];
     public $byDept =null;
-    public $desig =null;
-    public $wstat =null;
+    public $byDes =null;
+    public $byWstat =null;
     public $perPage =20;
     public $orderBy = "user_name";
     public $sortBy = "asc";
@@ -26,10 +26,10 @@ class Constructions extends Component
             'depts'=>Dept::orderBy('dept_name','asc')->get(),
             'Constructions'=>Construction::when($this->byDept,function($query){
                 $query->where('dept',$this->byDept);
-            })->when($this->desig,function($query){
-                $query->where('desigation',$this->desig);
-            })->when($this->wstat,function($query){
-                $query->where('wstation',$this->wstat);
+            })->when($this->byDes,function($query){
+                $query->where('desigation',$this->byDes);
+            })->when($this->byWstat,function($query){
+                $query->where('wstation',$this->byWstat);
             })
             ->search(trim($this->search))
             ->orderBy($this->orderBy,$this->sortBy)

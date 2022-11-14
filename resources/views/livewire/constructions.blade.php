@@ -9,12 +9,12 @@
             </div>
         </div>
         <div class="row mb-3 p-2 card-header" style= "margin-right: 0px; margin-left: 0px;">
-        <div class="col-md-2 mt-1 mb-4">
-            <label for="" style="color:#c94c4c"><b>Search</b></label>
+            <div class="col-md-2 mt-1 mb-4">
+                <label for="" style="color:#c94c4c"><b>Search</b></label>
                 <input type="text" class="form-control" wire:model.debounce.350ms="search">
             </div>
-        <div class="col-md-1 mt-1 mb-4">
-            <label for="" style="color:#c94c4c"><b>Data Limit</b></label>
+            <div class="col-md-1 mt-1 mb-4">
+                <label for="" style="color:#c94c4c"><b>Data Limit</b></label>
                 <select class="form-control" wire:model="perPage">
                     <option value="20">20</option>
                     <option value="50">50</option>
@@ -24,26 +24,8 @@
                     <option value="1000">1000</option>
                 </select>
             </div>
-        <div class="col-md-2 mt-1 mb-4">
-            <label for="" style="color:#c94c4c"><b>Order By</b></label>
-                <select class="form-control" wire:model="orderBy">
-                    <option value="user_name">User name</option>
-                    <option value="desigation">Desigation</option>
-                    <option value="dept">Department</option>
-                    <option value="wstation">Work-Station</option>
-                    <option value="unit">Unit</option>
-                    <option value="item">Product</option>
-                    <option value="laptop_name">Product Model</option>
-                    <option value="asset_no">Asset No</option>
-                    <option value="serial_no">Serial No</option>
-                    <option value="previous_user">Previous User</option>
-                    <option value="issue_date">Previous User</option>
-                    <option value="p_issue_date">Previous Issue Date</option>
-                    <option value="configuration">Configuration</option>
-                </select>
-            </div>
-        <div class="col-md-2 mt-1 mb-4">
-            <label for="" style="color:#c94c4c"><b>Department</b></label>
+            <div class="col-md-2 mt-1 mb-4">
+                <label for="" style="color:#c94c4c"><b>Department</b></label>
                 <select wire:model ="byDept" class="form-control">
                     <option value="">Select Department</option>
                     @foreach ($depts as $dept)
@@ -51,15 +33,9 @@
                     @endforeach
                 </select>
             </div>
-        <div class="col-md-1 mt-1 mb-4">
-            <label for="" style="color:#c94c4c"><b>Sort By</b></label>
-                <select class="form-control" wire:model="sortBy">
-                    <option value="asc">ASC</option><option value="desc">DESC</option>
-                </select>
-            </div>
-        <div class="col-md-2 mt-1 mb-4">
-            <label for="" style="color:#c94c4c"><b>Desigation</b></label>
-                <select class="form-control" wire:model="desig">
+            <div class="col-md-2 mt-1 mb-4">
+                <label for="" style="color:#c94c4c"><b>Desigation</b></label>
+                <select class="form-control" wire:model="byDes">
                     <option value="">Select Desigation</option>
                     <option value="Chief executive officer">Chief executive officer</option>
                     <option value="Chief Technology Officer">Chief Technology Officer</option>
@@ -82,14 +58,38 @@
                     <option value="Intern">Intern</option> 
                 </select>
             </div>
-        <div class="col-md-2 mt-1 mb-4">
-            <label for="" style="color:#c94c4c"><b>Work-Station</b></label>
-                <select class="form-control" wire:model="wstat">
+            <div class="col-md-2 mt-1 mb-4">
+                <label for="" style="color:#c94c4c"><b>Work-Station</b></label>
+                <select class="form-control" wire:model="byWstat">
                     <option value="">Select Work-Station</option>
                     <option value="CHO">CHO</option>
                     <option value="Depo">Depo</option>
                     <option value="Factory">Factory</option>
                     <option value="Project">Project</option>
+                </select>
+            </div>
+            <div class="col-md-2 mt-1 mb-4">
+                <label for="" style="color:#c94c4c"><b>Order By</b></label>
+                <select class="form-control" wire:model="orderBy">
+                    <option value="user_name">User name</option>
+                    <option value="desigation">Desigation</option>
+                    <option value="dept">Department</option>
+                    <option value="wstation">Work-Station</option>
+                    <option value="unit">Unit</option>
+                    <option value="item">Product</option>
+                    <option value="laptop_name">Product Model</option>
+                    <option value="asset_no">Asset No</option>
+                    <option value="serial_no">Serial No</option>
+                    <option value="previous_user">Previous User</option>
+                    <option value="issue_date">Previous User</option>
+                    <option value="p_issue_date">Previous Issue Date</option>
+                    <option value="configuration">Configuration</option>
+                </select>
+            </div>
+            <div class="col-md-1 mt-1 mb-4">
+                <label for="" style="color:#c94c4c"><b>Sort By</b></label>
+                <select class="form-control" wire:model="sortBy">
+                    <option value="asc">ASC</option><option value="desc">DESC</option>
                 </select>
             </div>
         </div>

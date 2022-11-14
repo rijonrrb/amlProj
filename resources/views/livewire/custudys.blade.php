@@ -9,12 +9,12 @@
        </div>
    </div>
    <div class="row mb-3 p-2 card-header" style= "margin-right: 0px; margin-left: 0px;">
-    <div class="col-md-4">
-        <label for="">Search</label>
+    <div class="col-md-2 mt-1 mb-4">
+        <label for="" style="color:#c94c4c"><b>Search</b></label>
         <input type="text" class="form-control" wire:model.debounce.350ms="search">
     </div>
-    <div class="col-md-1">
-        <label for="">Data Limit</label>
+    <div class="col-md-1 mt-1 mb-4">
+        <label for="" style="color:#c94c4c"><b>Data Limit</b></label>
         <select class="form-control" wire:model="perPage">
             <option value="20">20</option>
             <option value="50">50</option>
@@ -24,14 +24,52 @@
             <option value="1000">1000</option>
         </select>
     </div>
-    <div class="col-md-3">
-        <label for="">Order By</label>
+    <div class="col-md-2 mt-1 mb-4">
+        <label for="" style="color:#c94c4c"><b>Unit</b></label>
+        <select wire:model ="byUnit" class="form-control">
+            <option value="">Select Option</option>
+            <option value="Igloo Ice Cream Unit">Igloo Ice Cream Unit</option>
+            <option value="Igloo Dairy Unit">Igloo Dairy Unit</option>
+            <option value="Igloo Foods Unit">Igloo Foods Unit</option>
+            <option value="AML Construction Unit">AML Construction Unit</option>
+            <option value="AML Dredging Unit">AML Dredging Unit</option>
+            <option value="AML Sugar Refinery Unit">AML Sugar Refinery Unit</option>
+            <option value="AML Beverage Unit">AML Beverage Unit</option>
+            <option value="AML Bran Oil Unit">AML Bran Oil Unit</option>
+
+        </select>
+    </div>
+    <div class="col-md-2 mt-1 mb-4">
+        <label for="" style="color:#c94c4c"><b>Product Type</b></label>
+        <select class="form-control" wire:model="byPtype">
+            <option value="">Select Product Type</option>
+            <option value="Laptop">Laptop</option>
+            <option value="Desktop">Desktop</option>
+            <option value="Printer">Printer</option>
+            <option value="Scanner">Scanner</option>
+            <option value="Router">Router</option>
+            <option value="Switch">Switch</option>
+            <option value="Projector">Projector</option>
+            <option value="Mouse">Mouse</option>
+            <option value="Keyboard">Keyboard</option>
+            <option value="RAM">RAM</option>
+            <option value="SSD">SSD</option> 
+            <option value="HDD">HDD</option>
+        </select>
+    </div>
+    <div class="col-md-2 mt-1 mb-4">
+        <label for="" style="color:#c94c4c"><b>Product Condition</b></label>
+        <select class="form-control" wire:model="byPcond">
+            <option value="">Select Condition</option>
+            <option value="Good">Good</option>
+            <option value="Damaged">Damaged</option>
+            <option value="Out of order">Out of order</option>
+        </select>
+    </div>
+    <div class="col-md-2 mt-1 mb-4">
+        <label for="" style="color:#c94c4c"><b>Order By</b></label>
         <select class="form-control" wire:model="orderBy">
-            <option value="user_name">User name</option>
-            <option value="desigation">Desigation</option>
-            <option value="dept">Dept</option>
             <option value="unit">Unit</option>
-            <option value="wstation">Work Station</option>
             <option value="item">Product</option>
             <option value="laptop_name">Product Model</option>
             <option value="asset_no">Asset No</option>
@@ -44,17 +82,8 @@
             
         </select>
     </div>
-    <div class="col-md-3">
-        <label for="">Department</label>
-        <select wire:model ="byDept" class="form-control">
-            <option value="">Select Option</option>
-            @foreach ($depts as $dept)
-            <option value="{{ $dept->dept_name }}">{{$dept->dept_name}}</option> 
-            @endforeach
-        </select>
-    </div>
-    <div class="col-md-1">
-        <label for="">Sort By</label>
+    <div class="col-md-1 mt-1 mb-4">
+        <label for="" style="color:#c94c4c"><b>Sort By</b></label>
         <select class="form-control" wire:model="sortBy">
             <option value="asc">ASC</option>
             <option value="desc">DESC</option>

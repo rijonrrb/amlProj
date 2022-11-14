@@ -20,18 +20,23 @@ class Custudys extends Component
     use WithPagination;
     protected $listeners = ['delete','deleteCheckedItcuss'];
     public $checkedItcus = [];
-    public $byDept =null;
-    
+    public $byUnit =null;
+    public $byPtype =null;
+    public $byPcond =null;
     public $perPage =20;
-    public $orderBy = "user_name";
+    public $orderBy = "unit";
     public $sortBy = "asc";
     public $search;
     public function render()
     {
         return view('livewire.custudys',[
             'depts'=>Dept::orderBy('dept_name','asc')->get(),
-            'Itcuss'=>Itcus::when($this->byDept,function($query){
-                $query->where('dept',$this->byDept);
+            'Itcuss'=>Itcus::when($this->byUnit,function($query){
+                $query->where('unit',$this->byUnit);
+            })->when($this->byPtype,function($query){
+                $query->where('item',$this->byPtype);
+            })->when($this->byPcond,function($query){
+                $query->where('condition',$this->byPcond);
             })
             ->search(trim($this->search))
             ->orderBy($this->orderBy,$this->sortBy)

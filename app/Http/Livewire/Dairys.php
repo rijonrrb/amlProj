@@ -17,8 +17,8 @@ class Dairys extends Component
     protected $listeners = ['delete','deleteCheckedDairys'];
     public $checkedDairy = [];
     public $byDept =null;
-    public $desig =null;
-    public $wstat =null;
+    public $byDes =null;
+    public $byWstat =null;
     public $perPage =20;
     public $orderBy = "user_name";
     public $sortBy = "asc";
@@ -29,10 +29,10 @@ class Dairys extends Component
             'depts'=>Dept::orderBy('dept_name','asc')->get(),
             'Dairys'=>Dairy::when($this->byDept,function($query){
                 $query->where('dept',$this->byDept);
-            })->when($this->desig,function($query){
-                $query->where('desigation',$this->desig);
-            })->when($this->wstat,function($query){
-                $query->where('wstation',$this->wstat);
+            })->when($this->byDes,function($query){
+                $query->where('desigation',$this->byDes);
+            })->when($this->byWstat,function($query){
+                $query->where('wstation',$this->byWstat);
             })
             ->search(trim($this->search))
             ->orderBy($this->orderBy,$this->sortBy)
