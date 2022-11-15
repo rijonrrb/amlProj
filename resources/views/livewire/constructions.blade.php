@@ -97,7 +97,9 @@
             <table class="table table-hover table-bordered" id="Cons">
                 <thead class="thead-inverse">
                     <tr>
+                        @if(Session::get('admin_type') == "SAdmin")
                         <th></th>
+                        @endif
                         <th>SL No.</th>
                         <th>User name</th>
                         <th>Desigation</th>
@@ -111,9 +113,11 @@
                         <th>Previous User</th>
                         <th>Issue Date</th>
                         <th>Previous Issue Date</th>
-                        <th>Configuration</th>
-                        <th>Actions</th>
+                        <th>Configuration</th>                        
                         <th>Return</th>
+                        @if(Session::get('admin_type') == "SAdmin")
+                        <th>Actions</th>
+                        @endif
                         <!-- <th>Reuse</th> -->
                     </tr>
                 </thead>
@@ -123,7 +127,9 @@
                     @endphp
                     @forelse ($Constructions as $Construction)
                     <tr class="{{ $this->isChecked($Construction->id) }}">
+                        @if(Session::get('admin_type') == "SAdmin")
                         <td><input type="checkbox" value="{{ $Construction->id }}" wire:model="checkedConstruction"></td>
+                        @endif
                         <td>{{ $i++ }}</td>
                         <td  data-id="{{ $Construction->id }}" data-column="user_name" >{{ $Construction->user_name }}</td>
                         <td  data-id="{{ $Construction->id }}" data-column="desigation" >{{ $Construction->desigation }}</td>
@@ -140,14 +146,16 @@
                         <td  data-id="{{ $Construction->id }}" data-column="configuration" >{{ $Construction->configuration }}</td>
                         <td>
                             <div class="btn-group container">
-                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Construction->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="btn-group container">
                                 &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenReturnCountryModal({{$Construction->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
                             </div>
                         </td>
+                        @if(Session::get('admin_type') == "SAdmin")
+                        <td>
+                            <div class="btn-group container">
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Construction->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                            </div>
+                        </td>
+                        @endif
                         <!-- <td>
                         <div class="btn-group container">
                         &nbsp;<a href="#" wire:click="OpenReuseModal({{$Construction->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Reuse Item"></img></a>

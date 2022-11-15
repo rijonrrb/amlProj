@@ -94,7 +94,9 @@
     <table class="table table-hover table-bordered" id="Itcus">
         <thead class="thead-inverse">
             <tr>
+                @if(Session::get('admin_type') == "SAdmin")
                 <th></th>
+                @endif
                 <th>SL No.</th>
                 <th>User name</th>
                 <th>Desigation</th>
@@ -109,9 +111,11 @@
                 <th>Issue Date</th>
                 <th>Previous Issue Date</th>
                 <th>Configuration</th>
-                <th>Condition</th>
-                <th>Actions</th>
+                <th>Condition</th>                
                 <th>Issue /<br> Re-Issue</th>
+                @if(Session::get('admin_type') == "SAdmin")
+                <th>Actions</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -120,7 +124,9 @@
             @endphp
             @forelse ($Itcuss as $Itcus)
             <tr class="{{ $this->isChecked($Itcus->id) }}">
+                @if(Session::get('admin_type') == "SAdmin")
                 <td><input type="checkbox" value="{{ $Itcus->id }}" wire:model="checkedItcus"></td>
+                @endif
                 <td>{{$i++}}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="user_name" >{{ $Itcus->user_name }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="desigation" >{{ $Itcus->desigation }}</td>
@@ -138,14 +144,16 @@
                 <td  data-id="{{ $Itcus->id }}" data-column="condition" >{{ $Itcus->condition }}</td>
                 <td>
                     <div class="btn-group container">
-                        &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
-                    </div>
-                </td>
-                <td>
-                    <div class="btn-group container">
                         &nbsp;<a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
                     </div>
                 </td>
+                @if(Session::get('admin_type') == "SAdmin")
+                <td>
+                    <div class="btn-group container">
+                        &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                    </div>
+                </td>
+                @endif
             </tr>
             @empty
             <code>No DataSet found!</code>

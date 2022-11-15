@@ -2,6 +2,7 @@
         <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>AML Sugar Refinery Unit</b></h4>
         <div class="row mb-3 p-2 d-flex justify-content-between">
             <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddSugerModal()">Add New Dataset</button>
+            <a  href="{{route('AdminLogout')}}"> &nbsp;Logout</a>
             <div>
                 @if ($checkedSuger)
                 <button class="btn btn-danger btn-md mr-4" wire:click="deleteSugers()"> Delete rows ({{ count($checkedSuger) }})</button>
@@ -97,7 +98,9 @@
             <table class="table table-hover table-bordered" id="Sugar">
                 <thead class="thead-inverse">
                     <tr>
+                        @if(Session::get('admin_type') == "SAdmin")
                         <th></th>
+                        @endif
                         <th>SL No.</th>
                         <th>User name</th>
                         <th>Desigation</th>
@@ -111,9 +114,11 @@
                         <th>Previous User</th>
                         <th>Issue Date</th>
                         <th>Previous Issue Date</th>
-                        <th>Configuration</th>
-                        <th>Actions</th>
+                        <th>Configuration</th>                       
                         <th>Return</th>
+                        @if(Session::get('admin_type') == "SAdmin")
+                        <th>Actions</th>
+                        @endif
                         <!-- <th>Reuse</th> -->
                     </tr>
                 </thead>
@@ -123,7 +128,9 @@
                     @endphp
                     @forelse ($Sugers as $Suger)
                     <tr class="{{ $this->isChecked($Suger->id) }}">
+                        @if(Session::get('admin_type') == "SAdmin")
                         <td><input type="checkbox" value="{{ $Suger->id }}" wire:model="checkedSuger"></td>
+                        @endif
                         <td>{{$i++}}</td>
                         <td  data-id="{{ $Suger->id }}" data-column="user_name" >{{ $Suger->user_name }}</td>
                         <td  data-id="{{ $Suger->id }}" data-column="desigation" >{{ $Suger->desigation }}</td>
@@ -140,14 +147,16 @@
                         <td  data-id="{{ $Suger->id }}" data-column="configuration" >{{ $Suger->configuration }}</td>
                         <td>
                             <div class="btn-group container">
-                                <a href="#" wire:click="deleteConfirm({{$Suger->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="btn-group container">
                                 &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenReturnCountryModal({{$Suger->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
                             </div>
                         </td>
+                        @if(Session::get('admin_type') == "SAdmin")
+                        <td>
+                            <div class="btn-group container">
+                                <a href="#" wire:click="deleteConfirm({{$Suger->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                            </div>
+                        </td>
+                        @endif
                         <!-- <td>
                         <div class="btn-group container">
                         &nbsp;<a href="#" wire:click="OpenReuseModal({{$Suger->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Reuse Item"></img></a>
