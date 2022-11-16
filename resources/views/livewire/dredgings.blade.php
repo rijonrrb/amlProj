@@ -103,7 +103,7 @@
 					<th>SL No.</th>
 					<th>User name</th>
 					<th>Desigation</th>
-					<th>Dept</th>
+					<th>Department</th>
 					<th>Work-Station</th>
 					<th>Unit</th>
 					<th>Product Type</th>
@@ -116,7 +116,8 @@
 					<th>Configuration</th>					
 					<th>Return</th>
 					@if(Session::get('admin_type') == "SAdmin")
-					<th>Actions</th>
+					<th>Delete</th>
+					<th>Update</th>
 					@endif
 				</tr>
 			</thead>
@@ -154,6 +155,11 @@
 							&nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Dredging->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
 						</div>
 					</td>
+					<td>
+						<div class="btn-group container">
+							&nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$country->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+						</div>
+					</td>
 					@endif
                     <!-- <td>
                     <div class="btn-group container">
@@ -176,4 +182,5 @@
 @include('modals.add-modal')
 @include('modals.edit-modal')
 @include('modals.reuse-modal')
+@include('modals.update-modal')
 </div>

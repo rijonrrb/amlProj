@@ -55,6 +55,16 @@
                 }
             });
         });
+        window.addEventListener('OpenEditModal', function(event){
+               $('.updateRow').find('span').html('');
+               $('.updateRow').modal('show');
+           });
+        window.addEventListener('CloseEditModal', function(event){
+               $('.updateRow').find('span').html('');
+               $('.updateRow').find('form')[0].reset();
+               $('.updateRow').modal('hide');
+        });
+
         window.addEventListener('OpenReturnCountryModal', function(event){
             $('.returnCountry').find('span').html('');
             $('.returnCountry').modal('show');

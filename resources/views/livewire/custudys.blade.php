@@ -100,7 +100,7 @@
                 <th>SL No.</th>
                 <th>User name</th>
                 <th>Desigation</th>
-                <th>Dept</th>
+                <th>Department</th>
                 <th>Work-Station</th>
                 <th>Unit</th>
                 <th>Product Type</th>
