@@ -37,5 +37,48 @@ class AdminController extends Controller
         session()->forget('admin_type');
         return redirect()->route('AdminLogin');
     }
+
+    public function AdminCpass(Request $request){
+
+        $validate = $request->validate([
+            "password"=>'required',
+            'npassword'=>'required',
+            'cnpassword'=>'required'
+        ],
+        ['password.required'=>"The Password Required.",
+        'npassword.required'=>"The New password Required.",
+        'cnpassword.required'=>"The Repeated New Password Required."
+        ]
+    );
+
+    $pass=$request->npassword;
+    $rpass=$request->cnpassword;
+
+    if ($rpass == $pass)
+    {
+
+    $user = Admin::where('email',$request->session()->get('email'))->where('password',md5($request->password))->first();
+
+    if($user){
+
+            $user->password = md5($request->npassword);
+            session()->put('password',md5($request->npassword));
+            $result = $user->save();
+            if($result){
+            return redirect()->back()->with('success', 'Password Successfully Updated');
+            }
+            else{
+                return redirect()->back()->with('failed', 'Failure in Password Updating');
+            }
+
+    }
+    else{
+        return redirect()->back()->with('failed', 'Old Password does not match');
+    }
+    }
+    else{
+        return redirect()->back()->with('failed', 'Repeated Password does not match with New Password');
+    }
+   }
     
 }

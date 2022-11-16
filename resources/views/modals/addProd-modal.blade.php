@@ -14,6 +14,8 @@
                                 <option value="Desktop">Desktop</option>
                                 <option value="Printer">Printer</option>
                                 <option value="Scanner">Scanner</option>
+                                <option value="Router">Router</option>
+                                <option value="Switch">Switch</option>
                                 <option value="Projector">Projector</option>
                                 <option value="Mouse">Mouse</option>
                                 <option value="Keyboard">Keyboard</option>
