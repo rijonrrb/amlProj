@@ -6,7 +6,6 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\Update;
 
 //Product_Routes
-Route::get('/',[MainController::class,'index'])->name('home');
 Route::get('/Product-Invoice',[InvoiceController::class,'invoice'])->name('invoice')->middleware('AdminIsValid');
 Route::get('/AML-Beverage',[MainController::class,'beverages'])->name('beverages')->middleware('AdminIsValid');
 Route::get('/AML-Dredging',[MainController::class,'dredgings'])->name('dredgings')->middleware('AdminIsValid');
@@ -39,8 +38,8 @@ Route::get('/dept',[MainController::class,'dept'])->name('dept');
 
 //Admin_Routes
 Route::get('/Admin/Login', function () {return view('Admin.Login');})->name('AdminLogin');
-Route::get('/Admin/Dashboard', function () {return view('Admin.Dashboard');})->name('AdminDash');
+Route::get('/', function () {return view('Admin.Dashboard');})->name('home')->middleware('AdminIsValid');
 Route::post('/Admin/Logged_in',[AdminController::class, 'AdminLogSubmit'])->name('AdminLog');
-Route::get('/Admin/LogOut',[AdminController::class, 'logout'])->name('AdminLogout');
+Route::get('/Admin/LogOut',[AdminController::class, 'logout'])->name('AdminLogout')->middleware('AdminIsValid');
 
 

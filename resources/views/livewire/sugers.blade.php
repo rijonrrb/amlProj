@@ -2,7 +2,6 @@
         <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>AML Sugar Refinery Unit</b></h4>
         <div class="row mb-3 p-2 d-flex justify-content-between">
             <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddSugerModal()">Add New Dataset</button>
-            <a  href="{{route('AdminLogout')}}"> &nbsp;Logout</a>
             <div>
                 @if ($checkedSuger)
                 <button class="btn btn-danger btn-md mr-4" wire:click="deleteSugers()"> Delete rows ({{ count($checkedSuger) }})</button>
