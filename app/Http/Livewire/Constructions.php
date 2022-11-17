@@ -226,6 +226,48 @@ class Constructions extends Component
             $this->checkedConstruction = [];
         }
     }
+    public function OpenEditModal($id){
+        $info = Construction::find($id);
+
+        $this->U_user_name = $info->user_name;
+        $this->U_desigation = $info->desigation;
+        $this->U_dept = $info->dept;
+        $this->U_wstation = $info->wstation;
+        $this->U_item = $info->item;
+        $this->U_laptop_name = $info->laptop_name;
+        $this->U_serial_no = $info->serial_no;
+        $this->U_P_user = $info->previous_user;
+        $this->U_I_date = $info->issue_date;
+        $this->U_P_I_date = $info->p_issue_date;
+        $this->U_configuration = $info->configuration;
+        $this->cid = $info->id;
+        $this->dispatchBrowserEvent('OpenEditModal',[
+            'id'=>$id
+        ]);
+    }
+
+    public function updateRow(){
+        $cid = $this->cid;
+
+        $update = Construction::find($cid)->update([
+            'user_name'=>$this->U_user_name,
+            'desigation'=>$this->U_desigation,
+            'dept'=>$this->U_dept,
+            'wstation'=>$this->U_wstation,
+            'item'=>$this->U_item,
+            'laptop_name'=>$this->U_laptop_name,
+            'serial_no'=>$this->U_serial_no,
+            'previous_user'=>$this->U_P_user,
+            'issue_date'=>$this->U_I_date,
+            'p_issue_date'=>$this->U_P_I_date,
+            'configuration'=>$this->U_configuration
+        ]);
+
+        if($update){
+            $this->dispatchBrowserEvent('CloseEditModal');
+            $this->checkedConstruction = [];
+        }
+    }
     // public function OpenReuseModal($id){
     //     $info = Construction::find($id);
     //     $this->r_user_name = '';

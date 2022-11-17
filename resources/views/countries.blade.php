@@ -54,9 +54,24 @@
             if (result.value) {
                 window.location.href = "{{route('invoice')}}"
             }
-        });
-        
+        });       
     });
+    window.addEventListener('OpenEditModal', function(event){
+               $('.updateRow').find('span').html('');
+               $('.updateRow').modal('show');
+           });
+        window.addEventListener('CloseEditModal', function(event){
+               $('.updateRow').find('span').html('');
+               $('.updateRow').find('form')[0].reset();
+               $('.updateRow').modal('hide');
+               Swal.fire({
+                    icon: 'success',
+                    title: 'Updated..',
+                    text: 'Your DataSet has been Updated.',
+                    showConfirmButton: false,
+                    timer: 800
+                });
+        });
      window.addEventListener('OpenReturnCountryModal', function(event){
          $('.returnCountry').find('span').html('');
          $('.returnCountry').modal('show');

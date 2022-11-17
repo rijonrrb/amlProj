@@ -158,7 +158,7 @@
                         </td>
                         <td>
 						<div class="btn-group container">
-							&nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$country->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+							&nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Suger->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
 						</div>
                         </td>
                         @endif

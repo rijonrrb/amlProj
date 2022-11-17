@@ -171,7 +171,7 @@ class Beverages extends Component
 
         if($update){
             $this->dispatchBrowserEvent('CloseEditModal');
-            $this->checkedCountry = [];
+            $this->checkedBeverage = [];
         }
     }
     public function OpenReturnCountryModal($id){
