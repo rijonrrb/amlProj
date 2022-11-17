@@ -25,7 +25,7 @@ class AdminController extends Controller
   );
         $userCheck = Admin::where('email',$request->email)->first();
         if($userCheck){
-          return redirect()->back()->with('failed', 'Email already exist');
+          return redirect()->back()->with('failed', 'This mail is already taken');
       }
       else{
         
@@ -34,6 +34,11 @@ class AdminController extends Controller
           $Admin->email = $request->email;
           $Admin->password = md5($request->password);
           $Admin->admin_type = "Mod";
+          $Admin->create = $request->create;
+          $Admin->update = $request->update;
+          $Admin->delete = $request->delete;
+          $Admin->issue = $request->issue;
+          $Admin->return = $request->return;
           
           $result = $Admin->save();
           if($result){
@@ -55,6 +60,11 @@ public function AdminLogSubmit(Request $request){
         $request->session()->put('email',$loginCheck->email);
         $request->session()->put('password',$loginCheck->password);
         $request->session()->put('admin_type',$loginCheck->admin_type);
+        $request->session()->put('create',$loginCheck->create);
+        $request->session()->put('update',$loginCheck->update);
+        $request->session()->put('delete',$loginCheck->delete);
+        $request->session()->put('issue',$loginCheck->issue);
+        $request->session()->put('return',$loginCheck->return);
         return  redirect()->route('home');
     }
     else{

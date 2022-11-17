@@ -19,6 +19,11 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('admin_type');
+            $table->string('create')->nullable();
+            $table->string('update')->nullable();
+            $table->string('delete')->nullable();
+            $table->string('issue')->nullable();
+            $table->string('return')->nullable();
         });
     }
 

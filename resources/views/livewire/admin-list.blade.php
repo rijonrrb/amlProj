@@ -16,6 +16,11 @@
 					<th>SL No.</th>
 					<th>Admin Name</th>
 					<th>Admin Email</th>
+					<th>Create Privilege</th>
+					<th>Update Privilege</th>
+					<th>Delete Privilege</th>
+					<th>Issue/Re-Issue Privilege</th>
+					<th>Return Privilege</th>
 					<th>Delete</th>
 				</tr>
 			</thead>
@@ -29,6 +34,12 @@
 					<td>{{$i++}}</td>
 					<td  data-id="{{ $Admin->id }}" data-column="name" >{{ $Admin->name }}</td>
 					<td  data-id="{{ $Admin->id }}" data-column="email" >{{ $Admin->email }}</td>
+					<td  data-id="{{ $Admin->id }}" data-column="name" >{{ $Admin->create }}</td>
+					<td  data-id="{{ $Admin->id }}" data-column="email" >{{ $Admin->update }}</td>
+					<td  data-id="{{ $Admin->id }}" data-column="name" >{{ $Admin->delete }}</td>
+					<td  data-id="{{ $Admin->id }}" data-column="email" >{{ $Admin->issue }}</td>
+					<td  data-id="{{ $Admin->id }}" data-column="name" >{{ $Admin->return }}</td>
+
 					<td>
 						<div class="btn-group container">
 							&nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Admin->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>

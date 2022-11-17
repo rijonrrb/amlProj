@@ -21,7 +21,12 @@ class AdminSeeder extends Seeder
             'name' => 'Super Admin',
             'email' => 'superadmin2022@amlbd.com',
             'password' => md5('Abc@123'),
-            'admin_type' => 'SAdmin',  
+            'admin_type' => 'SAdmin',
+            'create' => 'True',  
+            'update' => 'True',  
+            'delete' => 'True',            
+            'issue' => 'True',  
+            'return' => 'True',   
         ]);
 
     }
