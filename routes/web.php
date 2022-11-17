@@ -37,8 +37,11 @@ Route::post('/update-It-custudy',[Update::class,'updateItcus'])->name('updateItc
 Route::get('/dept',[MainController::class,'dept'])->name('dept');
 
 //Admin_Routes
+Route::get('/Admin/Admin_list', function () {return view('admin-list');})->name('AdminList')->middleware('SAdminIsValid');
 Route::get('/Admin/Change_Password', function () {return view('Admin.ChangePass');})->name('AdminCPass')->middleware('SAdminIsValid');
 Route::post('/Admin/Change_Password',[AdminController::class, 'AdminCpass'])->name('AdminPassC')->middleware('SAdminIsValid');
+Route::get('/Admin/Admin_Create', function () {return view('Admin.AdminCreate');})->name('AdminCreate')->middleware('SAdminIsValid');
+Route::post('/Admin/Admin_Create',[AdminController::class, 'AdminCreateSubmit'])->name('AdminCreated')->middleware('SAdminIsValid');
 Route::get('/Admin/Login', function () {return view('Admin.Login');})->name('AdminLogin')->middleware('LoginIsValid');
 Route::get('/', function () {return view('Admin.Dashboard');})->name('home')->middleware('AdminIsValid');
 Route::post('/Admin/Logged_in',[AdminController::class, 'AdminLogSubmit'])->name('AdminLog')->middleware('LoginIsValid');

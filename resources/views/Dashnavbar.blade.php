@@ -258,9 +258,9 @@
 
        <div id="main-nav" class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
-        @if(Session::get('admin_type') == "SAdmin")
-         <li><a href="#" class="nav-item nav-link" style="font-size: 80%;">Admin Create</a></li>
-         <li><a href="#" class="nav-item nav-link" style="font-size: 80%;">Admin list</a></li>
+        @if(Session::get('admin_type') == "SAdmin")        
+         <li><a href="{{route('AdminList')}}" class="nav-item nav-link" style="font-size: 80%;">Admin list</a></li>
+         <li><a href="{{route('AdminCreated')}}" class="nav-item nav-link" style="font-size: 80%;">Admin Create</a></li>
          <li><a href="{{route('AdminCPass')}}" class="nav-item nav-link" style="font-size: 80%;">Change Password</a></li>
          @endif
          <li><a href="{{route('AdminLogout')}}" class="nav-item nav-link" style="font-size: 80%;">Logout</a></li>
