@@ -11,9 +11,11 @@ use App\Models\Dairy;
 use App\Models\Dredging;
 use App\Models\Suger;
 use App\Models\Dept;
+use App\Models\Log;
 use Livewire\WithPagination;
 use Session;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use App\Models\Invoice;
 class Custudys extends Component
 {
@@ -90,6 +92,14 @@ class Custudys extends Component
             'sid'=> $next_id,
 
       ]);
+      Log::insert([
+        'name'=>Session::get('name'),
+        'email'=>Session::get('email'),
+        'activity'=>"Create",
+        'afield'=>"IT Store",
+        'time'=>$time,
+        'ip'=> request()->ip(),
+    ]);
 
         if($save){
             $this->dispatchBrowserEvent('CloseAddItcusModal');
@@ -466,7 +476,14 @@ class Custudys extends Component
                 'business_area'=>'CUSTUDY',
             ]);
         }
-
+        Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Issue",
+            'afield'=>"IT Store",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
         if(!empty($this->r_dept))
         {
             $deptT = Dept::where('dept_name',$this->r_dept)->first();
@@ -506,6 +523,14 @@ class Custudys extends Component
         if($del){
             $this->dispatchBrowserEvent('deleted');
         }
+        Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Delete",
+            'afield'=>"IT Store",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
         $this->checkedItcus = [];
     }
     public function deleteItcuss(){
@@ -517,6 +542,14 @@ class Custudys extends Component
     }
     public function deleteCheckedItcuss($ids){
         Itcus::whereKey($ids)->delete();
+        Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Delete",
+            'afield'=>"IT Store",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
         $this->checkedItcus = [];
     }
     public function isChecked($ItcusId){

@@ -6,11 +6,12 @@ use Livewire\Component;
 use App\Models\Branoil;
 use App\Models\Itcus;
 use App\Models\Dept;
+use App\Models\Log;
 use Livewire\WithPagination;
 use Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Invoice;
-
+use Illuminate\Http\Request;
 class BranOils extends Component
 {
     use WithPagination;
@@ -95,6 +96,16 @@ class BranOils extends Component
           'configuration'=>$this->configuration,
           'sid'=> $next_id,
       ]);
+
+      Log::insert([
+        'name'=>Session::get('name'),
+        'email'=>Session::get('email'),
+        'activity'=>"Create",
+        'afield'=>"AML Bran Oil",
+        'time'=>$time,
+        'ip'=> request()->ip(),
+    ]);
+
         Invoice::insert([
             'handedBy'=>$this->H_user,
             'h_desigation'=>$this->H_designation,
@@ -206,6 +217,16 @@ class BranOils extends Component
             'condition'=>$this->upd_H_condition,
             'sid'=>$info->sid
         ]);
+
+        Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Return Product",
+            'afield'=>"AML Bran Oil",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
+
         $savex = Invoice::where('sid',$info->sid)->update([
             'handedBy'=>$info->user_name,
             'h_desigation'=>$info->desigation,
@@ -266,6 +287,15 @@ class BranOils extends Component
             'issue_date'=>$this->U_I_date,
             'p_issue_date'=>$this->U_P_I_date,
             'configuration'=>$this->U_configuration
+        ]);
+
+        Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Update",
+            'afield'=>"AML Bran Oil",
+            'time'=>$time,
+            'ip'=> request()->ip(),
         ]);
 
         if($update){
@@ -399,6 +429,14 @@ class BranOils extends Component
         if($del){
             $this->dispatchBrowserEvent('deleted');
         }
+        Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Delete",
+            'afield'=>"AML Bran Oil",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
         $this->checkedBranoil = [];
     }
     public function deleteBranoils(){
@@ -410,6 +448,14 @@ class BranOils extends Component
     }
     public function deleteCheckedBranoils($ids){
         Branoil::whereKey($ids)->delete();
+        Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Delete",
+            'afield'=>"AML Bran Oil",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
         $this->checkedBranoil = [];
     }
     public function isChecked($BranoilId){

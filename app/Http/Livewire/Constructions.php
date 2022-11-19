@@ -4,10 +4,12 @@ use Livewire\Component;
 use App\Models\Construction;
 use App\Models\Itcus;
 use App\Models\Dept;
+use App\Models\Log;
 use Livewire\WithPagination;
 use Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Invoice;
+use Illuminate\Http\Request;
 class Constructions extends Component
 {
     use WithPagination;
@@ -91,6 +93,16 @@ class Constructions extends Component
           'configuration'=>$this->configuration,
           'sid'=> $next_id,
       ]);
+      
+      Log::insert([
+        'name'=>Session::get('name'),
+        'email'=>Session::get('email'),
+        'activity'=>"Create",
+        'afield'=>"AML Construction",
+        'time'=>$time,
+        'ip'=> request()->ip(),
+    ]);
+
         Invoice::insert([
             'handedBy'=>$this->H_user,
             'h_desigation'=>$this->H_designation,
@@ -201,6 +213,16 @@ class Constructions extends Component
             'condition'=>$this->upd_H_condition,
             'sid'=>$info->sid
         ]);
+
+        Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Return Product",
+            'afield'=>"AML Construction",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
+
         $savex = Invoice::where('sid',$info->sid)->update([
             'handedBy'=>$info->user_name,
             'h_desigation'=>$info->desigation,
@@ -262,6 +284,14 @@ class Constructions extends Component
             'p_issue_date'=>$this->U_P_I_date,
             'configuration'=>$this->U_configuration
         ]);
+      Log::insert([
+        'name'=>Session::get('name'),
+        'email'=>Session::get('email'),
+        'activity'=>"Update",
+        'afield'=>"AML Construction",
+        'time'=>$time,
+        'ip'=> request()->ip(),
+    ]);
 
         if($update){
             $this->dispatchBrowserEvent('CloseEditModal');
@@ -398,6 +428,14 @@ class Constructions extends Component
         if($del){
             $this->dispatchBrowserEvent('deleted');
         }
+        Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Delete",
+            'afield'=>"AML Construction",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
         $this->checkedConstruction = [];
     }
     public function deleteConstructions(){
@@ -409,6 +447,14 @@ class Constructions extends Component
     }
     public function deleteCheckedConstructions($ids){
         Construction::whereKey($ids)->delete();
+        Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Delete",
+            'afield'=>"AML Construction",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
         $this->checkedConstruction = [];
     }
     public function isChecked($ConstructionId){

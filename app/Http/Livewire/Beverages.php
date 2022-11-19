@@ -4,10 +4,12 @@ use Livewire\Component;
 use App\Models\Beverage;
 use App\Models\Itcus;
 use App\Models\Dept;
+use App\Models\Log;
 use Livewire\WithPagination;
 use Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Invoice;
+use Illuminate\Http\Request;
 class Beverages extends Component
 {
     use WithPagination;
@@ -114,6 +116,15 @@ class Beverages extends Component
             'business_area'=>'Beverage',
             'sid'=>$next_id,
         ]);
+
+        Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Create",
+            'afield'=>"AML Beverage",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
         
         if(!empty($this->dept))
         {
@@ -167,6 +178,15 @@ class Beverages extends Component
             'issue_date'=>$this->U_I_date,
             'p_issue_date'=>$this->U_P_I_date,
             'configuration'=>$this->U_configuration
+        ]);
+
+        Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Update",
+            'afield'=>"AML Beverage",
+            'time'=>$time,
+            'ip'=> request()->ip(),
         ]);
 
         if($update){
@@ -268,6 +288,16 @@ class Beverages extends Component
             'serial_no'=>$info->serial_no,
             'business_area'=>'Beverage',
         ]);
+
+        Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Return Product",
+            'afield'=>"AML Beverage",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
+
         if($savex){
             $del =  Beverage::find($cid)->delete();
             $this->dispatchBrowserEvent('CloseReturnCountryModal');
@@ -401,7 +431,15 @@ class Beverages extends Component
         $del =  Beverage::find($id)->delete();
         if($del){
             $this->dispatchBrowserEvent('deleted');
-        }
+        }   
+        Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Delete",
+            'afield'=>"AML Beverage",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
         $this->checkedBeverage = [];
     }
     public function deleteBeverages(){
@@ -412,7 +450,15 @@ class Beverages extends Component
         ]);
     }
     public function deleteCheckedBeverages($ids){
-        Beverage::whereKey($ids)->delete();
+        Beverage::whereKey($ids)->delete();       
+        Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Delete",
+            'afield'=>"AML Beverage",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
         $this->checkedBeverage = [];
     }
     public function isChecked($BeverageId){
