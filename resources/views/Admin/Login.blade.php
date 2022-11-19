@@ -10,6 +10,9 @@
 <body>
 <div class="container">
 	<div class="screen">
+	<div class="screen-header">
+            <img src="http://www.amlbd.com/wp-content/uploads/2014/05/new-way-to-manage1.png" alt="Profile Image" class="profile-img">
+        </div>
 		<div class="screen__content">
 			<br><br>
 			<h1 class="hl">Login</h1>

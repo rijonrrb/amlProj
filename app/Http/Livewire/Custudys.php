@@ -61,6 +61,7 @@ class Custudys extends Component
         $time =  date('d F Y h:i:s A');
         $asst = substr($this->item, 0,3)."-".rand(100,1000)."-".rand(10000,1000000);
         $next_id = uniqid('CUSTUDY', true);
+        $ip = file_get_contents('https://api.ipify.org/?format=text');
         Session::put('id', $next_id);
         Session::put('b_area', 'CUSTUDY');
         $this->validate([
@@ -99,7 +100,7 @@ class Custudys extends Component
             'activity'=>"Create",
             'afield'=>"IT Store",
             'time'=>$time,
-            'ip'=> request()->ip(),
+            'ip'=> $ip,
         ]);
       }
       if($save){
@@ -235,6 +236,7 @@ public function reuseProd(){
 );       
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
+    $ip = file_get_contents('https://api.ipify.org/?format=text');
     $rid = $this->rid;
     $info = Itcus::find($rid);
     if (empty($info->previous_user) && empty($info->user_name))
@@ -484,7 +486,7 @@ public function reuseProd(){
             'activity'=>"Issue",
             'afield'=>"IT Store",
             'time'=>$time,
-            'ip'=> request()->ip(),
+            'ip'=> $ip,
         ]);
     }
     if(!empty($this->r_dept))
@@ -523,6 +525,9 @@ public function deleteConfirm($id){
 }
 public function delete($id){
     $del =  Itcus::find($id)->delete();
+    $ip = file_get_contents('https://api.ipify.org/?format=text');
+    date_default_timezone_set('Asia/Dhaka');
+    $time =  date('d F Y h:i:s A');
     if($del){
         $this->dispatchBrowserEvent('deleted');
     }
@@ -533,7 +538,7 @@ public function delete($id){
             'activity'=>"Delete",
             'afield'=>"IT Store",
             'time'=>$time,
-            'ip'=> request()->ip(),
+            'ip'=> $ip,
         ]);
     }
     $this->checkedItcus = [];
@@ -547,6 +552,9 @@ public function deleteItcuss(){
 }
 public function deleteCheckedItcuss($ids){
     Itcus::whereKey($ids)->delete();
+    $ip = file_get_contents('https://api.ipify.org/?format=text');
+    date_default_timezone_set('Asia/Dhaka');
+    $time =  date('d F Y h:i:s A');
     if(Session::get('admin_type') == "Mod"){
         Log::insert([
             'name'=>Session::get('name'),
@@ -554,7 +562,7 @@ public function deleteCheckedItcuss($ids){
             'activity'=>"Delete",
             'afield'=>"IT Store",
             'time'=>$time,
-            'ip'=> request()->ip(),
+            'ip'=> $ip,
         ]);
     }
     $this->checkedItcus = [];

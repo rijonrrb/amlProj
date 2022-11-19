@@ -65,6 +65,7 @@ class Countries extends Component
         $time =  date('d F Y h:i:s A');
         $asst = substr($this->item, 0,3)."-".rand(100,1000)."-".rand(10000,1000000);
         $next_id = uniqid('Igloo', true);
+        $ip = file_get_contents('https://api.ipify.org/?format=text');
         Session::put('id', $next_id);
         Session::put('b_area', 'Igloo');
         
@@ -102,7 +103,7 @@ class Countries extends Component
             'activity'=>"Create",
             'afield'=>"Igloo Ice Cream",
             'time'=>$time,
-            'ip'=> request()->ip(),
+            'ip'=> $ip,
         ]);
       }
       Invoice::insert([
@@ -160,6 +161,7 @@ public function update(){
     $time =  date('d F Y h:i:s A');
     $cid = $this->cid;
     $info = Country::find($cid);
+    $ip = file_get_contents('https://api.ipify.org/?format=text');
     if (empty($info->previous_user))
     {
         $previous_user = $info->user_name;
@@ -223,7 +225,7 @@ public function update(){
             'activity'=>"Return Product",
             'afield'=>"Igloo Ice Cream",
             'time'=>$time,
-            'ip'=> request()->ip(),
+            'ip'=> $ip,
         ]);
     }
     $savex = Invoice::where('sid',$info->sid)->update([
@@ -273,7 +275,9 @@ public function OpenEditModal($id){
 
 public function updateRow(){
     $cid = $this->cid;
-
+    $ip = file_get_contents('https://api.ipify.org/?format=text');
+    date_default_timezone_set('Asia/Dhaka');
+    $time =  date('d F Y h:i:s A');
     $update = Country::find($cid)->update([
         'user_name'=>$this->U_user_name,
         'desigation'=>$this->U_desigation,
@@ -294,7 +298,7 @@ public function updateRow(){
         'activity'=>"Update",
         'afield'=>"Igloo Ice Cream",
         'time'=>$time,
-        'ip'=> request()->ip(),
+        'ip'=> $ip,
     ]);
   }
   if($update){
@@ -426,6 +430,9 @@ public function deleteConfirm($id){
 }
 public function delete($id){
     $del =  Country::find($id)->delete();
+    $ip = file_get_contents('https://api.ipify.org/?format=text');
+    date_default_timezone_set('Asia/Dhaka');
+    $time =  date('d F Y h:i:s A');
     if($del){
         $this->dispatchBrowserEvent('deleted');
     }
@@ -436,7 +443,7 @@ public function delete($id){
             'activity'=>"Delete",
             'afield'=>"Igloo Ice Cream",
             'time'=>$time,
-            'ip'=> request()->ip(),
+            'ip'=> $ip,
         ]);
     }
     $this->checkedCountry = [];
@@ -450,6 +457,9 @@ public function deleteCountries(){
 }
 public function deleteCheckedCountries($ids){
     Country::whereKey($ids)->delete();
+    $ip = file_get_contents('https://api.ipify.org/?format=text');
+    date_default_timezone_set('Asia/Dhaka');
+    $time =  date('d F Y h:i:s A');
     if(Session::get('admin_type') == "Mod"){
         Log::insert([
             'name'=>Session::get('name'),
@@ -457,7 +467,7 @@ public function deleteCheckedCountries($ids){
             'activity'=>"Delete",
             'afield'=>"Igloo Ice Cream",
             'time'=>$time,
-            'ip'=> request()->ip(),
+            'ip'=> $ip,
         ]);
     } 
     $this->checkedCountry = [];

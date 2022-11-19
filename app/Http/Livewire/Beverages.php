@@ -67,6 +67,7 @@ class Beverages extends Component
         $time =  date('d F Y h:i:s A');
         $next_id = uniqid('Beverage', true);
         $asst = substr($this->item, 0,3)."-".rand(100,1000)."-".rand(10000,1000000);
+        $ip = file_get_contents('https://api.ipify.org/?format=text');
         Session::put('id', $next_id);
         Session::put('b_area', 'Beverage');
         $this->validate([
@@ -117,13 +118,14 @@ class Beverages extends Component
             'sid'=>$next_id,
         ]);
         if(Session::get('admin_type') == "Mod"){
+            
             Log::insert([
                 'name'=>Session::get('name'),
                 'email'=>Session::get('email'),
                 'activity'=>"Create",
                 'afield'=>"AML Beverage",
                 'time'=>$time,
-                'ip'=> request()->ip(),
+                'ip'=> $ip,
             ]);
         }
         if(!empty($this->dept))
@@ -165,7 +167,9 @@ class Beverages extends Component
 
     public function updateRow(){
         $cid = $this->cid;
-
+        $ip = file_get_contents('https://api.ipify.org/?format=text');
+        date_default_timezone_set('Asia/Dhaka');
+        $time =  date('d F Y h:i:s A');
         $update = Beverage::find($cid)->update([
             'user_name'=>$this->U_user_name,
             'desigation'=>$this->U_desigation,
@@ -186,7 +190,7 @@ class Beverages extends Component
                 'activity'=>"Update",
                 'afield'=>"AML Beverage",
                 'time'=>$time,
-                'ip'=> request()->ip(),
+                'ip'=> $ip,
             ]);
         }
         if($update){
@@ -212,7 +216,8 @@ class Beverages extends Component
         $time =  date('d F Y h:i:s A');
         $cid = $this->cid;
         $info = Beverage::find($cid);
-        
+        $ip = file_get_contents('https://api.ipify.org/?format=text');
+
         if (empty($info->previous_user))
         {
             $previous_user = $info->user_name;
@@ -295,7 +300,7 @@ class Beverages extends Component
                 'activity'=>"Return Product",
                 'afield'=>"AML Beverage",
                 'time'=>$time,
-                'ip'=> request()->ip(),
+                'ip'=> $ip,
             ]);
         }
         if($savex){
@@ -429,6 +434,9 @@ class Beverages extends Component
     }
     public function delete($id){
         $del =  Beverage::find($id)->delete();
+        date_default_timezone_set('Asia/Dhaka');
+        $time =  date('d F Y h:i:s A');
+        $ip = file_get_contents('https://api.ipify.org/?format=text');
         if($del){
             $this->dispatchBrowserEvent('deleted');
         }  
@@ -439,7 +447,7 @@ class Beverages extends Component
                 'activity'=>"Delete",
                 'afield'=>"AML Beverage",
                 'time'=>$time,
-                'ip'=> request()->ip(),
+                'ip'=> $ip,
             ]);
         }
         $this->checkedBeverage = [];
@@ -453,6 +461,9 @@ class Beverages extends Component
     }
     public function deleteCheckedBeverages($ids){
         Beverage::whereKey($ids)->delete();  
+        date_default_timezone_set('Asia/Dhaka');
+        $time =  date('d F Y h:i:s A');
+        $ip = file_get_contents('https://api.ipify.org/?format=text');
         if(Session::get('admin_type') == "Mod"){
             Log::insert([
                 'name'=>Session::get('name'),
@@ -460,7 +471,7 @@ class Beverages extends Component
                 'activity'=>"Delete",
                 'afield'=>"AML Beverage",
                 'time'=>$time,
-                'ip'=> request()->ip(),
+                'ip'=> $ip,
             ]);
         }
         $this->checkedBeverage = [];
