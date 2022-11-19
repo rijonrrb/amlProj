@@ -1,7 +1,11 @@
 <div class="card">
     <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>Igloo Foods Unit</b></h4>
     <div class="row mb-3 p-2 d-flex justify-content-between">
+        @if(Session::get('admin_type') == "SAdmin")
         <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddFoodModal()">Add New Dataset</button>
+        @elseif(Session::get('admin_type') == "Mod" && Session::get('create') == "True")
+        <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddFoodModal()">Add New Dataset</button>
+        @endif
         <div>
             @if ($checkedFood)
             <button class="btn btn-danger btn-md mr-4" wire:click="deleteFoods()"> Delete rows ({{ count($checkedFood) }})</button>
@@ -99,6 +103,8 @@
                 <tr>
                     @if(Session::get('admin_type') == "SAdmin")
                     <th></th>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True")
+                    <th></th>
                     @endif
                     <th>SL No.</th>
                     <th>User name</th>
@@ -113,11 +119,30 @@
                     <th>Previous User</th>
                     <th>Issue Date</th>
                     <th>Previous Issue Date</th>
-                    <th>Configuration</th>                   
-                    <th>Return</th>
+                    <th>Configuration</th>
                     @if(Session::get('admin_type') == "SAdmin")
+                    <th>Return</th>
                     <th>Delete</th>
                     <th>Update</th>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('return') == "True" && Session::get('delete') == null && Session::get('update') == null)
+                    <th>Return</th>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('return') == null && Session::get('update') == null)
+                    <th>Delete</th>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('update') == "True" && Session::get('return') == null && Session::get('delete') == null)
+                    <th>Update</th>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('return') == "True" && Session::get('delete') == "True" && Session::get('update') == null)
+                    <th>Return</th>
+                    <th>Delete</th>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('return') == "True" && Session::get('update') == "True" && Session::get('delete') == null)
+                    <th>Return</th>
+                    <th>Update</th> 
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('return') == null)
+                    <th>Delete</th>
+                    <th>Update</th> 
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('return') == "True")
+                    <th>Return</th>
+                    <th>Delete</th>
+                    <th>Update</th>             
                     @endif
                     <!-- <th>Reuse</th> -->
                 </tr>
@@ -129,6 +154,8 @@
                 @forelse ($Foods as $Food)
                 <tr class="{{ $this->isChecked($Food->id) }}">
                     @if(Session::get('admin_type') == "SAdmin")
+                    <td><input type="checkbox" value="{{ $Food->id }}" wire:model="checkedFood"></td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True")
                     <td><input type="checkbox" value="{{ $Food->id }}" wire:model="checkedFood"></td>
                     @endif
                     <td>{{ $i++ }}</td>
@@ -145,22 +172,89 @@
                     <td  data-id="{{ $Food->id }}" data-column="issue_date" >{{ $Food->issue_date }}</td>
                     <td  data-id="{{ $Food->id }}" data-column="p_issue_date" >{{ $Food->p_issue_date }}</td>
                     <td  data-id="{{ $Food->id }}" data-column="configuration" >{{ $Food->configuration }}</td>
+                    @if(Session::get('admin_type') == "SAdmin")
                     <td>
                         <div class="btn-group container">
-                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenReturnCountryModal({{$Food->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
+                            <a href="#" wire:click="OpenReturnFoodModal({{$Food->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
                         </div>
-                    </td>
-                    @if(Session::get('admin_type') == "SAdmin")
+                    </td>                   
                     <td>
                         <div class="btn-group container">
                             &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Food->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
                         </div>
                     </td>
                     <td>
-						<div class="btn-group container">
-							&nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Food->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
-						</div>
-					</td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Food->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('return') == null && Session::get('update') == null)
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Food->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('update') == "True" && Session::get('delete') == null && Session::get('update') == null)
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Food->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('return') == "True" && Session::get('update') == null && Session::get('delete') == null)
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReturnFoodModal({{$Food->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
+                        </div>
+                    </td>   
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('return') == "True" && Session::get('delete') == "True" && Session::get('update') == null)
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReturnFoodModal({{$Food->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Food->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>   
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('return') == "True" && Session::get('update') == "True" && Session::get('delete') == null)
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReturnFoodModal({{$Food->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Food->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>   
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('return') == null)
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Food->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>   
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Food->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('return') == "True")
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReturnFoodModal({{$Food->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Food->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>   
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Food->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
                     @endif
                         <!-- <td>
                         <div class="btn-group container">

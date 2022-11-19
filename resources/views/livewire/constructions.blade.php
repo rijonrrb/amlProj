@@ -1,7 +1,11 @@
     <div class="card">
         <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>AML Construction Unit</b></h4>
         <div class="row mb-3 p-2 d-flex justify-content-between">
-            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddConstructionModal()">Add New Dataset</button>
+        @if(Session::get('admin_type') == "SAdmin")
+        <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddConstructionModal()">Add New Dataset</button>
+        @elseif(Session::get('admin_type') == "Mod" && Session::get('create') == "True")
+        <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddConstructionModal()">Add New Dataset</button>
+        @endif
             <div>
                 @if ($checkedConstruction)
                 <button class="btn btn-danger btn-md mr-4" wire:click="deleteConstructions()"> Delete rows ({{ count($checkedConstruction) }})</button>
@@ -97,29 +101,50 @@
             <table class="table table-hover table-bordered" id="Cons">
                 <thead class="thead-inverse">
                     <tr>
-                        @if(Session::get('admin_type') == "SAdmin")
-                        <th></th>
-                        @endif
-                        <th>SL No.</th>
-                        <th>User name</th>
-                        <th>Desigation</th>
-                        <th>Department</th>
-                        <th>Work-Station</th>
-                        <th>Unit</th>
-                        <th>Product Type</th>
-                        <th>Product Model</th>
-                        <th>Asset No</th>
-                        <th>Product Serial No</th>
-                        <th>Previous User</th>
-                        <th>Issue Date</th>
-                        <th>Previous Issue Date</th>
-                        <th>Configuration</th>                        
-                        <th>Return</th>
-                        @if(Session::get('admin_type') == "SAdmin")
-                        <th>Delete</th>
-                        <th>Update</th>
-                        @endif
-                        <!-- <th>Reuse</th> -->
+                    @if(Session::get('admin_type') == "SAdmin")
+                    <th></th>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True")
+                    <th></th>
+                    @endif
+                    <th>SL No.</th>
+                    <th>User name</th>
+                    <th>Desigation</th>
+                    <th>Department</th>
+                    <th>Work-Station</th>
+                    <th>Unit</th>
+                    <th>Product Type</th>
+                    <th>Product Model</th>
+                    <th>Asset No</th>
+                    <th>Product Serial No</th>
+                    <th>Previous User</th>
+                    <th>Issue Date</th>
+                    <th>Previous Issue Date</th>
+                    <th>Configuration</th>
+                    @if(Session::get('admin_type') == "SAdmin")
+                    <th>Return</th>
+                    <th>Delete</th>
+                    <th>Update</th>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('return') == "True" && Session::get('delete') == null && Session::get('update') == null)
+                    <th>Return</th>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('return') == null && Session::get('update') == null)
+                    <th>Delete</th>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('update') == "True" && Session::get('return') == null && Session::get('delete') == null)
+                    <th>Update</th>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('return') == "True" && Session::get('delete') == "True" && Session::get('update') == null)
+                    <th>Return</th>
+                    <th>Delete</th>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('return') == "True" && Session::get('update') == "True" && Session::get('delete') == null)
+                    <th>Return</th>
+                    <th>Update</th> 
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('return') == null)
+                    <th>Delete</th>
+                    <th>Update</th> 
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('return') == "True")
+                    <th>Return</th>
+                    <th>Delete</th>
+                    <th>Update</th>             
+                    @endif
+                    <!-- <th>Reuse</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -129,6 +154,8 @@
                     @forelse ($Constructions as $Construction)
                     <tr class="{{ $this->isChecked($Construction->id) }}">
                         @if(Session::get('admin_type') == "SAdmin")
+                        <td><input type="checkbox" value="{{ $Construction->id }}" wire:model="checkedConstruction"></td>
+                        @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True")
                         <td><input type="checkbox" value="{{ $Construction->id }}" wire:model="checkedConstruction"></td>
                         @endif
                         <td>{{ $i++ }}</td>
@@ -145,21 +172,88 @@
                         <td  data-id="{{ $Construction->id }}" data-column="issue_date" >{{ $Construction->issue_date }}</td>
                         <td  data-id="{{ $Construction->id }}" data-column="p_issue_date" >{{ $Construction->p_issue_date }}</td>
                         <td  data-id="{{ $Construction->id }}" data-column="configuration" >{{ $Construction->configuration }}</td>
+                        @if(Session::get('admin_type') == "SAdmin")
                         <td>
                             <div class="btn-group container">
-                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenReturnCountryModal({{$Construction->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
+                                <a href="#" wire:click="OpenReturnCountryModal({{$Construction->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
                             </div>
-                        </td>
-                        @if(Session::get('admin_type') == "SAdmin")
+                        </td>                   
                         <td>
                             <div class="btn-group container">
                                 &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Construction->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
                             </div>
                         </td>
                         <td>
-						<div class="btn-group container">
-							&nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Construction->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
-						</div>
+                            <div class="btn-group container">
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Construction->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                            </div>
+                        </td>
+                        @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('return') == null && Session::get('update') == null)
+                        <td>
+                            <div class="btn-group container">
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Construction->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                            </div>
+                        </td>
+                        @elseif(Session::get('admin_type') == "Mod" && Session::get('update') == "True" && Session::get('delete') == null && Session::get('update') == null)
+                        <td>
+                            <div class="btn-group container">
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Construction->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                            </div>
+                        </td>
+                        @elseif(Session::get('admin_type') == "Mod" && Session::get('return') == "True" && Session::get('update') == null && Session::get('delete') == null)
+                        <td>
+                            <div class="btn-group container">
+                                <a href="#" wire:click="OpenReturnCountryModal({{$Construction->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
+                            </div>
+                        </td>   
+                        @elseif(Session::get('admin_type') == "Mod" && Session::get('return') == "True" && Session::get('delete') == "True" && Session::get('update') == null)
+                        <td>
+                            <div class="btn-group container">
+                                <a href="#" wire:click="OpenReturnCountryModal({{$Construction->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group container">
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Construction->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                            </div>
+                        </td>   
+                        @elseif(Session::get('admin_type') == "Mod" && Session::get('return') == "True" && Session::get('update') == "True" && Session::get('delete') == null)
+                        <td>
+                            <div class="btn-group container">
+                                <a href="#" wire:click="OpenReturnCountryModal({{$Construction->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group container">
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Construction->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                            </div>
+                        </td>   
+                        @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('return') == null)
+                        <td>
+                            <div class="btn-group container">
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Construction->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                            </div>
+                        </td>   
+                        <td>
+                            <div class="btn-group container">
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Construction->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                            </div>
+                        </td>
+                        @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('return') == "True")
+                        <td>
+                            <div class="btn-group container">
+                                <a href="#" wire:click="OpenReturnCountryModal({{$Construction->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group container">
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Construction->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                            </div>
+                        </td>   
+                        <td>
+                            <div class="btn-group container">
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Construction->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                            </div>
                         </td>
                         @endif
                         <!-- <td>
