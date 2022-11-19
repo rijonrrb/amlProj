@@ -258,7 +258,7 @@
       
       <div id="main-nav" class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
-        <li><a href="{{route('home')}}" class="nav-item nav-link" style="font-size: 80%;">Home</a></li>
+        <!-- <li><a href="{{route('home')}}" class="nav-item nav-link" style="font-size: 80%;">Home</a></li> -->
          <li><a href="{{route('Igloo_CHO')}}" class="nav-item nav-link" style="font-size: 80%;">Igloo Ice Cream Unit</a></li>
          <li><a href="{{route('dairys')}}" class="nav-item nav-link" style="font-size: 80%;">Igloo Dairy Unit</a></li>
          <li><a href="{{route('foods')}}" class="nav-item nav-link" style="font-size: 80%;">Igloo Foods Unit</a></li>

@@ -43,6 +43,6 @@
       <img src="https://www.svgrepo.com/show/190786/laptop.svg" alt="" style="height: 90px; width: 90px;">
     </div>
   </div>
-
+<br><br>
 </body>
 </html>

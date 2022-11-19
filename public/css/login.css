@@ -49,6 +49,7 @@ h3{
     transform: translate(-50%, -50%);
     border: 8px solid #00ffc8;
     box-shadow: 0 0 20px #00000033;
+	transition: all 0.3s;
 }
 
 .screen .profile-img:hover {

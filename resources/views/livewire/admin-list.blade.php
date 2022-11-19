@@ -3,7 +3,7 @@
 	<div class="row mb-3 p-2 d-flex justify-content-between">
 		<div>
 			@if ($checkedAdmin)
-			<button class="btn btn-danger btn-md mr-4" wire:click="deleteAdmins()"> Delete rows ({{ count($checkedAdmin) }})</button>
+			<button class="btn btn-danger btn-md ml-4" wire:click="deleteAdmins()"> Delete rows ({{ count($checkedAdmin) }})</button>
 			@endif
 		</div>
 	</div>
@@ -34,12 +34,31 @@
 					<td>{{$i++}}</td>
 					<td  data-id="{{ $Admin->id }}" data-column="name" >{{ $Admin->name }}</td>
 					<td  data-id="{{ $Admin->id }}" data-column="email" >{{ $Admin->email }}</td>
+					@if ($Admin->create == "True")
+					<td  data-id="{{ $Admin->id }}" data-column="create" ><img src="https://www.svgrepo.com/show/311890/check-mark.svg" style="width: 30px; margin-left: 50px;"></img></td>
+					@else
 					<td  data-id="{{ $Admin->id }}" data-column="create" >{{ $Admin->create }}</td>
+					@endif
+					@if ($Admin->update == "True")
+					<td  data-id="{{ $Admin->id }}" data-column="update" ><img src="https://www.svgrepo.com/show/311890/check-mark.svg" style="width: 30px; margin-left: 50px;"></img></td>
+					@else
 					<td  data-id="{{ $Admin->id }}" data-column="update" >{{ $Admin->update }}</td>
+					@endif
+					@if ($Admin->delete == "True")
+					<td  data-id="{{ $Admin->id }}" data-column="delete" ><img src="https://www.svgrepo.com/show/311890/check-mark.svg" style="width: 30px; margin-left: 50px;"></img></td>
+					@else
 					<td  data-id="{{ $Admin->id }}" data-column="delete" >{{ $Admin->delete }}</td>
+					@endif
+					@if ($Admin->issue == "True")
+					<td  data-id="{{ $Admin->id }}" data-column="issue" ><img src="https://www.svgrepo.com/show/311890/check-mark.svg" style="width: 30px; margin-left: 50px;"></img></td>
+					@else
 					<td  data-id="{{ $Admin->id }}" data-column="issue" >{{ $Admin->issue }}</td>
+					@endif
+					@if ($Admin->return == "True")
+					<td  data-id="{{ $Admin->id }}" data-column="return" ><img src="https://www.svgrepo.com/show/311890/check-mark.svg" style="width: 30px; margin-left: 50px;"></img></td>
+					@else
 					<td  data-id="{{ $Admin->id }}" data-column="return" >{{ $Admin->return }}</td>
-
+					@endif
 					<td>
 						<div class="btn-group container">
 							&nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Admin->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
