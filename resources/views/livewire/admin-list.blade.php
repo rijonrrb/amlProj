@@ -34,11 +34,11 @@
 					<td>{{$i++}}</td>
 					<td  data-id="{{ $Admin->id }}" data-column="name" >{{ $Admin->name }}</td>
 					<td  data-id="{{ $Admin->id }}" data-column="email" >{{ $Admin->email }}</td>
-					<td  data-id="{{ $Admin->id }}" data-column="name" >{{ $Admin->create }}</td>
-					<td  data-id="{{ $Admin->id }}" data-column="email" >{{ $Admin->update }}</td>
-					<td  data-id="{{ $Admin->id }}" data-column="name" >{{ $Admin->delete }}</td>
-					<td  data-id="{{ $Admin->id }}" data-column="email" >{{ $Admin->issue }}</td>
-					<td  data-id="{{ $Admin->id }}" data-column="name" >{{ $Admin->return }}</td>
+					<td  data-id="{{ $Admin->id }}" data-column="create" >{{ $Admin->create }}</td>
+					<td  data-id="{{ $Admin->id }}" data-column="update" >{{ $Admin->update }}</td>
+					<td  data-id="{{ $Admin->id }}" data-column="delete" >{{ $Admin->delete }}</td>
+					<td  data-id="{{ $Admin->id }}" data-column="issue" >{{ $Admin->issue }}</td>
+					<td  data-id="{{ $Admin->id }}" data-column="return" >{{ $Admin->return }}</td>
 
 					<td>
 						<div class="btn-group container">

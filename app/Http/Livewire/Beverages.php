@@ -116,16 +116,16 @@ class Beverages extends Component
             'business_area'=>'Beverage',
             'sid'=>$next_id,
         ]);
-
-        Log::insert([
-            'name'=>Session::get('name'),
-            'email'=>Session::get('email'),
-            'activity'=>"Create",
-            'afield'=>"AML Beverage",
-            'time'=>$time,
-            'ip'=> request()->ip(),
-        ]);
-        
+        if(Session::get('admin_type') == "Mod"){
+            Log::insert([
+                'name'=>Session::get('name'),
+                'email'=>Session::get('email'),
+                'activity'=>"Create",
+                'afield'=>"AML Beverage",
+                'time'=>$time,
+                'ip'=> request()->ip(),
+            ]);
+        }
         if(!empty($this->dept))
         {
             $dept = Dept::where('dept_name',$this->dept)->first();
@@ -179,16 +179,16 @@ class Beverages extends Component
             'p_issue_date'=>$this->U_P_I_date,
             'configuration'=>$this->U_configuration
         ]);
-
-        Log::insert([
-            'name'=>Session::get('name'),
-            'email'=>Session::get('email'),
-            'activity'=>"Update",
-            'afield'=>"AML Beverage",
-            'time'=>$time,
-            'ip'=> request()->ip(),
-        ]);
-
+        if(Session::get('admin_type') == "Mod"){
+            Log::insert([
+                'name'=>Session::get('name'),
+                'email'=>Session::get('email'),
+                'activity'=>"Update",
+                'afield'=>"AML Beverage",
+                'time'=>$time,
+                'ip'=> request()->ip(),
+            ]);
+        }
         if($update){
             $this->dispatchBrowserEvent('CloseEditModal');
             $this->checkedBeverage = [];
@@ -207,7 +207,7 @@ class Beverages extends Component
         ]);
     }
     public function update(){
-     
+       
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $cid = $this->cid;
@@ -288,16 +288,16 @@ class Beverages extends Component
             'serial_no'=>$info->serial_no,
             'business_area'=>'Beverage',
         ]);
-
-        Log::insert([
-            'name'=>Session::get('name'),
-            'email'=>Session::get('email'),
-            'activity'=>"Return Product",
-            'afield'=>"AML Beverage",
-            'time'=>$time,
-            'ip'=> request()->ip(),
-        ]);
-
+        if(Session::get('admin_type') == "Mod"){
+            Log::insert([
+                'name'=>Session::get('name'),
+                'email'=>Session::get('email'),
+                'activity'=>"Return Product",
+                'afield'=>"AML Beverage",
+                'time'=>$time,
+                'ip'=> request()->ip(),
+            ]);
+        }
         if($savex){
             $del =  Beverage::find($cid)->delete();
             $this->dispatchBrowserEvent('CloseReturnCountryModal');
@@ -431,15 +431,17 @@ class Beverages extends Component
         $del =  Beverage::find($id)->delete();
         if($del){
             $this->dispatchBrowserEvent('deleted');
-        }   
-        Log::insert([
-            'name'=>Session::get('name'),
-            'email'=>Session::get('email'),
-            'activity'=>"Delete",
-            'afield'=>"AML Beverage",
-            'time'=>$time,
-            'ip'=> request()->ip(),
-        ]);
+        }  
+        if(Session::get('admin_type') == "Mod"){
+            Log::insert([
+                'name'=>Session::get('name'),
+                'email'=>Session::get('email'),
+                'activity'=>"Delete",
+                'afield'=>"AML Beverage",
+                'time'=>$time,
+                'ip'=> request()->ip(),
+            ]);
+        }
         $this->checkedBeverage = [];
     }
     public function deleteBeverages(){
@@ -450,15 +452,17 @@ class Beverages extends Component
         ]);
     }
     public function deleteCheckedBeverages($ids){
-        Beverage::whereKey($ids)->delete();       
-        Log::insert([
-            'name'=>Session::get('name'),
-            'email'=>Session::get('email'),
-            'activity'=>"Delete",
-            'afield'=>"AML Beverage",
-            'time'=>$time,
-            'ip'=> request()->ip(),
-        ]);
+        Beverage::whereKey($ids)->delete();  
+        if(Session::get('admin_type') == "Mod"){
+            Log::insert([
+                'name'=>Session::get('name'),
+                'email'=>Session::get('email'),
+                'activity'=>"Delete",
+                'afield'=>"AML Beverage",
+                'time'=>$time,
+                'ip'=> request()->ip(),
+            ]);
+        }
         $this->checkedBeverage = [];
     }
     public function isChecked($BeverageId){

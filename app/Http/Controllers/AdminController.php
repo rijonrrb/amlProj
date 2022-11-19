@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Log;
 use Illuminate\Support\Str;
 use Session;
 use DateTime;
@@ -51,21 +52,48 @@ class AdminController extends Controller
 }
 
 public function AdminLogSubmit(Request $request){
-
+    date_default_timezone_set('Asia/Dhaka');
+    $time =  date('d F Y h:i:s A');
     $loginCheck = Admin::where('email',$request->email)->where('password',md5($request->password))->first();
 
     if($loginCheck){
-        $request->session()->put('id',$loginCheck->id);
-        $request->session()->put('name',$loginCheck->name);
-        $request->session()->put('email',$loginCheck->email);
-        $request->session()->put('password',$loginCheck->password);
-        $request->session()->put('admin_type',$loginCheck->admin_type);
-        $request->session()->put('create',$loginCheck->create);
-        $request->session()->put('update',$loginCheck->update);
-        $request->session()->put('delete',$loginCheck->delete);
-        $request->session()->put('issue',$loginCheck->issue);
-        $request->session()->put('return',$loginCheck->return);
-        return  redirect()->route('home');
+
+        if($loginCheck->admin_type == "Mod"){
+            $result = Log::insert([
+                'name'=>$loginCheck->name,
+                'email'=>$loginCheck->email,
+                'activity'=>"Logged-In",
+                'time'=>$time,
+                'ip'=> request()->ip(),
+            ]);
+            if($result){
+                $request->session()->put('id',$loginCheck->id);
+                $request->session()->put('name',$loginCheck->name);
+                $request->session()->put('email',$loginCheck->email);
+                $request->session()->put('password',$loginCheck->password);
+                $request->session()->put('admin_type',$loginCheck->admin_type);
+                $request->session()->put('create',$loginCheck->create);
+                $request->session()->put('update',$loginCheck->update);
+                $request->session()->put('delete',$loginCheck->delete);
+                $request->session()->put('issue',$loginCheck->issue);
+                $request->session()->put('return',$loginCheck->return);
+                return  redirect()->route('home');
+            }
+        }
+        else {
+            $request->session()->put('id',$loginCheck->id);
+            $request->session()->put('name',$loginCheck->name);
+            $request->session()->put('email',$loginCheck->email);
+            $request->session()->put('password',$loginCheck->password);
+            $request->session()->put('admin_type',$loginCheck->admin_type);
+            $request->session()->put('create',$loginCheck->create);
+            $request->session()->put('update',$loginCheck->update);
+            $request->session()->put('delete',$loginCheck->delete);
+            $request->session()->put('issue',$loginCheck->issue);
+            $request->session()->put('return',$loginCheck->return);
+            return  redirect()->route('home');
+        }
+
     }
     else{
         return redirect()->back()->with('failed', 'Invalid Email or password');
@@ -74,12 +102,36 @@ public function AdminLogSubmit(Request $request){
 }
 
 public function logout(){
-    session()->forget('id');
-    session()->forget('name');
-    session()->forget('email');
-    session()->forget('password');
-    session()->forget('admin_type');
-    return redirect()->route('AdminLogin');
+    date_default_timezone_set('Asia/Dhaka');
+    $time =  date('d F Y h:i:s A');
+    
+    if(Session::get('admin_type') == "Mod"){
+        $result = Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Logged-Out",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
+
+        if($result){
+            session()->forget('id');
+            session()->forget('name');
+            session()->forget('email');
+            session()->forget('password');
+            session()->forget('admin_type');
+            return redirect()->route('AdminLogin');
+        }
+    }
+    else{
+        session()->forget('id');
+        session()->forget('name');
+        session()->forget('email');
+        session()->forget('password');
+        session()->forget('admin_type');
+        return redirect()->route('AdminLogin');
+    }
+
 }
 
 public function AdminCpass(Request $request){

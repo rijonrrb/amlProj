@@ -96,125 +96,128 @@ class Foods extends Component
           'configuration'=>$this->configuration,
           'sid'=> $next_id,
       ]);
-      Log::insert([
-        'name'=>Session::get('name'),
-        'email'=>Session::get('email'),
-        'activity'=>"Create",
-        'afield'=>"Igloo Foods",
-        'time'=>$time,
-        'ip'=> request()->ip(),
+        if(Session::get('admin_type') == "Mod"){
+          Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Create",
+            'afield'=>"Igloo Foods",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
+      }
+      Invoice::insert([
+        'handedBy'=>$this->H_user,
+        'h_desigation'=>$this->H_designation,
+        'h_dept'=>$this->H_dept,
+        'h_wstation'=>$this->H_wstation,
+        'h_unit'=>"IT Unit",
+        'takenBy'=>$this->user_name,
+        't_desigation'=>$this->desigation,
+        't_dept'=>$this->dept,
+        't_wstation'=>$this->wstation,
+        't_unit'=>"Igloo Foods Unit",
+        'remarks'=>'For Official use',
+        'qty'=>'1',
+        'laptop_name'=>$this->laptop_name,
+        'configuration'=>$this->configuration,
+        'asset_no'=>$asst,
+        'serial_no'=>$this->serial_no,
+        'business_area'=>'Food',
+        'sid'=>$next_id,
     ]);
-        Invoice::insert([
-            'handedBy'=>$this->H_user,
-            'h_desigation'=>$this->H_designation,
-            'h_dept'=>$this->H_dept,
-            'h_wstation'=>$this->H_wstation,
-            'h_unit'=>"IT Unit",
-            'takenBy'=>$this->user_name,
-            't_desigation'=>$this->desigation,
-            't_dept'=>$this->dept,
-            't_wstation'=>$this->wstation,
-            't_unit'=>"Igloo Foods Unit",
-            'remarks'=>'For Official use',
-            'qty'=>'1',
-            'laptop_name'=>$this->laptop_name,
-            'configuration'=>$this->configuration,
-            'asset_no'=>$asst,
-            'serial_no'=>$this->serial_no,
-            'business_area'=>'Food',
-            'sid'=>$next_id,
-        ]);
-        
-        if(!empty($this->dept))
-        {
-            $dept = Dept::where('dept_name',$this->dept)->first();
-            if(!$dept)
-            {  
-                $saave = Dept::insert([
-                    'dept_name'=>$this->dept
-                ]);
-            }
-        }
-        if($save){
-            $this->dispatchBrowserEvent('CloseAddFoodModal');
-            $this->checkedFood = [];
+      
+      if(!empty($this->dept))
+      {
+        $dept = Dept::where('dept_name',$this->dept)->first();
+        if(!$dept)
+        {  
+            $saave = Dept::insert([
+                'dept_name'=>$this->dept
+            ]);
         }
     }
-    public function OpenReturnCountryModal($id){
-        $info = Food::find($id);
-        $this->upd_H_user = '';
-        $this->upd_H_designation = '';
-        $this->upd_H_dept = '';
-        $this->upd_H_wstation = '';
-        $this->upd_H_condition = '';
-        $this->cid = $info->id;
-        $this->dispatchBrowserEvent('OpenReturnCountryModal',[
-            'id'=>$id
-        ]);
+    if($save){
+        $this->dispatchBrowserEvent('CloseAddFoodModal');
+        $this->checkedFood = [];
     }
-    public function update(){
-       
-        date_default_timezone_set('Asia/Dhaka');
-        $time =  date('d F Y h:i:s A');
-        $cid = $this->cid;
-        $info = Food::find($cid);
-        
-        if (empty($info->previous_user))
-        {
-            $previous_user = $info->user_name;
-        }
-        elseif (empty($info->user_name))
-        {
-            $previous_user = $info->previous_user;
-        }
-        else
-        {
-            $previous_user = $info->previous_user."  ||  ".$info->user_name;
-        }
-        if (empty($info->p_issue_date))
-        {
-            $p_i_date = $info->issue_date;
-        }
-        elseif (empty($info->user_name))
-        {
-            $p_i_date = $info->p_issue_date;
-        }
-        else
-        {
-            $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
-        }
-        Session::put('id', $info->sid);
-        Session::put('b_area', 'Food');
-        $this->validate([
-            "upd_H_user"=>"required",
-            "upd_H_designation"=>"required",
-            "upd_H_dept"=>"required",
-            "upd_H_wstation"=>"required",
-            "upd_H_condition"=>"required"
-        ],
-        ['upd_H_user.required'=>"The User Name field is required.",
-        'upd_H_designation.required'=>"The Designation field is required.",
-        'upd_H_dept.required'=>"The Department field is required.",
-        'upd_H_wstation.required'=>"The Work Station field is required.",
-        'upd_H_condition.required'=>"The Condition field is required."]
-    );
-        $update = Itcus::insert([
-            'user_name'=>Null,
-            'desigation'=>Null,
-            'dept'=>Null,
-            'dept'=>Null,
-            'unit'=>"Igloo Foods Unit",
-            'item'=>$info->item,
-            'laptop_name'=> $info->laptop_name,
-            'asset_no'=> $info->asset_no,
-            'serial_no'=>$info->serial_no,
-            'previous_user'=>$previous_user,
-            'issue_date'=>$time,
-            'p_issue_date'=>$p_i_date,
-            'configuration'=>$info->configuration,
-            'condition'=>$this->upd_H_condition,
-            'sid'=>$info->sid
-        ]);
+}
+public function OpenReturnCountryModal($id){
+    $info = Food::find($id);
+    $this->upd_H_user = '';
+    $this->upd_H_designation = '';
+    $this->upd_H_dept = '';
+    $this->upd_H_wstation = '';
+    $this->upd_H_condition = '';
+    $this->cid = $info->id;
+    $this->dispatchBrowserEvent('OpenReturnCountryModal',[
+        'id'=>$id
+    ]);
+}
+public function update(){
+ 
+    date_default_timezone_set('Asia/Dhaka');
+    $time =  date('d F Y h:i:s A');
+    $cid = $this->cid;
+    $info = Food::find($cid);
+    
+    if (empty($info->previous_user))
+    {
+        $previous_user = $info->user_name;
+    }
+    elseif (empty($info->user_name))
+    {
+        $previous_user = $info->previous_user;
+    }
+    else
+    {
+        $previous_user = $info->previous_user."  ||  ".$info->user_name;
+    }
+    if (empty($info->p_issue_date))
+    {
+        $p_i_date = $info->issue_date;
+    }
+    elseif (empty($info->user_name))
+    {
+        $p_i_date = $info->p_issue_date;
+    }
+    else
+    {
+        $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
+    }
+    Session::put('id', $info->sid);
+    Session::put('b_area', 'Food');
+    $this->validate([
+        "upd_H_user"=>"required",
+        "upd_H_designation"=>"required",
+        "upd_H_dept"=>"required",
+        "upd_H_wstation"=>"required",
+        "upd_H_condition"=>"required"
+    ],
+    ['upd_H_user.required'=>"The User Name field is required.",
+    'upd_H_designation.required'=>"The Designation field is required.",
+    'upd_H_dept.required'=>"The Department field is required.",
+    'upd_H_wstation.required'=>"The Work Station field is required.",
+    'upd_H_condition.required'=>"The Condition field is required."]
+);
+    $update = Itcus::insert([
+        'user_name'=>Null,
+        'desigation'=>Null,
+        'dept'=>Null,
+        'dept'=>Null,
+        'unit'=>"Igloo Foods Unit",
+        'item'=>$info->item,
+        'laptop_name'=> $info->laptop_name,
+        'asset_no'=> $info->asset_no,
+        'serial_no'=>$info->serial_no,
+        'previous_user'=>$previous_user,
+        'issue_date'=>$time,
+        'p_issue_date'=>$p_i_date,
+        'configuration'=>$info->configuration,
+        'condition'=>$this->upd_H_condition,
+        'sid'=>$info->sid
+    ]);
+    if(Session::get('admin_type') == "Mod"){
         Log::insert([
             'name'=>Session::get('name'),
             'email'=>Session::get('email'),
@@ -223,32 +226,33 @@ class Foods extends Component
             'time'=>$time,
             'ip'=> request()->ip(),
         ]);
-        $savex = Invoice::where('sid',$info->sid)->update([
-            'handedBy'=>$info->user_name,
-            'h_desigation'=>$info->desigation,
-            'h_dept'=> $info->dept,
-            'h_wstation'=> $info->wstation,
-            'h_unit'=>"Igloo Foods Unit",
-            'takenBy'=>$this->upd_H_user,
-            't_desigation'=>$this->upd_H_designation,
-            't_dept'=>$this->upd_H_dept,
-            't_wstation'=>$this->upd_H_wstation,
-            't_unit'=>"IT Unit",
-            'remarks'=>'Return Product',
-            'qty'=>'1',
-            'laptop_name'=>$info->laptop_name,
-            'configuration'=>$info->configuration,
-            'asset_no'=>$info->asset_no,
-            'serial_no'=>$info->serial_no,
-            'business_area'=>'Food',
-        ]);
-        if($savex){
-            $del =  Food::find($cid)->delete();
-            $this->dispatchBrowserEvent('CloseReturnCountryModal');
-            $this->checkedFood = [];
-        }
     }
-    
+    $savex = Invoice::where('sid',$info->sid)->update([
+        'handedBy'=>$info->user_name,
+        'h_desigation'=>$info->desigation,
+        'h_dept'=> $info->dept,
+        'h_wstation'=> $info->wstation,
+        'h_unit'=>"Igloo Foods Unit",
+        'takenBy'=>$this->upd_H_user,
+        't_desigation'=>$this->upd_H_designation,
+        't_dept'=>$this->upd_H_dept,
+        't_wstation'=>$this->upd_H_wstation,
+        't_unit'=>"IT Unit",
+        'remarks'=>'Return Product',
+        'qty'=>'1',
+        'laptop_name'=>$info->laptop_name,
+        'configuration'=>$info->configuration,
+        'asset_no'=>$info->asset_no,
+        'serial_no'=>$info->serial_no,
+        'business_area'=>'Food',
+    ]);
+    if($savex){
+        $del =  Food::find($cid)->delete();
+        $this->dispatchBrowserEvent('CloseReturnCountryModal');
+        $this->checkedFood = [];
+    }
+}
+
     // public function OpenReuseModal($id){
     //     $info = Food::find($id);
     //     $this->r_user_name = '';
@@ -265,7 +269,7 @@ class Foods extends Component
     //     ]);
     // }
     // public function reuseProd(){
-       
+
     //     date_default_timezone_set('Asia/Dhaka');
     //     $time =  date('d F Y h:i:s A');
     //     $rid = $this->rid;
@@ -362,42 +366,43 @@ class Foods extends Component
     //         $this->checkedFood = [];
     //     }
     // }
-    public function OpenEditModal($id){
-        $info = Food::find($id);
+public function OpenEditModal($id){
+    $info = Food::find($id);
 
-        $this->U_user_name = $info->user_name;
-        $this->U_desigation = $info->desigation;
-        $this->U_dept = $info->dept;
-        $this->U_wstation = $info->wstation;
-        $this->U_item = $info->item;
-        $this->U_laptop_name = $info->laptop_name;
-        $this->U_serial_no = $info->serial_no;
-        $this->U_P_user = $info->previous_user;
-        $this->U_I_date = $info->issue_date;
-        $this->U_P_I_date = $info->p_issue_date;
-        $this->U_configuration = $info->configuration;
-        $this->cid = $info->id;
-        $this->dispatchBrowserEvent('OpenEditModal',[
-            'id'=>$id
-        ]);
-    }
+    $this->U_user_name = $info->user_name;
+    $this->U_desigation = $info->desigation;
+    $this->U_dept = $info->dept;
+    $this->U_wstation = $info->wstation;
+    $this->U_item = $info->item;
+    $this->U_laptop_name = $info->laptop_name;
+    $this->U_serial_no = $info->serial_no;
+    $this->U_P_user = $info->previous_user;
+    $this->U_I_date = $info->issue_date;
+    $this->U_P_I_date = $info->p_issue_date;
+    $this->U_configuration = $info->configuration;
+    $this->cid = $info->id;
+    $this->dispatchBrowserEvent('OpenEditModal',[
+        'id'=>$id
+    ]);
+}
 
-    public function updateRow(){
-        $cid = $this->cid;
+public function updateRow(){
+    $cid = $this->cid;
 
-        $update = Food::find($cid)->update([
-            'user_name'=>$this->U_user_name,
-            'desigation'=>$this->U_desigation,
-            'dept'=>$this->U_dept,
-            'wstation'=>$this->U_wstation,
-            'item'=>$this->U_item,
-            'laptop_name'=>$this->U_laptop_name,
-            'serial_no'=>$this->U_serial_no,
-            'previous_user'=>$this->U_P_user,
-            'issue_date'=>$this->U_I_date,
-            'p_issue_date'=>$this->U_P_I_date,
-            'configuration'=>$this->U_configuration
-        ]);
+    $update = Food::find($cid)->update([
+        'user_name'=>$this->U_user_name,
+        'desigation'=>$this->U_desigation,
+        'dept'=>$this->U_dept,
+        'wstation'=>$this->U_wstation,
+        'item'=>$this->U_item,
+        'laptop_name'=>$this->U_laptop_name,
+        'serial_no'=>$this->U_serial_no,
+        'previous_user'=>$this->U_P_user,
+        'issue_date'=>$this->U_I_date,
+        'p_issue_date'=>$this->U_P_I_date,
+        'configuration'=>$this->U_configuration
+    ]);
+    if(Session::get('admin_type') == "Mod"){
         Log::insert([
             'name'=>Session::get('name'),
             'email'=>Session::get('email'),
@@ -406,24 +411,26 @@ class Foods extends Component
             'time'=>$time,
             'ip'=> request()->ip(),
         ]);
-        if($update){
-            $this->dispatchBrowserEvent('CloseEditModal');
-            $this->checkedFood = [];
-        }
     }
-    public function deleteConfirm($id){
-        $info = Food::find($id);
-        $this->dispatchBrowserEvent('SwalConfirm',[
-            'title'=>'Are you sure?',
-            'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
-            'id'=>$id
-        ]);
+    if($update){
+        $this->dispatchBrowserEvent('CloseEditModal');
+        $this->checkedFood = [];
     }
-    public function delete($id){
-        $del =  Food::find($id)->delete();
-        if($del){
-            $this->dispatchBrowserEvent('deleted');
-        }
+}
+public function deleteConfirm($id){
+    $info = Food::find($id);
+    $this->dispatchBrowserEvent('SwalConfirm',[
+        'title'=>'Are you sure?',
+        'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
+        'id'=>$id
+    ]);
+}
+public function delete($id){
+    $del =  Food::find($id)->delete();
+    if($del){
+        $this->dispatchBrowserEvent('deleted');
+    }
+    if(Session::get('admin_type') == "Mod"){
         Log::insert([
             'name'=>Session::get('name'),
             'email'=>Session::get('email'),
@@ -432,17 +439,19 @@ class Foods extends Component
             'time'=>$time,
             'ip'=> request()->ip(),
         ]);
-        $this->checkedFood = [];
     }
-    public function deleteFoods(){
-        $this->dispatchBrowserEvent('swal:deleteFoods',[
-            'title'=>'Are you sure?',
-            'html'=>'You want to delete this items',
-            'checkedIDs'=>$this->checkedFood,
-        ]);
-    }
-    public function deleteCheckedFoods($ids){
-        Food::whereKey($ids)->delete();
+    $this->checkedFood = [];
+}
+public function deleteFoods(){
+    $this->dispatchBrowserEvent('swal:deleteFoods',[
+        'title'=>'Are you sure?',
+        'html'=>'You want to delete this items',
+        'checkedIDs'=>$this->checkedFood,
+    ]);
+}
+public function deleteCheckedFoods($ids){
+    Food::whereKey($ids)->delete();
+    if(Session::get('admin_type') == "Mod"){
         Log::insert([
             'name'=>Session::get('name'),
             'email'=>Session::get('email'),
@@ -451,9 +460,10 @@ class Foods extends Component
             'time'=>$time,
             'ip'=> request()->ip(),
         ]);
-        $this->checkedFood = [];
     }
-    public function isChecked($FoodId){
-        return in_array($FoodId, $this->checkedFood) ? 'bg-info text-white' : '';
-    }
+    $this->checkedFood = [];
+}
+public function isChecked($FoodId){
+    return in_array($FoodId, $this->checkedFood) ? 'bg-info text-white' : '';
+}
 }

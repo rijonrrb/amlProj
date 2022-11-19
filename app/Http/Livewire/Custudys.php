@@ -73,7 +73,7 @@ class Custudys extends Component
         'laptop_name.required'=>"Product Model field is required.",
         'serial_no.required'=>"Product S/N field is required.",
         'condition.required'=>"Product condition is required."]
-        );
+    );
         $save = Itcus::insert([
             'user_name'=>Null,
             'desigation'=>Null,
@@ -91,21 +91,22 @@ class Custudys extends Component
             'condition'=>$this->condition,
             'sid'=> $next_id,
 
-      ]);
-      Log::insert([
-        'name'=>Session::get('name'),
-        'email'=>Session::get('email'),
-        'activity'=>"Create",
-        'afield'=>"IT Store",
-        'time'=>$time,
-        'ip'=> request()->ip(),
-    ]);
-
-        if($save){
-            $this->dispatchBrowserEvent('CloseAddItcusModal');
-            $this->checkedItcus = [];
-        }
+        ]);
+        if(Session::get('admin_type') == "Mod"){
+          Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Create",
+            'afield'=>"IT Store",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
+      }
+      if($save){
+        $this->dispatchBrowserEvent('CloseAddItcusModal');
+        $this->checkedItcus = [];
     }
+}
     // public function OpenReturnCountryModal($id){
     //     $info = Itcus::find($id);
     //     $this->upd_H_user = '';
@@ -118,7 +119,7 @@ class Custudys extends Component
     //     ]);
     // }
     // public function update(){
-       
+
     //     date_default_timezone_set('Asia/Dhaka');
     //     $time =  date('d F Y h:i:s A');
     //     $cid = $this->cid;
@@ -194,288 +195,289 @@ class Custudys extends Component
     //         $this->checkedItcus = [];
     //     }
     // }
-    public function OpenReuseModal($id){
-        $info = Itcus::find($id);
-        $this->r_user_name = '';
-        $this->r_desigation = '';
-        $this->r_dept = '';
-        $this->r_wstation = '';
-        $this->r_unit = '';
-        $this->r_H_user = '';
-        $this->r_H_designation = '';
-        $this->r_H_dept = '';
-        $this->r_H_wstation = '';
-        $this->rid = $info->id;
-        $this->dispatchBrowserEvent('OpenReuseModal',[
-            'id'=>$id
-        ]);
+public function OpenReuseModal($id){
+    $info = Itcus::find($id);
+    $this->r_user_name = '';
+    $this->r_desigation = '';
+    $this->r_dept = '';
+    $this->r_wstation = '';
+    $this->r_unit = '';
+    $this->r_H_user = '';
+    $this->r_H_designation = '';
+    $this->r_H_dept = '';
+    $this->r_H_wstation = '';
+    $this->rid = $info->id;
+    $this->dispatchBrowserEvent('OpenReuseModal',[
+        'id'=>$id
+    ]);
+}
+public function reuseProd(){
+    $this->validate([
+        "r_user_name"=>"required",
+        "r_desigation"=>"required",
+        "r_dept"=>"required",
+        "r_unit"=>"required",
+        "r_wstation"=>"required",
+        "r_H_user"=>"required",
+        "r_H_designation"=>"required",
+        "r_H_dept"=>"required",
+        "r_H_wstation"=>"required"
+    ],
+    ['r_user_name.required'=>"The User Name field is required.",
+    'r_desigation.required'=>"The Designation field is required.",
+    'r_dept.required'=>"The Department field is required.",
+    'r_wstation.required'=>"The Work Station field is required.",
+    'r_unit.required'=>"The Unit field is required.",
+    'r_H_user.required'=>"The User Name field is required.",
+    'r_H_designation.required'=>"The Designation field is required.",
+    'r_H_dept.required'=>"The Department field is required.",
+    'r_H_wstation.required'=>"The Work Station field is required."]
+);       
+    date_default_timezone_set('Asia/Dhaka');
+    $time =  date('d F Y h:i:s A');
+    $rid = $this->rid;
+    $info = Itcus::find($rid);
+    if (empty($info->previous_user) && empty($info->user_name))
+    {
+        $previous_user = '';
     }
-    public function reuseProd(){
-        $this->validate([
-            "r_user_name"=>"required",
-            "r_desigation"=>"required",
-            "r_dept"=>"required",
-            "r_unit"=>"required",
-            "r_wstation"=>"required",
-            "r_H_user"=>"required",
-            "r_H_designation"=>"required",
-            "r_H_dept"=>"required",
-            "r_H_wstation"=>"required"
-        ],
-        ['r_user_name.required'=>"The User Name field is required.",
-        'r_desigation.required'=>"The Designation field is required.",
-        'r_dept.required'=>"The Department field is required.",
-        'r_wstation.required'=>"The Work Station field is required.",
-        'r_unit.required'=>"The Unit field is required.",
-        'r_H_user.required'=>"The User Name field is required.",
-        'r_H_designation.required'=>"The Designation field is required.",
-        'r_H_dept.required'=>"The Department field is required.",
-        'r_H_wstation.required'=>"The Work Station field is required."]
-    );       
-        date_default_timezone_set('Asia/Dhaka');
-        $time =  date('d F Y h:i:s A');
-        $rid = $this->rid;
-        $info = Itcus::find($rid);
-        if (empty($info->previous_user) && empty($info->user_name))
-        {
-            $previous_user = '';
-        }
-        elseif (empty($info->previous_user) && !empty($info->user_name))
-        {
-            $previous_user = $info->user_name;
-        }
-        elseif (empty($info->user_name))
-        {
-            $previous_user = $info->previous_user;
-        }
-        else
-        {
-            $previous_user = $info->previous_user."  ||  ".$info->user_name;
-        }
+    elseif (empty($info->previous_user) && !empty($info->user_name))
+    {
+        $previous_user = $info->user_name;
+    }
+    elseif (empty($info->user_name))
+    {
+        $previous_user = $info->previous_user;
+    }
+    else
+    {
+        $previous_user = $info->previous_user."  ||  ".$info->user_name;
+    }
 
-        if (empty($info->p_issue_date) && empty($info->user_name))
-        {
-            $p_i_date = '';
-        }
-        elseif (empty($info->p_issue_date) && !empty($info->user_name))
-        {
-            $p_i_date = $info->issue_date;
-        }
-        elseif (empty($info->user_name))
-        {
-            $p_i_date = $info->p_issue_date;
-        }
-        else
-        {
-            $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
-        }
-        Session::put('id', $info->sid);
-        Session::put('b_area', 'CUSTUDY');
+    if (empty($info->p_issue_date) && empty($info->user_name))
+    {
+        $p_i_date = '';
+    }
+    elseif (empty($info->p_issue_date) && !empty($info->user_name))
+    {
+        $p_i_date = $info->issue_date;
+    }
+    elseif (empty($info->user_name))
+    {
+        $p_i_date = $info->p_issue_date;
+    }
+    else
+    {
+        $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
+    }
+    Session::put('id', $info->sid);
+    Session::put('b_area', 'CUSTUDY');
 
 
     //Data Inserted Igloo Ice Cream Unit
-        if($this->r_unit == "Igloo Ice Cream Unit")
-        {
-            $update = Country::insert([
-                'user_name'=>$this->r_user_name,
-                'desigation'=>$this->r_desigation,
-                'dept'=>$this->r_dept,
-                'wstation'=>$this->r_wstation,
-                'unit'=>$this->r_unit,
-                'item'=>$info->item,
-                'laptop_name'=>$info->laptop_name,
-                'asset_no'=>$info->asset_no,
-                'serial_no'=>$info->serial_no,
-                'previous_user'=>$previous_user,
-                'issue_date'=>$time,
-                'p_issue_date'=>$p_i_date,
-                'configuration'=>$info->configuration,
-                'sid'=> $info->sid,
-            ]);
-        }
+    if($this->r_unit == "Igloo Ice Cream Unit")
+    {
+        $update = Country::insert([
+            'user_name'=>$this->r_user_name,
+            'desigation'=>$this->r_desigation,
+            'dept'=>$this->r_dept,
+            'wstation'=>$this->r_wstation,
+            'unit'=>$this->r_unit,
+            'item'=>$info->item,
+            'laptop_name'=>$info->laptop_name,
+            'asset_no'=>$info->asset_no,
+            'serial_no'=>$info->serial_no,
+            'previous_user'=>$previous_user,
+            'issue_date'=>$time,
+            'p_issue_date'=>$p_i_date,
+            'configuration'=>$info->configuration,
+            'sid'=> $info->sid,
+        ]);
+    }
     //Data Inserted AML Beverage Unit
-        elseif($this->r_unit == "AML Beverage Unit")
-        {
-            $update = Beverage::insert([
-                'user_name'=>$this->r_user_name,
-                'desigation'=>$this->r_desigation,
-                'dept'=>$this->r_dept,
-                'wstation'=>$this->r_wstation,
-                'unit'=>$this->r_unit,
-                'item'=>$info->item,
-                'laptop_name'=>$info->laptop_name,
-                'asset_no'=>$info->asset_no,
-                'serial_no'=>$info->serial_no,
-                'previous_user'=>$previous_user,
-                'issue_date'=>$time,
-                'p_issue_date'=>$p_i_date,
-                'configuration'=>$info->configuration,
-                'sid'=> $info->sid,
-            ]);
-        }
+    elseif($this->r_unit == "AML Beverage Unit")
+    {
+        $update = Beverage::insert([
+            'user_name'=>$this->r_user_name,
+            'desigation'=>$this->r_desigation,
+            'dept'=>$this->r_dept,
+            'wstation'=>$this->r_wstation,
+            'unit'=>$this->r_unit,
+            'item'=>$info->item,
+            'laptop_name'=>$info->laptop_name,
+            'asset_no'=>$info->asset_no,
+            'serial_no'=>$info->serial_no,
+            'previous_user'=>$previous_user,
+            'issue_date'=>$time,
+            'p_issue_date'=>$p_i_date,
+            'configuration'=>$info->configuration,
+            'sid'=> $info->sid,
+        ]);
+    }
     //Data Inserted AML Sugar Refinery Unit
-        elseif($this->r_unit == "AML Sugar Refinery Unit")
-        {
-            $update = Suger::insert([
-                'user_name'=>$this->r_user_name,
-                'desigation'=>$this->r_desigation,
-                'dept'=>$this->r_dept,
-                'wstation'=>$this->r_wstation,
-                'unit'=>$this->r_unit,
-                'item'=>$info->item,
-                'laptop_name'=>$info->laptop_name,
-                'asset_no'=>$info->asset_no,
-                'serial_no'=>$info->serial_no,
-                'previous_user'=>$previous_user,
-                'issue_date'=>$time,
-                'p_issue_date'=>$p_i_date,
-                'configuration'=>$info->configuration,
-                'sid'=> $info->sid,
-            ]);
-        }
+    elseif($this->r_unit == "AML Sugar Refinery Unit")
+    {
+        $update = Suger::insert([
+            'user_name'=>$this->r_user_name,
+            'desigation'=>$this->r_desigation,
+            'dept'=>$this->r_dept,
+            'wstation'=>$this->r_wstation,
+            'unit'=>$this->r_unit,
+            'item'=>$info->item,
+            'laptop_name'=>$info->laptop_name,
+            'asset_no'=>$info->asset_no,
+            'serial_no'=>$info->serial_no,
+            'previous_user'=>$previous_user,
+            'issue_date'=>$time,
+            'p_issue_date'=>$p_i_date,
+            'configuration'=>$info->configuration,
+            'sid'=> $info->sid,
+        ]);
+    }
     //Data Inserted AML Construction Unit
-        elseif($this->r_unit == "AML Construction Unit")
-        {
-            $update = Construction::insert([
-                'user_name'=>$this->r_user_name,
-                'desigation'=>$this->r_desigation,
-                'dept'=>$this->r_dept,
-                'wstation'=>$this->r_wstation,
-                'unit'=>$this->r_unit,
-                'item'=>$info->item,
-                'laptop_name'=>$info->laptop_name,
-                'asset_no'=>$info->asset_no,
-                'serial_no'=>$info->serial_no,
-                'previous_user'=>$previous_user,
-                'issue_date'=>$time,
-                'p_issue_date'=>$p_i_date,
-                'configuration'=>$info->configuration,
-                'sid'=> $info->sid,
-            ]);
-        }
+    elseif($this->r_unit == "AML Construction Unit")
+    {
+        $update = Construction::insert([
+            'user_name'=>$this->r_user_name,
+            'desigation'=>$this->r_desigation,
+            'dept'=>$this->r_dept,
+            'wstation'=>$this->r_wstation,
+            'unit'=>$this->r_unit,
+            'item'=>$info->item,
+            'laptop_name'=>$info->laptop_name,
+            'asset_no'=>$info->asset_no,
+            'serial_no'=>$info->serial_no,
+            'previous_user'=>$previous_user,
+            'issue_date'=>$time,
+            'p_issue_date'=>$p_i_date,
+            'configuration'=>$info->configuration,
+            'sid'=> $info->sid,
+        ]);
+    }
     //Data Inserted Igloo Foods Unit
-        elseif($this->r_unit == "Igloo Foods Unit")
-        {
-            $update = Food::insert([
-                'user_name'=>$this->r_user_name,
-                'desigation'=>$this->r_desigation,
-                'dept'=>$this->r_dept,
-                'wstation'=>$this->r_wstation,
-                'unit'=>$this->r_unit,
-                'item'=>$info->item,
-                'laptop_name'=>$info->laptop_name,
-                'asset_no'=>$info->asset_no,
-                'serial_no'=>$info->serial_no,
-                'previous_user'=>$previous_user,
-                'issue_date'=>$time,
-                'p_issue_date'=>$p_i_date,
-                'configuration'=>$info->configuration,
-                'sid'=> $info->sid,
-            ]);
-        }
+    elseif($this->r_unit == "Igloo Foods Unit")
+    {
+        $update = Food::insert([
+            'user_name'=>$this->r_user_name,
+            'desigation'=>$this->r_desigation,
+            'dept'=>$this->r_dept,
+            'wstation'=>$this->r_wstation,
+            'unit'=>$this->r_unit,
+            'item'=>$info->item,
+            'laptop_name'=>$info->laptop_name,
+            'asset_no'=>$info->asset_no,
+            'serial_no'=>$info->serial_no,
+            'previous_user'=>$previous_user,
+            'issue_date'=>$time,
+            'p_issue_date'=>$p_i_date,
+            'configuration'=>$info->configuration,
+            'sid'=> $info->sid,
+        ]);
+    }
     //Data Inserted Igloo Dairy Unit
-        elseif($this->r_unit == "Igloo Dairy Unit")
-        {
-            $update = Dairy::insert([
-                'user_name'=>$this->r_user_name,
-                'desigation'=>$this->r_desigation,
-                'dept'=>$this->r_dept,
-                'wstation'=>$this->r_wstation,
-                'unit'=>$this->r_unit,
-                'item'=>$info->item,
-                'laptop_name'=>$info->laptop_name,
-                'asset_no'=>$info->asset_no,
-                'serial_no'=>$info->serial_no,
-                'previous_user'=>$previous_user,
-                'issue_date'=>$time,
-                'p_issue_date'=>$p_i_date,
-                'configuration'=>$info->configuration,
-                'sid'=> $info->sid,
-            ]);
-        }
+    elseif($this->r_unit == "Igloo Dairy Unit")
+    {
+        $update = Dairy::insert([
+            'user_name'=>$this->r_user_name,
+            'desigation'=>$this->r_desigation,
+            'dept'=>$this->r_dept,
+            'wstation'=>$this->r_wstation,
+            'unit'=>$this->r_unit,
+            'item'=>$info->item,
+            'laptop_name'=>$info->laptop_name,
+            'asset_no'=>$info->asset_no,
+            'serial_no'=>$info->serial_no,
+            'previous_user'=>$previous_user,
+            'issue_date'=>$time,
+            'p_issue_date'=>$p_i_date,
+            'configuration'=>$info->configuration,
+            'sid'=> $info->sid,
+        ]);
+    }
     //Data Inserted AML Dredging Unit
-        elseif($this->r_unit == "AML Dredging Unit")
-        {
-            $update = Dredging::insert([
-                'user_name'=>$this->r_user_name,
-                'desigation'=>$this->r_desigation,
-                'dept'=>$this->r_dept,
-                'wstation'=>$this->r_wstation,
-                'unit'=>$this->r_unit,
-                'item'=>$info->item,
-                'laptop_name'=>$info->laptop_name,
-                'asset_no'=>$info->asset_no,
-                'serial_no'=>$info->serial_no,
-                'previous_user'=>$previous_user,
-                'issue_date'=>$time,
-                'p_issue_date'=>$p_i_date,
-                'configuration'=>$info->configuration,
-                'sid'=> $info->sid,
-            ]);
-        }
+    elseif($this->r_unit == "AML Dredging Unit")
+    {
+        $update = Dredging::insert([
+            'user_name'=>$this->r_user_name,
+            'desigation'=>$this->r_desigation,
+            'dept'=>$this->r_dept,
+            'wstation'=>$this->r_wstation,
+            'unit'=>$this->r_unit,
+            'item'=>$info->item,
+            'laptop_name'=>$info->laptop_name,
+            'asset_no'=>$info->asset_no,
+            'serial_no'=>$info->serial_no,
+            'previous_user'=>$previous_user,
+            'issue_date'=>$time,
+            'p_issue_date'=>$p_i_date,
+            'configuration'=>$info->configuration,
+            'sid'=> $info->sid,
+        ]);
+    }
     //Data Inserted AML Bran Oil Unit
-        elseif($this->r_unit == "AML Bran Oil Unit")
-        {
-            $update = Branoil::insert([
-                'user_name'=>$this->r_user_name,
-                'desigation'=>$this->r_desigation,
-                'dept'=>$this->r_dept,
-                'wstation'=>$this->r_wstation,
-                'unit'=>$this->r_unit,
-                'item'=>$info->item,
-                'laptop_name'=>$info->laptop_name,
-                'asset_no'=>$info->asset_no,
-                'serial_no'=>$info->serial_no,
-                'previous_user'=>$previous_user,
-                'issue_date'=>$time,
-                'p_issue_date'=>$p_i_date,
-                'configuration'=>$info->configuration,
-                'sid'=> $info->sid,
-            ]);
-        }
+    elseif($this->r_unit == "AML Bran Oil Unit")
+    {
+        $update = Branoil::insert([
+            'user_name'=>$this->r_user_name,
+            'desigation'=>$this->r_desigation,
+            'dept'=>$this->r_dept,
+            'wstation'=>$this->r_wstation,
+            'unit'=>$this->r_unit,
+            'item'=>$info->item,
+            'laptop_name'=>$info->laptop_name,
+            'asset_no'=>$info->asset_no,
+            'serial_no'=>$info->serial_no,
+            'previous_user'=>$previous_user,
+            'issue_date'=>$time,
+            'p_issue_date'=>$p_i_date,
+            'configuration'=>$info->configuration,
+            'sid'=> $info->sid,
+        ]);
+    }
 
 
-        if(empty($info->previous_user) && empty($info->user_name))
-        {
-            $savex = Invoice::insert([
-                'handedBy'=>$this->r_H_user,
-                'h_desigation'=>$this->r_H_designation,
-                'h_dept'=>$this->r_H_dept,
-                'h_wstation'=>$this->r_H_wstation,
-                'h_unit'=>"IT Unit",
-                'takenBy'=>$this->r_user_name,
-                't_desigation'=>$this->r_desigation,
-                't_dept'=>$this->r_dept,
-                't_wstation'=>$this->r_wstation,
-                't_unit'=>$this->r_unit,
-                'remarks'=>'For Official use',
-                'qty'=>'1',
-                'laptop_name'=>$info->laptop_name,
-                'configuration'=>$info->configuration,
-                'asset_no'=>$info->asset_no,
-                'serial_no'=>$info->serial_no,
-                'business_area'=>'CUSTUDY',
-                'sid'=>$info->sid,
-            ]);
-        }
-        else
-        {
-            $savex = Invoice::where('sid',$info->sid)->update([
-                'handedBy'=>$this->r_H_user,
-                'h_desigation'=>$this->r_H_designation,
-                'h_dept'=>$this->r_H_dept,
-                'h_wstation'=>$this->r_H_wstation,
-                'h_unit'=>"IT Unit",
-                'takenBy'=>$this->r_user_name,
-                't_desigation'=>$this->r_desigation,
-                't_dept'=>$this->r_dept,
-                't_wstation'=>$this->r_wstation,
-                't_unit'=>$this->r_unit,
-                'remarks'=>'For Official use',
-                'qty'=>'1',
-                'business_area'=>'CUSTUDY',
-            ]);
-        }
+    if(empty($info->previous_user) && empty($info->user_name))
+    {
+        $savex = Invoice::insert([
+            'handedBy'=>$this->r_H_user,
+            'h_desigation'=>$this->r_H_designation,
+            'h_dept'=>$this->r_H_dept,
+            'h_wstation'=>$this->r_H_wstation,
+            'h_unit'=>"IT Unit",
+            'takenBy'=>$this->r_user_name,
+            't_desigation'=>$this->r_desigation,
+            't_dept'=>$this->r_dept,
+            't_wstation'=>$this->r_wstation,
+            't_unit'=>$this->r_unit,
+            'remarks'=>'For Official use',
+            'qty'=>'1',
+            'laptop_name'=>$info->laptop_name,
+            'configuration'=>$info->configuration,
+            'asset_no'=>$info->asset_no,
+            'serial_no'=>$info->serial_no,
+            'business_area'=>'CUSTUDY',
+            'sid'=>$info->sid,
+        ]);
+    }
+    else
+    {
+        $savex = Invoice::where('sid',$info->sid)->update([
+            'handedBy'=>$this->r_H_user,
+            'h_desigation'=>$this->r_H_designation,
+            'h_dept'=>$this->r_H_dept,
+            'h_wstation'=>$this->r_H_wstation,
+            'h_unit'=>"IT Unit",
+            'takenBy'=>$this->r_user_name,
+            't_desigation'=>$this->r_desigation,
+            't_dept'=>$this->r_dept,
+            't_wstation'=>$this->r_wstation,
+            't_unit'=>$this->r_unit,
+            'remarks'=>'For Official use',
+            'qty'=>'1',
+            'business_area'=>'CUSTUDY',
+        ]);
+    }
+    if(Session::get('admin_type') == "Mod"){
         Log::insert([
             'name'=>Session::get('name'),
             'email'=>Session::get('email'),
@@ -484,45 +486,47 @@ class Custudys extends Component
             'time'=>$time,
             'ip'=> request()->ip(),
         ]);
-        if(!empty($this->r_dept))
-        {
-            $deptT = Dept::where('dept_name',$this->r_dept)->first();
-            if(!$deptT)
-            {  
-                $saave= Dept::insert([
-                    'dept_name'=>$this->r_dept
-                ]);
-            }
-        }
-        if(!empty($this->r_H_dept))
-        {
-            $deptH = Dept::where('dept_name',$this->r_H_dept)->first();
-            if(!$deptH)
-            {  
-                $saave= Dept::insert([
-                    'dept_name'=>$this->r_H_dept
-                ]);
-            }
-        }
-        if($savex){
-            $del =  Itcus::find($rid)->delete();
-            $this->dispatchBrowserEvent('CloseReuseModal');
-            $this->checkedItcus = [];
+    }
+    if(!empty($this->r_dept))
+    {
+        $deptT = Dept::where('dept_name',$this->r_dept)->first();
+        if(!$deptT)
+        {  
+            $saave= Dept::insert([
+                'dept_name'=>$this->r_dept
+            ]);
         }
     }
-    public function deleteConfirm($id){
-        $info = Itcus::find($id);
-        $this->dispatchBrowserEvent('SwalConfirm',[
-            'title'=>'Are you sure?',
-            'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
-            'id'=>$id
-        ]);
-    }
-    public function delete($id){
-        $del =  Itcus::find($id)->delete();
-        if($del){
-            $this->dispatchBrowserEvent('deleted');
+    if(!empty($this->r_H_dept))
+    {
+        $deptH = Dept::where('dept_name',$this->r_H_dept)->first();
+        if(!$deptH)
+        {  
+            $saave= Dept::insert([
+                'dept_name'=>$this->r_H_dept
+            ]);
         }
+    }
+    if($savex){
+        $del =  Itcus::find($rid)->delete();
+        $this->dispatchBrowserEvent('CloseReuseModal');
+        $this->checkedItcus = [];
+    }
+}
+public function deleteConfirm($id){
+    $info = Itcus::find($id);
+    $this->dispatchBrowserEvent('SwalConfirm',[
+        'title'=>'Are you sure?',
+        'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
+        'id'=>$id
+    ]);
+}
+public function delete($id){
+    $del =  Itcus::find($id)->delete();
+    if($del){
+        $this->dispatchBrowserEvent('deleted');
+    }
+    if(Session::get('admin_type') == "Mod"){
         Log::insert([
             'name'=>Session::get('name'),
             'email'=>Session::get('email'),
@@ -531,17 +535,19 @@ class Custudys extends Component
             'time'=>$time,
             'ip'=> request()->ip(),
         ]);
-        $this->checkedItcus = [];
     }
-    public function deleteItcuss(){
-        $this->dispatchBrowserEvent('swal:deleteItcuss',[
-            'title'=>'Are you sure?',
-            'html'=>'You want to delete this items',
-            'checkedIDs'=>$this->checkedItcus,
-        ]);
-    }
-    public function deleteCheckedItcuss($ids){
-        Itcus::whereKey($ids)->delete();
+    $this->checkedItcus = [];
+}
+public function deleteItcuss(){
+    $this->dispatchBrowserEvent('swal:deleteItcuss',[
+        'title'=>'Are you sure?',
+        'html'=>'You want to delete this items',
+        'checkedIDs'=>$this->checkedItcus,
+    ]);
+}
+public function deleteCheckedItcuss($ids){
+    Itcus::whereKey($ids)->delete();
+    if(Session::get('admin_type') == "Mod"){
         Log::insert([
             'name'=>Session::get('name'),
             'email'=>Session::get('email'),
@@ -550,9 +556,10 @@ class Custudys extends Component
             'time'=>$time,
             'ip'=> request()->ip(),
         ]);
-        $this->checkedItcus = [];
     }
-    public function isChecked($ItcusId){
-        return in_array($ItcusId, $this->checkedItcus) ? 'bg-info text-white' : '';
-    }
+    $this->checkedItcus = [];
+}
+public function isChecked($ItcusId){
+    return in_array($ItcusId, $this->checkedItcus) ? 'bg-info text-white' : '';
+}
 }

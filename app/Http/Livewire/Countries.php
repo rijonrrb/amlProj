@@ -95,128 +95,128 @@ class Countries extends Component
           'configuration'=>$this->configuration,
           'sid'=> $next_id,
       ]);
-
-      Log::insert([
-        'name'=>Session::get('name'),
-        'email'=>Session::get('email'),
-        'activity'=>"Create",
-        'afield'=>"Igloo Ice Cream",
-        'time'=>$time,
-        'ip'=> request()->ip(),
+        if(Session::get('admin_type') == "Mod"){
+          Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Create",
+            'afield'=>"Igloo Ice Cream",
+            'time'=>$time,
+            'ip'=> request()->ip(),
+        ]);
+      }
+      Invoice::insert([
+        'handedBy'=>$this->H_user,
+        'h_desigation'=>$this->H_designation,
+        'h_dept'=>$this->H_dept,
+        'h_wstation'=>$this->H_wstation,
+        'h_unit'=>"IT Unit",
+        'sid'=> $next_id,
+        'takenBy'=>$this->user_name,
+        't_desigation'=>$this->desigation,
+        't_dept'=>$this->dept,
+        't_wstation'=>$this->wstation,
+        't_unit'=>"Igloo Ice Cream Unit",
+        'remarks'=>'For Official use',
+        'qty'=>'1',
+        'laptop_name'=>$this->laptop_name,
+        'configuration'=>$this->configuration,
+        'asset_no'=>$this->asset_no,
+        'serial_no'=>$this->serial_no,
+        'business_area'=>'Igloo',
     ]);
-
-        Invoice::insert([
-            'handedBy'=>$this->H_user,
-            'h_desigation'=>$this->H_designation,
-            'h_dept'=>$this->H_dept,
-            'h_wstation'=>$this->H_wstation,
-            'h_unit'=>"IT Unit",
-            'sid'=> $next_id,
-            'takenBy'=>$this->user_name,
-            't_desigation'=>$this->desigation,
-            't_dept'=>$this->dept,
-            't_wstation'=>$this->wstation,
-            't_unit'=>"Igloo Ice Cream Unit",
-            'remarks'=>'For Official use',
-            'qty'=>'1',
-            'laptop_name'=>$this->laptop_name,
-            'configuration'=>$this->configuration,
-            'asset_no'=>$this->asset_no,
-            'serial_no'=>$this->serial_no,
-            'business_area'=>'Igloo',
-        ]);
+      
+      if(!empty($this->dept))
+      {
+        $dept = Dept::where('dept_name',$this->dept)->first();
         
-        if(!empty($this->dept))
-        {
-            $dept = Dept::where('dept_name',$this->dept)->first();
-            
-            if(!$dept)
-            {  
-                $saave = Dept::insert([
-                    'dept_name'=>$this->dept
-                ]);
-            }
-        }
-        if($save){
-            $this->dispatchBrowserEvent('CloseAddCountryModal');
-            $this->checkedCountry = [];
+        if(!$dept)
+        {  
+            $saave = Dept::insert([
+                'dept_name'=>$this->dept
+            ]);
         }
     }
-    public function OpenReturnCountryModal($id){
-        $info = Country::find($id);
-        $this->upd_H_user = '';
-        $this->upd_H_designation = '';
-        $this->upd_H_dept = '';
-        $this->upd_H_wstation = '';
-        $this->upd_H_condition = '';
-        $this->cid = $info->id;
-        $this->dispatchBrowserEvent('OpenReturnCountryModal',[
-            'id'=>$id
-        ]);
+    if($save){
+        $this->dispatchBrowserEvent('CloseAddCountryModal');
+        $this->checkedCountry = [];
     }
-    public function update(){
-     
-        date_default_timezone_set('Asia/Dhaka');
-        $time =  date('d F Y h:i:s A');
-        $cid = $this->cid;
-        $info = Country::find($cid);
-        if (empty($info->previous_user))
-        {
-            $previous_user = $info->user_name;
-        }
-        elseif (empty($info->user_name))
-        {
-            $previous_user = $info->previous_user;
-        }
-        else
-        {
-            $previous_user = $info->previous_user."  ||  ".$info->user_name;
-        }
-        if (empty($info->p_issue_date))
-        {
-            $p_i_date = $info->issue_date;
-        }
-        elseif (empty($info->user_name))
-        {
-            $p_i_date = $info->p_issue_date;
-        }
-        else
-        {
-            $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
-        }
-        Session::put('id', $info->sid);
-        Session::put('b_area', 'Igloo');
-        $this->validate([
-            "upd_H_user"=>"required",
-            "upd_H_designation"=>"required",
-            "upd_H_dept"=>"required",
-            "upd_H_wstation"=>"required",
-            "upd_H_condition"=>"required"
-        ],
-        ['upd_H_user.required'=>"The User Name field is required.",
-        'upd_H_designation.required'=>"The Designation field is required.",
-        'upd_H_dept.required'=>"The Department field is required.",
-        'upd_H_wstation.required'=>"The Work Station field is required.",
-        'upd_H_condition.required'=>"The Condition field is required."]
-    );
-        $update = Itcus::insert([
-            'user_name'=>Null,
-            'desigation'=>Null,
-            'dept'=>Null,
-            'dept'=>Null,
-            'unit'=>"Igloo Ice Cream Unit",
-            'item'=>$info->item,
-            'laptop_name'=> $info->laptop_name,
-            'asset_no'=> $info->asset_no,
-            'serial_no'=>$info->serial_no,
-            'previous_user'=>$previous_user,
-            'issue_date'=>$time,
-            'p_issue_date'=>$p_i_date,
-            'configuration'=>$info->configuration,
-            'condition'=>$this->upd_H_condition,
-            'sid'=>$info->sid
-        ]);
-
+}
+public function OpenReturnCountryModal($id){
+    $info = Country::find($id);
+    $this->upd_H_user = '';
+    $this->upd_H_designation = '';
+    $this->upd_H_dept = '';
+    $this->upd_H_wstation = '';
+    $this->upd_H_condition = '';
+    $this->cid = $info->id;
+    $this->dispatchBrowserEvent('OpenReturnCountryModal',[
+        'id'=>$id
+    ]);
+}
+public function update(){
+   
+    date_default_timezone_set('Asia/Dhaka');
+    $time =  date('d F Y h:i:s A');
+    $cid = $this->cid;
+    $info = Country::find($cid);
+    if (empty($info->previous_user))
+    {
+        $previous_user = $info->user_name;
+    }
+    elseif (empty($info->user_name))
+    {
+        $previous_user = $info->previous_user;
+    }
+    else
+    {
+        $previous_user = $info->previous_user."  ||  ".$info->user_name;
+    }
+    if (empty($info->p_issue_date))
+    {
+        $p_i_date = $info->issue_date;
+    }
+    elseif (empty($info->user_name))
+    {
+        $p_i_date = $info->p_issue_date;
+    }
+    else
+    {
+        $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
+    }
+    Session::put('id', $info->sid);
+    Session::put('b_area', 'Igloo');
+    $this->validate([
+        "upd_H_user"=>"required",
+        "upd_H_designation"=>"required",
+        "upd_H_dept"=>"required",
+        "upd_H_wstation"=>"required",
+        "upd_H_condition"=>"required"
+    ],
+    ['upd_H_user.required'=>"The User Name field is required.",
+    'upd_H_designation.required'=>"The Designation field is required.",
+    'upd_H_dept.required'=>"The Department field is required.",
+    'upd_H_wstation.required'=>"The Work Station field is required.",
+    'upd_H_condition.required'=>"The Condition field is required."]
+);
+    $update = Itcus::insert([
+        'user_name'=>Null,
+        'desigation'=>Null,
+        'dept'=>Null,
+        'dept'=>Null,
+        'unit'=>"Igloo Ice Cream Unit",
+        'item'=>$info->item,
+        'laptop_name'=> $info->laptop_name,
+        'asset_no'=> $info->asset_no,
+        'serial_no'=>$info->serial_no,
+        'previous_user'=>$previous_user,
+        'issue_date'=>$time,
+        'p_issue_date'=>$p_i_date,
+        'configuration'=>$info->configuration,
+        'condition'=>$this->upd_H_condition,
+        'sid'=>$info->sid
+    ]);
+    if(Session::get('admin_type') == "Mod"){
         Log::insert([
             'name'=>Session::get('name'),
             'email'=>Session::get('email'),
@@ -225,68 +225,69 @@ class Countries extends Component
             'time'=>$time,
             'ip'=> request()->ip(),
         ]);
-
-        $savex = Invoice::where('sid',$info->sid)->update([
-            'handedBy'=>$info->user_name,
-            'h_desigation'=>$info->desigation,
-            'h_dept'=> $info->dept,
-            'h_wstation'=> $info->wstation,
-            'h_unit'=>"Igloo Ice Cream Unit",
-            'takenBy'=>$this->upd_H_user,
-            't_desigation'=>$this->upd_H_designation,
-            't_dept'=>$this->upd_H_dept,
-            't_wstation'=>$this->upd_H_wstation,
-            't_unit'=>"IT Unit",
-            'remarks'=>'Return Product',
-            'qty'=>'1',
-            'laptop_name'=>$info->laptop_name,
-            'configuration'=>$info->configuration,
-            'asset_no'=>$info->asset_no,
-            'serial_no'=>$info->serial_no,
-            'business_area'=>'Igloo',
-        ]);
-        if($savex){
-            $del =  Country::find($cid)->delete();
-            $this->dispatchBrowserEvent('CloseReturnCountryModal');
-            $this->checkedCountry = [];
-        }
     }
-    public function OpenEditModal($id){
-        $info = Country::find($id);
-
-        $this->U_user_name = $info->user_name;
-        $this->U_desigation = $info->desigation;
-        $this->U_dept = $info->dept;
-        $this->U_wstation = $info->wstation;
-        $this->U_item = $info->item;
-        $this->U_laptop_name = $info->laptop_name;
-        $this->U_serial_no = $info->serial_no;
-        $this->U_P_user = $info->previous_user;
-        $this->U_I_date = $info->issue_date;
-        $this->U_P_I_date = $info->p_issue_date;
-        $this->U_configuration = $info->configuration;
-        $this->cid = $info->id;
-        $this->dispatchBrowserEvent('OpenEditModal',[
-            'id'=>$id
-        ]);
+    $savex = Invoice::where('sid',$info->sid)->update([
+        'handedBy'=>$info->user_name,
+        'h_desigation'=>$info->desigation,
+        'h_dept'=> $info->dept,
+        'h_wstation'=> $info->wstation,
+        'h_unit'=>"Igloo Ice Cream Unit",
+        'takenBy'=>$this->upd_H_user,
+        't_desigation'=>$this->upd_H_designation,
+        't_dept'=>$this->upd_H_dept,
+        't_wstation'=>$this->upd_H_wstation,
+        't_unit'=>"IT Unit",
+        'remarks'=>'Return Product',
+        'qty'=>'1',
+        'laptop_name'=>$info->laptop_name,
+        'configuration'=>$info->configuration,
+        'asset_no'=>$info->asset_no,
+        'serial_no'=>$info->serial_no,
+        'business_area'=>'Igloo',
+    ]);
+    if($savex){
+        $del =  Country::find($cid)->delete();
+        $this->dispatchBrowserEvent('CloseReturnCountryModal');
+        $this->checkedCountry = [];
     }
+}
+public function OpenEditModal($id){
+    $info = Country::find($id);
 
-    public function updateRow(){
-        $cid = $this->cid;
+    $this->U_user_name = $info->user_name;
+    $this->U_desigation = $info->desigation;
+    $this->U_dept = $info->dept;
+    $this->U_wstation = $info->wstation;
+    $this->U_item = $info->item;
+    $this->U_laptop_name = $info->laptop_name;
+    $this->U_serial_no = $info->serial_no;
+    $this->U_P_user = $info->previous_user;
+    $this->U_I_date = $info->issue_date;
+    $this->U_P_I_date = $info->p_issue_date;
+    $this->U_configuration = $info->configuration;
+    $this->cid = $info->id;
+    $this->dispatchBrowserEvent('OpenEditModal',[
+        'id'=>$id
+    ]);
+}
 
-        $update = Country::find($cid)->update([
-            'user_name'=>$this->U_user_name,
-            'desigation'=>$this->U_desigation,
-            'dept'=>$this->U_dept,
-            'wstation'=>$this->U_wstation,
-            'item'=>$this->U_item,
-            'laptop_name'=>$this->U_laptop_name,
-            'serial_no'=>$this->U_serial_no,
-            'previous_user'=>$this->U_P_user,
-            'issue_date'=>$this->U_I_date,
-            'p_issue_date'=>$this->U_P_I_date,
-            'configuration'=>$this->U_configuration
-        ]);
+public function updateRow(){
+    $cid = $this->cid;
+
+    $update = Country::find($cid)->update([
+        'user_name'=>$this->U_user_name,
+        'desigation'=>$this->U_desigation,
+        'dept'=>$this->U_dept,
+        'wstation'=>$this->U_wstation,
+        'item'=>$this->U_item,
+        'laptop_name'=>$this->U_laptop_name,
+        'serial_no'=>$this->U_serial_no,
+        'previous_user'=>$this->U_P_user,
+        'issue_date'=>$this->U_I_date,
+        'p_issue_date'=>$this->U_P_I_date,
+        'configuration'=>$this->U_configuration
+    ]);
+    if(Session::get('admin_type') == "Mod"){
       Log::insert([
         'name'=>Session::get('name'),
         'email'=>Session::get('email'),
@@ -295,11 +296,12 @@ class Countries extends Component
         'time'=>$time,
         'ip'=> request()->ip(),
     ]);
-        if($update){
-            $this->dispatchBrowserEvent('CloseEditModal');
-            $this->checkedCountry = [];
-        }
-    }
+  }
+  if($update){
+    $this->dispatchBrowserEvent('CloseEditModal');
+    $this->checkedCountry = [];
+}
+}
     // public function OpenReuseModal($id){
     //     $info = Country::find($id);
     //     $this->r_user_name = '';
@@ -316,7 +318,7 @@ class Countries extends Component
     //     ]);
     // }
     // public function reuseProd(){
-     
+
     //     date_default_timezone_set('Asia/Dhaka');
     //     $time =  date('d F Y h:i:s A');
     //     $rid = $this->rid;
@@ -413,20 +415,21 @@ class Countries extends Component
     //         $this->checkedCountry = [];
     //     }
     // }
-    
-    public function deleteConfirm($id){
-        $info = Country::find($id);
-        $this->dispatchBrowserEvent('SwalConfirm',[
-            'title'=>'Are you sure?',
-            'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
-            'id'=>$id
-        ]);
+
+public function deleteConfirm($id){
+    $info = Country::find($id);
+    $this->dispatchBrowserEvent('SwalConfirm',[
+        'title'=>'Are you sure?',
+        'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
+        'id'=>$id
+    ]);
+}
+public function delete($id){
+    $del =  Country::find($id)->delete();
+    if($del){
+        $this->dispatchBrowserEvent('deleted');
     }
-    public function delete($id){
-        $del =  Country::find($id)->delete();
-        if($del){
-            $this->dispatchBrowserEvent('deleted');
-        }
+    if(Session::get('admin_type') == "Mod"){
         Log::insert([
             'name'=>Session::get('name'),
             'email'=>Session::get('email'),
@@ -435,17 +438,19 @@ class Countries extends Component
             'time'=>$time,
             'ip'=> request()->ip(),
         ]);
-        $this->checkedCountry = [];
     }
-    public function deleteCountries(){
-        $this->dispatchBrowserEvent('swal:deleteCountries',[
-            'title'=>'Are you sure?',
-            'html'=>'You want to delete this items',
-            'checkedIDs'=>$this->checkedCountry,
-        ]);
-    }
-    public function deleteCheckedCountries($ids){
-        Country::whereKey($ids)->delete();
+    $this->checkedCountry = [];
+}
+public function deleteCountries(){
+    $this->dispatchBrowserEvent('swal:deleteCountries',[
+        'title'=>'Are you sure?',
+        'html'=>'You want to delete this items',
+        'checkedIDs'=>$this->checkedCountry,
+    ]);
+}
+public function deleteCheckedCountries($ids){
+    Country::whereKey($ids)->delete();
+    if(Session::get('admin_type') == "Mod"){
         Log::insert([
             'name'=>Session::get('name'),
             'email'=>Session::get('email'),
@@ -454,9 +459,10 @@ class Countries extends Component
             'time'=>$time,
             'ip'=> request()->ip(),
         ]);
-        $this->checkedCountry = [];
-    }
-    public function isChecked($countryId){
-        return in_array($countryId, $this->checkedCountry) ? 'bg-info text-white' : '';
-    }
+    } 
+    $this->checkedCountry = [];
+}
+public function isChecked($countryId){
+    return in_array($countryId, $this->checkedCountry) ? 'bg-info text-white' : '';
+}
 }
