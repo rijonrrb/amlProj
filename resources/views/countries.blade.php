@@ -198,9 +198,9 @@
 <script>
     function html_table_to_excel(type)
     {   var data = document.getElementById('Igloo');
-    var file = XLSX.utils.table_to_book(data, {sheet: "Igloo CHO"});
+    var file = XLSX.utils.table_to_book(data, {sheet: "Igloo Ice Cream Unit"});
     XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
-    XLSX.writeFile(file, 'Igloo CHO.' + type);
+    XLSX.writeFile(file, 'Igloo Ice Cream Unit.' + type);
 }
 const export_button = document.getElementById('export');
 export_button.addEventListener('click', () =>  {

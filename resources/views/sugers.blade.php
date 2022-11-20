@@ -197,9 +197,9 @@ window.addEventListener('OpenEditModal', function(event){
     function html_table_to_excel(type)
     {
         var data = document.getElementById('Sugar');
-        var file = XLSX.utils.table_to_book(data, {sheet: "Sugar"});
+        var file = XLSX.utils.table_to_book(data, {sheet: "AML Sugar Refinery Unit"});
         XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
-        XLSX.writeFile(file, 'Sugar.' + type);
+        XLSX.writeFile(file, 'AML Sugar Refinery Unit.' + type);
     }
     const export_button = document.getElementById('export');
     export_button.addEventListener('click', () =>  {

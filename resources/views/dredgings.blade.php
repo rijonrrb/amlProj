@@ -198,9 +198,9 @@
     function html_table_to_excel(type)
     {
         var data = document.getElementById('Dredgings');
-        var file = XLSX.utils.table_to_book(data, {sheet: "Dredging"});
+        var file = XLSX.utils.table_to_book(data, {sheet: "AML Dredging Unit"});
         XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
-        XLSX.writeFile(file, 'Dredging.' + type);
+        XLSX.writeFile(file, 'AML Dredging Unit.' + type);
     }
     const export_button = document.getElementById('export');
     export_button.addEventListener('click', () =>  {

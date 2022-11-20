@@ -1,7 +1,11 @@
 <div class="card">
     <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>IT STORE</b></h4>
     <div class="row mb-3 p-2 d-flex justify-content-between">
+         @if(Session::get('admin_type') == "SAdmin")
         <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddItcusModal()">Add New Dataset</button>
+        @elseif(Session::get('admin_type') == "Mod" && Session::get('create') == "True")
+        <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddItcusModal()">Add New Dataset</button>
+        @endif
         <div>
            @if ($checkedItcus)
            <button class="btn btn-danger btn-md mr-4" wire:click="deleteItcuss()"> Delete rows ({{ count($checkedItcus) }})</button>
@@ -29,7 +33,7 @@
         <select wire:model ="byUnit" class="form-control">
             <option value="">Select Option</option>
             <option value="Igloo Ice Cream Unit">Igloo Ice Cream Unit</option>
-            <option value="Igloo Dairy Unit">Igloo Dairy Unit</option>
+            <option value="Igloo Itcus Unit">Igloo Itcus Unit</option>
             <option value="Igloo Foods Unit">Igloo Foods Unit</option>
             <option value="AML Construction Unit">AML Construction Unit</option>
             <option value="AML Dredging Unit">AML Dredging Unit</option>
@@ -96,12 +100,10 @@
             <tr>
                 @if(Session::get('admin_type') == "SAdmin")
                 <th></th>
+                @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True")
+                <th></th>
                 @endif
                 <th>SL No.</th>
-                <th>User name</th>
-                <th>Desigation</th>
-                <th>Department</th>
-                <th>Work-Station</th>
                 <th>Unit</th>
                 <th>Product Type</th>
                 <th>Product Model</th>
@@ -111,10 +113,30 @@
                 <th>Issue Date</th>
                 <th>Previous Issue Date</th>
                 <th>Configuration</th>
-                <th>Condition</th>                
-                <th>Issue /<br> Re-Issue</th>
+                <th>Condition</th>
                 @if(Session::get('admin_type') == "SAdmin")
-                <th>Actions</th>
+                <th>Issue /<br> Re-Issue</th>
+                <th>Delete</th>
+                <th>Update</th>
+                @elseif(Session::get('admin_type') == "Mod" && Session::get('issue') == "True" && Session::get('delete') == null && Session::get('update') == null)
+                <th>Issue /<br> Re-Issue</th>
+                @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('issue') == null && Session::get('update') == null)
+                <th>Delete</th>
+                @elseif(Session::get('admin_type') == "Mod" && Session::get('update') == "True" && Session::get('issue') == null && Session::get('delete') == null)
+                <th>Update</th>
+                @elseif(Session::get('admin_type') == "Mod" && Session::get('issue') == "True" && Session::get('delete') == "True" && Session::get('update') == null)
+                <th>Issue /<br> Re-Issue</th>
+                <th>Delete</th>
+                @elseif(Session::get('admin_type') == "Mod" && Session::get('issue') == "True" && Session::get('update') == "True" && Session::get('delete') == null)
+                <th>Issue /<br> Re-Issue</th>
+                <th>Update</th>	
+                @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('issue') == null)
+                <th>Delete</th>
+                <th>Update</th>	
+                @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('issue') == "True")
+                <th>Issue /<br> Re-Issue</th>
+                <th>Delete</th>
+                <th>Update</th>				
                 @endif
             </tr>
         </thead>
@@ -126,12 +148,10 @@
             <tr class="{{ $this->isChecked($Itcus->id) }}">
                 @if(Session::get('admin_type') == "SAdmin")
                 <td><input type="checkbox" value="{{ $Itcus->id }}" wire:model="checkedItcus"></td>
+                @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True")
+                <td><input type="checkbox" value="{{ $Itcus->id }}" wire:model="checkedItcus"></td>
                 @endif
                 <td>{{$i++}}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="user_name" >{{ $Itcus->user_name }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="desigation" >{{ $Itcus->desigation }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="dept" >{{ $Itcus->dept }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="wstation" >{{ $Itcus->wstation }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="unit" >{{ $Itcus->unit }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="item" >{{ $Itcus->item }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="laptop_name" >{{ $Itcus->laptop_name }}</td>
@@ -142,18 +162,90 @@
                 <td  data-id="{{ $Itcus->id }}" data-column="p_issue_date" >{{ $Itcus->p_issue_date }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="configuration" >{{ $Itcus->configuration }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="condition" >{{ $Itcus->condition }}</td>
-                <td>
-                    <div class="btn-group container">
-                        &nbsp;<a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
-                    </div>
-                </td>
                 @if(Session::get('admin_type') == "SAdmin")
-                <td>
-                    <div class="btn-group container">
-                        &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
-                    </div>
-                </td>
-                @endif
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
+                        </div>
+                    </td>                   
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('issue') == null && Session::get('update') == null)
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('update') == "True" && Session::get('delete') == null && Session::get('issue') == null)
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('issue') == "True" && Session::get('update') == null && Session::get('delete') == null)
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
+                        </div>
+                    </td>   
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('issue') == "True" && Session::get('delete') == "True" && Session::get('update') == null)
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>   
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('issue') == "True" && Session::get('update') == "True" && Session::get('delete') == null)
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>   
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('issue') == null)
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>   
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('issue') == "True")
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>   
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
+                    @endif
             </tr>
             @empty
             <code>No DataSet found!</code>
@@ -171,4 +263,6 @@
 @include('modals.addProd-modal')
 @include('modals.edit-modal')
 @include('modals.reuse-modal')
+@include('modals.updateProd-modal')
+
 </div>

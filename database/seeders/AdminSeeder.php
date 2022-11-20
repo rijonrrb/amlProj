@@ -19,8 +19,8 @@ class AdminSeeder extends Seeder
     {
         DB::table('admins')->insert([
             'name' => 'Super Admin',
-            'email' => 'abc',
-            'password' => md5('abc'),
+            'email' => 'superadmin2022@amlbd.com',
+            'password' => md5('Abc@123'),
             'admin_type' => 'SAdmin',
             'create' => 'True',  
             'update' => 'True',  

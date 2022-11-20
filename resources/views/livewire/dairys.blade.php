@@ -194,7 +194,7 @@
                             &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Dairy->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
                         </div>
                     </td>
-                    @elseif(Session::get('admin_type') == "Mod" && Session::get('update') == "True" && Session::get('delete') == null && Session::get('update') == null)
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('update') == "True" && Session::get('delete') == null && Session::get('return') == null)
                     <td>
                         <div class="btn-group container">
                             &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Dairy->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>

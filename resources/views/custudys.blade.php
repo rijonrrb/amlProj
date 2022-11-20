@@ -50,6 +50,22 @@
     });
     
 });
+window.addEventListener('OpenEditModal', function(event){
+               $('.updateItem').find('span').html('');
+               $('.updateItem').modal('show');
+           });
+        window.addEventListener('CloseEditModal', function(event){
+               $('.updateItem').find('span').html('');
+               $('.updateItem').find('form')[0].reset();
+               $('.updateItem').modal('hide');
+               Swal.fire({
+                    icon: 'success',
+                    title: 'Updated..',
+                    text: 'Your DataSet has been Updated.',
+                    showConfirmButton: false,
+                    timer: 800
+                });
+        });
    window.addEventListener('OpenReturnCountryModal', function(event){
        $('.returnCountry').find('span').html('');
        $('.returnCountry').modal('show');
@@ -178,9 +194,9 @@
     function html_table_to_excel(type)
     {
         var data = document.getElementById('Itcus');
-        var file = XLSX.utils.table_to_book(data, {sheet: "IT CUSTUDY"});
+        var file = XLSX.utils.table_to_book(data, {sheet: "IT Store"});
         XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
-        XLSX.writeFile(file, 'IT CUSTUDY.' + type);
+        XLSX.writeFile(file, 'IT Store.' + type);
     }
     const export_button = document.getElementById('export');
     export_button.addEventListener('click', () =>  {

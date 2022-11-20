@@ -196,6 +196,58 @@ class Custudys extends Component
     //         $this->checkedItcus = [];
     //     }
     // }
+
+    public function OpenEditModal($id){
+        $info = Itcus::find($id);
+
+        $this->UI_unit = $info->unit;
+        $this->UI_item = $info->item;
+        $this->UI_laptop_name = $info->laptop_name;
+        $this->UI_serial_no = $info->serial_no;
+        $this->UI_P_user = $info->previous_user;
+        $this->UI_I_date = $info->issue_date;
+        $this->UI_P_I_date = $info->p_issue_date;
+        $this->UI_configuration = $info->configuration;
+        $this->UI_condition = $info->condition;
+        $this->cid = $info->id;
+        $this->dispatchBrowserEvent('OpenEditModal',[
+            'id'=>$id
+        ]);
+    }
+
+    public function updateItem(){
+        $cid = $this->cid;
+        $ip = file_get_contents('https://api.ipify.org/?format=text');
+        date_default_timezone_set('Asia/Dhaka');
+        $time =  date('d F Y h:i:s A');
+        $update = Itcus::find($cid)->update([
+
+            'unit'=>$this->UI_unit,
+            'item'=>$this->UI_item,
+            'laptop_name'=>$this->UI_laptop_name,
+            'serial_no'=>$this->UI_serial_no,
+            'previous_user'=>$this->UI_P_user,
+            'issue_date'=>$this->UI_I_date,
+            'p_issue_date'=>$this->UI_P_I_date,
+            'configuration'=>$this->UI_configuration,
+            'condition'=>$this->UI_condition
+        ]);
+        if(Session::get('admin_type') == "Mod"){
+            Log::insert([
+                'name'=>Session::get('name'),
+                'email'=>Session::get('email'),
+                'activity'=>"Update",
+                'afield'=>"IT Store",
+                'time'=>$time,
+                'ip'=> $ip,
+            ]);
+        }
+        if($update){
+            $this->dispatchBrowserEvent('CloseEditModal');
+            $this->checkedItcus = [];
+        }
+    }
+
 public function OpenReuseModal($id){
     $info = Itcus::find($id);
     $this->r_user_name = '';

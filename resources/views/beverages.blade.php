@@ -199,9 +199,9 @@
     function html_table_to_excel(type)
     {
         var data = document.getElementById('Beverages');
-        var file = XLSX.utils.table_to_book(data, {sheet: "Beverage"});
+        var file = XLSX.utils.table_to_book(data, {sheet: "AML Beverage Unit"});
         XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
-        XLSX.writeFile(file, 'Beverage.' + type);
+        XLSX.writeFile(file, 'AML Beverage Unit.' + type);
     }
     const export_button = document.getElementById('export');
     export_button.addEventListener('click', () =>  {
