@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AMLBD</title>
-  <link rel="icon" type="image/x-icon" href="http://www.amlbd.com/wp-content/uploads/2014/05/new-way-to-manage1.png">
+  <link rel="icon" type="image/x-icon" href="{{asset('img/aml.png')}}">
   <link rel="stylesheet" href="{{asset('css/dashboard.css')}}">
   <link
   href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap"

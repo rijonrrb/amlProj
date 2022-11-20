@@ -3,7 +3,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AMLBD</title>
-    <link rel="icon" type="image/x-icon" href="http://www.amlbd.com/wp-content/uploads/2014/05/new-way-to-manage1.png">
+    <link rel="icon" type="image/x-icon" href="{{asset('img/aml.png')}}">
     <link rel="stylesheet" href="{{asset('css/login.css')}}">
 
 </head>
@@ -11,7 +11,7 @@
 <div class="container">
 	<div class="screen">
 	<div class="screen-header">
-            <img src="http://www.amlbd.com/wp-content/uploads/2014/05/new-way-to-manage1.png" alt="Profile Image" title="AMLBD" class="profile-img">
+            <img src="{{asset('img/aml.png')}}" alt="Profile Image" title="AMLBD" class="profile-img">
         </div>
 		<div class="screen__content">
 			<br><br>
