@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Userslist;
-use App\Models\Suger;
+use App\Models\User;
 use App\Models\Itcus;
 use App\Models\Dept;
 use App\Models\Log;
@@ -17,8 +17,8 @@ class Userlist extends Component
 {
 
     use WithPagination;
-    protected $listeners = ['delete','deleteCheckedSugers'];
-    public $checkedSuger = [];
+    protected $listeners = ['delete','deleteCheckedUsers'];
+    public $checkedUser = [];
     public $byDept =null;
     public $byDes =null;
     public $byWstat =null;
@@ -29,7 +29,7 @@ class Userlist extends Component
     public $byVpn =null;
 
     public $perPage =20;
-    public $orderBy = "user_name";
+    public $orderBy = "id";
     public $sortBy = "asc";
     public $search;
     public function render()
@@ -42,7 +42,7 @@ class Userlist extends Component
             })->when($this->byWstat,function($query){
                 $query->where('wstation',$this->byWstat);
             })->when($this->byUid,function($query){
-                $query->where('userid',$this->byUid);
+                $query->where('id',$this->byUid);
             })->when($this->byPid,function($query){
                 $query->where('asset_id',$this->byPid);
             })->when($this->byIp,function($query){
@@ -55,112 +55,61 @@ class Userlist extends Component
             ->paginate($this->perPage)
         ]);
     }
-    public function OpenAddSugerModal(){
-        $this->user_name = '';
+    public function OpenAddUserModal(){
+        $this->name = '';
+        $this->email = '';
+        $this->phone = '';
         $this->desigation = '';
         $this->dept = '';
         $this->wstation = '';
         $this->unit = '';
-        $this->item = '';
-        $this->laptop_name = '';
-        $this->asset_no = '';
-        $this->serial_no = '';
-        $this->previous_user = '';
-        $this->issue_date = '';
-        $this->p_issue_date = '';
-        $this->configuration = '';
-        $this->abc = '';
-        $this->H_user = '';
-        $this->H_designation = '';
-        $this->H_dept = '';
-        $this->H_wstation = '';
-        $this->H_unit = '';
-        $this->dispatchBrowserEvent('OpenAddSugerModal');
+        $this->dispatchBrowserEvent('OpenAddUserModal');
     }
     public function save(){
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
-        $ip = file_get_contents('https://api.ipify.org/?format=text');
-        $next_id = uniqid('Sugar', true);
-        Session::put('id', $next_id);
-        Session::put('b_area', 'Sugar');
-        
+        $ip = file_get_contents('https://api.ipify.org/?format=text');     
         $this->validate([
-            "user_name"=>"required",
+            "name"=>"required",
             "desigation"=>"required",
             'dept'=>"required",
-            'wstation'=>"required"
+            'wstation'=>"required",
+            'unit'=>"required"
         ],
-        ['user_name.required'=>"The User Name field is required.",
+        ['name.required'=>"The User Name field is required.",
         'desigation.required'=>"The Designation field is required.",
         'dept.required'=>"The Department field is required.",
-        'wstation.required'=>"The Work Station field is required."]
+        'wstation.required'=>"The Work Station field is required.",
+        'unit.required'=>"The Working Unit field is required."]
     );
-        $save = Suger::insert([
-          'user_name'=>$this->user_name,
+        $save = Userslist::insert([
+          'name'=>$this->name,
+          'email'=>$this->email,
+          'phone'=>$this->phone,
           'desigation'=>$this->desigation,
           'dept'=>$this->dept,
           'wstation'=>$this->wstation,
-          'unit'=>"AML Sugar Refinery Unit",
-          'item'=>$this->item,
-          'laptop_name'=>$this->laptop_name,
-          'asset_no'=>$this->asset_no,
-          'serial_no'=>$this->serial_no,
-          'previous_user'=>$this->previous_user,
-          'issue_date'=>$time,
-          'p_issue_date'=>$this->p_issue_date,
-          'configuration'=>$this->configuration,
-          'sid'=> $next_id,
+          'unit'=> $this->unit,
       ]);
         if(Session::get('admin_type') == "Mod"){
           Log::insert([
             'name'=>Session::get('name'),
             'email'=>Session::get('email'),
             'activity'=>"Create",
-            'afield'=>"AML Sugar Refinery",
+            'afield'=>"User List",
             'time'=>$time,
             'ip'=> $ip,
         ]);
       }
-      Invoice::insert([
-        'handedBy'=>$this->H_user,
-        'h_desigation'=>$this->H_designation,
-        'h_dept'=>$this->H_dept,
-        'h_wstation'=>$this->H_wstation,
-        'h_unit'=>"IT Unit",
-        'sid'=> $next_id,
-        'takenBy'=>$this->user_name,
-        't_desigation'=>$this->desigation,
-        't_dept'=>$this->dept,
-        't_wstation'=>$this->wstation,
-        't_unit'=>"AML Sugar Refinery Unit",
-        'remarks'=>'For Official use',
-        'qty'=>'1',
-        'laptop_name'=>$this->laptop_name,
-        'configuration'=>$this->configuration,
-        'asset_no'=>$this->asset_no,
-        'serial_no'=>$this->serial_no,
-        'business_area'=>'Sugar',
-    ]);
-      if(!empty($this->dept))
-      {
-        $dept = Dept::where('dept_name',$this->dept)->first();
-        
-        if(!$dept)
-        {  
-            $saave = Dept::insert([
-                'dept_name'=>$this->dept
-            ]);
-        }
-    }
+
     if($save){
-        $this->dispatchBrowserEvent('CloseAddSugerModal');
-        $this->checkedSuger = [];
+        $this->dispatchBrowserEvent('CloseAddUserModal');
+        $this->checkedUser = [];
     }
 }
 
 public function OpenEditModal($id){
-    $info = Suger::find($id);
+    $info = User::find($id);
 
     $this->U_user_name = $info->user_name;
     $this->U_desigation = $info->desigation;
@@ -184,7 +133,7 @@ public function updateRow(){
     $ip = file_get_contents('https://api.ipify.org/?format=text');
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
-    $update = Suger::find($cid)->update([
+    $update = User::find($cid)->update([
         'user_name'=>$this->U_user_name,
         'desigation'=>$this->U_desigation,
         'dept'=>$this->U_dept,
@@ -209,11 +158,11 @@ public function updateRow(){
     }
     if($update){
         $this->dispatchBrowserEvent('CloseEditModal');
-        $this->checkedSuger = [];
+        $this->checkedUser = [];
     }
 }
 public function deleteConfirm($id){
-    $info = Suger::find($id);
+    $info = User::find($id);
     $this->dispatchBrowserEvent('SwalConfirm',[
         'title'=>'Are you sure?',
         'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
@@ -221,7 +170,7 @@ public function deleteConfirm($id){
     ]);
 }
 public function delete($id){
-    $del =  Suger::find($id)->delete();
+    $del =  User::find($id)->delete();
     $ip = file_get_contents('https://api.ipify.org/?format=text');
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
@@ -238,17 +187,17 @@ public function delete($id){
             'ip'=> $ip,
         ]);
     }
-    $this->checkedSuger = [];
+    $this->checkedUser = [];
 }
-public function deleteSugers(){
-    $this->dispatchBrowserEvent('swal:deleteSugers',[
+public function deleteUsers(){
+    $this->dispatchBrowserEvent('swal:deleteUsers',[
         'title'=>'Are you sure?',
         'html'=>'You want to delete this items',
-        'checkedIDs'=>$this->checkedSuger,
+        'checkedIDs'=>$this->checkedUser,
     ]);
 }
-public function deleteCheckedSugers($ids){
-    Suger::whereKey($ids)->delete();
+public function deleteCheckedUsers($ids){
+    User::whereKey($ids)->delete();
     $ip = file_get_contents('https://api.ipify.org/?format=text');
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
@@ -262,9 +211,9 @@ public function deleteCheckedSugers($ids){
             'ip'=> $ip,
         ]);
     }
-    $this->checkedSuger = [];
+    $this->checkedUser = [];
 }
-public function isChecked($SugerId){
-    return in_array($SugerId, $this->checkedSuger) ? 'bg-info text-white' : '';
+public function isChecked($UserId){
+    return in_array($UserId, $this->checkedUser) ? 'bg-info text-white' : '';
 }
 }

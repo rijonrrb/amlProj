@@ -12,7 +12,7 @@ class Userslist extends Model
     public function scopeSearch($query, $term){
         $term = "%$term%";
         $query->where(function($query) use ($term){
-           $query->where('userid','like',$term)
+           $query->where('id','like',$term)
            ->orWhere('name','like',$term)
            ->orWhere('email','like',$term)
            ->orWhere('phone','like',$term)

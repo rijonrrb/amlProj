@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('userslists', function (Blueprint $table) {
             $table->id();
-            $table->increments('userid');
             $table->string('name');
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
@@ -24,8 +23,11 @@ return new class extends Migration
             $table->string('wstation'); 	
             $table->string('unit');
             $table->unsignedBigInteger('asset_id')->nullable();
+            $table->string('asset_no')->nullable();
             $table->unsignedBigInteger('ip_id')->nullable();
+            $table->string('ip')->nullable();
             $table->unsignedBigInteger('vpn_id')->nullable();
+            $table->string('vpn')->nullable();
 
             $table->foreign('asset_id')->references('id')->on('itcuses');
             $table->foreign('ip_id')->references('id')->on('ips');

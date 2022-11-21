@@ -1,14 +1,14 @@
 <div class="card">
-        <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>AML Sugar Refinery Unit</b></h4>
+        <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>User List</b></h4>
         <div class="row mb-3 p-2 d-flex justify-content-between">
             @if(Session::get('admin_type') == "SAdmin")
-            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddSugerModal()">Add New Dataset</button>
+            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddUserModal()">Add New Dataset</button>
             @elseif(Session::get('admin_type') == "Mod" && Session::get('create') == "True")
-            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddSugerModal()">Add New Dataset</button>
+            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddUserModal()">Add New Dataset</button>
             @endif
             <div>
-                @if ($checkedSuger)
-                <button class="btn btn-danger btn-md mr-4" wire:click="deleteSugers()"> Delete rows ({{ count($checkedSuger) }})</button>
+                @if ($checkedUser)
+                <button class="btn btn-danger btn-md mr-4" wire:click="deleteUsers()"> Delete rows ({{ count($checkedUser) }})</button>
                 @endif
             </div>
         </div>
@@ -78,19 +78,17 @@
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
                 <label for="" style="color:#c94c4c"><b>Order By</b></label>
                 <select class="form-control" wire:model="orderBy">
-                    <option value="user_name">User name</option>
-                    <option value="desigation">Desigation</option>
-                    <option value="dept">Department</option>
-                    <option value="wstation">Work-Station</option>
-                    <option value="unit">Unit</option>
-                    <option value="item">Product</option>
-                    <option value="laptop_name">Product Model</option>
-                    <option value="asset_no">Asset No</option>
-                    <option value="serial_no">Serial No</option>
-                    <option value="previous_user">Previous User</option>
-                    <option value="issue_date">Previous User</option>
-                    <option value="p_issue_date">Previous Issue Date</option>
-                    <option value="configuration">Configuration</option>
+                   <option value="id">User ID</option>
+                    <option value="name">User name</option>
+                    <option value="email">User Email</option>
+                    <option value="phone">User Phone No.</option>
+                    <option value="desigation">User Desigation</option>
+                    <option value="dept">User Department</option>
+                    <option value="wstation">User Work-Station</option>
+                    <option value="unit">User Working Unit</option>
+                    <option value="asset_no">Product Asset No</option>
+                    <option value="ip">IP Address</option>
+                    <option value="vpn">VPN</option>
                 </select>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-1 mt-1 mb-4">
@@ -120,7 +118,7 @@
             </div>
         </div>
         <div style="overflow-x:auto;" class="card-body">
-            <table class="table table-hover table-bordered" id="Sugar">
+            <table class="table table-hover table-bordered" id="User">
                 <thead class="thead-inverse">
                     <tr>
                     @if(Session::get('admin_type') == "SAdmin")
@@ -158,57 +156,57 @@
                     @php        
                     $i = 1;
                     @endphp
-                    @forelse ($Sugers as $Suger)
-                    <tr class="{{ $this->isChecked($Suger->id) }}">
+                    @forelse ($Users as $User)
+                    <tr class="{{ $this->isChecked($User->id) }}">
                         @if(Session::get('admin_type') == "SAdmin")
-                        <td><input type="checkbox" value="{{ $Suger->id }}" wire:model="checkedSuger"></td>
+                        <td><input type="checkbox" value="{{ $User->id }}" wire:model="checkedUser"></td>
                         @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True")
-                        <td><input type="checkbox" value="{{ $Suger->id }}" wire:model="checkedSuger"></td>
+                        <td><input type="checkbox" value="{{ $User->id }}" wire:model="checkedUser"></td>
                         @endif                     
                         <td>{{$i++}}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="userid" >{{ $Suger->name }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="name" >{{ $Suger->name }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="email" >{{ $Suger->name }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="phone" >{{ $Suger->name }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="desigation" >{{ $Suger->desigation }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="dept" >{{ $Suger->dept }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="wstation" >{{ $Suger->wstation }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="unit" >{{ $Suger->unit }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="asset_no" >{{ $Suger->asset_no }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="ip" >{{ $Suger->name }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="vpn" >{{ $Suger->name }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="userid" >{{ $User->id }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="name" >{{ $User->name }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="email" >{{ $User->email }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="phone" >{{ $User->phone }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="desigation" >{{ $User->desigation }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="dept" >{{ $User->dept }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="wstation" >{{ $User->wstation }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="unit" >{{ $User->unit }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="asset_no" >{{ $User->asset_no }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="ip" >{{ $User->ip }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="vpn" >{{ $User->vpn }}</td>
                         @if(Session::get('admin_type') == "SAdmin")                
                         <td>
                             <div class="btn-group container">
-                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Suger->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$User->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
                             </div>
                         </td>
                         <td>
                             <div class="btn-group container">
-                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Suger->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$User->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
                             </div>
                         </td>
                         @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == null)
                         <td>
                             <div class="btn-group container">
-                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Suger->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$User->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
                             </div>
                         </td>
                         @elseif(Session::get('admin_type') == "Mod" && Session::get('update') == "True" && Session::get('delete') == null)
                         <td>
                             <div class="btn-group container">
-                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Suger->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$User->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
                             </div>
                         </td> 
                         @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True")
                         <td>
                             <div class="btn-group container">
-                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Suger->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$User->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
                             </div>
                         </td>   
                         <td>
                             <div class="btn-group container">
-                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Suger->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$User->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
                             </div>
                         </td>
                         @endif
@@ -220,11 +218,11 @@
         </table>
     </div>
     <div class="d-flex justify-content-between bg-dark card-footer">
-        @if (count($Sugers))
-        {{ $Sugers->links('livewire-pagination-links') }}
+        @if (count($Users))
+        {{ $Users->links('livewire-pagination-links') }}
         @endif
         <button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
     </div>
-    @include('modals.add-modal')
+    @include('modals.addUser-modal')
     @include('modals.update-modal')
 </div>

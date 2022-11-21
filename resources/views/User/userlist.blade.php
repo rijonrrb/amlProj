@@ -16,14 +16,14 @@
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
-    #Sugar tr:nth-child(even){background-color: #b2b2b2;}
+    #User tr:nth-child(even){background-color: #b2b2b2;}
     </style>
     @livewireStyles
 </head>
 <body>
     <div class="container-fluid" style="margin-top: 45px;">
       <div>
-        @include('navbar.navbar')
+        @include('navbar.Usernavbar')
     </div>
     <div style="margin-top: 100px;">
         @livewire('userlist')
@@ -34,28 +34,22 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @livewireScripts
 <script>
- window.addEventListener('OpenAddSugerModal', function(){
-    $('.addCountry').find('span').html('');
-    $('.addCountry').find('form')[0].reset();
-    $('.addCountry').modal('show');
+ window.addEventListener('OpenAddUserModal', function(){
+    $('.addUser').find('span').html('');
+    $('.addUser').find('form')[0].reset();
+    $('.addUser').modal('show');
 });
- window.addEventListener('CloseAddSugerModal', function(){
-     $('.addCountry').find('span').html('');
-     $('.addCountry').find('form')[0].reset();
-     $('.addCountry').modal('hide');
-     Swal.fire({
-        title: '<strong>Done!</strong>',
-        icon: 'success',
-        html:'Your Dataset has been successfully added',
-        showCloseButton: true,
-        showCancelButton: true,
-        cancelButtonText:`Ok`,
-        confirmButtonText:`Print`
-    }).then((result) => {
-        if (result.value) {
-            window.location.href = "{{route('invoice')}}"
-        }
-    }); 
+ window.addEventListener('CloseAddUserModal', function(){
+     $('.addUser').find('span').html('');
+     $('.addUser').find('form')[0].reset();
+     $('.addUser').modal('hide');
+    Swal.fire({
+                icon: 'success',
+                title: 'Updated..',
+                text: 'Your Dataset has been successfully added.',
+                showConfirmButton: false,
+                timer: 800
+            });
 });
 window.addEventListener('OpenEditModal', function(event){
                $('.updateRow').find('span').html('');
@@ -96,7 +90,7 @@ window.addEventListener('OpenEditModal', function(event){
         'success'
         )
 });
- window.addEventListener('swal:deleteSugers', function(event){
+ window.addEventListener('swal:deleteUsers', function(event){
      swal.fire({
          title:event.detail.title,
          html:event.detail.html,
@@ -109,7 +103,7 @@ window.addEventListener('OpenEditModal', function(event){
          confirmButtonColor:'#3085d6',
      }).then(function(result){
          if(result.value){
-             window.livewire.emit('deleteCheckedSugers',event.detail.checkedIDs);
+             window.livewire.emit('deleteCheckedUsers',event.detail.checkedIDs);
          }
      });
  });
@@ -118,10 +112,10 @@ window.addEventListener('OpenEditModal', function(event){
 <script>
     function html_table_to_excel(type)
     {
-        var data = document.getElementById('Sugar');
-        var file = XLSX.utils.table_to_book(data, {sheet: "AML Sugar Refinery Unit"});
+        var data = document.getElementById('User');
+        var file = XLSX.utils.table_to_book(data, {sheet: "AML User Refinery Unit"});
         XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
-        XLSX.writeFile(file, 'AML Sugar Refinery Unit.' + type);
+        XLSX.writeFile(file, 'AML User Refinery Unit.' + type);
     }
     const export_button = document.getElementById('export');
     export_button.addEventListener('click', () =>  {

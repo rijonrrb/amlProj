@@ -34,31 +34,6 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @livewireScripts
     <script>
-     window.addEventListener('OpenAddCountryModal', function(){
-        $('.addCountry').find('span').html('');
-        $('.addCountry').find('form')[0].reset();
-        $('.addCountry').modal('show');
-        $('.addCountry').find('#us').hide();
-        
-    });
-     window.addEventListener('CloseAddCountryModal', function(){
-         $('.addCountry').find('span').html('');
-         $('.addCountry').find('form')[0].reset();
-         $('.addCountry').modal('hide');
-         Swal.fire({
-            title: '<strong>Done!</strong>',
-            icon: 'success',
-            html:'Your Dataset has been successfully added',
-            showCloseButton: true,
-            showCancelButton: true,
-            cancelButtonText:`Ok`,
-            confirmButtonText:`Print`
-        }).then((result) => {
-            if (result.value) {
-                window.location.href = "{{route('invoice')}}"
-            }
-        });       
-    });
     window.addEventListener('OpenEditModal', function(event){
                $('.updateRow').find('span').html('');
                $('.updateRow').modal('show');

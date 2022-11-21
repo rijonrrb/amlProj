@@ -1,14 +1,9 @@
 <div class="card">
 	<h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>AML Dredging Unit</b></h4>
 	<div class="row mb-3 p-2 d-flex justify-content-between">
-		@if(Session::get('admin_type') == "SAdmin")
-        <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddDredgingModal()">Add New Dataset</button>
-        @elseif(Session::get('admin_type') == "Mod" && Session::get('create') == "True")
-        <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddDredgingModal()">Add New Dataset</button>
-        @endif
 		<div>
 			@if ($checkedDredging)
-			<button class="btn btn-danger btn-md mr-4" wire:click="deleteDredgings()"> Delete rows ({{ count($checkedDredging) }})</button>
+			<button class="btn btn-danger btn-md ml-4" wire:click="deleteDredgings()"> Delete rows ({{ count($checkedDredging) }})</button>
 			@endif
 		</div>
 	</div>
@@ -274,7 +269,6 @@
 	@endif
 	<button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
 </div>
-@include('modals.add-modal')
 @include('modals.edit-modal')
 @include('modals.reuse-modal')
 @include('modals.update-modal')
