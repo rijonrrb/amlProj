@@ -12,7 +12,7 @@
 </head>
 <body>
   <div>
-    @include('Dashnavbar')
+    @include('navbar.Dashnavbar')
   </div>
   <div class="header" style="margin-bottom: 80px; margin-top: 120px;">
     <h1>Adaptable, Workable & Secure</h1>

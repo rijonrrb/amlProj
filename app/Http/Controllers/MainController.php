@@ -9,34 +9,34 @@ use App\Models\Dept;
 class MainController extends Controller
 {
     function index(){
-        return view('countries');
+        return view('Unit.countries');
     }
     function beverages(){
-      return view('beverages');
+      return view('Unit.beverages');
     }
     function foods(){
-      return view('foods');
+      return view('Unit.foods');
     }
     function constructions(){
-      return view('constructions');
+      return view('Unit.constructions');
     }
     function sugers(){
-      return view('sugers');
+      return view('Unit.sugers');
     }
     function itcus(){
-      return view('custudys');
+      return view('Unit.custudys');
+    }
+    function branOils(){
+      return view('Unit.bran-oils');
+    }
+    function dairys(){
+      return view('Unit.dairys');
+    }
+    function dredgings(){
+      return view('Unit.dredgings');
     }
     function cusIgloo(){
       return view('cus-igloos');
-    }
-    function branOils(){
-      return view('bran-oils');
-    }
-    function dairys(){
-      return view('dairys');
-    }
-    function dredgings(){
-      return view('dredgings');
     }
     function cusCon(){
       return view('cuscons');
@@ -44,7 +44,6 @@ class MainController extends Controller
     function cusBev(){
       return view('cus-bev');
     }
-
     function hmp(){
       return view('hmps');
     }

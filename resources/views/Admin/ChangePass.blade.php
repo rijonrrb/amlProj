@@ -39,7 +39,7 @@
 </head>
 <body>
     <div>
-        @include('Dashnavbar')
+        @include('navbar.Dashnavbar')
     </div>
     <div class="container bg-white shadow " style= "border-radius: 50px; margin-top: 200px; margin-bottom: 150px;">
      <form action="{{route('AdminPassC')}}" method="post" name="form" enctype="multipart/form-data">

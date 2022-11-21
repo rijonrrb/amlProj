@@ -16,17 +16,17 @@
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
-    #Beverages tr:nth-child(even){background-color: #b2b2b2;}
+    #Dairys tr:nth-child(even){background-color: #b2b2b2;}
     </style>
     @livewireStyles
 </head>
 <body>
     <div class="container-fluid" style="margin-top: 45px;">
         <div>
-            @include('navbar')
+            @include('navbar.navbar')
         </div>
         <div style="margin-top: 100px;">
-            @livewire('beverages')
+            @livewire('dairys')
         </div>
     </div>
     
@@ -35,12 +35,12 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @livewireScripts
     <script>
-        window.addEventListener('OpenAddBeverageModal', function(){
+        window.addEventListener('OpenAddDairyModal', function(){
             $('.addCountry').find('span').html('');
             $('.addCountry').find('form')[0].reset();
             $('.addCountry').modal('show');
         });
-        window.addEventListener('CloseAddBeverageModal', function(){
+        window.addEventListener('CloseAddDairyModal', function(){
             $('.addCountry').find('span').html('');
             $('.addCountry').find('form')[0].reset();
             $('.addCountry').modal('hide');
@@ -74,7 +74,6 @@
                     timer: 800
                 });
         });
-
         window.addEventListener('OpenReturnCountryModal', function(event){
             $('.returnCountry').find('span').html('');
             $('.returnCountry').modal('show');
@@ -141,7 +140,7 @@
                 'success'
                 )
         });
-        window.addEventListener('swal:deleteBeverages', function(event){
+        window.addEventListener('swal:deleteDairys', function(event){
             swal.fire({
                 title:event.detail.title,
                 html:event.detail.html,
@@ -154,7 +153,7 @@
                 confirmButtonColor:'#3085d6',
             }).then(function(result){
                 if(result.value){
-                    window.livewire.emit('deleteCheckedBeverages',event.detail.checkedIDs);
+                    window.livewire.emit('deleteCheckedDairys',event.detail.checkedIDs);
                 }
             });
         });
@@ -180,7 +179,7 @@
         var column_name = $(this).data("column");
         var value = $(this).text();
         $.ajax({
-            url:"{{route('updateBev')}}",
+            url:"{{route('updateDairy')}}",
             method:"POST",
             data:{id:id, column_name:column_name, value:value},
             success:function(data)
@@ -201,10 +200,10 @@
 <script>
     function html_table_to_excel(type)
     {
-        var data = document.getElementById('Beverages');
-        var file = XLSX.utils.table_to_book(data, {sheet: "AML Beverage Unit"});
+        var data = document.getElementById('Dairys');
+        var file = XLSX.utils.table_to_book(data, {sheet: "Igloo Dairy Unit"});
         XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
-        XLSX.writeFile(file, 'AML Beverage Unit.' + type);
+        XLSX.writeFile(file, 'Igloo Dairy Unit.' + type);
     }
     const export_button = document.getElementById('export');
     export_button.addEventListener('click', () =>  {

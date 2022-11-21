@@ -23,7 +23,7 @@
 <body>
     <div class="container-fluid" style="margin-top: 45px;">
         <div>
-            @include('Dashnavbar')
+            @include('navbar.Dashnavbar')
         </div>
         <div style="margin-top: 100px;">
             @livewire('activity-log')

@@ -17,7 +17,7 @@
 <body>
     <div class="container-fluid" style="margin-top: 45px;">
       <div>
-        @include('navbar')
+        @include('navbar.navbar')
     </div>
     <div style="margin-top: 100px;">
         @livewire('hrs')
