@@ -18,9 +18,12 @@
                             <input type="text" class="form-control col-8 mr-3" placeholder="Department" wire:model="r_dept"  style="display: block;" id="r_idept">
                             <select wire:model ="r_dept" class="form-control col-9 mr-3"  style="display: none;" id="r_sdept">
                                 <option value="" disabled selected>Select Department</option>
-                                @foreach ($depts as $dept)
-                                <option value="{{ $dept->dept_name }}">{{$dept->dept_name}}</option> 
-                                @endforeach
+                                <option value="HR">HR</option>
+                                <option value="IT">IT</option>
+                                <option value="MIS">MIS</option>
+                                <option value="Audit">Audit</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Procument">Procument</option>
                             </select>
                             <button type="button" class="btn btn-primary btn-sm col-3" id="r_cdept" style="display: block;">Options</button>
                         </div>
@@ -128,9 +131,12 @@
                     <input type="text" class="form-control col-8 mr-3" placeholder="Department" wire:model.debounce.500000ms="r_H_dept"  style="display: block;" id="r_H_idept">
                     <select wire:model.debounce.500000ms ="r_H_dept" class="form-control col-9 mr-3"  style="display: none;" id="r_H_sdept">
                         <option value="" disabled selected>Select Department</option>
-                        @foreach ($depts as $dept)
-                        <option value="{{ $dept->dept_name }}">{{$dept->dept_name}}</option> 
-                        @endforeach
+                        <option value="HR">HR</option>
+                        <option value="IT">IT</option>
+                        <option value="MIS">MIS</option>
+                        <option value="Audit">Audit</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Procument">Procument</option>
                     </select>
                     <button type="button" class="btn btn-primary btn-sm col-3" id="r_H_cdept" style="display: block;">Options</button>
                 </div>

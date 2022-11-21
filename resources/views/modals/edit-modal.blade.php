@@ -46,9 +46,12 @@
                         <input type="text" class="form-control col-8 mr-3" placeholder="Department" wire:model="upd_H_dept"  style="display: block;" id="UH_idept">
                         <select wire:model="upd_H_dept" class="form-control col-9 mr-3"  style="display: none;" id="UH_sdept">
                             <option value="" disabled selected>Select Department</option>
-                            @foreach ($depts as $dept)
-                            <option value="{{ $dept->dept_name }}">{{$dept->dept_name}}</option> 
-                            @endforeach
+                            <option value="HR">HR</option>
+                            <option value="IT">IT</option>
+                            <option value="MIS">MIS</option>
+                            <option value="Audit">Audit</option>
+                            <option value="Sales">Sales</option>
+                            <option value="Procument">Procument</option>
                         </select>
                         <button type="button" class="btn btn-primary btn-sm col-3" id="UH_cdept" style="display: block;">Options</button>
                     </div>

@@ -47,7 +47,9 @@ class MainController extends Controller
     function hmp(){
       return view('hmps');
     }
-
+    function userlist(){
+      return view('User.userlist');
+    }
 
     public function dept(){
       $opts = Dept::all();

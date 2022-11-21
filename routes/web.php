@@ -35,7 +35,8 @@ Route::post('/update-It-custudy-construction',[Update::class,'updatecusCon'])->n
 Route::post('/update-It-custudy-Beverage',[Update::class,'updatecusBeve'])->name('updatecusBeve')->middleware('AdminIsValid');
 Route::post('/update-It-custudy',[Update::class,'updateItcus'])->name('updateItcus')->middleware('AdminIsValid');
 Route::get('/dept',[MainController::class,'dept'])->name('dept');
-
+//User_Routes
+Route::get('/Admin/User_list', function () {return view('User.userlist');})->name('userlist')->middleware('AdminIsValid');
 //Admin_Routes Admin_list
 Route::get('/Admin/Activity_log', function () {return view('activity-log');})->name('ActivityLog')->middleware('SAdminIsValid');
 Route::get('/Admin/Admin_list', function () {return view('admin-list');})->name('AdminList')->middleware('SAdminIsValid');

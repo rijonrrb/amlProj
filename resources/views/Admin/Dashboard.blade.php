@@ -21,7 +21,7 @@
   </div> 
   <div class="row1-container">
     <div class="box box-down cyan" title="Click on the text">
-      <a href="#" ><h2 class="hover-underline-animation">User List</h2></a> <br>
+      <a href="{{route('userlist')}}" ><h2 class="hover-underline-animation">User List</h2></a> <br>
       <code>All the User list are here!</code>
       <img src="https://www.svgrepo.com/show/192244/man-user.svg" alt="" style="height: 90px; width: 90px;">
     </div>

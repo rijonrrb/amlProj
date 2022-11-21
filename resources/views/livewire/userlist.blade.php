@@ -12,7 +12,7 @@
                 @endif
             </div>
         </div>
-        <div class="row mb-3 p-2 card-header" style= "margin-right: 0px; margin-left: 0px;">
+        <div class="row p-2" style= "margin-right: 0px; margin-left: 0px;">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
                 <label for="" style="color:#c94c4c"><b>Search</b></label>
                 <input type="text" class="form-control" wire:model.debounce.350ms="search">
@@ -32,9 +32,12 @@
                 <label for="" style="color:#c94c4c"><b>Department</b></label>
                 <select wire:model ="byDept" class="form-control">
                     <option value="">Select Department</option>
-                    @foreach ($depts as $dept)
-                    <option value="{{ $dept->dept_name }}">{{$dept->dept_name}}</option> 
-                    @endforeach
+                    <option value="HR">HR</option>
+                    <option value="IT">IT</option>
+                    <option value="MIS">MIS</option>
+                    <option value="Audit">Audit</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Procument">Procument</option>
                 </select>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
@@ -97,6 +100,25 @@
                 </select>
             </div>
         </div>
+        <div class="row mb-3 p-2 card-header" style= "margin-right: 0px; margin-left: 0px;">
+
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 mt-1 mb-4">
+                <label for="" style="color:#c94c4c"><b>User ID</b></label>
+                <input type="text" class="form-control" wire:model.debounce.350ms="byUid">
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 mt-1 mb-4">
+                <label for="" style="color:#c94c4c"><b>Product Asset No</b></label>
+                <input type="text" class="form-control" wire:model.debounce.350ms="byPid">
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 mt-1 mb-4">
+                <label for="" style="color:#c94c4c"><b>IP Address</b></label>
+                <input type="text" class="form-control" wire:model.debounce.350ms="byIp">
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 mt-1 mb-4">
+                <label for="" style="color:#c94c4c"><b>VPN</b></label>
+                <input type="text" class="form-control" wire:model.debounce.350ms="byVpn">
+            </div>
+        </div>
         <div style="overflow-x:auto;" class="card-body">
             <table class="table table-hover table-bordered" id="Sugar">
                 <thead class="thead-inverse">
@@ -107,6 +129,7 @@
                     <th></th>
                     @endif
                     <th>SL No.</th>
+                    <th>User ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone no.</th>
@@ -143,16 +166,17 @@
                         <td><input type="checkbox" value="{{ $Suger->id }}" wire:model="checkedSuger"></td>
                         @endif                     
                         <td>{{$i++}}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="userid" >{{ $Suger->name }}</td>
                         <td  data-id="{{ $Suger->id }}" data-column="name" >{{ $Suger->name }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="email" >{{ $Suger->email }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="phone" >{{ $Suger->phone }}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="email" >{{ $Suger->name }}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="phone" >{{ $Suger->name }}</td>
                         <td  data-id="{{ $Suger->id }}" data-column="desigation" >{{ $Suger->desigation }}</td>
                         <td  data-id="{{ $Suger->id }}" data-column="dept" >{{ $Suger->dept }}</td>
                         <td  data-id="{{ $Suger->id }}" data-column="wstation" >{{ $Suger->wstation }}</td>
                         <td  data-id="{{ $Suger->id }}" data-column="unit" >{{ $Suger->unit }}</td>
                         <td  data-id="{{ $Suger->id }}" data-column="asset_no" >{{ $Suger->asset_no }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="ip" >{{ $Suger->serial_no }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="vpn" >{{ $Suger->previous_user }}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="ip" >{{ $Suger->name }}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="vpn" >{{ $Suger->name }}</td>
                         @if(Session::get('admin_type') == "SAdmin")                
                         <td>
                             <div class="btn-group container">
@@ -187,6 +211,7 @@
                                 &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Suger->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
                             </div>
                         </td>
+                        @endif
                     </tr>
                 @empty
                 <code>No DataSet found!</code>
