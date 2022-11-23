@@ -343,8 +343,11 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
+            'entry_date'=>$info->issue_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
+            'warrenty_start'=>$info->warrenty_start,
+            'warrenty_end'=>$info->warrenty_end,
             'sid'=> $info->sid,
         ]);
     }
@@ -363,8 +366,11 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
+            'entry_date'=>$info->issue_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
+            'warrenty_start'=>$info->warrenty_start,
+            'warrenty_end'=>$info->warrenty_end,
             'sid'=> $info->sid,
         ]);
     }
@@ -383,8 +389,11 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
+            'entry_date'=>$info->issue_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
+            'warrenty_start'=>$info->warrenty_start,
+            'warrenty_end'=>$info->warrenty_end,
             'sid'=> $info->sid,
         ]);
     }
@@ -403,8 +412,11 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
+            'entry_date'=>$info->issue_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
+            'warrenty_start'=>$info->warrenty_start,
+            'warrenty_end'=>$info->warrenty_end,
             'sid'=> $info->sid,
         ]);
     }
@@ -423,8 +435,11 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
+            'entry_date'=>$info->issue_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
+            'warrenty_start'=>$info->warrenty_start,
+            'warrenty_end'=>$info->warrenty_end,
             'sid'=> $info->sid,
         ]);
     }
@@ -443,8 +458,11 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
+            'entry_date'=>$info->issue_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
+            'warrenty_start'=>$info->warrenty_start,
+            'warrenty_end'=>$info->warrenty_end,
             'sid'=> $info->sid,
         ]);
     }
@@ -463,8 +481,11 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
+            'entry_date'=>$info->issue_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
+            'warrenty_start'=>$info->warrenty_start,
+            'warrenty_end'=>$info->warrenty_end,
             'sid'=> $info->sid,
         ]);
     }
@@ -483,8 +504,11 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
+            'entry_date'=>$info->issue_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
+            'warrenty_start'=>$info->warrenty_start,
+            'warrenty_end'=>$info->warrenty_end,
             'sid'=> $info->sid,
         ]);
     }

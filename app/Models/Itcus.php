@@ -9,7 +9,7 @@ class Itcus extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_name','desigation','dept','wstation','unit','item','laptop_name','asset_no','serial_no','previous_user','entry_date', 'p_issue_date', 'configuration', 'condition','warrenty_start','warrenty_end'
+        'user_name','desigation','dept','wstation','unit','item','laptop_name','asset_no','serial_no','previous_user','entry_date','p_issue_date', 'configuration', 'condition','warrenty_start','warrenty_end'
      ];
 
      public function scopeSearch($query, $term){
