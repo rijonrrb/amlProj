@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Userslist;
-use App\Models\User;
 use App\Models\Itcus;
 use App\Models\Dept;
 use App\Models\Log;
@@ -29,9 +28,25 @@ class Userlist extends Component
     public $byVpn =null;
 
     public $perPage =20;
-    public $orderBy = "id";
+    public $orderBy = "userid";
     public $sortBy = "asc";
     public $search;
+
+    // public $userid;
+ 
+    // protected $rules = [
+    //     'userid' => 'required|regex:/^emp-[0-9][0-9][0-9]-[0-9][0-9][0-9]$/',
+    // ];
+    // protected $messages = [
+    //     'userid.regex' => 'Format : xxx-123-123 (3 Letter-3 Number-3 Number)',
+    //     'userid.required'=>"The Userslist ID field is required.",
+    // ];
+    // public function updated($propertyName)
+    // {
+    //     $this->validateOnly($propertyName);
+    // }
+ 
+
     public function render()
     {
         return view('livewire.userlist',[
@@ -42,7 +57,7 @@ class Userlist extends Component
             })->when($this->byWstat,function($query){
                 $query->where('wstation',$this->byWstat);
             })->when($this->byUid,function($query){
-                $query->where('id',$this->byUid);
+                $query->where('userid',$this->byUid);
             })->when($this->byPid,function($query){
                 $query->where('asset_id',$this->byPid);
             })->when($this->byIp,function($query){
@@ -55,6 +70,7 @@ class Userlist extends Component
             ->paginate($this->perPage)
         ]);
     }
+
     public function OpenAddUserModal(){
         $this->name = '';
         $this->email = '';
@@ -63,10 +79,22 @@ class Userlist extends Component
         $this->dept = '';
         $this->wstation = '';
         $this->unit = '';
+
         $this->dispatchBrowserEvent('OpenAddUserModal');
     }
     public function save(){
         date_default_timezone_set('Asia/Dhaka');
+        $chk = Userslist::all();
+        if($chk->isEmpty()){
+            $userid = "emp-000001";
+         }
+         else
+         {
+            $uid = Userslist::orderBy('userid', 'desc')->first();
+            $increment_uid = $uid->userid;
+            $userid = ++$increment_uid;
+         }
+
         $time =  date('d F Y h:i:s A');
         $ip = file_get_contents('https://api.ipify.org/?format=text');     
         $this->validate([
@@ -76,40 +104,44 @@ class Userlist extends Component
             'wstation'=>"required",
             'unit'=>"required"
         ],
-        ['name.required'=>"The User Name field is required.",
+        ['name.required'=>"The Userslist Name field is required.",
         'desigation.required'=>"The Designation field is required.",
         'dept.required'=>"The Department field is required.",
         'wstation.required'=>"The Work Station field is required.",
         'unit.required'=>"The Working Unit field is required."]
     );
-        $save = Userslist::insert([
-          'name'=>$this->name,
-          'email'=>$this->email,
-          'phone'=>$this->phone,
-          'desigation'=>$this->desigation,
-          'dept'=>$this->dept,
-          'wstation'=>$this->wstation,
-          'unit'=> $this->unit,
-      ]);
-        if(Session::get('admin_type') == "Mod"){
-          Log::insert([
-            'name'=>Session::get('name'),
-            'email'=>Session::get('email'),
-            'activity'=>"Create",
-            'afield'=>"User List",
-            'time'=>$time,
-            'ip'=> $ip,
-        ]);
-      }
 
-    if($save){
-        $this->dispatchBrowserEvent('CloseAddUserModal');
-        $this->checkedUser = [];
-    }
+        $save = Userslist::insert([
+            'userid'=>$userid,
+            'name'=>$this->name,
+            'email'=>$this->email,
+            'phone'=>$this->phone,
+            'desigation'=>$this->desigation,
+            'dept'=>$this->dept,
+            'wstation'=>$this->wstation,
+            'unit'=> $this->unit,
+        ]);
+          if(Session::get('admin_type') == "Mod"){
+            Log::insert([
+              'name'=>Session::get('name'),
+              'email'=>Session::get('email'),
+              'activity'=>"Create",
+              'afield'=>"User List",
+              'time'=>$time,
+              'ip'=> $ip,
+          ]);
+        }
+  
+      if($save){
+          $this->dispatchBrowserEvent('CloseAddUserModal');
+          $this->checkedUser = [];
+      } 
+    
+
 }
 
 public function OpenEditModal($id){
-    $info = User::find($id);
+    $info = Userslist::find($id);
 
     $this->U_user_name = $info->user_name;
     $this->U_desigation = $info->desigation;
@@ -133,7 +165,7 @@ public function updateRow(){
     $ip = file_get_contents('https://api.ipify.org/?format=text');
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
-    $update = User::find($cid)->update([
+    $update = Userslist::find($cid)->update([
         'user_name'=>$this->U_user_name,
         'desigation'=>$this->U_desigation,
         'dept'=>$this->U_dept,
@@ -151,7 +183,7 @@ public function updateRow(){
             'name'=>Session::get('name'),
             'email'=>Session::get('email'),
             'activity'=>"Update",
-            'afield'=>"AML Sugar Refinery",
+            'afield'=>"User List",
             'time'=>$time,
             'ip'=> $ip,
         ]);
@@ -162,7 +194,7 @@ public function updateRow(){
     }
 }
 public function deleteConfirm($id){
-    $info = User::find($id);
+    $info = Userslist::find($id);
     $this->dispatchBrowserEvent('SwalConfirm',[
         'title'=>'Are you sure?',
         'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
@@ -170,7 +202,7 @@ public function deleteConfirm($id){
     ]);
 }
 public function delete($id){
-    $del =  User::find($id)->delete();
+    $del =  Userslist::find($id)->delete();
     $ip = file_get_contents('https://api.ipify.org/?format=text');
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
@@ -182,7 +214,7 @@ public function delete($id){
             'name'=>Session::get('name'),
             'email'=>Session::get('email'),
             'activity'=>"Delete",
-            'afield'=>"AML Sugar Refinery",
+            'afield'=>"User List",
             'time'=>$time,
             'ip'=> $ip,
         ]);
@@ -197,7 +229,7 @@ public function deleteUsers(){
     ]);
 }
 public function deleteCheckedUsers($ids){
-    User::whereKey($ids)->delete();
+    Userslist::whereKey($ids)->delete();
     $ip = file_get_contents('https://api.ipify.org/?format=text');
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
@@ -206,7 +238,7 @@ public function deleteCheckedUsers($ids){
             'name'=>Session::get('name'),
             'email'=>Session::get('email'),
             'activity'=>"Delete",
-            'afield'=>"AML Sugar Refinery",
+            'afield'=>"User List",
             'time'=>$time,
             'ip'=> $ip,
         ]);

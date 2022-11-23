@@ -251,11 +251,6 @@
                         </div>
                     </td>
                     @endif
-					<!-- <td>
-					<div class="btn-group container">
-					&nbsp;<a href="#" wire:click="OpenReuseModal({{$country->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Reuse Item"></img></a>
-					</div>
-				</td> -->
 			</tr>
 			@empty
 			<code>No DataSet found!</code>

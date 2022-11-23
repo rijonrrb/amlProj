@@ -15,20 +15,17 @@ return new class extends Migration
     {
         Schema::create('itcuses', function (Blueprint $table) {
             $table->id();
-            $table->string('user_name')->nullable();
-            $table->string('desigation')->nullable();
-            $table->string('dept')->nullable();
-            $table->string('wstation')->nullable();
-            $table->string('unit')->nullable();
             $table->string('item');
             $table->string('laptop_name');
             $table->string('asset_no');
             $table->string('serial_no');
-            $table->string('previous_user');
-            $table->string('issue_date');
-            $table->string('p_issue_date');
-            $table->string('configuration');
+            $table->string('previous_user')->nullable();
+            $table->string('entry_date');
+            $table->string('p_issue_date')->nullable();
+            $table->string('configuration')->nullable();
             $table->string('condition');
+            $table->string('warrenty_start')->nullable();
+            $table->string('warrenty_end')->nullable();
             $table->string('sid');
             $table->timestamps();
         });

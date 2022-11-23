@@ -170,7 +170,7 @@
                     @if(Session::get('admin_type') == "SAdmin")
                     <td>
                         <div class="btn-group container">
-                            <a href="#" wire:click="OpenReturnDredgingModal({{$Dredging->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
+                            <a href="#" wire:click="OpenReturnCountryModal({{$Dredging->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
                         </div>
                     </td>                   
                     <td>
@@ -198,13 +198,13 @@
                     @elseif(Session::get('admin_type') == "Mod" && Session::get('return') == "True" && Session::get('update') == null && Session::get('delete') == null)
                     <td>
                         <div class="btn-group container">
-                            <a href="#" wire:click="OpenReturnDredgingModal({{$Dredging->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
+                            <a href="#" wire:click="OpenReturnCountryModal({{$Dredging->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
                         </div>
                     </td>   
                     @elseif(Session::get('admin_type') == "Mod" && Session::get('return') == "True" && Session::get('delete') == "True" && Session::get('update') == null)
                     <td>
                         <div class="btn-group container">
-                            <a href="#" wire:click="OpenReturnDredgingModal({{$Dredging->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
+                            <a href="#" wire:click="OpenReturnCountryModal({{$Dredging->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
                         </div>
                     </td>
                     <td>
@@ -215,7 +215,7 @@
                     @elseif(Session::get('admin_type') == "Mod" && Session::get('return') == "True" && Session::get('update') == "True" && Session::get('delete') == null)
                     <td>
                         <div class="btn-group container">
-                            <a href="#" wire:click="OpenReturnDredgingModal({{$Dredging->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
+                            <a href="#" wire:click="OpenReturnCountryModal({{$Dredging->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
                         </div>
                     </td>
                     <td>
@@ -237,7 +237,7 @@
                     @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('return') == "True")
                     <td>
                         <div class="btn-group container">
-                            <a href="#" wire:click="OpenReturnDredgingModal({{$Dredging->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
+                            <a href="#" wire:click="OpenReturnCountryModal({{$Dredging->id}})"><img src="https://cdn-icons-png.flaticon.com/512/1585/1585147.png" style="width: 30px;" title="Return Product"></img></a>
                         </div>
                     </td>
                     <td>

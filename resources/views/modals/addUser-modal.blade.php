@@ -4,9 +4,14 @@
             <div class="modal-body">
              <form wire:submit.prevent="save">
                  <h3 align ="center">User Info</h3>
+                 <!-- <div class="form-group">
+                     <label for="">User ID</label>
+                     <input type="text" class="form-control" placeholder="User ID" wire:model="userid">
+                     <span class="text-danger"> @error('userid') {{ "$message" }}@enderror</span>
+                 </div> -->
                  <div class="form-group">
                      <label for="">User Name</label>
-                     <input type="text" class="form-control" placeholder="User Name" wire:model="name" >
+                     <input type="text" class="form-control" placeholder="User Name" wire:model="name">
                      <span class="text-danger"> @error('name') {{ $message }}@enderror</span>
                  </div>
                  <div class="form-group">

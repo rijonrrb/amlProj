@@ -78,7 +78,7 @@
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
                 <label for="" style="color:#c94c4c"><b>Order By</b></label>
                 <select class="form-control" wire:model="orderBy">
-                   <option value="id">User ID</option>
+                   <option value="userid">User ID</option>
                     <option value="name">User name</option>
                     <option value="email">User Email</option>
                     <option value="phone">User Phone No.</option>
@@ -164,7 +164,7 @@
                         <td><input type="checkbox" value="{{ $User->id }}" wire:model="checkedUser"></td>
                         @endif                     
                         <td>{{$i++}}</td>
-                        <td  data-id="{{ $User->id }}" data-column="userid" >{{ $User->id }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="userid" >{{ $User->userid }}</td>
                         <td  data-id="{{ $User->id }}" data-column="name" >{{ $User->name }}</td>
                         <td  data-id="{{ $User->id }}" data-column="email" >{{ $User->email }}</td>
                         <td  data-id="{{ $User->id }}" data-column="phone" >{{ $User->phone }}</td>

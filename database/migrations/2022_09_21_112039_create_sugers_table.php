@@ -27,7 +27,10 @@ return new class extends Migration
             $table->string('previous_user');
             $table->string('issue_date');
             $table->string('p_issue_date');
-            $table->string('configuration');
+            $table->string('configuration')->nullable();
+            $table->string('entry_date');
+            $table->string('warrenty_start')->nullable();
+            $table->string('warrenty_end')->nullable();
             $table->string('sid');
             $table->timestamps();
         });

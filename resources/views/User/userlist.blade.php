@@ -45,12 +45,24 @@
      $('.addUser').modal('hide');
     Swal.fire({
                 icon: 'success',
-                title: 'Updated..',
+                title: 'Inserted..',
                 text: 'Your Dataset has been successfully added.',
                 showConfirmButton: false,
                 timer: 800
             });
 });
+// window.addEventListener('ClosefailedUserModal', function(){
+//      $('.addUser').find('span').html('');
+//      $('.addUser').find('form')[0].reset();
+//      $('.addUser').modal('hide');
+//     Swal.fire({
+//                 icon: 'error',
+//                 title: 'Oops..',
+//                 text: 'This User ID already inserted',
+//                 showCloseButton:true,
+//                 showConfirmButton: false,
+//             });
+// });
 window.addEventListener('OpenEditModal', function(event){
                $('.updateRow').find('span').html('');
                $('.updateRow').modal('show');
@@ -82,7 +94,7 @@ window.addEventListener('OpenEditModal', function(event){
          window.livewire.emit('delete',event.detail.id);
      }
  })
-})
+});
  window.addEventListener('deleted', function(event){
     Swal.fire(
         'Deleted!',
@@ -122,7 +134,7 @@ window.addEventListener('OpenEditModal', function(event){
         html_table_to_excel('xlsx');
     });
 </script>
-<script src="{{ asset('js/Opt.js') }}"></script>
+<script src="{{ asset('js/OptUser.js') }}"></script>
 <script src="{{ asset('js/Add.js') }}"></script>
 </body>
 </html>

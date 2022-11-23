@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Userslist extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','email','phone','desigation','dept','wstation','unit','asset_id','asset_no','ip_id','ip','vpn_id','vpn'];
+    protected $fillable = ['userid','name','email','phone','desigation','dept','wstation','unit','asset_id','asset_no','ip_id','ip','vpn_id','vpn'];
     public function scopeSearch($query, $term){
         $term = "%$term%";
         $query->where(function($query) use ($term){
            $query->where('id','like',$term)
+           ->orWhere('userid','like',$term)
            ->orWhere('name','like',$term)
            ->orWhere('email','like',$term)
            ->orWhere('phone','like',$term)

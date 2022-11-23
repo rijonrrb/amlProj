@@ -104,16 +104,18 @@
                 <th></th>
                 @endif
                 <th>SL No.</th>
-                <th>Unit</th>
                 <th>Product Type</th>
                 <th>Product Model</th>
                 <th>Asset No</th>
                 <th>Product Serial No</th>
+                <th>Product Entry Date</th>
                 <th>Previous User</th>
-                <th>Issue Date</th>
                 <th>Previous Issue Date</th>
                 <th>Configuration</th>
                 <th>Condition</th>
+                <th>Warrenty Active Date</th>
+                <th>Warrenty Expire Date</th>
+
                 @if(Session::get('admin_type') == "SAdmin")
                 <th>Issue /<br> Re-Issue</th>
                 <th>Delete</th>
@@ -152,13 +154,12 @@
                 <td><input type="checkbox" value="{{ $Itcus->id }}" wire:model="checkedItcus"></td>
                 @endif
                 <td>{{$i++}}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="unit" >{{ $Itcus->unit }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="item" >{{ $Itcus->item }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="laptop_name" >{{ $Itcus->laptop_name }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="asset_no" >{{ $Itcus->asset_no }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="serial_no" >{{ $Itcus->serial_no }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="previous_user" >{{ $Itcus->previous_user }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="issue_date" >{{ $Itcus->issue_date }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="previous_user" >{{ $Itcus->previous_user }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="p_issue_date" >{{ $Itcus->p_issue_date }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="configuration" >{{ $Itcus->configuration }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="condition" >{{ $Itcus->condition }}</td>
