@@ -54,9 +54,16 @@ class Custudys extends Component
         $this->condition = '';
         $this->previous_user = '';
         $this->p_issue_date = '';
+        $this->warrenty_start = '';
+        $this->warrenty_end = '';
         $this->dispatchBrowserEvent('OpenAddItcusModal');
     }
     public function save(){
+
+        $days = "111133";
+        $Date = "2010-09-17";
+        echo date('Y-m-d', strtotime($Date. '+'.$days.'days'));
+
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $asst = substr($this->item, 0,3)."-".rand(100,1000)."-".rand(10000,1000000);
@@ -76,11 +83,6 @@ class Custudys extends Component
         'condition.required'=>"Product condition is required."]
     );
         $save = Itcus::insert([
-            'user_name'=>Null,
-            'desigation'=>Null,
-            'dept'=>Null,
-            'wstation'=>Null,
-            'unit'=>Null,
             'item'=>$this->item,
             'laptop_name'=>$this->laptop_name,
             'asset_no'=>$asst,
@@ -90,6 +92,8 @@ class Custudys extends Component
             'p_issue_date'=>$this->p_issue_date,
             'configuration'=>$this->configuration,
             'condition'=>$this->condition,
+            'warrenty_start'=>$this->warrenty_start,
+            'warrenty_end'=>$this->warrenty_end,
             'sid'=> $next_id,
 
         ]);
