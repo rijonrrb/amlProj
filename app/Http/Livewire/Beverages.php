@@ -26,7 +26,7 @@ class Beverages extends Component
     {
 
         return view('livewire.beverages',[
-            'depts'=>Dept::orderBy('dept_name','asc')->get(),
+            
             'Beverages'=>Beverage::when($this->byDept,function($query){
                 $query->where('dept',$this->byDept);
             })->when($this->byDes,function($query){

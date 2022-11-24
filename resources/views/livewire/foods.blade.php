@@ -27,9 +27,12 @@
             <label for="" style="color:#c94c4c"><b>Department</b></label>
             <select wire:model ="byDept" class="form-control">
                 <option value="">Select Department</option>
-                @foreach ($depts as $dept)
-                <option value="{{ $dept->dept_name }}">{{$dept->dept_name}}</option> 
-                @endforeach
+				<option value="HR">HR</option>
+				<option value="IT">IT</option>
+				<option value="MIS">MIS</option>
+				<option value="Audit">Audit</option>
+				<option value="Sales">Sales</option>
+				<option value="Procument">Procument</option>
             </select>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
