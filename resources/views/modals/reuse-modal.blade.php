@@ -12,23 +12,6 @@
                            <input type="text" class="form-control" placeholder="User Name"  wire:model="r_user_name">
                            <span class="text-danger"> @error('r_user_name') {{ $message }}@enderror</span>
                        </div>
-                       <div class="form-group">
-                        <label for="">Department</label>
-                        <div class="container row">
-                            <input type="text" class="form-control col-8 mr-3" placeholder="Department" wire:model="r_dept"  style="display: block;" id="r_idept">
-                            <select wire:model ="r_dept" class="form-control col-9 mr-3"  style="display: none;" id="r_sdept">
-                                <option value="" disabled selected>Select Department</option>
-                                <option value="HR">HR</option>
-                                <option value="IT">IT</option>
-                                <option value="MIS">MIS</option>
-                                <option value="Audit">Audit</option>
-                                <option value="Sales">Sales</option>
-                                <option value="Procument">Procument</option>
-                            </select>
-                            <button type="button" class="btn btn-primary btn-sm col-3" id="r_cdept" style="display: block;">Options</button>
-                        </div>
-                        <span class="text-danger"> @error('r_dept') {{ $message }}@enderror</span>
-                    </div>
                     <div class="form-group">
                        <label for="">Desigation</label>
                        <div class="container row">
@@ -59,6 +42,23 @@
                         </div>   
                        <span class="text-danger"> @error('r_desigation') {{ $message }}@enderror</span>
                    </div>
+                   <div class="form-group">
+                        <label for="">Department</label>
+                        <div class="container row">
+                            <input type="text" class="form-control col-8 mr-3" placeholder="Department" wire:model="r_dept"  style="display: block;" id="r_idept">
+                            <select wire:model ="r_dept" class="form-control col-9 mr-3"  style="display: none;" id="r_sdept">
+                                <option value="" disabled selected>Select Department</option>
+                                <option value="HR">HR</option>
+                                <option value="IT">IT</option>
+                                <option value="MIS">MIS</option>
+                                <option value="Audit">Audit</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Procument">Procument</option>
+                            </select>
+                            <button type="button" class="btn btn-primary btn-sm col-3" id="r_cdept" style="display: block;">Options</button>
+                        </div>
+                        <span class="text-danger"> @error('r_dept') {{ $message }}@enderror</span>
+                    </div>
                    <div class="form-group">
                        <label for="">Work-Station</label>
                        <select wire:model="r_wstation" class="form-control" >

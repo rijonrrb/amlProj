@@ -281,6 +281,11 @@
 	@endif
 	<button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
 </div>
+<div class="mt-4 mb-3">
+    @foreach($total_items as $total_item)
+    <h6 class="ml-5 text-danger">◍ Total {{ $total_item->item }} : {{ $total_item->count }}</h6>
+    @endforeach
+</div>
 @include('modals.edit-modal')
 @include('modals.reuse-modal')
 @include('modals.update-modal')
