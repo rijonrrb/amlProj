@@ -32,7 +32,7 @@ class Custudys extends Component
     public function render()
     {
         return view('livewire.custudys',[
-            'depts'=>Dept::orderBy('dept_name','asc')->get(),
+            'total_items'=> Itcus::select('item')->selectRaw('count(*) as count')->groupBy('item')->get(),
             'Itcuss'=>Itcus::when($this->byPtype,function($query){
                 $query->where('item',$this->byPtype);
             })->when($this->byPcond,function($query){
@@ -108,7 +108,7 @@ class Custudys extends Component
             'p_issue_date'=>$this->p_issue_date,
             'configuration'=>$this->configuration,
             'condition'=>$this->condition,
-            'warrenty_start'=>$this->warrenty_start,
+            'warrenty_start'=>date('d-M-Y', strtotime($this->warrenty_start)),
             'warrenty_end'=> $expire,
             'sid'=> $next_id,
 
@@ -585,26 +585,26 @@ public function reuseProd(){
             'ip'=> $ip,
         ]);
     }
-    if(!empty($this->r_dept))
-    {
-        $deptT = Dept::where('dept_name',$this->r_dept)->first();
-        if(!$deptT)
-        {  
-            $saave= Dept::insert([
-                'dept_name'=>$this->r_dept
-            ]);
-        }
-    }
-    if(!empty($this->r_H_dept))
-    {
-        $deptH = Dept::where('dept_name',$this->r_H_dept)->first();
-        if(!$deptH)
-        {  
-            $saave= Dept::insert([
-                'dept_name'=>$this->r_H_dept
-            ]);
-        }
-    }
+    // if(!empty($this->r_dept))
+    // {
+    //     $deptT = Dept::where('dept_name',$this->r_dept)->first();
+    //     if(!$deptT)
+    //     {  
+    //         $saave= Dept::insert([
+    //             'dept_name'=>$this->r_dept
+    //         ]);
+    //     }
+    // }
+    // if(!empty($this->r_H_dept))
+    // {
+    //     $deptH = Dept::where('dept_name',$this->r_H_dept)->first();
+    //     if(!$deptH)
+    //     {  
+    //         $saave= Dept::insert([
+    //             'dept_name'=>$this->r_H_dept
+    //         ]);
+    //     }
+    // }
     if($savex){
         $del =  Itcus::find($rid)->delete();
         $this->dispatchBrowserEvent('CloseReuseModal');

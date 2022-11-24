@@ -115,7 +115,6 @@
                 <th>Condition</th>
                 <th>Warrenty Active Date</th>
                 <th>Warrenty Expire Date</th>
-
                 @if(Session::get('admin_type') == "SAdmin")
                 <th>Issue /<br> Re-Issue</th>
                 <th>Delete</th>
@@ -165,7 +164,7 @@
                 <td  data-id="{{ $Itcus->id }}" data-column="configuration" >{{ $Itcus->configuration }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="condition" >{{ $Itcus->condition }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="warrenty_start" >{{ $Itcus->warrenty_start }}</td>
-                @if($Itcus->warrenty_end == $date)
+                @if( strtotime($Itcus->warrenty_end) <= strtotime($date) && $Itcus->warrenty_end != Null)
                 <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="warrenty_end" >{{ $Itcus->warrenty_end }}</td>
                 @else
                 <td  data-id="{{ $Itcus->id }}" data-column="warrenty_end" >{{ $Itcus->warrenty_end }}</td>
@@ -258,17 +257,22 @@
             </tr>
             @empty
             <code>No DataSet found!</code>
-            @endforelse
-            
+            @endforelse      
         </tbody>
     </table>
 </div>
+
 <div class="d-flex justify-content-between bg-dark card-footer">
     @if (count($Itcuss))
     {{ $Itcuss->links('livewire-pagination-links') }}
     @endif
     <button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
 </div>
+<div class="mt-4 mb-3">
+        @foreach($total_items as $total_item)
+        <h6 class="ml-5 text-danger">◍ Total {{ $total_item->item }} : {{ $total_item->count }}</h6>
+        @endforeach
+    </div>
 @include('modals.addProd-modal')
 @include('modals.edit-modal')
 @include('modals.reuse-modal')
