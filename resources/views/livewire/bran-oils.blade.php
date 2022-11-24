@@ -147,6 +147,7 @@
 			<tbody>
 				@php        
 				$i = 1;
+				$date = date('d-M-Y');
 				@endphp
 				@forelse ($Branoils as $Branoil)
 				<tr class="{{ $this->isChecked($Branoil->id) }}">

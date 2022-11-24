@@ -147,6 +147,7 @@
 			<tbody>
 				@php        
 				$i = 1;
+				$date = date('d-M-Y');
 				@endphp
 				@forelse ($Beverages as $Beverage)
 				<tr class="{{ $this->isChecked($Beverage->id) }}">

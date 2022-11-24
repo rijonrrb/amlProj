@@ -147,6 +147,7 @@
                 <tbody>
                     @php        
                     $i = 1;
+                    $date = date('d-M-Y');
                     @endphp
                     @forelse ($Sugers as $Suger)
                     <tr class="{{ $this->isChecked($Suger->id) }}">

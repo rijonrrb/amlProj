@@ -147,6 +147,7 @@
 			<tbody>
 				@php        
 				$i = 1;
+				$date = date('d-M-Y');
 				@endphp
 				@forelse ($countries as $country)
 				<tr class="{{ $this->isChecked($country->id) }}">
