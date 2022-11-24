@@ -169,7 +169,6 @@
                 @else
                 <td  data-id="{{ $Itcus->id }}" data-column="warrenty_end" >{{ $Itcus->warrenty_end }}</td>
                 @endif
-
                 @if(Session::get('admin_type') == "SAdmin")
                     <td>
                         <div class="btn-group container">

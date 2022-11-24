@@ -115,6 +115,8 @@
 					<th>Issue Date</th>
 					<th>Previous Issue Date</th>
 					<th>Configuration</th>
+					<th>Warrenty Active Date</th>
+					<th>Warrenty Expire Date</th>
 					@if(Session::get('admin_type') == "SAdmin")
 					<th>Return</th>
 					<th>Delete</th>
@@ -167,6 +169,12 @@
 					<td  data-id="{{ $Branoil->id }}" data-column="issue_date" >{{ $Branoil->issue_date }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="p_issue_date" >{{ $Branoil->p_issue_date }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="configuration" >{{ $Branoil->configuration }}</td>
+					<td  data-id="{{ $Branoil->id }}" data-column="warrenty_start" >{{ $Branoil->warrenty_start }}</td>
+					@if( strtotime($Branoil->warrenty_end) <= strtotime($date) && $Branoil->warrenty_end != Null)
+					<td  data-id="{{ $Branoil->id }}" class="text-white bg-danger" data-column="warrenty_end" >{{ $Branoil->warrenty_end }}</td>
+					@else
+					<td  data-id="{{ $Branoil->id }}" data-column="warrenty_end" >{{ $Branoil->warrenty_end }}</td>
+					@endif
 					@if(Session::get('admin_type') == "SAdmin")
 					<td>
 						<div class="btn-group container">

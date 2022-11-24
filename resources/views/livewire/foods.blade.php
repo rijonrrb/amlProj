@@ -115,6 +115,8 @@
                     <th>Issue Date</th>
                     <th>Previous Issue Date</th>
                     <th>Configuration</th>
+                    <th>Warrenty Active Date</th>
+					<th>Warrenty Expire Date</th>
                     @if(Session::get('admin_type') == "SAdmin")
                     <th>Return</th>
                     <th>Delete</th>
@@ -167,6 +169,12 @@
                     <td  data-id="{{ $Food->id }}" data-column="issue_date" >{{ $Food->issue_date }}</td>
                     <td  data-id="{{ $Food->id }}" data-column="p_issue_date" >{{ $Food->p_issue_date }}</td>
                     <td  data-id="{{ $Food->id }}" data-column="configuration" >{{ $Food->configuration }}</td>
+                    <td  data-id="{{ $Food->id }}" data-column="warrenty_start" >{{ $Food->warrenty_start }}</td>
+					@if( strtotime($Food->warrenty_end) <= strtotime($date) && $Food->warrenty_end != Null)
+					<td  data-id="{{ $Food->id }}" class="text-white bg-danger" data-column="warrenty_end" >{{ $Food->warrenty_end }}</td>
+					@else
+					<td  data-id="{{ $Food->id }}" data-column="warrenty_end" >{{ $Food->warrenty_end }}</td>
+					@endif
                     @if(Session::get('admin_type') == "SAdmin")
                     <td>
                         <div class="btn-group container">

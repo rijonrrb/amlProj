@@ -311,38 +311,21 @@ public function reuseProd(){
     $ip = file_get_contents('https://api.ipify.org/?format=text');
     $rid = $this->rid;
     $info = Itcus::find($rid);
-    if (empty($info->previous_user) && empty($info->user_name))
+    if (empty($info->previous_user))
     {
         $previous_user = '';
     }
-    elseif (empty($info->previous_user) && !empty($info->user_name))
-    {
-        $previous_user = $info->user_name;
-    }
-    elseif (empty($info->user_name))
+    else
     {
         $previous_user = $info->previous_user;
     }
-    else
-    {
-        $previous_user = $info->previous_user."  ||  ".$info->user_name;
-    }
-
-    if (empty($info->p_issue_date) && empty($info->user_name))
+    if (empty($info->p_issue_date))
     {
         $p_i_date = '';
     }
-    elseif (empty($info->p_issue_date) && !empty($info->user_name))
-    {
-        $p_i_date = $info->issue_date;
-    }
-    elseif (empty($info->user_name))
-    {
-        $p_i_date = $info->p_issue_date;
-    }
     else
     {
-        $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
+        $p_i_date = $info->p_issue_date;
     }
     Session::put('id', $info->sid);
     Session::put('b_area', 'CUSTUDY');
@@ -363,7 +346,7 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
-            'entry_date'=>$info->issue_date,
+            'entry_date'=>$info->entry_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
@@ -386,7 +369,7 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
-            'entry_date'=>$info->issue_date,
+            'entry_date'=>$info->entry_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
@@ -409,7 +392,7 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
-            'entry_date'=>$info->issue_date,
+            'entry_date'=>$info->entry_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
@@ -432,7 +415,7 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
-            'entry_date'=>$info->issue_date,
+            'entry_date'=>$info->entry_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
@@ -455,7 +438,7 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
-            'entry_date'=>$info->issue_date,
+            'entry_date'=>$info->entry_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
@@ -478,7 +461,7 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
-            'entry_date'=>$info->issue_date,
+            'entry_date'=>$info->entry_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
@@ -501,7 +484,7 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
-            'entry_date'=>$info->issue_date,
+            'entry_date'=>$info->entry_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
@@ -524,7 +507,7 @@ public function reuseProd(){
             'serial_no'=>$info->serial_no,
             'previous_user'=>$previous_user,
             'issue_date'=>$time,
-            'entry_date'=>$info->issue_date,
+            'entry_date'=>$info->entry_date,
             'p_issue_date'=>$p_i_date,
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
@@ -534,7 +517,7 @@ public function reuseProd(){
     }
 
 
-    if(empty($info->previous_user) && empty($info->user_name))
+    if(empty($info->previous_user))
     {
         $savex = Invoice::insert([
             'handedBy'=>$this->r_H_user,

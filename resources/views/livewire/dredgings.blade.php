@@ -115,6 +115,8 @@
 					<th>Issue Date</th>
 					<th>Previous Issue Date</th>
 					<th>Configuration</th>
+					<th>Warrenty Active Date</th>
+					<th>Warrenty Expire Date</th>
 					@if(Session::get('admin_type') == "SAdmin")
 					<th>Return</th>
 					<th>Delete</th>
@@ -167,6 +169,12 @@
 					<td  data-id="{{ $Dredging->id }}" data-column="issue_date" >{{ $Dredging->issue_date }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="p_issue_date" >{{ $Dredging->p_issue_date }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="configuration" >{{ $Dredging->configuration }}</td>
+					<td  data-id="{{ $Dredging->id }}" data-column="warrenty_start" >{{ $Dredging->warrenty_start }}</td>
+					@if( strtotime($Dredging->warrenty_end) <= strtotime($date) && $Dredging->warrenty_end != Null)
+					<td  data-id="{{ $Dredging->id }}" class="text-white bg-danger" data-column="warrenty_end" >{{ $Dredging->warrenty_end }}</td>
+					@else
+					<td  data-id="{{ $Dredging->id }}" data-column="warrenty_end" >{{ $Dredging->warrenty_end }}</td>
+					@endif
                     @if(Session::get('admin_type') == "SAdmin")
                     <td>
                         <div class="btn-group container">
