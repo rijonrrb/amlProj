@@ -26,16 +26,14 @@ class Custudys extends Component
     public $byPtype =null;
     public $byPcond =null;
     public $perPage =20;
-    public $orderBy = "unit";
+    public $orderBy = "item";
     public $sortBy = "asc";
     public $search;
     public function render()
     {
         return view('livewire.custudys',[
             'depts'=>Dept::orderBy('dept_name','asc')->get(),
-            'Itcuss'=>Itcus::when($this->byUnit,function($query){
-                $query->where('unit',$this->byUnit);
-            })->when($this->byPtype,function($query){
+            'Itcuss'=>Itcus::when($this->byPtype,function($query){
                 $query->where('item',$this->byPtype);
             })->when($this->byPcond,function($query){
                 $query->where('condition',$this->byPcond);
@@ -60,12 +58,30 @@ class Custudys extends Component
     }
     public function save(){
 
-        $days = "111133";
-        $Date = "2010-09-17";
-        echo date('Y-m-d', strtotime($Date. '+'.$days.'days'));
-
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
+        if($this->warrenty_end == 0 )
+        {
+            $days = $this->warrenty_end;
+        }
+        elseif($this->warrenty_end == '' )
+        {
+            $days = Null;
+        }
+        else
+        {
+            $days = $this->warrenty_end -1;
+        }   
+        $Date = $this->warrenty_start;
+        if($this->warrenty_end == '' )
+        {
+            $expire = Null;
+        }    
+        else
+        {
+            $expire = date('d-M-Y', strtotime($Date. '+'.$days.'days'));
+        }
+        date_default_timezone_set('Asia/Dhaka');
         $asst = substr($this->item, 0,3)."-".rand(100,1000)."-".rand(10000,1000000);
         $next_id = uniqid('CUSTUDY', true);
         $ip = file_get_contents('https://api.ipify.org/?format=text');
@@ -88,12 +104,12 @@ class Custudys extends Component
             'asset_no'=>$asst,
             'serial_no'=>$this->serial_no,
             'previous_user'=>$this->previous_user,
-            'issue_date'=>$time,
+            'entry_date'=>$time,
             'p_issue_date'=>$this->p_issue_date,
             'configuration'=>$this->configuration,
             'condition'=>$this->condition,
             'warrenty_start'=>$this->warrenty_start,
-            'warrenty_end'=>$this->warrenty_end,
+            'warrenty_end'=> $expire,
             'sid'=> $next_id,
 
         ]);

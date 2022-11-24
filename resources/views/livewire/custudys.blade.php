@@ -30,7 +30,7 @@
     </div>
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
         <label for="" style="color:#c94c4c"><b>Unit</b></label>
-        <select wire:model ="byUnit" class="form-control">
+        <select  class="form-control">
             <option value="">Select Option</option>
             <option value="Igloo Ice Cream Unit">Igloo Ice Cream Unit</option>
             <option value="Igloo Itcus Unit">Igloo Itcus Unit</option>
@@ -145,6 +145,7 @@
         <tbody>
             @php        
             $i = 1;
+            $date = date('d-M-Y');
             @endphp
             @forelse ($Itcuss as $Itcus)
             <tr class="{{ $this->isChecked($Itcus->id) }}">
@@ -158,11 +159,18 @@
                 <td  data-id="{{ $Itcus->id }}" data-column="laptop_name" >{{ $Itcus->laptop_name }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="asset_no" >{{ $Itcus->asset_no }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="serial_no" >{{ $Itcus->serial_no }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="issue_date" >{{ $Itcus->issue_date }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="entry_date" >{{ $Itcus->entry_date }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="previous_user" >{{ $Itcus->previous_user }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="p_issue_date" >{{ $Itcus->p_issue_date }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="configuration" >{{ $Itcus->configuration }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="condition" >{{ $Itcus->condition }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="warrenty_start" >{{ $Itcus->warrenty_start }}</td>
+                @if($Itcus->warrenty_end == $date)
+                <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="warrenty_end" >{{ $Itcus->warrenty_end }}</td>
+                @else
+                <td  data-id="{{ $Itcus->id }}" data-column="warrenty_end" >{{ $Itcus->warrenty_end }}</td>
+                @endif
+
                 @if(Session::get('admin_type') == "SAdmin")
                     <td>
                         <div class="btn-group container">
