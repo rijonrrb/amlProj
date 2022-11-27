@@ -311,11 +311,12 @@ public function reuseProd(){
 );       
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y');
+    $user = $this->r_user;
     $timeLog =date('d F Y h:i:s A');
     $ip = file_get_contents('https://api.ipify.org/?format=text');
     $rid = $this->rid;
     $info = Itcus::find($rid);
-    $userinfo = Userslist::find($this->r_user);
+    $userinfo = Userslist::where('userid',$this->r_user)->first();
     if (empty($info->previous_user))
     {
         $previous_user = '';
@@ -452,14 +453,14 @@ public function reuseProd(){
         ]);
     }
     //Data Inserted Igloo Dairy Unit
-    elseif($userinfo->r_unit == "Igloo Dairy Unit")
+    elseif($userinfo->unit == "Igloo Dairy Unit")
     {
         $update = Dairy::insert([
-            'user_name'=>$userinfo->r_user_name,
-            'desigation'=>$userinfo->r_desigation,
-            'dept'=>$userinfo->r_dept,
-            'wstation'=>$userinfo->r_wstation,
-            'unit'=>$userinfo->r_unit,
+            'user_name'=>$userinfo->name,
+            'desigation'=>$userinfo->desigation,
+            'dept'=>$userinfo->dept,
+            'wstation'=>$userinfo->wstation,
+            'unit'=>$userinfo->unit,
             'item'=>$info->item,
             'laptop_name'=>$info->laptop_name,
             'asset_no'=>$info->asset_no,
@@ -475,14 +476,14 @@ public function reuseProd(){
         ]);
     }
     //Data Inserted AML Dredging Unit
-    elseif($userinfo->r_unit == "AML Dredging Unit")
+    elseif($userinfo->unit == "AML Dredging Unit")
     {
         $update = Dredging::insert([
-            'user_name'=>$userinfo->r_user_name,
-            'desigation'=>$userinfo->r_desigation,
-            'dept'=>$userinfo->r_dept,
-            'wstation'=>$userinfo->r_wstation,
-            'unit'=>$userinfo->r_unit,
+            'user_name'=>$userinfo->name,
+            'desigation'=>$userinfo->desigation,
+            'dept'=>$userinfo->dept,
+            'wstation'=>$userinfo->wstation,
+            'unit'=>$userinfo->unit,
             'item'=>$info->item,
             'laptop_name'=>$info->laptop_name,
             'asset_no'=>$info->asset_no,
@@ -498,14 +499,14 @@ public function reuseProd(){
         ]);
     }
     //Data Inserted AML Bran Oil Unit
-    elseif($userinfo->r_unit == "AML Bran Oil Unit")
+    elseif($userinfo->unit == "AML Bran Oil Unit")
     {
         $update = Branoil::insert([
-            'user_name'=>$userinfo->r_user_name,
-            'desigation'=>$userinfo->r_desigation,
-            'dept'=>$userinfo->r_dept,
-            'wstation'=>$userinfo->r_wstation,
-            'unit'=>$userinfo->r_unit,
+            'user_name'=>$userinfo->name,
+            'desigation'=>$userinfo->desigation,
+            'dept'=>$userinfo->dept,
+            'wstation'=>$userinfo->wstation,
+            'unit'=>$userinfo->unit,
             'item'=>$info->item,
             'laptop_name'=>$info->laptop_name,
             'asset_no'=>$info->asset_no,
@@ -530,11 +531,11 @@ public function reuseProd(){
             'h_dept'=>$this->r_H_dept,
             'h_wstation'=>$this->r_H_wstation,
             'h_unit'=>"IT Unit",
-            'takenBy'=>$this->r_user_name,
-            't_desigation'=>$this->r_desigation,
-            't_dept'=>$this->r_dept,
-            't_wstation'=>$this->r_wstation,
-            't_unit'=>$this->r_unit,
+            'takenBy'=>$userinfo->name,
+            't_desigation'=>$userinfo->desigation,
+            't_dept'=>$userinfo->dept,
+            't_wstation'=>$userinfo->wstation,
+            't_unit'=>$userinfo->unit,
             'remarks'=>'For Official use',
             'qty'=>'1',
             'laptop_name'=>$info->laptop_name,
@@ -553,16 +554,23 @@ public function reuseProd(){
             'h_dept'=>$this->r_H_dept,
             'h_wstation'=>$this->r_H_wstation,
             'h_unit'=>"IT Unit",
-            'takenBy'=>$this->r_user_name,
-            't_desigation'=>$this->r_desigation,
-            't_dept'=>$this->r_dept,
-            't_wstation'=>$this->r_wstation,
-            't_unit'=>$this->r_unit,
+            'takenBy'=>$userinfo->name,
+            't_desigation'=>$userinfo->desigation,
+            't_dept'=>$userinfo->dept,
+            't_wstation'=>$userinfo->wstation,
+            't_unit'=>$userinfo->unit,
             'remarks'=>'For Official use',
             'qty'=>'1',
             'business_area'=>'CUSTUDY',
         ]);
     }
+
+    Userslist::where('userid',$userinfo->userid)->update([
+        'asset_id'=>$info->id,
+        'asset_no'=>$info->asset_no,
+
+    ]);
+    
     if(Session::get('admin_type') == "Mod"){
         Log::insert([
             'name'=>Session::get('name'),
@@ -573,26 +581,7 @@ public function reuseProd(){
             'ip'=> $ip,
         ]);
     }
-    // if(!empty($this->r_dept))
-    // {
-    //     $deptT = Dept::where('dept_name',$this->r_dept)->first();
-    //     if(!$deptT)
-    //     {  
-    //         $saave= Dept::insert([
-    //             'dept_name'=>$this->r_dept
-    //         ]);
-    //     }
-    // }
-    // if(!empty($this->r_H_dept))
-    // {
-    //     $deptH = Dept::where('dept_name',$this->r_H_dept)->first();
-    //     if(!$deptH)
-    //     {  
-    //         $saave= Dept::insert([
-    //             'dept_name'=>$this->r_H_dept
-    //         ]);
-    //     }
-    // }
+
     if($savex){
         $del =  Itcus::find($rid)->delete();
         $this->dispatchBrowserEvent('CloseReuseModal');

@@ -84,14 +84,14 @@
                      <label for="">User Unit</label>
                      <select wire:model ="unit" class="form-control">
                                 <option value="" disabled selected hidden>Select Unit</option>
-                                <option value="Igloo Ice Cream">Igloo Ice Cream</option>
-                                <option value="Igloo Dairy">Igloo Dairy</option>
-                                <option value="Igloo Foods">Igloo Foods</option>
-                                <option value="AML Construction">AML Construction</option>
-                                <option value="AML Dredging">AML Dredging</option>
-                                <option value="AML Sugar Refinery">AML Sugar Refinery</option>
-                                <option value="AML Beverage">AML Beverage</option>
-                                <option value="AML Bran Oil">AML Bran Oil</option>
+                                <option value="Igloo Ice Cream Unit">Igloo Ice Cream</option>
+                                <option value="Igloo Dairy Unit">Igloo Dairy</option>
+                                <option value="Igloo Foods Unit">Igloo Foods</option>
+                                <option value="AML Construction Unit">AML Construction</option>
+                                <option value="AML Dredging Unit">AML Dredging</option>
+                                <option value="AML Sugar Refinery Unit">AML Sugar Refinery</option>
+                                <option value="AML Beverage Unit">AML Beverage</option>
+                                <option value="AML Bran Oil Unit">AML Bran Oil</option>
                             </select>
                      <span class="text-danger"> @error('unit') {{ $message }}@enderror</span>
                  </div>

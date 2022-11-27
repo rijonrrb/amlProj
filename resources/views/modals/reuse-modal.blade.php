@@ -8,13 +8,13 @@
                        <h3 align ="center">User Info</h3>
                        <div class="form-group">
                            <label for="">User</label>
-                           <select wire:model ="r_user" class="form-control" >
-                            <option value="" disabled selected>Select User</option>
+                           <select id="select-state" wire:model ="r_user" class="form-control" >
+                            <option value="" disabled selected hidden>Select User</option>
                             @foreach ($Userlists as $Userlist)
                             <option value="{{ $Userlist->userid }}">{{$Userlist->name}}#{{$Userlist->userid}} ({{$Userlist->desigation}})</option> 
                             @endforeach
                             </select>
-                           <span class="text-danger"> @error('r_user_name') {{ $message }}@enderror</span>
+                           <span class="text-danger"> @error('r_user') {{ $message }}@enderror</span>
                        </div>
                     </div>
                
