@@ -282,6 +282,5 @@
     @endforeach
 </div>
 @include('modals.edit-modal')
-@include('modals.reuse-modal')
 @include('modals.update-modal')
 </div>

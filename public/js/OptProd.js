@@ -7,14 +7,6 @@ document.getElementById("sProd").style.display = "block";
 document.getElementById("cProd").style.display = "none";
 }
 //Re-Issue Product
-document.getElementById("r_cdept").onclick = function() {
-document.getElementById("r_idept").style.display = "none";
-document.getElementById("r_sdept").disabled = false;
-document.getElementById("r_idept").disabled = true;
-document.getElementById("r_sdept").style.display = "block";
-document.getElementById("r_cdept").style.display = "none";
-}
-
 
 document.getElementById("r_H_cdept").onclick = function() {
 document.getElementById("r_H_idept").style.display = "none";
@@ -23,15 +15,6 @@ document.getElementById("r_H_idept").disabled = true;
 document.getElementById("r_H_sdept").style.display = "block";
 document.getElementById("r_H_cdept").style.display = "none";
 }
-
-document.getElementById("r_cdes").onclick = function() {
-document.getElementById("r_ides").style.display = "none";
-document.getElementById("r_sdes").disabled = false;
-document.getElementById("r_ides").disabled = true;
-document.getElementById("r_sdes").style.display = "block";
-document.getElementById("r_cdes").style.display = "none";
-}
-
 
 document.getElementById("r_H_cdes").onclick = function() {
 document.getElementById("r_H_ides").style.display = "none";

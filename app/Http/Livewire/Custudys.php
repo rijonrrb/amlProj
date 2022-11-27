@@ -11,6 +11,7 @@ use App\Models\Dairy;
 use App\Models\Dredging;
 use App\Models\Suger;
 use App\Models\Dept;
+use App\Models\Userslist;
 use App\Models\Log;
 use Carbon\Carbon;
 use Livewire\WithPagination;
@@ -37,6 +38,7 @@ class Custudys extends Component
     {
 
         return view('livewire.custudys',[
+            'Userlists'=>Userslist::orderBy('name','asc')->get(),
             'Warrenty' => $this->byWarrenty,
             'total_items'=> Itcus::select('item')->selectRaw('count(*) as count')->groupBy('item')->get(),
             'Itcuss'=>Itcus::when($this->byPtype,function($query){
@@ -283,11 +285,7 @@ class Custudys extends Component
 
 public function OpenReuseModal($id){
     $info = Itcus::find($id);
-    $this->r_user_name = '';
-    $this->r_desigation = '';
-    $this->r_dept = '';
-    $this->r_wstation = '';
-    $this->r_unit = '';
+    $this->r_user = '';
     $this->r_H_user = '';
     $this->r_H_designation = '';
     $this->r_H_dept = '';
@@ -299,21 +297,13 @@ public function OpenReuseModal($id){
 }
 public function reuseProd(){
     $this->validate([
-        "r_user_name"=>"required",
-        "r_desigation"=>"required",
-        "r_dept"=>"required",
-        "r_unit"=>"required",
-        "r_wstation"=>"required",
+        "r_user"=>"required",
         "r_H_user"=>"required",
         "r_H_designation"=>"required",
         "r_H_dept"=>"required",
         "r_H_wstation"=>"required"
     ],
-    ['r_user_name.required'=>"The User Name field is required.",
-    'r_desigation.required'=>"The Designation field is required.",
-    'r_dept.required'=>"The Department field is required.",
-    'r_wstation.required'=>"The Work Station field is required.",
-    'r_unit.required'=>"The Unit field is required.",
+    ['r_user.required'=>"The User field is required.",
     'r_H_user.required'=>"The User Name field is required.",
     'r_H_designation.required'=>"The Designation field is required.",
     'r_H_dept.required'=>"The Department field is required.",
@@ -325,6 +315,7 @@ public function reuseProd(){
     $ip = file_get_contents('https://api.ipify.org/?format=text');
     $rid = $this->rid;
     $info = Itcus::find($rid);
+    $userinfo = Userslist::find($this->r_user);
     if (empty($info->previous_user))
     {
         $previous_user = '';
@@ -346,14 +337,14 @@ public function reuseProd(){
 
 
     //Data Inserted Igloo Ice Cream Unit
-    if($this->r_unit == "Igloo Ice Cream Unit")
+    if($userinfo->unit == "Igloo Ice Cream Unit")
     {
         $update = Country::insert([
-            'user_name'=>$this->r_user_name,
-            'desigation'=>$this->r_desigation,
-            'dept'=>$this->r_dept,
-            'wstation'=>$this->r_wstation,
-            'unit'=>$this->r_unit,
+            'user_name'=>$userinfo->name,
+            'desigation'=>$userinfo->desigation,
+            'dept'=>$userinfo->dept,
+            'wstation'=>$userinfo->wstation,
+            'unit'=>$userinfo->unit,
             'item'=>$info->item,
             'laptop_name'=>$info->laptop_name,
             'asset_no'=>$info->asset_no,
@@ -369,14 +360,14 @@ public function reuseProd(){
         ]);
     }
     //Data Inserted AML Beverage Unit
-    elseif($this->r_unit == "AML Beverage Unit")
+    elseif($userinfo->unit == "AML Beverage Unit")
     {
         $update = Beverage::insert([
-            'user_name'=>$this->r_user_name,
-            'desigation'=>$this->r_desigation,
-            'dept'=>$this->r_dept,
-            'wstation'=>$this->r_wstation,
-            'unit'=>$this->r_unit,
+            'user_name'=>$userinfo->name,
+            'desigation'=>$userinfo->desigation,
+            'dept'=>$userinfo->dept,
+            'wstation'=>$userinfo->wstation,
+            'unit'=>$userinfo->unit,
             'item'=>$info->item,
             'laptop_name'=>$info->laptop_name,
             'asset_no'=>$info->asset_no,
@@ -392,14 +383,14 @@ public function reuseProd(){
         ]);
     }
     //Data Inserted AML Sugar Refinery Unit
-    elseif($this->r_unit == "AML Sugar Refinery Unit")
+    elseif($userinfo->unit == "AML Sugar Refinery Unit")
     {
         $update = Suger::insert([
-            'user_name'=>$this->r_user_name,
-            'desigation'=>$this->r_desigation,
-            'dept'=>$this->r_dept,
-            'wstation'=>$this->r_wstation,
-            'unit'=>$this->r_unit,
+            'user_name'=>$userinfo->name,
+            'desigation'=>$userinfo->desigation,
+            'dept'=>$userinfo->dept,
+            'wstation'=>$userinfo->wstation,
+            'unit'=>$userinfo->unit,
             'item'=>$info->item,
             'laptop_name'=>$info->laptop_name,
             'asset_no'=>$info->asset_no,
@@ -415,14 +406,14 @@ public function reuseProd(){
         ]);
     }
     //Data Inserted AML Construction Unit
-    elseif($this->r_unit == "AML Construction Unit")
+    elseif($userinfo->unit == "AML Construction Unit")
     {
         $update = Construction::insert([
-            'user_name'=>$this->r_user_name,
-            'desigation'=>$this->r_desigation,
-            'dept'=>$this->r_dept,
-            'wstation'=>$this->r_wstation,
-            'unit'=>$this->r_unit,
+            'user_name'=>$userinfo->name,
+            'desigation'=>$userinfo->desigation,
+            'dept'=>$userinfo->dept,
+            'wstation'=>$userinfo->wstation,
+            'unit'=>$userinfo->unit,
             'item'=>$info->item,
             'laptop_name'=>$info->laptop_name,
             'asset_no'=>$info->asset_no,
@@ -438,14 +429,14 @@ public function reuseProd(){
         ]);
     }
     //Data Inserted Igloo Foods Unit
-    elseif($this->r_unit == "Igloo Foods Unit")
+    elseif($userinfo->unit == "Igloo Foods Unit")
     {
         $update = Food::insert([
-            'user_name'=>$this->r_user_name,
-            'desigation'=>$this->r_desigation,
-            'dept'=>$this->r_dept,
-            'wstation'=>$this->r_wstation,
-            'unit'=>$this->r_unit,
+            'user_name'=>$userinfo->name,
+            'desigation'=>$userinfo->desigation,
+            'dept'=>$userinfo->dept,
+            'wstation'=>$userinfo->wstation,
+            'unit'=>$userinfo->unit,
             'item'=>$info->item,
             'laptop_name'=>$info->laptop_name,
             'asset_no'=>$info->asset_no,
@@ -461,14 +452,14 @@ public function reuseProd(){
         ]);
     }
     //Data Inserted Igloo Dairy Unit
-    elseif($this->r_unit == "Igloo Dairy Unit")
+    elseif($userinfo->r_unit == "Igloo Dairy Unit")
     {
         $update = Dairy::insert([
-            'user_name'=>$this->r_user_name,
-            'desigation'=>$this->r_desigation,
-            'dept'=>$this->r_dept,
-            'wstation'=>$this->r_wstation,
-            'unit'=>$this->r_unit,
+            'user_name'=>$userinfo->r_user_name,
+            'desigation'=>$userinfo->r_desigation,
+            'dept'=>$userinfo->r_dept,
+            'wstation'=>$userinfo->r_wstation,
+            'unit'=>$userinfo->r_unit,
             'item'=>$info->item,
             'laptop_name'=>$info->laptop_name,
             'asset_no'=>$info->asset_no,
@@ -484,14 +475,14 @@ public function reuseProd(){
         ]);
     }
     //Data Inserted AML Dredging Unit
-    elseif($this->r_unit == "AML Dredging Unit")
+    elseif($userinfo->r_unit == "AML Dredging Unit")
     {
         $update = Dredging::insert([
-            'user_name'=>$this->r_user_name,
-            'desigation'=>$this->r_desigation,
-            'dept'=>$this->r_dept,
-            'wstation'=>$this->r_wstation,
-            'unit'=>$this->r_unit,
+            'user_name'=>$userinfo->r_user_name,
+            'desigation'=>$userinfo->r_desigation,
+            'dept'=>$userinfo->r_dept,
+            'wstation'=>$userinfo->r_wstation,
+            'unit'=>$userinfo->r_unit,
             'item'=>$info->item,
             'laptop_name'=>$info->laptop_name,
             'asset_no'=>$info->asset_no,
@@ -507,14 +498,14 @@ public function reuseProd(){
         ]);
     }
     //Data Inserted AML Bran Oil Unit
-    elseif($this->r_unit == "AML Bran Oil Unit")
+    elseif($userinfo->r_unit == "AML Bran Oil Unit")
     {
         $update = Branoil::insert([
-            'user_name'=>$this->r_user_name,
-            'desigation'=>$this->r_desigation,
-            'dept'=>$this->r_dept,
-            'wstation'=>$this->r_wstation,
-            'unit'=>$this->r_unit,
+            'user_name'=>$userinfo->r_user_name,
+            'desigation'=>$userinfo->r_desigation,
+            'dept'=>$userinfo->r_dept,
+            'wstation'=>$userinfo->r_wstation,
+            'unit'=>$userinfo->r_unit,
             'item'=>$info->item,
             'laptop_name'=>$info->laptop_name,
             'asset_no'=>$info->asset_no,
