@@ -160,24 +160,24 @@
                         <td><input type="checkbox" value="{{ $Construction->id }}" wire:model="checkedConstruction"></td>
                         @endif
                         <td>{{ $i++ }}</td>
-                        <td  data-id="{{ $Construction->id }}" data-column="user_name" >{{ $Construction->user_name }}</td>
-                        <td  data-id="{{ $Construction->id }}" data-column="desigation" >{{ $Construction->desigation }}</td>
-                        <td  data-id="{{ $Construction->id }}" data-column="dept" >{{ $Construction->dept }}</td>
-                        <td  data-id="{{ $Construction->id }}" data-column="wstation" >{{ $Construction->wstation }}</td>
-                        <td  data-id="{{ $Construction->id }}" data-column="unit" >{{ $Construction->unit }}</td>
-                        <td  data-id="{{ $Construction->id }}" data-column="item" >{{ $Construction->item }}</td>
-                        <td  data-id="{{ $Construction->id }}" data-column="laptop_name" >{{ $Construction->laptop_name }}</td>
-                        <td  data-id="{{ $Construction->id }}" data-column="asset_no" >{{ $Construction->asset_no }}</td>
-                        <td  data-id="{{ $Construction->id }}" data-column="serial_no" >{{ $Construction->serial_no }}</td>
+                        <td  data-id="{{ $Construction->id }}" data-column="user_name" style="white-space: nowrap;">{{ $Construction->user_name }}</td>
+                        <td  data-id="{{ $Construction->id }}" data-column="desigation" style="white-space: nowrap;">{{ $Construction->desigation }}</td>
+                        <td  data-id="{{ $Construction->id }}" data-column="dept" style="white-space: nowrap;">{{ $Construction->dept }}</td>
+                        <td  data-id="{{ $Construction->id }}" data-column="wstation" style="white-space: nowrap;">{{ $Construction->wstation }}</td>
+                        <td  data-id="{{ $Construction->id }}" data-column="unit" style="white-space: nowrap;">{{ $Construction->unit }}</td>
+                        <td  data-id="{{ $Construction->id }}" data-column="item" style="white-space: nowrap;">{{ $Construction->item }}</td>
+                        <td  data-id="{{ $Construction->id }}" data-column="laptop_name" style="white-space: nowrap;">{{ $Construction->laptop_name }}</td>
+                        <td  data-id="{{ $Construction->id }}" data-column="asset_no" style="white-space: nowrap;">{{ $Construction->asset_no }}</td>
+                        <td  data-id="{{ $Construction->id }}" data-column="serial_no" style="white-space: nowrap;">{{ $Construction->serial_no }}</td>
                         <td  data-id="{{ $Construction->id }}" data-column="previous_user" >{{ $Construction->previous_user }}</td>
                         <td  data-id="{{ $Construction->id }}" data-column="issue_date" >{{ $Construction->issue_date }}</td>
                         <td  data-id="{{ $Construction->id }}" data-column="p_issue_date" >{{ $Construction->p_issue_date }}</td>
                         <td  data-id="{{ $Construction->id }}" data-column="configuration" >{{ $Construction->configuration }}</td>
-                        <td  data-id="{{ $Construction->id }}" data-column="warrenty_start" >{{ $Construction->warrenty_start }}</td>
+                        <td  data-id="{{ $Construction->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Construction->warrenty_start }}</td>
                         @if( strtotime($Construction->warrenty_end) <= strtotime($date) && $Construction->warrenty_end != Null)
-                        <td  data-id="{{ $Construction->id }}" class="text-white bg-danger" data-column="warrenty_end" >{{ $Construction->warrenty_end }}</td>
+                        <td  data-id="{{ $Construction->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Construction->warrenty_end }}</td>
                         @else
-                        <td  data-id="{{ $Construction->id }}" data-column="warrenty_end" >{{ $Construction->warrenty_end }}</td>
+                        <td  data-id="{{ $Construction->id }}" data-column="warrenty_end" style="white-space: nowrap;">{{ $Construction->warrenty_end }}</td>
                         @endif
                         @if(Session::get('admin_type') == "SAdmin")
                         <td>

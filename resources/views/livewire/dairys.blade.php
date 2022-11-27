@@ -160,24 +160,24 @@
                     <td><input type="checkbox" value="{{ $Dairy->id }}" wire:model="checkedDairy"></td>
                     @endif
 					<td>{{$i++}}</td>
-					<td  data-id="{{ $Dairy->id }}" data-column="user_name" >{{ $Dairy->user_name }}</td>
-					<td  data-id="{{ $Dairy->id }}" data-column="desigation" >{{ $Dairy->desigation }}</td>
-					<td  data-id="{{ $Dairy->id }}" data-column="dept" >{{ $Dairy->dept }}</td>
-					<td  data-id="{{ $Dairy->id }}" data-column="wstation" >{{ $Dairy->wstation }}</td>
-					<td  data-id="{{ $Dairy->id }}" data-column="unit" >{{ $Dairy->unit }}</td>
-					<td  data-id="{{ $Dairy->id }}" data-column="item" >{{ $Dairy->item }}</td>
-					<td  data-id="{{ $Dairy->id }}" data-column="laptop_name" >{{ $Dairy->laptop_name }}</td>
-					<td  data-id="{{ $Dairy->id }}" data-column="asset_no" >{{ $Dairy->asset_no }}</td>
-					<td  data-id="{{ $Dairy->id }}" data-column="serial_no" >{{ $Dairy->serial_no }}</td>
+					<td  data-id="{{ $Dairy->id }}" data-column="user_name" style="white-space: nowrap;">{{ $Dairy->user_name }}</td>
+					<td  data-id="{{ $Dairy->id }}" data-column="desigation" style="white-space: nowrap;">{{ $Dairy->desigation }}</td>
+					<td  data-id="{{ $Dairy->id }}" data-column="dept" style="white-space: nowrap;">{{ $Dairy->dept }}</td>
+					<td  data-id="{{ $Dairy->id }}" data-column="wstation" style="white-space: nowrap;">{{ $Dairy->wstation }}</td>
+					<td  data-id="{{ $Dairy->id }}" data-column="unit" style="white-space: nowrap;">{{ $Dairy->unit }}</td>
+					<td  data-id="{{ $Dairy->id }}" data-column="item" style="white-space: nowrap;">{{ $Dairy->item }}</td>
+					<td  data-id="{{ $Dairy->id }}" data-column="laptop_name" style="white-space: nowrap;">{{ $Dairy->laptop_name }}</td>
+					<td  data-id="{{ $Dairy->id }}" data-column="asset_no" style="white-space: nowrap;">{{ $Dairy->asset_no }}</td>
+					<td  data-id="{{ $Dairy->id }}" data-column="serial_no" style="white-space: nowrap;">{{ $Dairy->serial_no }}</td>
 					<td  data-id="{{ $Dairy->id }}" data-column="previous_user" >{{ $Dairy->previous_user }}</td>
 					<td  data-id="{{ $Dairy->id }}" data-column="issue_date" >{{ $Dairy->issue_date }}</td>
 					<td  data-id="{{ $Dairy->id }}" data-column="p_issue_date" >{{ $Dairy->p_issue_date }}</td>
 					<td  data-id="{{ $Dairy->id }}" data-column="configuration" >{{ $Dairy->configuration }}</td>
-					<td  data-id="{{ $Dairy->id }}" data-column="warrenty_start" >{{ $Dairy->warrenty_start }}</td>
+					<td  data-id="{{ $Dairy->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Dairy->warrenty_start }}</td>
 					@if( strtotime($Dairy->warrenty_end) <= strtotime($date) && $Dairy->warrenty_end != Null)
-					<td  data-id="{{ $Dairy->id }}" class="text-white bg-danger" data-column="warrenty_end" >{{ $Dairy->warrenty_end }}</td>
+					<td  data-id="{{ $Dairy->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Dairy->warrenty_end }}</td>
 					@else
-					<td  data-id="{{ $Dairy->id }}" data-column="warrenty_end" >{{ $Dairy->warrenty_end }}</td>
+					<td  data-id="{{ $Dairy->id }}" data-column="warrenty_end" style="white-space: nowrap;">{{ $Dairy->warrenty_end }}</td>
 					@endif
                     @if(Session::get('admin_type') == "SAdmin")
                     <td>

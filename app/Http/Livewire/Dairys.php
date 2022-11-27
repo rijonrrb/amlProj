@@ -273,7 +273,8 @@ public function OpenReturnCountryModal($id){
 public function update(){
  
     date_default_timezone_set('Asia/Dhaka');
-    $time =  date('d F Y h:i:s A');
+    $time =  date('d F Y');
+    $timeLog =date('d F Y h:i:s A');
     $cid = $this->cid;
     $ip = file_get_contents('https://api.ipify.org/?format=text');
     $info = Dairy::find($cid);
@@ -337,7 +338,7 @@ public function update(){
             'email'=>Session::get('email'),
             'activity'=>"Return Product",
             'afield'=>"Igloo Dairy",
-            'time'=>$time,
+            'time'=>$timeLog,
             'ip'=> $ip,
         ]);
     }

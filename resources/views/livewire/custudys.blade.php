@@ -29,21 +29,6 @@
         </select>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
-        <label for="" style="color:#c94c4c"><b>Unit</b></label>
-        <select  class="form-control">
-            <option value="">Select Option</option>
-            <option value="Igloo Ice Cream Unit">Igloo Ice Cream Unit</option>
-            <option value="Igloo Itcus Unit">Igloo Itcus Unit</option>
-            <option value="Igloo Foods Unit">Igloo Foods Unit</option>
-            <option value="AML Construction Unit">AML Construction Unit</option>
-            <option value="AML Dredging Unit">AML Dredging Unit</option>
-            <option value="AML Sugar Refinery Unit">AML Sugar Refinery Unit</option>
-            <option value="AML Beverage Unit">AML Beverage Unit</option>
-            <option value="AML Bran Oil Unit">AML Bran Oil Unit</option>
-
-        </select>
-    </div>
-    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
         <label for="" style="color:#c94c4c"><b>Product Type</b></label>
         <select class="form-control" wire:model="byPtype">
             <option value="">Select Product Type</option>
@@ -71,6 +56,14 @@
         </select>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
+        <label for="" style="color:#c94c4c"><b>Warrenty</b></label>
+        <select class="form-control" wire:model="byWarrenty">
+            <option value="">Select Option</option>
+            <option value="expire">Expired</option>
+            <option value="active">Active</option>
+        </select>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
         <label for="" style="color:#c94c4c"><b>Order By</b></label>
         <select class="form-control" wire:model="orderBy">
             <option value="unit">Unit</option>
@@ -95,7 +88,7 @@
     </div>
 </div>
 <div style="overflow-x:auto;" class="card-body">
-    <table class="table table-hover table-bordered" id="Itcus">
+    <table class="table table-hover table-responsive table-bordered" id="Itcus">
         <thead class="thead-inverse">
             <tr>
                 @if(Session::get('admin_type') == "SAdmin")
@@ -154,20 +147,26 @@
                 <td><input type="checkbox" value="{{ $Itcus->id }}" wire:model="checkedItcus"></td>
                 @endif
                 <td>{{$i++}}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="item" >{{ $Itcus->item }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="laptop_name" >{{ $Itcus->laptop_name }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="asset_no" >{{ $Itcus->asset_no }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="serial_no" >{{ $Itcus->serial_no }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="entry_date" >{{ $Itcus->entry_date }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="item" style="white-space: nowrap;">{{ $Itcus->item }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="laptop_name" style="white-space: nowrap;">{{ $Itcus->laptop_name }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="asset_no" style="white-space: nowrap;">{{ $Itcus->asset_no }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="serial_no" style="white-space: nowrap;">{{ $Itcus->serial_no }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="entry_date" style="white-space: nowrap;">{{ $Itcus->entry_date }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="previous_user" >{{ $Itcus->previous_user }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="p_issue_date" >{{ $Itcus->p_issue_date }}</td>
                 <td  data-id="{{ $Itcus->id }}" data-column="configuration" >{{ $Itcus->configuration }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="condition" >{{ $Itcus->condition }}</td>
-                <td  data-id="{{ $Itcus->id }}" data-column="warrenty_start" >{{ $Itcus->warrenty_start }}</td>
+                @if( $Itcus->condition == "Good")
+                <td  data-id="{{ $Itcus->id }}" class="text-white bg-success" data-column="condition" >{{ $Itcus->condition }}</td>
+                @elseif( $Itcus->condition == "Damaged")
+                <td  data-id="{{ $Itcus->id }}" class="text-black bg-warning" data-column="condition" >{{ $Itcus->condition }}</td>
+                @elseif( $Itcus->condition == "Out of order")
+                <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="condition" >{{ $Itcus->condition }}</td>
+                @endif
+                <td  data-id="{{ $Itcus->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Itcus->warrenty_start }}</td>
                 @if( strtotime($Itcus->warrenty_end) <= strtotime($date) && $Itcus->warrenty_end != Null)
-                <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="warrenty_end" >{{ $Itcus->warrenty_end }}</td>
+                <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
                 @else
-                <td  data-id="{{ $Itcus->id }}" data-column="warrenty_end" >{{ $Itcus->warrenty_end }}</td>
+                <td  data-id="{{ $Itcus->id }}" class="text-white bg-primary" data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
                 @endif
                 @if(Session::get('admin_type') == "SAdmin")
                     <td>

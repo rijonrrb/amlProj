@@ -164,17 +164,17 @@
                         <td><input type="checkbox" value="{{ $User->id }}" wire:model="checkedUser"></td>
                         @endif                     
                         <td>{{$i++}}</td>
-                        <td  data-id="{{ $User->id }}" data-column="userid" >{{ $User->userid }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="name" >{{ $User->name }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="email" >{{ $User->email }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="phone" >{{ $User->phone }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="desigation" >{{ $User->desigation }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="dept" >{{ $User->dept }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="wstation" >{{ $User->wstation }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="unit" >{{ $User->unit }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="asset_no" >{{ $User->asset_no }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="ip" >{{ $User->ip }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="vpn" >{{ $User->vpn }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="userid" style="white-space: nowrap;">{{ $User->userid }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="name" style="white-space: nowrap;">{{ $User->name }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="email" style="white-space: nowrap;">{{ $User->email }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="phone" style="white-space: nowrap;">{{ $User->phone }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="desigation" style="white-space: nowrap;">{{ $User->desigation }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="dept" style="white-space: nowrap;">{{ $User->dept }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="wstation" style="white-space: nowrap;">{{ $User->wstation }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="unit" style="white-space: nowrap;">{{ $User->unit }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="asset_no" style="white-space: nowrap;">{{ $User->asset_no }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="ip" style="white-space: nowrap;">{{ $User->ip }}</td>
+                        <td  data-id="{{ $User->id }}" data-column="vpn" style="white-space: nowrap;">{{ $User->vpn }}</td>
                         @if(Session::get('admin_type') == "SAdmin")                
                         <td>
                             <div class="btn-group container">

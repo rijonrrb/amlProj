@@ -160,24 +160,24 @@
 					<td><input type="checkbox" value="{{ $Branoil->id }}" wire:model="checkedBranoil"></td>
 					@endif
 					<td>{{$i++}}</td>
-					<td  data-id="{{ $Branoil->id }}" data-column="user_name" >{{ $Branoil->user_name }}</td>
-					<td  data-id="{{ $Branoil->id }}" data-column="desigation" >{{ $Branoil->desigation }}</td>
-					<td  data-id="{{ $Branoil->id }}" data-column="dept" >{{ $Branoil->dept }}</td>
-					<td  data-id="{{ $Branoil->id }}" data-column="wstation" >{{ $Branoil->wstation }}</td>
-					<td  data-id="{{ $Branoil->id }}" data-column="unit" >{{ $Branoil->unit }}</td>
-					<td  data-id="{{ $Branoil->id }}" data-column="item" >{{ $Branoil->item }}</td>
-					<td  data-id="{{ $Branoil->id }}" data-column="laptop_name" >{{ $Branoil->laptop_name }}</td>
-					<td  data-id="{{ $Branoil->id }}" data-column="asset_no" >{{ $Branoil->asset_no }}</td>
-					<td  data-id="{{ $Branoil->id }}" data-column="serial_no" >{{ $Branoil->serial_no }}</td>
+					<td  data-id="{{ $Branoil->id }}" data-column="user_name" style="white-space: nowrap;">{{ $Branoil->user_name }}</td>
+					<td  data-id="{{ $Branoil->id }}" data-column="desigation" style="white-space: nowrap;">{{ $Branoil->desigation }}</td>
+					<td  data-id="{{ $Branoil->id }}" data-column="dept" style="white-space: nowrap;">{{ $Branoil->dept }}</td>
+					<td  data-id="{{ $Branoil->id }}" data-column="wstation" style="white-space: nowrap;">{{ $Branoil->wstation }}</td>
+					<td  data-id="{{ $Branoil->id }}" data-column="unit" style="white-space: nowrap;">{{ $Branoil->unit }}</td>
+					<td  data-id="{{ $Branoil->id }}" data-column="item" style="white-space: nowrap;">{{ $Branoil->item }}</td>
+					<td  data-id="{{ $Branoil->id }}" data-column="laptop_name" style="white-space: nowrap;">{{ $Branoil->laptop_name }}</td>
+					<td  data-id="{{ $Branoil->id }}" data-column="asset_no" style="white-space: nowrap;">{{ $Branoil->asset_no }}</td>
+					<td  data-id="{{ $Branoil->id }}" data-column="serial_no" style="white-space: nowrap;">{{ $Branoil->serial_no }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="previous_user" >{{ $Branoil->previous_user }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="issue_date" >{{ $Branoil->issue_date }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="p_issue_date" >{{ $Branoil->p_issue_date }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="configuration" >{{ $Branoil->configuration }}</td>
-					<td  data-id="{{ $Branoil->id }}" data-column="warrenty_start" >{{ $Branoil->warrenty_start }}</td>
+					<td  data-id="{{ $Branoil->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Branoil->warrenty_start }}</td>
 					@if( strtotime($Branoil->warrenty_end) <= strtotime($date) && $Branoil->warrenty_end != Null)
-					<td  data-id="{{ $Branoil->id }}" class="text-white bg-danger" data-column="warrenty_end" >{{ $Branoil->warrenty_end }}</td>
+					<td  data-id="{{ $Branoil->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Branoil->warrenty_end }}</td>
 					@else
-					<td  data-id="{{ $Branoil->id }}" data-column="warrenty_end" >{{ $Branoil->warrenty_end }}</td>
+					<td  data-id="{{ $Branoil->id }}" data-column="warrenty_end" style="white-space: nowrap;">{{ $Branoil->warrenty_end }}</td>
 					@endif
 					@if(Session::get('admin_type') == "SAdmin")
 					<td>

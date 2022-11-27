@@ -160,24 +160,24 @@
                     <td><input type="checkbox" value="{{ $country->id }}" wire:model="checkedCountry"></td>
                     @endif
 					<td>{{ $i++ }}</td>
-					<td  data-id="{{ $country->id }}" data-column="user_name" >{{ $country->user_name }}</td>
-					<td  data-id="{{ $country->id }}" data-column="desigation" >{{ $country->desigation }}</td>
-					<td  data-id="{{ $country->id }}" data-column="dept" >{{ $country->dept }}</td>
-					<td  data-id="{{ $country->id }}" data-column="wstation" >{{ $country->wstation }}</td>
-					<td  data-id="{{ $country->id }}" data-column="unit" >{{ $country->unit }}</td>
-					<td  data-id="{{ $country->id }}" data-column="item" >{{ $country->item }}</td>
-					<td  data-id="{{ $country->id }}" data-column="laptop_name" >{{ $country->laptop_name }}</td>
-					<td  data-id="{{ $country->id }}" data-column="asset_no" >{{ $country->asset_no }}</td>
-					<td  data-id="{{ $country->id }}" data-column="serial_no" >{{ $country->serial_no }}</td>
+					<td  data-id="{{ $country->id }}" data-column="user_name" style="white-space: nowrap;">{{ $country->user_name }}</td>
+					<td  data-id="{{ $country->id }}" data-column="desigation" style="white-space: nowrap;">{{ $country->desigation }}</td>
+					<td  data-id="{{ $country->id }}" data-column="dept" style="white-space: nowrap;">{{ $country->dept }}</td>
+					<td  data-id="{{ $country->id }}" data-column="wstation" style="white-space: nowrap;">{{ $country->wstation }}</td>
+					<td  data-id="{{ $country->id }}" data-column="unit" style="white-space: nowrap;">{{ $country->unit }}</td>
+					<td  data-id="{{ $country->id }}" data-column="item" style="white-space: nowrap;">{{ $country->item }}</td>
+					<td  data-id="{{ $country->id }}" data-column="laptop_name" style="white-space: nowrap;">{{ $country->laptop_name }}</td>
+					<td  data-id="{{ $country->id }}" data-column="asset_no" style="white-space: nowrap;">{{ $country->asset_no }}</td>
+					<td  data-id="{{ $country->id }}" data-column="serial_no" style="white-space: nowrap;">{{ $country->serial_no }}</td>
 					<td  data-id="{{ $country->id }}" data-column="previous_user" >{{ $country->previous_user }}</td>
 					<td  data-id="{{ $country->id }}" data-column="issue_date" >{{ $country->issue_date }}</td>
 					<td  data-id="{{ $country->id }}" data-column="p_issue_date" >{{ $country->p_issue_date }}</td>
 					<td  data-id="{{ $country->id }}" data-column="configuration" >{{ $country->configuration }}</td>
-					<td  data-id="{{ $country->id }}" data-column="warrenty_start" >{{ $country->warrenty_start }}</td>
+					<td  data-id="{{ $country->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $country->warrenty_start }}</td>
 					@if( strtotime($country->warrenty_end) <= strtotime($date) && $country->warrenty_end != Null)
-					<td  data-id="{{ $country->id }}" class="text-white bg-danger" data-column="warrenty_end" >{{ $country->warrenty_end }}</td>
+					<td  data-id="{{ $country->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $country->warrenty_end }}</td>
 					@else
-					<td  data-id="{{ $country->id }}" data-column="warrenty_end" >{{ $country->warrenty_end }}</td>
+					<td  data-id="{{ $country->id }}" data-column="warrenty_end" style="white-space: nowrap;">{{ $country->warrenty_end }}</td>
 					@endif
                     @if(Session::get('admin_type') == "SAdmin")
                     <td>

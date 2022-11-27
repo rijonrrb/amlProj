@@ -330,7 +330,8 @@ class Beverages extends Component
     public function update(){
        
         date_default_timezone_set('Asia/Dhaka');
-        $time =  date('d F Y h:i:s A');
+        $time =  date('d F Y');
+        $timeLog =date('d F Y h:i:s A');
         $cid = $this->cid;
         $info = Beverage::find($cid);
         $ip = file_get_contents('https://api.ipify.org/?format=text');
@@ -413,7 +414,7 @@ class Beverages extends Component
                 'email'=>Session::get('email'),
                 'activity'=>"Return Product",
                 'afield'=>"AML Beverage",
-                'time'=>$time,
+                'time'=>$timeLog,
                 'ip'=> $ip,
             ]);
         }

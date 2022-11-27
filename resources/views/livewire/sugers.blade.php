@@ -160,24 +160,24 @@
                         <td><input type="checkbox" value="{{ $Suger->id }}" wire:model="checkedSuger"></td>
                         @endif
                         <td>{{$i++}}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="user_name" >{{ $Suger->user_name }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="desigation" >{{ $Suger->desigation }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="dept" >{{ $Suger->dept }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="wstation" >{{ $Suger->wstation }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="unit" >{{ $Suger->unit }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="item" >{{ $Suger->item }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="laptop_name" >{{ $Suger->laptop_name }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="asset_no" >{{ $Suger->asset_no }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="serial_no" >{{ $Suger->serial_no }}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="user_name" style="white-space: nowrap;">{{ $Suger->user_name }}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="desigation" style="white-space: nowrap;">{{ $Suger->desigation }}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="dept" style="white-space: nowrap;">{{ $Suger->dept }}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="wstation" style="white-space: nowrap;">{{ $Suger->wstation }}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="unit" style="white-space: nowrap;">{{ $Suger->unit }}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="item" style="white-space: nowrap;">{{ $Suger->item }}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="laptop_name" style="white-space: nowrap;">{{ $Suger->laptop_name }}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="asset_no" style="white-space: nowrap;">{{ $Suger->asset_no }}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="serial_no" style="white-space: nowrap;">{{ $Suger->serial_no }}</td>
                         <td  data-id="{{ $Suger->id }}" data-column="previous_user" >{{ $Suger->previous_user }}</td>
                         <td  data-id="{{ $Suger->id }}" data-column="issue_date" >{{ $Suger->issue_date }}</td>
                         <td  data-id="{{ $Suger->id }}" data-column="p_issue_date" >{{ $Suger->p_issue_date }}</td>
                         <td  data-id="{{ $Suger->id }}" data-column="configuration" >{{ $Suger->configuration }}</td>
-                        <td  data-id="{{ $Suger->id }}" data-column="warrenty_start" >{{ $Suger->warrenty_start }}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Suger->warrenty_start }}</td>
                         @if( strtotime($Suger->warrenty_end) <= strtotime($date) && $Suger->warrenty_end != Null)
-                        <td  data-id="{{ $Suger->id }}" class="text-white bg-danger" data-column="warrenty_end" >{{ $Suger->warrenty_end }}</td>
+                        <td  data-id="{{ $Suger->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Suger->warrenty_end }}</td>
                         @else
-                        <td  data-id="{{ $Suger->id }}" data-column="warrenty_end" >{{ $Suger->warrenty_end }}</td>
+                        <td  data-id="{{ $Suger->id }}" data-column="warrenty_end" style="white-space: nowrap;">{{ $Suger->warrenty_end }}</td>
                         @endif
                         @if(Session::get('admin_type') == "SAdmin")
                         <td>

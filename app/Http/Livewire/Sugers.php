@@ -272,7 +272,8 @@ public function OpenReturnCountryModal($id){
 public function update(){
  
     date_default_timezone_set('Asia/Dhaka');
-    $time =  date('d F Y h:i:s A');
+    $time =  date('d F Y');
+    $timeLog =date('d F Y h:i:s A');
     $ip = file_get_contents('https://api.ipify.org/?format=text');
     $cid = $this->cid;
     $info = Suger::find($cid);
@@ -409,7 +410,7 @@ public function updateRow(){
             'email'=>Session::get('email'),
             'activity'=>"Update",
             'afield'=>"AML Sugar Refinery",
-            'time'=>$time,
+            'time'=>$timeLog,
             'ip'=> $ip,
         ]);
     }

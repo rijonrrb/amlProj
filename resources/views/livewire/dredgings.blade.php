@@ -160,24 +160,24 @@
                     <td><input type="checkbox" value="{{ $Dredging->id }}" wire:model="checkedDredging"></td>
                     @endif
 					<td>{{$i++}}</td>
-					<td  data-id="{{ $Dredging->id }}" data-column="user_name" >{{ $Dredging->user_name }}</td>
-					<td  data-id="{{ $Dredging->id }}" data-column="desigation" >{{ $Dredging->desigation }}</td>
-					<td  data-id="{{ $Dredging->id }}" data-column="dept" >{{ $Dredging->dept }}</td>
-					<td  data-id="{{ $Dredging->id }}" data-column="wstation" >{{ $Dredging->wstation }}</td>
-					<td  data-id="{{ $Dredging->id }}" data-column="unit" >{{ $Dredging->unit }}</td>
-					<td  data-id="{{ $Dredging->id }}" data-column="item" >{{ $Dredging->item }}</td>
-					<td  data-id="{{ $Dredging->id }}" data-column="laptop_name" >{{ $Dredging->laptop_name }}</td>
-					<td  data-id="{{ $Dredging->id }}" data-column="asset_no" >{{ $Dredging->asset_no }}</td>
-					<td  data-id="{{ $Dredging->id }}" data-column="serial_no" >{{ $Dredging->serial_no }}</td>
+					<td  data-id="{{ $Dredging->id }}" data-column="user_name" style="white-space: nowrap;">{{ $Dredging->user_name }}</td>
+					<td  data-id="{{ $Dredging->id }}" data-column="desigation" style="white-space: nowrap;">{{ $Dredging->desigation }}</td>
+					<td  data-id="{{ $Dredging->id }}" data-column="dept" style="white-space: nowrap;">{{ $Dredging->dept }}</td>
+					<td  data-id="{{ $Dredging->id }}" data-column="wstation" style="white-space: nowrap;">{{ $Dredging->wstation }}</td>
+					<td  data-id="{{ $Dredging->id }}" data-column="unit" style="white-space: nowrap;">{{ $Dredging->unit }}</td>
+					<td  data-id="{{ $Dredging->id }}" data-column="item" style="white-space: nowrap;">{{ $Dredging->item }}</td>
+					<td  data-id="{{ $Dredging->id }}" data-column="laptop_name" style="white-space: nowrap;">{{ $Dredging->laptop_name }}</td>
+					<td  data-id="{{ $Dredging->id }}" data-column="asset_no" style="white-space: nowrap;">{{ $Dredging->asset_no }}</td>
+					<td  data-id="{{ $Dredging->id }}" data-column="serial_no" style="white-space: nowrap;">{{ $Dredging->serial_no }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="previous_user" >{{ $Dredging->previous_user }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="issue_date" >{{ $Dredging->issue_date }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="p_issue_date" >{{ $Dredging->p_issue_date }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="configuration" >{{ $Dredging->configuration }}</td>
-					<td  data-id="{{ $Dredging->id }}" data-column="warrenty_start" >{{ $Dredging->warrenty_start }}</td>
+					<td  data-id="{{ $Dredging->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Dredging->warrenty_start }}</td>
 					@if( strtotime($Dredging->warrenty_end) <= strtotime($date) && $Dredging->warrenty_end != Null)
-					<td  data-id="{{ $Dredging->id }}" class="text-white bg-danger" data-column="warrenty_end" >{{ $Dredging->warrenty_end }}</td>
+					<td  data-id="{{ $Dredging->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Dredging->warrenty_end }}</td>
 					@else
-					<td  data-id="{{ $Dredging->id }}" data-column="warrenty_end" >{{ $Dredging->warrenty_end }}</td>
+					<td  data-id="{{ $Dredging->id }}" data-column="warrenty_end" style="white-space: nowrap;">{{ $Dredging->warrenty_end }}</td>
 					@endif
                     @if(Session::get('admin_type') == "SAdmin")
                     <td>
