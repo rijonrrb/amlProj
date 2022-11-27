@@ -12,6 +12,7 @@ use App\Models\Dredging;
 use App\Models\Suger;
 use App\Models\Dept;
 use App\Models\Log;
+use Carbon\Carbon;
 use Livewire\WithPagination;
 use Session;
 use Illuminate\Support\Facades\DB;
@@ -22,16 +23,21 @@ class Custudys extends Component
     use WithPagination;
     protected $listeners = ['delete','deleteCheckedItcuss'];
     public $checkedItcus = [];
-    public $byUnit =null;
+    public $byWarrenty =null;
     public $byPtype =null;
     public $byPcond =null;
     public $perPage =20;
     public $orderBy = "item";
     public $sortBy = "asc";
     public $search;
+
+
+
     public function render()
     {
+
         return view('livewire.custudys',[
+            'Warrenty' => $this->byWarrenty,
             'total_items'=> Itcus::select('item')->selectRaw('count(*) as count')->groupBy('item')->get(),
             'Itcuss'=>Itcus::when($this->byPtype,function($query){
                 $query->where('item',$this->byPtype);
@@ -81,7 +87,6 @@ class Custudys extends Component
         {
             $expire = date('d-M-Y', strtotime($Date. '+'.$days.'days'));
         }
-        date_default_timezone_set('Asia/Dhaka');
         $asst = substr($this->item, 0,3)."-".rand(100,1000)."-".rand(10000,1000000);
         $next_id = uniqid('CUSTUDY', true);
         $ip = file_get_contents('https://api.ipify.org/?format=text');
@@ -97,7 +102,15 @@ class Custudys extends Component
         'laptop_name.required'=>"Product Model field is required.",
         'serial_no.required'=>"Product S/N field is required.",
         'condition.required'=>"Product condition is required."]
-    );
+       );
+       if($this->warrenty_start == '' )
+       {
+           $Sdays = Null;
+       }
+       else
+       {
+           $Sdays = date('d-M-Y', strtotime($this->warrenty_start));
+       } 
         $save = Itcus::insert([
             'item'=>$this->item,
             'laptop_name'=>$this->laptop_name,
@@ -108,7 +121,7 @@ class Custudys extends Component
             'p_issue_date'=>$this->p_issue_date,
             'configuration'=>$this->configuration,
             'condition'=>$this->condition,
-            'warrenty_start'=>date('d-M-Y', strtotime($this->warrenty_start)),
+            'warrenty_start'=>$Sdays,
             'warrenty_end'=> $expire,
             'sid'=> $next_id,
 

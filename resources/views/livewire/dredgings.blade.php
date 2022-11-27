@@ -170,7 +170,7 @@
 					<td  data-id="{{ $Dredging->id }}" data-column="asset_no" style="white-space: nowrap;">{{ $Dredging->asset_no }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="serial_no" style="white-space: nowrap;">{{ $Dredging->serial_no }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="previous_user" >{{ $Dredging->previous_user }}</td>
-					<td  data-id="{{ $Dredging->id }}" data-column="issue_date" >{{ $Dredging->issue_date }}</td>
+					<td  data-id="{{ $Dredging->id }}" data-column="issue_date" style="white-space: nowrap;">{{ $Dredging->issue_date }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="p_issue_date" >{{ $Dredging->p_issue_date }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="configuration" >{{ $Dredging->configuration }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Dredging->warrenty_start }}</td>

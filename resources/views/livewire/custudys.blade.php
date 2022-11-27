@@ -61,22 +61,20 @@
             <option value="">Select Option</option>
             <option value="expire">Expired</option>
             <option value="active">Active</option>
+</select>
         </select>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
         <label for="" style="color:#c94c4c"><b>Order By</b></label>
         <select class="form-control" wire:model="orderBy">
-            <option value="unit">Unit</option>
             <option value="item">Product</option>
             <option value="laptop_name">Product Model</option>
             <option value="asset_no">Asset No</option>
             <option value="serial_no">Serial No</option>
-            <option value="previous_user">Previous User</option>
-            <option value="issue_date">Issue date</option>
-            <option value="p_issue_date">Previous Issue Date</option>
-            <option value="configuration">Configuration</option>
+            <option value="entry_date">Product Entry Date</option>
             <option value="condition">Condition</option>
-            
+            <option value="warrenty_start">Warrenty Active Date</option>
+            <option value="warrenty_end">Warrenty Expire Date</option>
         </select>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-1 mt-1 mb-4">
@@ -139,6 +137,259 @@
             $i = 1;
             $date = date('d-M-Y');
             @endphp
+            @if( $Warrenty == "expire")
+            @forelse ($Itcuss as $Itcus)
+            @if( strtotime($Itcus->warrenty_end) <= strtotime($date) && $Itcus->warrenty_end != Null)
+            <tr class="{{ $this->isChecked($Itcus->id) }}">
+                @if(Session::get('admin_type') == "SAdmin")
+                <td><input type="checkbox" value="{{ $Itcus->id }}" wire:model="checkedItcus"></td>
+                @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True")
+                <td><input type="checkbox" value="{{ $Itcus->id }}" wire:model="checkedItcus"></td>
+                @endif
+                <td>{{$i++}}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="item" style="white-space: nowrap;">{{ $Itcus->item }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="laptop_name" style="white-space: nowrap;">{{ $Itcus->laptop_name }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="asset_no" style="white-space: nowrap;">{{ $Itcus->asset_no }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="serial_no" style="white-space: nowrap;">{{ $Itcus->serial_no }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="entry_date" style="white-space: nowrap;">{{ $Itcus->entry_date }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="previous_user" >{{ $Itcus->previous_user }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="p_issue_date" >{{ $Itcus->p_issue_date }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="configuration" >{{ $Itcus->configuration }}</td>
+                @if( $Itcus->condition == "Good")
+                <td  data-id="{{ $Itcus->id }}" class="text-white bg-success" data-column="condition" >{{ $Itcus->condition }}</td>
+                @elseif( $Itcus->condition == "Damaged")
+                <td  data-id="{{ $Itcus->id }}" class="text-black bg-warning" data-column="condition" >{{ $Itcus->condition }}</td>
+                @elseif( $Itcus->condition == "Out of order")
+                <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="condition" >{{ $Itcus->condition }}</td>
+                @endif
+                <td  data-id="{{ $Itcus->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Itcus->warrenty_start }}</td>
+                @if( strtotime($Itcus->warrenty_end) <= strtotime($date) && $Itcus->warrenty_end != Null)
+                <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
+                @elseif( strtotime($Itcus->warrenty_end) > strtotime($date) && $Itcus->warrenty_end != Null)
+                <td  data-id="{{ $Itcus->id }}" class="text-white bg-primary" data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
+                @else
+                <td  data-id="{{ $Itcus->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
+                @endif
+                @if(Session::get('admin_type') == "SAdmin")
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
+                        </div>
+                    </td>                   
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('issue') == null && Session::get('update') == null)
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('update') == "True" && Session::get('delete') == null && Session::get('issue') == null)
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('issue') == "True" && Session::get('update') == null && Session::get('delete') == null)
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
+                        </div>
+                    </td>   
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('issue') == "True" && Session::get('delete') == "True" && Session::get('update') == null)
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>   
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('issue') == "True" && Session::get('update') == "True" && Session::get('delete') == null)
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>   
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('issue') == null)
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>   
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('issue') == "True")
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>   
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
+                    @endif
+            </tr>
+            @else
+            <tr>
+            </tr>
+            @endif
+            @empty
+            <code>No DataSet found!</code>
+            @endforelse
+
+            @elseif( $Warrenty == "active")
+            @forelse ($Itcuss as $Itcus)
+            @if( strtotime($Itcus->warrenty_end) > strtotime($date) && $Itcus->warrenty_end != Null)
+            <tr class="{{ $this->isChecked($Itcus->id) }}">
+                @if(Session::get('admin_type') == "SAdmin")
+                <td><input type="checkbox" value="{{ $Itcus->id }}" wire:model="checkedItcus"></td>
+                @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True")
+                <td><input type="checkbox" value="{{ $Itcus->id }}" wire:model="checkedItcus"></td>
+                @endif
+                <td>{{$i++}}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="item" style="white-space: nowrap;">{{ $Itcus->item }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="laptop_name" style="white-space: nowrap;">{{ $Itcus->laptop_name }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="asset_no" style="white-space: nowrap;">{{ $Itcus->asset_no }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="serial_no" style="white-space: nowrap;">{{ $Itcus->serial_no }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="entry_date" style="white-space: nowrap;">{{ $Itcus->entry_date }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="previous_user" >{{ $Itcus->previous_user }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="p_issue_date" >{{ $Itcus->p_issue_date }}</td>
+                <td  data-id="{{ $Itcus->id }}" data-column="configuration" >{{ $Itcus->configuration }}</td>
+                @if( $Itcus->condition == "Good")
+                <td  data-id="{{ $Itcus->id }}" class="text-white bg-success" data-column="condition" >{{ $Itcus->condition }}</td>
+                @elseif( $Itcus->condition == "Damaged")
+                <td  data-id="{{ $Itcus->id }}" class="text-black bg-warning" data-column="condition" >{{ $Itcus->condition }}</td>
+                @elseif( $Itcus->condition == "Out of order")
+                <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="condition" >{{ $Itcus->condition }}</td>
+                @endif
+                <td  data-id="{{ $Itcus->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Itcus->warrenty_start }}</td>
+                @if( strtotime($Itcus->warrenty_end) <= strtotime($date) && $Itcus->warrenty_end != Null)
+                <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
+                @elseif( strtotime($Itcus->warrenty_end) > strtotime($date) && $Itcus->warrenty_end != Null)
+                <td  data-id="{{ $Itcus->id }}" class="text-white bg-primary" data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
+                @else
+                <td  data-id="{{ $Itcus->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
+                @endif
+                @if(Session::get('admin_type') == "SAdmin")
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
+                        </div>
+                    </td>                   
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('issue') == null && Session::get('update') == null)
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('update') == "True" && Session::get('delete') == null && Session::get('issue') == null)
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('issue') == "True" && Session::get('update') == null && Session::get('delete') == null)
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
+                        </div>
+                    </td>   
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('issue') == "True" && Session::get('delete') == "True" && Session::get('update') == null)
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>   
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('issue') == "True" && Session::get('update') == "True" && Session::get('delete') == null)
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>   
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('issue') == null)
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>   
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
+                    @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True" && Session::get('issue') == "True")
+                    <td>
+                        <div class="btn-group container">
+                            <a href="#" wire:click="OpenReuseModal({{$Itcus->id}})"><img src="https://img.icons8.com/pastel-glyph/344/hand-box.png" style="width: 30px;" title="Issue / Re-Issue"></img></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Itcus->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                        </div>
+                    </td>   
+                    <td>
+                        <div class="btn-group container">
+                            &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Itcus->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                        </div>
+                    </td>
+                    @endif
+            </tr>
+            @else
+            <tr>
+            </tr>
+            @endif
+            @empty
+            <code>No DataSet found!</code>
+            @endforelse
+
+            @else    
             @forelse ($Itcuss as $Itcus)
             <tr class="{{ $this->isChecked($Itcus->id) }}">
                 @if(Session::get('admin_type') == "SAdmin")
@@ -165,8 +416,10 @@
                 <td  data-id="{{ $Itcus->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Itcus->warrenty_start }}</td>
                 @if( strtotime($Itcus->warrenty_end) <= strtotime($date) && $Itcus->warrenty_end != Null)
                 <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
-                @else
+                @elseif( strtotime($Itcus->warrenty_end) > strtotime($date) && $Itcus->warrenty_end != Null)
                 <td  data-id="{{ $Itcus->id }}" class="text-white bg-primary" data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
+                @else
+                <td  data-id="{{ $Itcus->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
                 @endif
                 @if(Session::get('admin_type') == "SAdmin")
                     <td>
@@ -255,7 +508,8 @@
             </tr>
             @empty
             <code>No DataSet found!</code>
-            @endforelse      
+            @endforelse  
+            @endif
         </tbody>
     </table>
 </div>

@@ -170,7 +170,7 @@
 					<td  data-id="{{ $Branoil->id }}" data-column="asset_no" style="white-space: nowrap;">{{ $Branoil->asset_no }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="serial_no" style="white-space: nowrap;">{{ $Branoil->serial_no }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="previous_user" >{{ $Branoil->previous_user }}</td>
-					<td  data-id="{{ $Branoil->id }}" data-column="issue_date" >{{ $Branoil->issue_date }}</td>
+					<td  data-id="{{ $Branoil->id }}" data-column="issue_date" style="white-space: nowrap;">{{ $Branoil->issue_date }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="p_issue_date" >{{ $Branoil->p_issue_date }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="configuration" >{{ $Branoil->configuration }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Branoil->warrenty_start }}</td>

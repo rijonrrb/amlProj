@@ -170,7 +170,7 @@
                     <td  data-id="{{ $Food->id }}" data-column="asset_no" style="white-space: nowrap;">{{ $Food->asset_no }}</td>
                     <td  data-id="{{ $Food->id }}" data-column="serial_no" style="white-space: nowrap;">{{ $Food->serial_no }}</td>
                     <td  data-id="{{ $Food->id }}" data-column="previous_user" >{{ $Food->previous_user }}</td>
-                    <td  data-id="{{ $Food->id }}" data-column="issue_date" >{{ $Food->issue_date }}</td>
+                    <td  data-id="{{ $Food->id }}" data-column="issue_date" style="white-space: nowrap;">{{ $Food->issue_date }}</td>
                     <td  data-id="{{ $Food->id }}" data-column="p_issue_date" >{{ $Food->p_issue_date }}</td>
                     <td  data-id="{{ $Food->id }}" data-column="configuration" >{{ $Food->configuration }}</td>
                     <td  data-id="{{ $Food->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Food->warrenty_start }}</td>
