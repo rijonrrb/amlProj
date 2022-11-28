@@ -9,7 +9,7 @@ class Itcus extends Model
 {
     use HasFactory;
     protected $fillable = [
-       'item','laptop_name','asset_no','serial_no','previous_user','entry_date','p_issue_date', 'configuration', 'condition','warrenty_start','warrenty_end'
+       'item','laptop_name','asset_no','serial_no','previous_user','entry_date','p_issue_date', 'configuration', 'condition','warrenty_start','warrenty_end','vendor'
      ];
 
      public function scopeSearch($query, $term){
@@ -25,6 +25,7 @@ class Itcus extends Model
             ->orWhere('configuration','like',$term)
             ->orWhere('warrenty_start','like',$term)
             ->orWhere('warrenty_end','like',$term)
+            ->orWhere('vendor','like',$term)
             ->orWhere('condition','like',$term);
          });
      }

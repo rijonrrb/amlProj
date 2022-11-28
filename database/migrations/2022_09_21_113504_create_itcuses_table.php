@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('condition');
             $table->string('warrenty_start')->nullable();
             $table->string('warrenty_end')->nullable();
+            $table->string('vendor')->nullable();
             $table->string('sid');
             $table->timestamps();
         });

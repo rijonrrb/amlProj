@@ -23,15 +23,12 @@ return new class extends Migration
             $table->string('dept');
             $table->string('wstation'); 	
             $table->string('unit');
-            $table->unsignedBigInteger('asset_id')->nullable();
+            $table->string('asset_id')->nullable();
             $table->string('asset_no')->nullable();
-            $table->unsignedBigInteger('ip_id')->nullable();
+            $table->string('ip_id')->nullable();
             $table->string('ip')->nullable();
-            $table->unsignedBigInteger('vpn_id')->nullable();
+            $table->string('vpn_id')->nullable();
             $table->string('vpn')->nullable();
-            $table->foreign('asset_id')->references('id')->on('itcuses');
-            $table->foreign('ip_id')->references('id')->on('ips');
-            $table->foreign('vpn_id')->references('id')->on('vpns');
         });
     }
 

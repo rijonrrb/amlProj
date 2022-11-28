@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('constructions', function (Blueprint $table) {
             $table->id();
             $table->string('user_name')->nullable();
+            $table->string('userid')->nullable();
             $table->string('desigation')->nullable();
             $table->string('dept')->nullable();
             $table->string('wstation')->nullable();
@@ -31,6 +32,7 @@ return new class extends Migration
             $table->string('entry_date');
             $table->string('warrenty_start')->nullable();
             $table->string('warrenty_end')->nullable();
+            $table->string('vendor')->nullable();
             $table->string('sid');
             $table->timestamps();
         });
