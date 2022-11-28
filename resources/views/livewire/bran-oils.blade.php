@@ -177,8 +177,10 @@
 					<td  data-id="{{ $Branoil->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Branoil->warrenty_start }}</td>
 					@if( strtotime($Branoil->warrenty_end) <= strtotime($date) && $Branoil->warrenty_end != Null)
 					<td  data-id="{{ $Branoil->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Branoil->warrenty_end }}</td>
+					@elseif( strtotime($Branoil->warrenty_end) > strtotime($date) && $Branoil->warrenty_end != Null)
+					<td  data-id="{{ $Branoil->id }}" class="text-white bg-primary" data-column="warrenty_end" style="white-space: nowrap;">{{ $Branoil->warrenty_end }}</td>
 					@else
-					<td  data-id="{{ $Branoil->id }}" data-column="warrenty_end" style="white-space: nowrap;">{{ $Branoil->warrenty_end }}</td>
+					<td  data-id="{{ $Branoil->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $Branoil->warrenty_end }}</td>
 					@endif
 					<td  data-id="{{ $Branoil->id }}" data-column="vendor" style="white-space: nowrap;">{{ $Branoil->vendor }}</td>
 					@if(Session::get('admin_type') == "SAdmin")

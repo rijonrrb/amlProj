@@ -68,15 +68,21 @@
                         </select>
                     <span class="text-danger"> @error('upd_H_wstation') {{ $message }}@enderror</span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 35px;">
                       <p>Select the Condition of the Product:</p>
-                      <input type="radio"  wire:model="upd_H_condition" name="condition" value="Good">
-                      <label for="Good">Good</label>
-                      <input type="radio"  wire:model="upd_H_condition" name="condition" value="Damaged">
-                      <label for="Damaged">Damaged</label>
-                      <input type="radio"wire:model="upd_H_condition" name="condition" value="Out of order">
-                      <label for="Out of order">Out of order</label>
-                    <br><span class="text-danger"> @error('upd_H_condition') {{ $message }}@enderror</span>
+                        <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="defaultInline1" wire:model="upd_H_condition" name="condition" value="Good">
+                        <label class="custom-control-label" for="defaultInline1">Good</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="defaultInline2" wire:model="upd_H_condition" name="condition" value="Damaged">
+                        <label class="custom-control-label" for="defaultInline2">Damaged</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="defaultInline3" wire:model="upd_H_condition" name="condition" value="Out of order">
+                        <label class="custom-control-label" for="defaultInline3">Out of order</label>
+                        </div><br>
+                      <span class="text-danger"> @error('upd_H_condition') {{ $message }}@enderror</span>
                 </div>
                 <!-- <div class="form-group">
                    <label for="">Unit</label>

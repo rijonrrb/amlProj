@@ -275,6 +275,7 @@ class Beverages extends Component
         $this->U_I_date = $info->issue_date;
         $this->U_P_I_date = $info->p_issue_date;
         $this->U_configuration = $info->configuration;
+        $this->U_vendor = $info->vendor;
         $this->cid = $info->id;
         $this->dispatchBrowserEvent('OpenEditModal',[
             'id'=>$id
@@ -297,7 +298,8 @@ class Beverages extends Component
             'previous_user'=>$this->U_P_user,
             'issue_date'=>$this->U_I_date,
             'p_issue_date'=>$this->U_P_I_date,
-            'configuration'=>$this->U_configuration
+            'configuration'=>$this->U_configuration,
+            'vendor'=>$this->U_vendor
         ]);
         if(Session::get('admin_type') == "Mod"){
             Log::insert([

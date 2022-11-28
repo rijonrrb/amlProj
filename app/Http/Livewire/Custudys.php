@@ -157,6 +157,21 @@ class Custudys extends Component
         $this->UI_I_date = $info->issue_date;
         $this->UI_P_I_date = $info->p_issue_date;
         $this->UI_configuration = $info->configuration;
+        if(empty($info->warrenty_start))
+        {
+            $this->UI_w_start = $info->warrenty_start;
+        }
+        else {
+            $this->UI_w_start = date('d/m/Y', strtotime($info->warrenty_start));
+        }
+        if(empty($info->warrenty_end))
+        {
+            $this->UI_w_end = $info->warrenty_end;
+        }
+        else {
+            $this->UI_w_end = date('d/m/Y', strtotime($info->warrenty_end));
+        }
+        $this->UI_vendor = $info->vendor;
         $this->UI_condition = $info->condition;
         $this->cid = $info->id;
         $this->dispatchBrowserEvent('OpenEditModal',[
@@ -179,7 +194,10 @@ class Custudys extends Component
             'issue_date'=>$this->UI_I_date,
             'p_issue_date'=>$this->UI_P_I_date,
             'configuration'=>$this->UI_configuration,
-            'condition'=>$this->UI_condition
+            'condition'=>$this->UI_condition,
+            'warrenty_start'=>date('d-M-Y', strtotime($this->UI_w_start)),
+            'warrenty_end'=>date('d-M-Y', strtotime($this->UI_w_end)),
+            'vendor'=>$this->UI_vendor
         ]);
         if(Session::get('admin_type') == "Mod"){
             Log::insert([

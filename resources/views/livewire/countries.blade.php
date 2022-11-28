@@ -177,8 +177,10 @@
 					<td  data-id="{{ $country->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $country->warrenty_start }}</td>
 					@if( strtotime($country->warrenty_end) <= strtotime($date) && $country->warrenty_end != Null)
 					<td  data-id="{{ $country->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $country->warrenty_end }}</td>
+					@elseif( strtotime($country->warrenty_end) > strtotime($date) && $country->warrenty_end != Null)
+					<td  data-id="{{ $country->id }}" class="text-white bg-primary" data-column="warrenty_end" style="white-space: nowrap;">{{ $country->warrenty_end }}</td>
 					@else
-					<td  data-id="{{ $country->id }}" data-column="warrenty_end" style="white-space: nowrap;">{{ $country->warrenty_end }}</td>
+					<td  data-id="{{ $country->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $country->warrenty_end }}</td>
 					@endif
 					<td  data-id="{{ $country->id }}" data-column="vendor" style="white-space: nowrap;">{{ $country->vendor }}</td>
                     @if(Session::get('admin_type') == "SAdmin")

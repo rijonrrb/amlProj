@@ -47,7 +47,7 @@
                      <!-- <span class="text-danger"> @error('configuration') {{ $message }}@enderror</span> -->
                  </div>
                  <div class="form-group">
-                     <label for="">Warrenty Active Date</label>
+                     <label for="">Warrenty Activate Date</label>
                      <div class="md-form md-outline input-with-post-icon datepicker"> 
                      <input placeholder="Select date" type="date" id="example" class="form-control" wire:model="warrenty_start">
                      </div>
@@ -69,9 +69,6 @@
                         </div><br>
                       <span class="text-danger"> @error('condition') {{ $message }}@enderror</span>
                 </div>
-
-
-
                  <div class="form-group">
                      <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
                      <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>

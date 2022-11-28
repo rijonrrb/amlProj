@@ -48,6 +48,10 @@
              <div class="form-group">
                  <label for="">Configuration</label>
                  <textarea  class="form-control" placeholder="Configuration" wire:model="U_configuration" ></textarea>
+             </div> 
+             <div class="form-group">
+                 <label for="">Vendor</label>
+                 <input type="text" class="form-control" placeholder="Vendor Name" wire:model="U_vendor" >
              </div>              
              <div class="form-group">
                  <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>

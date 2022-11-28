@@ -369,7 +369,6 @@ public function update(){
 
 public function OpenEditModal($id){
     $info = Food::find($id);
-
     $this->U_user_name = $info->user_name;
     $this->U_desigation = $info->desigation;
     $this->U_dept = $info->dept;
@@ -381,6 +380,7 @@ public function OpenEditModal($id){
     $this->U_I_date = $info->issue_date;
     $this->U_P_I_date = $info->p_issue_date;
     $this->U_configuration = $info->configuration;
+    $this->U_vendor = $info->vendor;
     $this->cid = $info->id;
     $this->dispatchBrowserEvent('OpenEditModal',[
         'id'=>$id
@@ -403,7 +403,8 @@ public function updateRow(){
         'previous_user'=>$this->U_P_user,
         'issue_date'=>$this->U_I_date,
         'p_issue_date'=>$this->U_P_I_date,
-        'configuration'=>$this->U_configuration
+        'configuration'=>$this->U_configuration,
+        'vendor'=>$this->U_vendor
     ]);
     if(Session::get('admin_type') == "Mod"){
         Log::insert([
