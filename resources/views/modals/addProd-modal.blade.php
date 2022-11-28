@@ -42,6 +42,11 @@
                      <!-- <span class="text-danger"> @error('configuration') {{ $message }}@enderror</span> -->
                  </div>
                  <div class="form-group">
+                     <label for="">Vendor</label>
+                     <input type="text" class="form-control" placeholder="Vendor Name" wire:model="vendor" >
+                     <!-- <span class="text-danger"> @error('configuration') {{ $message }}@enderror</span> -->
+                 </div>
+                 <div class="form-group">
                      <label for="">Warrenty Active Date</label>
                      <div class="md-form md-outline input-with-post-icon datepicker"> 
                      <input placeholder="Select date" type="date" id="example" class="form-control" wire:model="warrenty_start">

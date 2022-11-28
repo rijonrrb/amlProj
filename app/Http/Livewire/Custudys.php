@@ -60,6 +60,7 @@ class Custudys extends Component
         $this->condition = '';
         $this->previous_user = '';
         $this->p_issue_date = '';
+        $this->vendor = '';
         $this->warrenty_start = '';
         $this->warrenty_end = '';
         $this->dispatchBrowserEvent('OpenAddItcusModal');
@@ -125,6 +126,7 @@ class Custudys extends Component
             'condition'=>$this->condition,
             'warrenty_start'=>$Sdays,
             'warrenty_end'=> $expire,
+            'vendor'=>$this->vendor,
             'sid'=> $next_id,
 
         ]);
@@ -143,94 +145,6 @@ class Custudys extends Component
         $this->checkedItcus = [];
     }
 }
-    // public function OpenReturnCountryModal($id){
-    //     $info = Itcus::find($id);
-    //     $this->upd_H_user = '';
-    //     $this->upd_H_designation = '';
-    //     $this->upd_H_dept = '';
-    //     $this->upd_H_unit = '';
-    //     $this->cid = $info->id;
-    //     $this->dispatchBrowserEvent('OpenReturnCountryModal',[
-    //         'id'=>$id
-    //     ]);
-    // }
-    // public function update(){
-
-    //     date_default_timezone_set('Asia/Dhaka');
-    //     $time =  date('d F Y h:i:s A');
-    //     $cid = $this->cid;
-    //     $info = Itcus::find($cid);
-    //     if (empty($info->previous_user))
-    //     {
-    //         $previous_user = $info->user_name;
-    //     }
-    //     elseif (empty($info->user_name))
-    //     {
-    //         $previous_user = $info->previous_user;
-    //     }
-    //     else
-    //     {
-    //         $previous_user = $info->previous_user."  ||  ".$info->user_name;
-    //     }
-    //     if (empty($info->p_issue_date))
-    //     {
-    //         $p_i_date = $info->issue_date;
-    //     }
-    //     elseif (empty($info->user_name))
-    //     {
-    //         $p_i_date = $info->p_issue_date;
-    //     }
-    //     else
-    //     {
-    //         $p_i_date = $info->p_issue_date."  ||  ".$info->issue_date;
-    //     }
-    //     Session::put('id', $info->sid);
-    //     Session::put('b_area', 'CUSTUDY');
-    //     $this->validate([
-    //         "upd_H_user"=>"required",
-    //         "upd_H_designation"=>"required",
-    //         'upd_H_dept'=>"required"
-    //     ],
-    //     ['upd_H_user.required'=>"The User Name field is required.",
-    //     'upd_H_designation.required'=>"The Designation field is required.",
-    //     'upd_H_dept.required'=>"The Department field is required."]
-    // );
-    //     $update = Itcus::find($cid)->update([
-    //         'user_name'=>Null,
-    //         'desigation'=>Null,
-    //         'dept'=>Null,
-    //         'unit'=>Null,
-    //         'item'=>$info->item,
-    //         'laptop_name'=> $info->laptop_name,
-    //         'asset_no'=> $info->asset_no,
-    //         'serial_no'=>$info->serial_no,
-    //         'previous_user'=>$previous_user,
-    //         'issue_date'=>$time,
-    //         'p_issue_date'=>$p_i_date,
-    //         'configuration'=>$info->configuration
-    //     ]);
-    //     $savex = Invoice::where('sid',$info->sid)->update([
-    //         'handedBy'=>$info->user_name,
-    //         'h_desigation'=>$info->desigation,
-    //         'h_dept'=> $info->dept,
-    //         'h_unit'=>$info->unit,
-    //         'takenBy'=>$this->upd_H_user,
-    //         't_desigation'=>$this->upd_H_designation,
-    //         't_dept'=>$this->upd_H_dept,
-    //         't_unit'=>$this->upd_H_unit,
-    //         'remarks'=>'Return Product',
-    //         'qty'=>'1',
-    //         'laptop_name'=>$info->laptop_name,
-    //         'configuration'=>$info->configuration,
-    //         'asset_no'=>$info->asset_no,
-    //         'serial_no'=>$info->serial_no,
-    //         'business_area'=>'CUSTUDY',
-    //     ]);
-    //     if($savex){
-    //         $this->dispatchBrowserEvent('CloseReturnCountryModal');
-    //         $this->checkedItcus = [];
-    //     }
-    // }
 
     public function OpenEditModal($id){
         $info = Itcus::find($id);
@@ -333,15 +247,30 @@ public function reuseProd(){
     {
         $p_i_date = $info->p_issue_date;
     }
+    if (empty($userinfo->asset_no))
+    {
+        $assetno = $info->asset_no;
+    }
+    else
+    {
+        $assetno = $userinfo->asset_no."  ||  ".$info->asset_no;
+    }
+    if (empty($userinfo->asset_id))
+    {
+        $assetid = $info->id;
+    }
+    else
+    {
+        $assetid = $userinfo->asset_id."  ||  ".$info->id;
+    }
     Session::put('id', $info->sid);
     Session::put('b_area', 'CUSTUDY');
-
-
     //Data Inserted Igloo Ice Cream Unit
     if($userinfo->unit == "Igloo Ice Cream Unit")
     {
         $update = Country::insert([
             'user_name'=>$userinfo->name,
+            'userid'=>$userinfo->userid,
             'desigation'=>$userinfo->desigation,
             'dept'=>$userinfo->dept,
             'wstation'=>$userinfo->wstation,
@@ -357,6 +286,7 @@ public function reuseProd(){
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
             'warrenty_end'=>$info->warrenty_end,
+            'vendor'=>$info->vendor,
             'sid'=> $info->sid,
         ]);
     }
@@ -365,6 +295,7 @@ public function reuseProd(){
     {
         $update = Beverage::insert([
             'user_name'=>$userinfo->name,
+            'userid'=>$userinfo->userid,
             'desigation'=>$userinfo->desigation,
             'dept'=>$userinfo->dept,
             'wstation'=>$userinfo->wstation,
@@ -380,6 +311,7 @@ public function reuseProd(){
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
             'warrenty_end'=>$info->warrenty_end,
+            'vendor'=>$info->vendor,
             'sid'=> $info->sid,
         ]);
     }
@@ -388,6 +320,7 @@ public function reuseProd(){
     {
         $update = Suger::insert([
             'user_name'=>$userinfo->name,
+            'userid'=>$userinfo->userid,
             'desigation'=>$userinfo->desigation,
             'dept'=>$userinfo->dept,
             'wstation'=>$userinfo->wstation,
@@ -403,6 +336,7 @@ public function reuseProd(){
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
             'warrenty_end'=>$info->warrenty_end,
+            'vendor'=>$info->vendor,
             'sid'=> $info->sid,
         ]);
     }
@@ -411,6 +345,7 @@ public function reuseProd(){
     {
         $update = Construction::insert([
             'user_name'=>$userinfo->name,
+            'userid'=>$userinfo->userid,
             'desigation'=>$userinfo->desigation,
             'dept'=>$userinfo->dept,
             'wstation'=>$userinfo->wstation,
@@ -426,6 +361,7 @@ public function reuseProd(){
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
             'warrenty_end'=>$info->warrenty_end,
+            'vendor'=>$info->vendor,
             'sid'=> $info->sid,
         ]);
     }
@@ -434,6 +370,7 @@ public function reuseProd(){
     {
         $update = Food::insert([
             'user_name'=>$userinfo->name,
+            'userid'=>$userinfo->userid,
             'desigation'=>$userinfo->desigation,
             'dept'=>$userinfo->dept,
             'wstation'=>$userinfo->wstation,
@@ -449,6 +386,7 @@ public function reuseProd(){
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
             'warrenty_end'=>$info->warrenty_end,
+            'vendor'=>$info->vendor,
             'sid'=> $info->sid,
         ]);
     }
@@ -457,6 +395,7 @@ public function reuseProd(){
     {
         $update = Dairy::insert([
             'user_name'=>$userinfo->name,
+            'userid'=>$userinfo->userid,
             'desigation'=>$userinfo->desigation,
             'dept'=>$userinfo->dept,
             'wstation'=>$userinfo->wstation,
@@ -472,6 +411,7 @@ public function reuseProd(){
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
             'warrenty_end'=>$info->warrenty_end,
+            'vendor'=>$info->vendor,
             'sid'=> $info->sid,
         ]);
     }
@@ -480,6 +420,7 @@ public function reuseProd(){
     {
         $update = Dredging::insert([
             'user_name'=>$userinfo->name,
+            'userid'=>$userinfo->userid,
             'desigation'=>$userinfo->desigation,
             'dept'=>$userinfo->dept,
             'wstation'=>$userinfo->wstation,
@@ -495,6 +436,7 @@ public function reuseProd(){
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
             'warrenty_end'=>$info->warrenty_end,
+            'vendor'=>$info->vendor,
             'sid'=> $info->sid,
         ]);
     }
@@ -503,6 +445,7 @@ public function reuseProd(){
     {
         $update = Branoil::insert([
             'user_name'=>$userinfo->name,
+            'userid'=>$userinfo->userid,
             'desigation'=>$userinfo->desigation,
             'dept'=>$userinfo->dept,
             'wstation'=>$userinfo->wstation,
@@ -518,6 +461,7 @@ public function reuseProd(){
             'configuration'=>$info->configuration,
             'warrenty_start'=>$info->warrenty_start,
             'warrenty_end'=>$info->warrenty_end,
+            'vendor'=>$info->vendor,
             'sid'=> $info->sid,
         ]);
     }
@@ -566,8 +510,8 @@ public function reuseProd(){
     }
 
     Userslist::where('userid',$userinfo->userid)->update([
-        'asset_id'=>$info->id,
-        'asset_no'=>$info->asset_no,
+        'asset_id'=>$assetid,
+        'asset_no'=>$assetno,
 
     ]);
     

@@ -21,7 +21,7 @@ class Userslist extends Model
            ->orWhere('dept','like',$term)
            ->orWhere('wstation','like',$term)
            ->orWhere('unit','like',$term)
-           ->orWhere('asset_no','like',$
+           ->orWhere('asset_no','like',$term)
            ->orWhere('ip','like',$term)
            ->orWhere('vpn','like',$term);
         });

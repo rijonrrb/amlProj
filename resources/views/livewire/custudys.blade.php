@@ -106,6 +106,7 @@
                 <th>Condition</th>
                 <th>Warrenty Active Date</th>
                 <th>Warrenty Expire Date</th>
+                <th>Vendor</th>
                 @if(Session::get('admin_type') == "SAdmin")
                 <th>Issue /<br> Re-Issue</th>
                 <th>Delete</th>
@@ -170,6 +171,7 @@
                 @else
                 <td  data-id="{{ $Itcus->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
                 @endif
+                <td  data-id="{{ $Itcus->id }}" data-column="vendor" style="white-space: nowrap;">{{ $Itcus->vendor }}</td>
                 @if(Session::get('admin_type') == "SAdmin")
                     <td>
                         <div class="btn-group container">
@@ -296,6 +298,7 @@
                 @else
                 <td  data-id="{{ $Itcus->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
                 @endif
+                <td  data-id="{{ $Itcus->id }}" data-column="vendor" style="white-space: nowrap;">{{ $Itcus->vendor }}</td>
                 @if(Session::get('admin_type') == "SAdmin")
                     <td>
                         <div class="btn-group container">
@@ -421,6 +424,7 @@
                 @else
                 <td  data-id="{{ $Itcus->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
                 @endif
+                <td  data-id="{{ $Itcus->id }}" data-column="vendor" style="white-space: nowrap;">{{ $Itcus->vendor }}</td>
                 @if(Session::get('admin_type') == "SAdmin")
                     <td>
                         <div class="btn-group container">
