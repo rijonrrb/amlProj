@@ -224,5 +224,5 @@
         <button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
     </div>
     @include('modals.addUser-modal')
-    @include('modals.update-modal')
+    @include('modals.updateUser-modal')
 </div>

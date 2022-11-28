@@ -59,11 +59,11 @@ class Userlist extends Component
             })->when($this->byUid,function($query){
                 $query->where('userid',$this->byUid);
             })->when($this->byPid,function($query){
-                $query->where('asset_id',$this->byPid);
+                $query->where('asset_no',$this->byPid);
             })->when($this->byIp,function($query){
-                $query->where('ip_id',$this->byIp);
+                $query->where('ip',$this->byIp);
             })->when($this->byVpn,function($query){
-                $query->where('vpn_id',$this->byVpn);
+                $query->where('vpn',$this->byVpn);
             })
             ->search(trim($this->search))
             ->orderBy($this->orderBy,$this->sortBy)
@@ -143,17 +143,15 @@ class Userlist extends Component
 public function OpenEditModal($id){
     $info = Userslist::find($id);
 
-    $this->U_user_name = $info->user_name;
+    $this->U_user_name = $info->name;
+    $this->U_user_email = $info->email;
+    $this->U_user_phone = $info->phone;
     $this->U_desigation = $info->desigation;
     $this->U_dept = $info->dept;
+    $this->U_unit = $info->unit;
     $this->U_wstation = $info->wstation;
-    $this->U_item = $info->item;
-    $this->U_laptop_name = $info->laptop_name;
-    $this->U_serial_no = $info->serial_no;
-    $this->U_P_user = $info->previous_user;
-    $this->U_I_date = $info->issue_date;
-    $this->U_P_I_date = $info->p_issue_date;
-    $this->U_configuration = $info->configuration;
+    $this->U_ip = $info->ip;
+    $this->U_vpn = $info->vpn;
     $this->cid = $info->id;
     $this->dispatchBrowserEvent('OpenEditModal',[
         'id'=>$id
@@ -166,17 +164,15 @@ public function updateRow(){
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     $update = Userslist::find($cid)->update([
-        'user_name'=>$this->U_user_name,
+        'name'=>$this->U_user_name,
+        'email'=>$this->U_user_email,
+        'phone'=>$this->U_user_phone,
         'desigation'=>$this->U_desigation,
         'dept'=>$this->U_dept,
+        'unit'=>$this->U_unit,
         'wstation'=>$this->U_wstation,
-        'item'=>$this->U_item,
-        'laptop_name'=>$this->U_laptop_name,
-        'serial_no'=>$this->U_serial_no,
-        'previous_user'=>$this->U_P_user,
-        'issue_date'=>$this->U_I_date,
-        'p_issue_date'=>$this->U_P_I_date,
-        'configuration'=>$this->U_configuration
+        'ip'=>$this->U_ip,
+        'vpn'=>$this->U_vpn
     ]);
     if(Session::get('admin_type') == "Mod"){
         Log::insert([
