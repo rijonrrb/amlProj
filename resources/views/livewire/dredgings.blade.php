@@ -120,6 +120,7 @@
 					<th>Configuration</th>
 					<th>Warrenty Active Date</th>
 					<th>Warrenty Expire Date</th>
+					<th>Vendor</th>
 					@if(Session::get('admin_type') == "SAdmin")
 					<th>Return</th>
 					<th>Delete</th>
@@ -179,6 +180,7 @@
 					@else
 					<td  data-id="{{ $Dredging->id }}" data-column="warrenty_end" style="white-space: nowrap;">{{ $Dredging->warrenty_end }}</td>
 					@endif
+					<td  data-id="{{ $Dredging->id }}" data-column="vendor" style="white-space: nowrap;">{{ $Dredging->vendor }}</td>
                     @if(Session::get('admin_type') == "SAdmin")
                     <td>
                         <div class="btn-group container">

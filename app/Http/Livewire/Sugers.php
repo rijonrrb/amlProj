@@ -279,7 +279,7 @@ public function update(){
     $info = Suger::find($cid);
     if (empty($info->previous_user))
     {
-        $previous_user = $info->user_name;
+        $previous_user = $info->user_name."#".$info->userid;
     }
     elseif (empty($info->user_name))
     {
@@ -287,7 +287,7 @@ public function update(){
     }
     else
     {
-        $previous_user = $info->previous_user."  ||  ".$info->user_name;
+        $previous_user = $info->previous_user."  ||  ".$info->user_name."#".$info->userid;;
     }
     if (empty($info->p_issue_date))
     {
