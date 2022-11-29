@@ -16,7 +16,7 @@
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
-    #User tr:nth-child(even){background-color: #b2b2b2;}
+    #Ip tr:nth-child(even){background-color: #b2b2b2;}
     </style>
     @livewireStyles
 </head>
@@ -34,15 +34,15 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @livewireScripts
 <script>
- window.addEventListener('OpenAddUserModal', function(){
-    $('.addUser').find('span').html('');
-    $('.addUser').find('form')[0].reset();
-    $('.addUser').modal('show');
+ window.addEventListener('OpenAddIPModal', function(){
+    $('.addIP').find('span').html('');
+    $('.addIP').find('form')[0].reset();
+    $('.addIP').modal('show');
 });
- window.addEventListener('CloseAddUserModal', function(){
-     $('.addUser').find('span').html('');
-     $('.addUser').find('form')[0].reset();
-     $('.addUser').modal('hide');
+ window.addEventListener('CloseAddIPModal', function(){
+     $('.addIP').find('span').html('');
+     $('.addIP').find('form')[0].reset();
+     $('.addIP').modal('hide');
     Swal.fire({
                 icon: 'success',
                 title: 'Inserted..',
@@ -51,18 +51,18 @@
                 timer: 800
             });
 });
-// window.addEventListener('ClosefailedUserModal', function(){
-//      $('.addUser').find('span').html('');
-//      $('.addUser').find('form')[0].reset();
-//      $('.addUser').modal('hide');
-//     Swal.fire({
-//                 icon: 'error',
-//                 title: 'Oops..',
-//                 text: 'This User ID already inserted',
-//                 showCloseButton:true,
-//                 showConfirmButton: false,
-//             });
-// });
+window.addEventListener('ClosefailedIPModal', function(){
+     $('.addIP').find('span').html('');
+     $('.addIP').find('form')[0].reset();
+     $('.addIP').modal('hide');
+    Swal.fire({
+                icon: 'error',
+                title: 'Oops..',
+                text: 'This IP Address already inserted',
+                showCloseButton:true,
+                showConfirmButton: false,
+            });
+});
 window.addEventListener('OpenEditModal', function(event){
                $('.updateRow').find('span').html('');
                $('.updateRow').modal('show');
@@ -102,7 +102,7 @@ window.addEventListener('OpenEditModal', function(event){
         'success'
         )
 });
- window.addEventListener('swal:deleteUsers', function(event){
+ window.addEventListener('swal:deleteIps', function(event){
      swal.fire({
          title:event.detail.title,
          html:event.detail.html,
@@ -115,7 +115,7 @@ window.addEventListener('OpenEditModal', function(event){
          confirmButtonColor:'#3085d6',
      }).then(function(result){
          if(result.value){
-             window.livewire.emit('deleteCheckedUsers',event.detail.checkedIDs);
+             window.livewire.emit('deleteCheckedIps',event.detail.checkedIDs);
          }
      });
  });
@@ -124,17 +124,17 @@ window.addEventListener('OpenEditModal', function(event){
 <script>
     function html_table_to_excel(type)
     {
-        var data = document.getElementById('User');
-        var file = XLSX.utils.table_to_book(data, {sheet: "AML User Refinery Unit"});
+        var data = document.getElementById('Ip');
+        var file = XLSX.utils.table_to_book(data, {sheet: "AML Ip Refinery Unit"});
         XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
-        XLSX.writeFile(file, 'AML User Refinery Unit.' + type);
+        XLSX.writeFile(file, 'AML Ip Refinery Unit.' + type);
     }
     const export_button = document.getElementById('export');
     export_button.addEventListener('click', () =>  {
         html_table_to_excel('xlsx');
     });
 </script>
-<script src="{{ asset('js/OptUser.js') }}"></script>
+<script src="{{ asset('js/OptIp.js') }}"></script>
 <script src="{{ asset('js/Add.js') }}"></script>
 </body>
 </html>

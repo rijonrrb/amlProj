@@ -1,18 +1,18 @@
 <div class="card">
-        <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>User List</b></h4>
+        <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>Ip Address List</b></h4>
         <div class="row mb-3 p-2 d-flex justify-content-between">
             @if(Session::get('admin_type') == "SAdmin")
-            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddUserModal()">Add New Dataset</button>
+            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddIPModal()">Add New Dataset</button>
             @elseif(Session::get('admin_type') == "Mod" && Session::get('create') == "True")
-            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddUserModal()">Add New Dataset</button>
+            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddIPModal()">Add New Dataset</button>
             @endif
             <div>
-                @if ($checkedUser)
-                <button class="btn btn-danger btn-md mr-4" wire:click="deleteUsers()"> Delete rows ({{ count($checkedUser) }})</button>
+                @if ($checkedIp)
+                <button class="btn btn-danger btn-md mr-4" wire:click="deleteIps()"> Delete rows ({{ count($checkedIp) }})</button>
                 @endif
             </div>
         </div>
-        <div class="row p-2" style= "margin-right: 0px; margin-left: 0px;">
+        <div class="row mb-3 p-2 card-header" style= "margin-right: 0px; margin-left: 0px;">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
                 <label for="" style="color:#c94c4c"><b>Search</b></label>
                 <input type="text" class="form-control" wire:model.debounce.350ms="search">
@@ -76,19 +76,17 @@
                 </select>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
-                <label for="" style="color:#c94c4c"><b>Order By</b></label>
-                <select class="form-control" wire:model="orderBy">
-                   <option value="userid">User ID</option>
-                    <option value="name">User name</option>
-                    <option value="email">User Email</option>
-                    <option value="phone">User Phone No.</option>
-                    <option value="desigation">User Desigation</option>
-                    <option value="dept">User Department</option>
-                    <option value="wstation">User Work-Station</option>
-                    <option value="unit">User Working Unit</option>
-                    <option value="asset_no">Product Asset No</option>
-                    <option value="ip">IP Address</option>
-                    <option value="vpn">VPN</option>
+                <label for="" style="color:#c94c4c"><b>Unit</b></label>
+                <select class="form-control" wire:model="byUnit">
+                <option value="">Select Unit</option>
+                <option value="Igloo Ice Cream Unit">Igloo Ice Cream</option>
+                <option value="Igloo Dairy Unit">Igloo Dairy</option>
+                <option value="Igloo Foods Unit">Igloo Foods</option>
+                <option value="AML Construction Unit">AML Construction</option>
+                <option value="AML Dredging Unit">AML Dredging</option>
+                <option value="AML Sugar Refinery Unit">AML Sugar Refinery</option>
+                <option value="AML Beverage Unit">AML Beverage</option>
+                <option value="AML Bran Oil Unit">AML Bran Oil</option>
                 </select>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-1 mt-1 mb-4">
@@ -98,27 +96,8 @@
                 </select>
             </div>
         </div>
-        <div class="row mb-3 p-2 card-header" style= "margin-right: 0px; margin-left: 0px;">
-
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 mt-1 mb-4">
-                <label for="" style="color:#c94c4c"><b>User ID</b></label>
-                <input type="text" class="form-control" wire:model.debounce.350ms="byUid">
-            </div>
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 mt-1 mb-4">
-                <label for="" style="color:#c94c4c"><b>Product Asset No</b></label>
-                <input type="text" class="form-control" wire:model.debounce.350ms="byPid">
-            </div>
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 mt-1 mb-4">
-                <label for="" style="color:#c94c4c"><b>IP Address</b></label>
-                <input type="text" class="form-control" wire:model.debounce.350ms="byIp">
-            </div>
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 mt-1 mb-4">
-                <label for="" style="color:#c94c4c"><b>VPN</b></label>
-                <input type="text" class="form-control" wire:model.debounce.350ms="byVpn">
-            </div>
-        </div>
         <div style="overflow-x:auto;" class="card-body">
-            <table class="table table-hover table-bordered" id="User">
+            <table class="table table-hover table-bordered" id="Ip">
                 <thead class="thead-inverse">
                     <tr>
                     @if(Session::get('admin_type') == "SAdmin")
@@ -127,17 +106,14 @@
                     <th></th>
                     @endif
                     <th>SL No.</th>
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone no.</th>
+                    <th>Ip Address</th>
+                    <th>Username</th>
                     <th>Desigation</th>
                     <th>Department</th>
                     <th>Work-Station</th>
                     <th>Unit</th>
-                    <th>Product Asset No</th>
-                    <th>IP Address</th>
-                    <th>VPN</th>
+                    <th>Physical Address</th>
+                    <th>Issue Date</th>
                     @if(Session::get('admin_type') == "SAdmin")
                     <th>Delete</th>
                     <th>Update</th>
@@ -156,57 +132,54 @@
                     @php        
                     $i = 1;
                     @endphp
-                    @forelse ($Users as $User)
-                    <tr class="{{ $this->isChecked($User->id) }}">
+                    @forelse ($Ips as $Ip)
+                    <tr class="{{ $this->isChecked($Ip->id) }}">
                         @if(Session::get('admin_type') == "SAdmin")
-                        <td><input type="checkbox" value="{{ $User->id }}" wire:model="checkedUser"></td>
+                        <td><input type="checkbox" value="{{ $Ip->id }}" wire:model="checkedIp"></td>
                         @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True")
-                        <td><input type="checkbox" value="{{ $User->id }}" wire:model="checkedUser"></td>
+                        <td><input type="checkbox" value="{{ $Ip->id }}" wire:model="checkedIp"></td>
                         @endif                     
                         <td>{{$i++}}</td>
-                        <td  data-id="{{ $User->id }}" data-column="userid" style="white-space: nowrap;">{{ $User->userid }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="name" style="white-space: nowrap;">{{ $User->name }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="email" style="white-space: nowrap;">{{ $User->email }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="phone" style="white-space: nowrap;">{{ $User->phone }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="desigation" style="white-space: nowrap;">{{ $User->desigation }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="dept" style="white-space: nowrap;">{{ $User->dept }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="wstation" style="white-space: nowrap;">{{ $User->wstation }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="unit" style="white-space: nowrap;">{{ $User->unit }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="asset_no" style="white-space: nowrap;">{{ $User->asset_no }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="ip" style="white-space: nowrap;">{{ $User->ip }}</td>
-                        <td  data-id="{{ $User->id }}" data-column="vpn" style="white-space: nowrap;">{{ $User->vpn }}</td>
+                        <td  data-id="{{ $Ip->id }}" data-column="ip" style="white-space: nowrap;">{{ $Ip->ip }}</td>
+                        <td  data-id="{{ $Ip->id }}" data-column="name" style="white-space: nowrap;">{{ $Ip->name }}</td>
+                        <td  data-id="{{ $Ip->id }}" data-column="desigation" style="white-space: nowrap;">{{ $Ip->desigation }}</td>
+                        <td  data-id="{{ $Ip->id }}" data-column="dept" style="white-space: nowrap;">{{ $Ip->dept }}</td>
+                        <td  data-id="{{ $Ip->id }}" data-column="wstation" style="white-space: nowrap;">{{ $Ip->wstation }}</td>
+                        <td  data-id="{{ $Ip->id }}" data-column="unit" style="white-space: nowrap;">{{ $Ip->unit }}</td>
+                        <td  data-id="{{ $Ip->id }}" data-column="physical_address" style="white-space: nowrap;">{{ $Ip->physical_address }}</td>
+                        <td  data-id="{{ $Ip->id }}" data-column="issue_date" style="white-space: nowrap;">{{ $Ip->issue_date }}</td>
                         @if(Session::get('admin_type') == "SAdmin")                
                         <td>
                             <div class="btn-group container">
-                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$User->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Ip->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
                             </div>
                         </td>
                         <td>
                             <div class="btn-group container">
-                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$User->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Ip->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
                             </div>
                         </td>
                         @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == null)
                         <td>
                             <div class="btn-group container">
-                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$User->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Ip->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
                             </div>
                         </td>
                         @elseif(Session::get('admin_type') == "Mod" && Session::get('update') == "True" && Session::get('delete') == null)
                         <td>
                             <div class="btn-group container">
-                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$User->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Ip->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
                             </div>
                         </td> 
                         @elseif(Session::get('admin_type') == "Mod" && Session::get('delete') == "True" && Session::get('update') == "True")
                         <td>
                             <div class="btn-group container">
-                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$User->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Ip->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
                             </div>
                         </td>   
                         <td>
                             <div class="btn-group container">
-                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$User->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+                                &nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Ip->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
                             </div>
                         </td>
                         @endif
@@ -218,11 +191,11 @@
         </table>
     </div>
     <div class="d-flex justify-content-between bg-dark card-footer">
-        @if (count($Users))
-        {{ $Users->links('livewire-pagination-links') }}
+        @if (count($Ips))
+        {{ $Ips->links('livewire-pagination-links') }}
         @endif
         <button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
     </div>
-    @include('modals.addUser-modal')
-    @include('modals.updateUser-modal')
+    @include('modals.addIp-modal')
+    @include('modals.updateIp-modal')
 </div>
