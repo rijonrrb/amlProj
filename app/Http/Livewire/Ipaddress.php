@@ -26,6 +26,7 @@ class Ipaddress extends Component
     public function render()
     {
         return view('livewire.ipaddress',[
+            'Userlists'=>Userslist::orderBy('name','asc')->get(),
             'Ips'=>Ip::when($this->byDept,function($query){
                 $query->where('dept',$this->byDept);
             })->when($this->byDes,function($query){
@@ -91,17 +92,9 @@ class Ipaddress extends Component
 }
 
 public function OpenEditModal($id){
-    $info = Userslist::find($id);
-
-    $this->U_user_name = $info->name;
-    $this->U_user_email = $info->email;
-    $this->U_user_phone = $info->phone;
-    $this->U_desigation = $info->desigation;
-    $this->U_dept = $info->dept;
-    $this->U_unit = $info->unit;
-    $this->U_wstation = $info->wstation;
-    $this->U_ip = $info->ip;
-    $this->U_vpn = $info->vpn;
+    $info = Ip::find($id);
+    $this->U_user = $info->userid;
+    $this->User = $info->physical_address;
     $this->cid = $info->id;
     $this->dispatchBrowserEvent('OpenEditModal',[
         'id'=>$id
