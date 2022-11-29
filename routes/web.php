@@ -48,5 +48,6 @@ Route::get('/Admin/Login', function () {return view('Admin.Login');})->name('Adm
 Route::get('/', function () {return view('Admin.Dashboard');})->name('home')->middleware('AdminIsValid');
 Route::post('/Admin/Logged_in',[AdminController::class, 'AdminLogSubmit'])->name('AdminLog')->middleware('LoginIsValid');
 Route::get('/Admin/LogOut',[AdminController::class, 'logout'])->name('AdminLogout')->middleware('AdminIsValid');
-
+//Ip_Routes
+Route::get('/Admin/Ip_list', function () {return view('Ip.ipaddress');})->name('ipaddress')->middleware('AdminIsValid');
 

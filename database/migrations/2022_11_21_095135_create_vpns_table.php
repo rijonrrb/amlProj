@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('vpns', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('name')->nullable();
+            $table->string('userid')->nullable();
+            $table->string('ip');
+            $table->string('password')->nullable();
+            $table->string('remark')->nullable();
         });
     }
 

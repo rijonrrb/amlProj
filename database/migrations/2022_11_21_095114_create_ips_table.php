@@ -15,7 +15,15 @@ return new class extends Migration
     {
         Schema::create('ips', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('ip');
+            $table->string('name')->nullable();
+            $table->string('userid')->nullable();
+            $table->string('desigation')->nullable();
+            $table->string('dept')->nullable();
+            $table->string('wstation')->nullable();
+            $table->string('unit')->nullable();
+            $table->string('physical_address')->nullable();
+            $table->string('issue_date')->nullable();
         });
     }
 

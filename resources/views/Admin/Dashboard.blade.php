@@ -26,7 +26,7 @@
       <img src="https://www.svgrepo.com/show/192244/man-user.svg" alt="" style="height: 90px; width: 90px;">
     </div>
     <div class="box red" title="Click on the text">
-      <a href="#" ><h2 class="hover-underline-animation">IP List</h2></a> <br>
+      <a href="{{route('ipaddress')}}" ><h2 class="hover-underline-animation">IP List</h2></a> <br>  
       <code>All the IP list are here!</code>
       <img src="{{asset('img/ip.svg')}}" alt="" style="height: 100px; width: 100px;">
     </div>

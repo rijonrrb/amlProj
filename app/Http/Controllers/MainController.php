@@ -50,6 +50,9 @@ class MainController extends Controller
     function userlist(){
       return view('User.userlist');
     }
+    function ipaddress(){
+      return view('Ip.ipaddress');
+    }
 
     public function dept(){
       $opts = Dept::all();
