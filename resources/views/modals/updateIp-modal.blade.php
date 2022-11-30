@@ -8,6 +8,7 @@
                 <label for="">User</label>
                 <select id="select-state" wire:model ="U_user" class="form-control" >
                 <option value="" disabled selected hidden>Select User</option>
+                <option value="">No User</option>
                 @foreach ($Userlists as $Userlist)
                 <option value="{{ $Userlist->userid }}">{{$Userlist->name}}#{{$Userlist->userid}} ({{$Userlist->desigation}})</option> 
                 @endforeach
@@ -16,7 +17,7 @@
                 </div>
                 <div class="form-group">
                 <label for="">Physical Address</label>
-                <input type="text" class="form-control" placeholder="Physical IP Address" wire:model="U_ip">   
+                <input type="text" class="form-control" placeholder="Physical IP Address" wire:model="U_padd">   
                 </div>   
                 <div class="form-group">
                 <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>

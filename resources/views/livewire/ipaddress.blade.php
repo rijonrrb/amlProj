@@ -1,14 +1,16 @@
 <div class="card">
         <h4 style="color:blue;text-align:center; margin-bottom: 45px;"><b>Ip Address List</b></h4>
-        <div class="row mb-3 p-2 d-flex justify-content-between">
+        <div class="row mb-3 p-2 d-flex justify-content-star">
             @if(Session::get('admin_type') == "SAdmin")
-            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddIPModal()">Add New Dataset</button>
+            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddIPsModal()">Add Block of IPs</button>
+            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddIPModal()">Add Single IP</button>
             @elseif(Session::get('admin_type') == "Mod" && Session::get('create') == "True")
-            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddIPModal()">Add New Dataset</button>
+            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddIPsModal()">Add Block of IPs</button>
+            <button class="btn btn-primary btn-md ml-4" id="add" wire:click="OpenAddIPModal()">Add Single IP</button>
             @endif
             <div>
                 @if ($checkedIp)
-                <button class="btn btn-danger btn-md mr-4" wire:click="deleteIps()"> Delete rows ({{ count($checkedIp) }})</button>
+                <button class="btn btn-danger btn-md ml-4 mt-3 mt-md-0" wire:click="deleteIps()"> Delete rows ({{ count($checkedIp) }})</button>
                 @endif
             </div>
         </div>
@@ -25,7 +27,6 @@
                     <option value="100">100</option>
                     <option value="200">200</option>
                     <option value="500">500</option>
-                    <option value="1000">1000</option>
                 </select>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
@@ -190,12 +191,17 @@
             </tbody>
         </table>
     </div>
-    <div class="d-flex justify-content-between bg-dark card-footer">
-        @if (count($Ips))
-        {{ $Ips->links('livewire-pagination-links') }}
-        @endif
-        <button type="button" id="export" class="btn btn-primary h-25 px-2 mt-2 mr-2">Download Excel</button>
+
+
+    <div class="row d-flex justify-content-between bg-dark card-footer">
+    @if (count($Ips))
+    {{ $Ips->links('livewire-pagination-links') }}
+    @endif
+    <div>
+    <button type="button" id="export" class="btn btn-primary btn-md ml-2 mt-3 mt-md-0">Download Excel</button>
     </div>
+    </div>
+    @include('modals.addIps-modal')
     @include('modals.addIp-modal')
     @include('modals.updateIp-modal')
 </div>

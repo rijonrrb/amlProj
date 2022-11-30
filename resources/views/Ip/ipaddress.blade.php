@@ -34,7 +34,36 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @livewireScripts
 <script>
- window.addEventListener('OpenAddIPModal', function(){
+ window.addEventListener('OpenAddIPsModal', function(){
+    $('.addIPs').find('span').html('');
+    $('.addIPs').find('form')[0].reset();
+    $('.addIPs').modal('show');
+});
+ window.addEventListener('CloseAddIPsModal', function(){
+     $('.addIPs').find('span').html('');
+     $('.addIPs').find('form')[0].reset();
+     $('.addIPs').modal('hide');
+    Swal.fire({
+                icon: 'success',
+                title: 'Inserted..',
+                text: 'Your Dataset has been successfully added.',
+                showConfirmButton: false,
+                timer: 800
+            });
+});
+window.addEventListener('ClosefailedIPsModal', function(){
+     $('.addIPs').find('span').html('');
+     $('.addIPs').find('form')[0].reset();
+     $('.addIPs').modal('hide');
+    Swal.fire({
+                icon: 'error',
+                title: 'Oops..',
+                text: 'This IP Address already inserted',
+                showCloseButton:true,
+                showConfirmButton: false,
+            });
+});
+window.addEventListener('OpenAddIPModal', function(){
     $('.addIP').find('span').html('');
     $('.addIP').find('form')[0].reset();
     $('.addIP').modal('show');

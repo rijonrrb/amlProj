@@ -50,23 +50,21 @@ class Ipaddress extends Component
             $ip = file_get_contents('https://api.ipify.org/?format=text');
             date_default_timezone_set('Asia/Dhaka');
             $time =  date('d F Y h:i:s A');
-            $ipadd =  $this->ip.'.'.'1'; 
+            $ipadd =  $this->ip; 
             $info = Ip::where('ip',$ipadd)->first();
 
             $this->validate([
-            "ip"=>"required|regex:/(^\d{1,3}.\d{1,3}.\d{1,3}$)/",
+            "ip"=>"required|regex:/(^\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}$)/",
             ],
             ['ip.required'=>"The IP Address field is required.",
-            'ip.regex'=>"Format for IP is xxx.xxx.xxx"]
+            'ip.regex'=>"Invalid IP format"]
             );
 
-            if(empty($info))
-            {
-                for ($x = 1; $x <= 255; $x++) {
+                if(empty($info))
+                {
                 $save = Ip::insert([
-                'ip'=>$this->ip.'.'.$x,
+                'ip'=>$this->ip,
                 ]);
-                }
                 if(Session::get('admin_type') == "Mod"){
                 Log::insert([
                 'name'=>Session::get('name'),
@@ -77,24 +75,75 @@ class Ipaddress extends Component
                 'ip'=> $ip,
                 ]);
                 }
-
                 if($save){
                 $this->dispatchBrowserEvent('CloseAddIPModal');
                 $this->checkedUser = [];
                 } 
-            }
-            else 
-            {
-                $this->dispatchBrowserEvent('ClosefailedIPModal');
-            }
-
-
+                }
+                else 
+                {
+                    $this->dispatchBrowserEvent('ClosefailedIPModal');
+                }
 }
+public function OpenAddIPsModal(){
+    $this->ips = '';
+    $this->dispatchBrowserEvent('OpenAddIPsModal');
+}
+public function saveips(){
+        $ip = file_get_contents('https://api.ipify.org/?format=text');
+        date_default_timezone_set('Asia/Dhaka');
+        $time =  date('d F Y h:i:s A');
+        $ipadd =  $this->ips.'.'.'1'; 
+        $info = Ip::where('ip',$ipadd)->first();
 
+        $this->validate([
+        "ips"=>"required|regex:/(^\d{1,3}.\d{1,3}.\d{1,3}$)/",
+        ],
+        ['ips.required'=>"The IP Address field is required.",
+        'ips.regex'=>"Invalid IP format"]
+        );
+
+        if(empty($info))
+        {
+            for ($x = 1; $x <= 255; $x++) {
+            $save = Ip::insert([
+            'ip'=>$this->ips.'.'.$x,
+            ]);
+            }
+            if(Session::get('admin_type') == "Mod"){
+            Log::insert([
+            'name'=>Session::get('name'),
+            'email'=>Session::get('email'),
+            'activity'=>"Create",
+            'afield'=>"IP List",
+            'time'=>$time,
+            'ip'=> $ip,
+            ]);
+            }
+
+            if($save){
+            $this->dispatchBrowserEvent('CloseAddIPsModal');
+            $this->checkedUser = [];
+            } 
+        }
+        else 
+        {
+            $this->dispatchBrowserEvent('ClosefailedIPsModal');
+        }
+}
 public function OpenEditModal($id){
     $info = Ip::find($id);
-    $this->U_user = $info->userid;
-    $this->User = $info->physical_address;
+    $this->U_ipid = $info->id;
+    $this->U_ip = $info->ip;
+    if(empty($info->userid))
+    {
+      $this->U_user = '';
+    }
+    else
+    {
+        $this->U_user = $info->userid;
+    }
+    $this->U_padd = $info->physical_address;
     $this->cid = $info->id;
     $this->dispatchBrowserEvent('OpenEditModal',[
         'id'=>$id
@@ -106,31 +155,105 @@ public function updateRow(){
     $ip = file_get_contents('https://api.ipify.org/?format=text');
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
-    $update = Userslist::find($cid)->update([
-        'name'=>$this->U_user_name,
-        'email'=>$this->U_user_email,
-        'phone'=>$this->U_user_phone,
-        'desigation'=>$this->U_desigation,
-        'dept'=>$this->U_dept,
-        'unit'=>$this->U_unit,
-        'wstation'=>$this->U_wstation,
-        'ip'=>$this->U_ip,
-        'vpn'=>$this->U_vpn
-    ]);
-    if(Session::get('admin_type') == "Mod"){
-        Log::insert([
-            'name'=>Session::get('name'),
-            'email'=>Session::get('email'),
-            'activity'=>"Update",
-            'afield'=>"IP List",
-            'time'=>$time,
-            'ip'=> $ip,
+    $userinfo = Userslist::where('userid',$this->U_user)->first();
+    $userip =  Userslist::where('ip',$this->U_ip)->first();
+    if(empty($this->U_user))
+    {
+        Userslist::where('ip',$this->U_ip)->update([
+            'ip_id'=>Null,
+            'ip'=>Null
         ]);
+        $update = Ip::find($cid)->update([
+            'name'=>Null,
+            'userid'=>Null,
+            'desigation'=>Null,
+            'dept'=>Null,
+            'unit'=>Null,
+            'wstation'=>Null,
+            'physical_address'=>$this->U_padd,
+            'issue_date'=>Null
+        ]);
+        if($update){
+            $this->dispatchBrowserEvent('CloseEditModal');
+            $this->checkedUser = [];
+        }
     }
-    if($update){
-        $this->dispatchBrowserEvent('CloseEditModal');
-        $this->checkedUser = [];
+    else 
+    {
+        if($userip)
+        {
+            $upUser = Userslist::find($userip->id)->update([
+                'ip_id'=>Null,
+                'ip'=>Null
+            ]);
+            if($upUser)
+            {
+                Userslist::where('userid',$userinfo->userid)->update([
+                    'ip_id'=> $this->U_ipid,
+                    'ip'=>$this->U_ip,
+            
+                ]);
+                $update = Ip::find($cid)->update([
+                    'name'=>$userinfo->name,
+                    'userid'=>$userinfo->userid,
+                    'desigation'=>$userinfo->desigation,
+                    'dept'=>$userinfo->dept,
+                    'unit'=>$userinfo->unit,
+                    'wstation'=>$userinfo->wstation,
+                    'physical_address'=> $this->U_padd,
+                    'issue_date'=>$time
+                ]);
+                if(Session::get('admin_type') == "Mod"){
+                    Log::insert([
+                        'name'=>Session::get('name'),
+                        'email'=>Session::get('email'),
+                        'activity'=>"Update",
+                        'afield'=>"IP List",
+                        'time'=>$time,
+                        'ip'=> $ip,
+                    ]);
+                }
+                if($update){
+                    $this->dispatchBrowserEvent('CloseEditModal');
+                    $this->checkedUser = [];
+                }
+            }
+        }
+        else 
+        {
+            Userslist::where('userid',$this->U_user)->update([
+                'ip_id'=> $this->U_ipid,
+                'ip'=>$this->U_ip,
+        
+            ]);
+            $update = Ip::find($cid)->update([
+                'name'=>$userinfo->name,
+                'userid'=>$userinfo->userid,
+                'desigation'=>$userinfo->desigation,
+                'dept'=>$userinfo->dept,
+                'unit'=>$userinfo->unit,
+                'wstation'=>$userinfo->wstation,
+                'physical_address'=> $this->U_padd,
+                'issue_date'=>$time
+            ]);
+            if(Session::get('admin_type') == "Mod"){
+                Log::insert([
+                    'name'=>Session::get('name'),
+                    'email'=>Session::get('email'),
+                    'activity'=>"Update",
+                    'afield'=>"IP List",
+                    'time'=>$time,
+                    'ip'=> $ip,
+                ]);
+            }
+            if($update){
+                $this->dispatchBrowserEvent('CloseEditModal');
+                $this->checkedUser = [];
+            }
+        }
     }
+
+
 }
 
 public function deleteConfirm($id){
