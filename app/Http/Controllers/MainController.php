@@ -35,18 +35,6 @@ class MainController extends Controller
     function dredgings(){
       return view('Unit.dredgings');
     }
-    function cusIgloo(){
-      return view('cus-igloos');
-    }
-    function cusCon(){
-      return view('cuscons');
-    }
-    function cusBev(){
-      return view('cus-bev');
-    }
-    function hmp(){
-      return view('hmps');
-    }
     function userlist(){
       return view('User.userlist');
     }

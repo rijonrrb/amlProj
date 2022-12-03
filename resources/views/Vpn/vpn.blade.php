@@ -138,7 +138,7 @@ window.addEventListener('ClosefailedEditModal', function(){
         var data = document.getElementById('Vpn');
         var file = XLSX.utils.table_to_book(data, {sheet: "VPN list"});
         XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
-        XLSX.writeFile(file, 'VPN list.' + type);
+        XLSX.writeFile(file, 'VPN-list.' + type);
     }
     const export_button = document.getElementById('export');
     export_button.addEventListener('click', () =>  {
