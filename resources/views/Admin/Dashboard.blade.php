@@ -31,7 +31,7 @@
       <img src="{{asset('img/ip.svg')}}" alt="" style="height: 100px; width: 100px;">
     </div>
     <div class="box box-down blue" title="Click on the text">
-      <a href="#" ><h2 class="hover-underline-animation">VPN List</h2></a> <br>
+      <a href="{{route('vpn')}}" ><h2 class="hover-underline-animation">VPN List</h2></a> <br>
       <code>All the VPN list are here!</code>
       <img src="{{asset('img/vpn.svg')}}" alt="" style="height: 100px; width: 100px;">
     </div>

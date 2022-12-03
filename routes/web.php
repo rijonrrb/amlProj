@@ -50,4 +50,5 @@ Route::post('/Admin/Logged_in',[AdminController::class, 'AdminLogSubmit'])->name
 Route::get('/Admin/LogOut',[AdminController::class, 'logout'])->name('AdminLogout')->middleware('AdminIsValid');
 //Ip_Routes
 Route::get('/Admin/Ip_list', function () {return view('Ip.ipaddress');})->name('ipaddress')->middleware('AdminIsValid');
-
+//Vpn_Routes
+Route::get('/Admin/Vpn_list', function () {return view('Vpn.vpn');})->name('vpn')->middleware('AdminIsValid');

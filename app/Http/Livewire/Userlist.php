@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Userslist;
 use App\Models\Itcus;
-use App\Models\Dept;
+use App\Models\Ip;
 use App\Models\Log;
 use Livewire\WithPagination;
 use Session;
