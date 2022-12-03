@@ -86,7 +86,7 @@ window.addEventListener('ClosefailedEditModal', function(){
     Swal.fire({
                 icon: 'error',
                 title: 'Oops..',
-                text: 'This Username is already inserted',
+                text: 'This User have already a VPN',
                 showCloseButton:true,
                 showConfirmButton: false,
             });

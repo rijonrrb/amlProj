@@ -154,16 +154,14 @@ window.addEventListener('OpenEditModal', function(event){
     function html_table_to_excel(type)
     {
         var data = document.getElementById('Ip');
-        var file = XLSX.utils.table_to_book(data, {sheet: "AML Ip Refinery Unit"});
+        var file = XLSX.utils.table_to_book(data, {sheet: "IP Address List"});
         XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
-        XLSX.writeFile(file, 'AML Ip Refinery Unit.' + type);
+        XLSX.writeFile(file, 'IP-List.' + type);
     }
     const export_button = document.getElementById('export');
     export_button.addEventListener('click', () =>  {
         html_table_to_excel('xlsx');
     });
 </script>
-<script src="{{ asset('js/OptIp.js') }}"></script>
-<script src="{{ asset('js/Add.js') }}"></script>
 </body>
 </html>

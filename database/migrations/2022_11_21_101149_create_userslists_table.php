@@ -27,7 +27,6 @@ return new class extends Migration
             $table->string('asset_no')->nullable();
             $table->string('ip_id')->nullable();
             $table->string('ip')->nullable();
-            $table->string('vpn_id')->nullable();
             $table->string('vpn')->nullable();
         });
     }

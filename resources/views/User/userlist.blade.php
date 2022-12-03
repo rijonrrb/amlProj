@@ -125,9 +125,9 @@ window.addEventListener('OpenEditModal', function(event){
     function html_table_to_excel(type)
     {
         var data = document.getElementById('User');
-        var file = XLSX.utils.table_to_book(data, {sheet: "AML User Refinery Unit"});
+        var file = XLSX.utils.table_to_book(data, {sheet: "User-List (AMLBD)"});
         XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
-        XLSX.writeFile(file, 'AML User Refinery Unit.' + type);
+        XLSX.writeFile(file, 'User-List.' + type);
     }
     const export_button = document.getElementById('export');
     export_button.addEventListener('click', () =>  {

@@ -151,10 +151,14 @@ public function updateRow(){
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     $uname =  $this->U_name; 
+    $chkUser = Vpns::where('id',$cid)->first();
     $info = Vpns::where('name',$uname)->first();
     $userinfo = Userslist::where('userid',$this->U_userid)->first();
     if($this->U_userid == "No")
     {
+        Userslist::where('userid',$chkUser->userid)->update([
+            'vpn'=>Null,
+        ]);
     $update = Vpns::find($cid)->update([
     'userid'=>'',
     'name'=>$this->U_name,
@@ -177,12 +181,42 @@ public function updateRow(){
     $this->checkedVpn = [];
     } 
     }
+    elseif ($chkUser->userid == $this->U_userid) {
+        Userslist::where('userid',$this->U_userid)->update([
+            'vpn'=>$this->U_name,
+
+        ]);
+        $update = Vpns::find($cid)->update([
+            'userid'=>$this->U_userid,
+            'name'=>$this->U_name,
+            'password'=>$this->U_password,
+            'ip'=>$this->U_ip,
+            'remark'=>$this->U_remark,
+            ]);
+        if(Session::get('admin_type') == "Mod"){
+            Log::insert([
+                'name'=>Session::get('name'),
+                'email'=>Session::get('email'),
+                'activity'=>"Update",
+                'afield'=>"VPN List",
+                'time'=>$time,
+                'ip'=> $ip,
+            ]);
+        }
+        if($update){
+            $this->dispatchBrowserEvent('CloseEditModal');
+            $this->checkedVpn = [];
+        }  
+    }
     else 
     {
         if(empty($userinfo->vpn))
         {
+        Userslist::where('userid',$chkUser->userid)->update([
+            'vpn'=>Null,
+        ]);
         Userslist::where('userid',$this->U_userid)->update([
-            'vpn'=>$this->name,
+            'vpn'=>$this->U_name,
 
         ]);
         $update = Vpns::find($cid)->update([
