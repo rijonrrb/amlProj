@@ -174,9 +174,9 @@
                         <td  data-id="{{ $Construction->id }}" data-column="p_issue_date" >{{ $Construction->p_issue_date }}</td>
                         <td  data-id="{{ $Construction->id }}" data-column="configuration" >{{ $Construction->configuration }}</td>
                         <td  data-id="{{ $Construction->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Construction->warrenty_start }}</td>
-                        @if( strtotime($Construction->warrenty_end) <= strtotime($date) && $Construction->warrenty_end != Null)
+                        @if( strtotime($Construction->warrenty_end) < strtotime($date) && $Construction->warrenty_end != Null)
                         <td  data-id="{{ $Construction->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Construction->warrenty_end }}</td>
-                        @elseif( strtotime($Construction->warrenty_end) > strtotime($date) && $Construction->warrenty_end != Null)
+                        @elseif( strtotime($Construction->warrenty_end) >= strtotime($date) && $Construction->warrenty_end != Null)
                         <td  data-id="{{ $Construction->id }}" class="text-white bg-primary" data-column="warrenty_end" style="white-space: nowrap;">{{ $Construction->warrenty_end }}</td>
                         @else
                         <td  data-id="{{ $Construction->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $Construction->warrenty_end }}</td>

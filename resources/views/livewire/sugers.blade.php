@@ -174,9 +174,9 @@
                         <td  data-id="{{ $Suger->id }}" data-column="p_issue_date" >{{ $Suger->p_issue_date }}</td>
                         <td  data-id="{{ $Suger->id }}" data-column="configuration" >{{ $Suger->configuration }}</td>
                         <td  data-id="{{ $Suger->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Suger->warrenty_start }}</td>
-                        @if( strtotime($Suger->warrenty_end) <= strtotime($date) && $Suger->warrenty_end != Null)
+                        @if( strtotime($Suger->warrenty_end) < strtotime($date) && $Suger->warrenty_end != Null)
                         <td  data-id="{{ $Suger->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Suger->warrenty_end }}</td>
-                        @elseif( strtotime($Suger->warrenty_end) > strtotime($date) && $Suger->warrenty_end != Null)
+                        @elseif( strtotime($Suger->warrenty_end) >= strtotime($date) && $Suger->warrenty_end != Null)
                         <td  data-id="{{ $Suger->id }}" class="text-white bg-primary" data-column="warrenty_end" style="white-space: nowrap;">{{ $Suger->warrenty_end }}</td>
                         @else
                         <td  data-id="{{ $Suger->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $Suger->warrenty_end }}</td>

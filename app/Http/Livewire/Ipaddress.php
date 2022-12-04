@@ -260,7 +260,7 @@ public function deleteConfirm($id){
     $info = Ip::find($id);
     $this->dispatchBrowserEvent('SwalConfirm',[
         'title'=>'Are you sure?',
-        'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
+        'html'=>'You want to <strong>delete</strong> this?',
         'id'=>$id
     ]);
 }
@@ -287,7 +287,7 @@ public function delete($id){
 public function deleteIps(){
     $this->dispatchBrowserEvent('swal:deleteIps',[
         'title'=>'Are you sure?',
-        'html'=>'You want to delete this items',
+        'html'=>'You want to <strong>delete</strong> this rows',
         'checkedIDs'=>$this->checkedIp,
     ]);
 }

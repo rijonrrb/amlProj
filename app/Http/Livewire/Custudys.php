@@ -220,7 +220,7 @@ public function OpenReuseModal($id){
     $this->r_user = '';
     $this->r_H_user = '';
     $this->r_H_designation = '';
-    $this->r_H_dept = '';
+    $this->r_H_dept = 'IT';
     $this->r_H_wstation = '';
     $this->rid = $info->id;
     $this->dispatchBrowserEvent('OpenReuseModal',[
@@ -554,7 +554,7 @@ public function deleteConfirm($id){
     $info = Itcus::find($id);
     $this->dispatchBrowserEvent('SwalConfirm',[
         'title'=>'Are you sure?',
-        'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
+        'html'=>'You want to <strong>delete</strong> this?',
         'id'=>$id
     ]);
 }
@@ -581,7 +581,7 @@ public function delete($id){
 public function deleteItcuss(){
     $this->dispatchBrowserEvent('swal:deleteItcuss',[
         'title'=>'Are you sure?',
-        'html'=>'You want to delete this items',
+        'html'=>'You want to <strong>delete</strong> this rows',
         'checkedIDs'=>$this->checkedItcus,
     ]);
 }

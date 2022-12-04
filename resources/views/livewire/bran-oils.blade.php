@@ -174,9 +174,9 @@
 					<td  data-id="{{ $Branoil->id }}" data-column="p_issue_date" >{{ $Branoil->p_issue_date }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="configuration" >{{ $Branoil->configuration }}</td>
 					<td  data-id="{{ $Branoil->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Branoil->warrenty_start }}</td>
-					@if( strtotime($Branoil->warrenty_end) <= strtotime($date) && $Branoil->warrenty_end != Null)
+					@if( strtotime($Branoil->warrenty_end) < strtotime($date) && $Branoil->warrenty_end != Null)
 					<td  data-id="{{ $Branoil->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Branoil->warrenty_end }}</td>
-					@elseif( strtotime($Branoil->warrenty_end) > strtotime($date) && $Branoil->warrenty_end != Null)
+					@elseif( strtotime($Branoil->warrenty_end) >= strtotime($date) && $Branoil->warrenty_end != Null)
 					<td  data-id="{{ $Branoil->id }}" class="text-white bg-primary" data-column="warrenty_end" style="white-space: nowrap;">{{ $Branoil->warrenty_end }}</td>
 					@else
 					<td  data-id="{{ $Branoil->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $Branoil->warrenty_end }}</td>

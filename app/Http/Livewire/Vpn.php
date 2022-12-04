@@ -253,16 +253,21 @@ public function deleteConfirm($id){
     $info = Vpns::find($id);
     $this->dispatchBrowserEvent('SwalConfirm',[
         'title'=>'Are you sure?',
-        'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
+        'html'=>'You want to <strong>delete</strong> this?',
         'id'=>$id
     ]);
 }
 public function delete($id){
+    $chkUser = Vpns::where('id',$id)->first();
+    Userslist::where('userid',$chkUser->userid)->update([
+        'vpn'=>Null,
+    ]);
     $del =  Vpns::find($id)->delete();
     $ip = file_get_contents('https://api.ipify.org/?format=text');
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     if($del){
+
         $this->dispatchBrowserEvent('deleted');
     }
     if(Session::get('admin_type') == "Mod"){
@@ -280,7 +285,7 @@ public function delete($id){
 public function deleteVpns(){
     $this->dispatchBrowserEvent('swal:deleteVpns',[
         'title'=>'Are you sure?',
-        'html'=>'You want to delete this items',
+        'html'=>'You want to <strong>delete</strong> this rows',
         'checkedIDs'=>$this->checkedVpn,
     ]);
 }

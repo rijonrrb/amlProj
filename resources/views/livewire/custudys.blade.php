@@ -139,7 +139,7 @@
             @endphp
             @if( $Warrenty == "expire")
             @forelse ($Itcuss as $Itcus)
-            @if( strtotime($Itcus->warrenty_end) <= strtotime($date) && $Itcus->warrenty_end != Null)
+            @if( strtotime($Itcus->warrenty_end) < strtotime($date) && $Itcus->warrenty_end != Null)
             <tr class="{{ $this->isChecked($Itcus->id) }}">
                 @if(Session::get('admin_type') == "SAdmin")
                 <td><input type="checkbox" value="{{ $Itcus->id }}" wire:model="checkedItcus"></td>
@@ -163,9 +163,9 @@
                 <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="condition" >{{ $Itcus->condition }}</td>
                 @endif
                 <td  data-id="{{ $Itcus->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Itcus->warrenty_start }}</td>
-                @if( strtotime($Itcus->warrenty_end) <= strtotime($date) && $Itcus->warrenty_end != Null)
+                @if( strtotime($Itcus->warrenty_end) < strtotime($date) && $Itcus->warrenty_end != Null)
                 <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
-                @elseif( strtotime($Itcus->warrenty_end) > strtotime($date) && $Itcus->warrenty_end != Null)
+                @elseif( strtotime($Itcus->warrenty_end) >= strtotime($date) && $Itcus->warrenty_end != Null)
                 <td  data-id="{{ $Itcus->id }}" class="text-white bg-primary" data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
                 @else
                 <td  data-id="{{ $Itcus->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
@@ -266,7 +266,7 @@
 
             @elseif( $Warrenty == "active")
             @forelse ($Itcuss as $Itcus)
-            @if( strtotime($Itcus->warrenty_end) > strtotime($date) && $Itcus->warrenty_end != Null)
+            @if( strtotime($Itcus->warrenty_end) >= strtotime($date) && $Itcus->warrenty_end != Null)
             <tr class="{{ $this->isChecked($Itcus->id) }}">
                 @if(Session::get('admin_type') == "SAdmin")
                 <td><input type="checkbox" value="{{ $Itcus->id }}" wire:model="checkedItcus"></td>
@@ -290,9 +290,9 @@
                 <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="condition" >{{ $Itcus->condition }}</td>
                 @endif
                 <td  data-id="{{ $Itcus->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Itcus->warrenty_start }}</td>
-                @if( strtotime($Itcus->warrenty_end) <= strtotime($date) && $Itcus->warrenty_end != Null)
+                @if( strtotime($Itcus->warrenty_end) < strtotime($date) && $Itcus->warrenty_end != Null)
                 <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
-                @elseif( strtotime($Itcus->warrenty_end) > strtotime($date) && $Itcus->warrenty_end != Null)
+                @elseif( strtotime($Itcus->warrenty_end) >= strtotime($date) && $Itcus->warrenty_end != Null)
                 <td  data-id="{{ $Itcus->id }}" class="text-white bg-primary" data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
                 @else
                 <td  data-id="{{ $Itcus->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
@@ -416,9 +416,9 @@
                 <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="condition" >{{ $Itcus->condition }}</td>
                 @endif
                 <td  data-id="{{ $Itcus->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Itcus->warrenty_start }}</td>
-                @if( strtotime($Itcus->warrenty_end) <= strtotime($date) && $Itcus->warrenty_end != Null)
+                @if( strtotime($Itcus->warrenty_end) < strtotime($date) && $Itcus->warrenty_end != Null)
                 <td  data-id="{{ $Itcus->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
-                @elseif( strtotime($Itcus->warrenty_end) > strtotime($date) && $Itcus->warrenty_end != Null)
+                @elseif( strtotime($Itcus->warrenty_end) >= strtotime($date) && $Itcus->warrenty_end != Null)
                 <td  data-id="{{ $Itcus->id }}" class="text-white bg-primary" data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>
                 @else
                 <td  data-id="{{ $Itcus->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $Itcus->warrenty_end }}</td>

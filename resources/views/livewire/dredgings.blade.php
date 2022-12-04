@@ -174,9 +174,9 @@
 					<td  data-id="{{ $Dredging->id }}" data-column="p_issue_date" >{{ $Dredging->p_issue_date }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="configuration" >{{ $Dredging->configuration }}</td>
 					<td  data-id="{{ $Dredging->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Dredging->warrenty_start }}</td>
-					@if( strtotime($Dredging->warrenty_end) <= strtotime($date) && $Dredging->warrenty_end != Null)
+					@if( strtotime($Dredging->warrenty_end) < strtotime($date) && $Dredging->warrenty_end != Null)
 					<td  data-id="{{ $Dredging->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Dredging->warrenty_end }}</td>
-					@elseif( strtotime($Dredging->warrenty_end) > strtotime($date) && $Dredging->warrenty_end != Null)
+					@elseif( strtotime($Dredging->warrenty_end) >= strtotime($date) && $Dredging->warrenty_end != Null)
 					<td  data-id="{{ $Dredging->id }}" class="text-white bg-primary" data-column="warrenty_end" style="white-space: nowrap;">{{ $Dredging->warrenty_end }}</td>
 					@else
 					<td  data-id="{{ $Dredging->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $Dredging->warrenty_end }}</td>

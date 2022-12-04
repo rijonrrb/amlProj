@@ -28,7 +28,7 @@ class AdminList extends Component
         $info = Admin::find($id);
         $this->dispatchBrowserEvent('SwalConfirm',[
             'title'=>'Are you sure?',
-            'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
+            'html'=>'You want to <strong>delete</strong> this?',
             'id'=>$id
         ]);
     }
@@ -42,7 +42,7 @@ class AdminList extends Component
     public function deleteAdmins(){
         $this->dispatchBrowserEvent('swal:deleteAdmins',[
             'title'=>'Are you sure?',
-            'html'=>'You want to delete this items',
+            'html'=>'You want to <strong>delete</strong> this rows',
             'checkedIDs'=>$this->checkedAdmin,
         ]);
     }

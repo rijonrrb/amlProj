@@ -8,14 +8,6 @@ document.getElementById("cProd").style.display = "none";
 }
 //Re-Issue Product
 
-document.getElementById("r_H_cdept").onclick = function() {
-document.getElementById("r_H_idept").style.display = "none";
-document.getElementById("r_H_sdept").disabled = false;
-document.getElementById("r_H_idept").disabled = true;
-document.getElementById("r_H_sdept").style.display = "block";
-document.getElementById("r_H_cdept").style.display = "none";
-}
-
 document.getElementById("r_H_cdes").onclick = function() {
 document.getElementById("r_H_ides").style.display = "none";
 document.getElementById("r_H_sdes").disabled = false;
@@ -25,14 +17,6 @@ document.getElementById("r_H_cdes").style.display = "none";
 }
 
 //Return Product
-document.getElementById("UH_cdept").onclick = function() {
-document.getElementById("UH_idept").style.display = "none";
-document.getElementById("UH_sdept").disabled = false;
-document.getElementById("UH_idept").disabled = true;
-document.getElementById("UH_sdept").style.display = "block";
-document.getElementById("UH_cdept").style.display = "none";
-}
-
 document.getElementById("UH_cdes").onclick = function() {
 document.getElementById("UH_ides").style.display = "none";
 document.getElementById("UH_sdes").disabled = false;

@@ -261,7 +261,7 @@ public function OpenReturnCountryModal($id){
     $info = Suger::find($id);
     $this->upd_H_user = '';
     $this->upd_H_designation = '';
-    $this->upd_H_dept = '';
+    $this->upd_H_dept = 'IT';
     $this->upd_H_wstation = '';
     $this->upd_H_condition = '';
     $this->cid = $info->id;
@@ -425,7 +425,7 @@ public function deleteConfirm($id){
     $info = Suger::find($id);
     $this->dispatchBrowserEvent('SwalConfirm',[
         'title'=>'Are you sure?',
-        'html'=>'You want to delete SL No.<strong>'.$info->id.'</strong>',
+        'html'=>'You want to <strong>delete</strong> this?',
         'id'=>$id
     ]);
 }
@@ -452,7 +452,7 @@ public function delete($id){
 public function deleteSugers(){
     $this->dispatchBrowserEvent('swal:deleteSugers',[
         'title'=>'Are you sure?',
-        'html'=>'You want to delete this items',
+        'html'=>'You want to <strong>delete</strong> this rows',
         'checkedIDs'=>$this->checkedSuger,
     ]);
 }

@@ -174,9 +174,9 @@
 					<td  data-id="{{ $Beverage->id }}" data-column="p_issue_date" >{{ $Beverage->p_issue_date }}</td>
 					<td  data-id="{{ $Beverage->id }}" data-column="configuration" >{{ $Beverage->configuration }}</td>
 					<td  data-id="{{ $Beverage->id }}" data-column="warrenty_start" style="white-space: nowrap;">{{ $Beverage->warrenty_start }}</td>
-					@if( strtotime($Beverage->warrenty_end) <= strtotime($date) && $Beverage->warrenty_end != Null)
+					@if( strtotime($Beverage->warrenty_end) < strtotime($date) && $Beverage->warrenty_end != Null)
 					<td  data-id="{{ $Beverage->id }}" class="text-white bg-danger" data-column="warrenty_end" style="white-space: nowrap;">{{ $Beverage->warrenty_end }}</td>
-					@elseif( strtotime($Beverage->warrenty_end) > strtotime($date) && $Beverage->warrenty_end != Null)
+					@elseif( strtotime($Beverage->warrenty_end) >= strtotime($date) && $Beverage->warrenty_end != Null)
 					<td  data-id="{{ $Beverage->id }}" class="text-white bg-primary" data-column="warrenty_end" style="white-space: nowrap;">{{ $Beverage->warrenty_end }}</td>
 					@else
 					<td  data-id="{{ $Beverage->id }}"  data-column="warrenty_end" style="white-space: nowrap;">{{ $Beverage->warrenty_end }}</td>
