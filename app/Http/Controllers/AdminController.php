@@ -55,7 +55,7 @@ public function AdminLogSubmit(Request $request){
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     $loginCheck = Admin::where('email',$request->email)->where('password',md5($request->password))->first();
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+   
     if($loginCheck){
 
         if($loginCheck->admin_type == "Mod"){
@@ -64,7 +64,7 @@ public function AdminLogSubmit(Request $request){
                 'email'=>$loginCheck->email,
                 'activity'=>"Logged-In",
                 'time'=>$time,
-                'ip'=> $ip,
+                
             ]);
             if($result){
                 $request->session()->put('id',$loginCheck->id);
@@ -104,14 +104,14 @@ public function AdminLogSubmit(Request $request){
 public function logout(){
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+   
     if(Session::get('admin_type') == "Mod"){
         $result = Log::insert([
             'name'=>Session::get('name'),
             'email'=>Session::get('email'),
             'activity'=>"Logged-Out",
             'time'=>$time,
-            'ip'=> $ip,
+            
         ]);
 
         if($result){
