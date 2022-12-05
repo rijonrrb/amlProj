@@ -77,7 +77,7 @@ class BranOils extends Component
 //         date_default_timezone_set('Asia/Dhaka');
 //         $time =  date('d F Y h:i:s A');
 //         $next_id = uniqid('Branoil', true);
-//         $ip = file_get_contents('https://api.ipify.org/?format=text');
+//         
 //         $asst = substr($this->item, 0,3)."-".rand(100,1000)."-".rand(10000,1000000);
 //         Session::put('id', $next_id);
 //         Session::put('b_area', 'Branoil');
@@ -104,7 +104,7 @@ class BranOils extends Component
 //             'activity'=>"Create",
 //             'afield'=>"AML Bran Oil",
 //             'time'=>$time,
-//             'ip'=> $ip,
+//            
 //         ]);
 //       }
 //       Invoice::insert([
@@ -277,7 +277,7 @@ public function update(){
     $timeLog =date('d F Y h:i:s A');
     $cid = $this->cid;
     $info = Branoil::find($cid);
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+    
     if (empty($info->previous_user))
     {
         $previous_user = $info->user_name."#".$info->userid;
@@ -338,7 +338,7 @@ public function update(){
             'activity'=>"Return Product",
             'afield'=>"AML Bran Oil",
             'time'=>$timeLog,
-            'ip'=> $ip,
+           
         ]);
     }
     $savex = Invoice::where('sid',$info->sid)->update([
@@ -388,7 +388,7 @@ public function OpenEditModal($id){
 
 public function updateRow(){
     $cid = $this->cid;
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+    
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     $update = Branoil::find($cid)->update([
@@ -412,7 +412,7 @@ public function updateRow(){
             'activity'=>"Update",
             'afield'=>"AML Bran Oil",
             'time'=>$time,
-            'ip'=> $ip,
+           
         ]);
     }
     if($update){
@@ -431,7 +431,7 @@ public function deleteConfirm($id){
 }
 public function delete($id){
     $del =  Branoil::find($id)->delete();
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+    
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     if($del){
@@ -444,7 +444,7 @@ public function delete($id){
             'activity'=>"Delete",
             'afield'=>"AML Bran Oil",
             'time'=>$time,
-            'ip'=> $ip,
+           
         ]);
     }
     $this->checkedBranoil = [];
@@ -458,7 +458,7 @@ public function deleteBranoils(){
 }
 public function deleteCheckedBranoils($ids){
     Branoil::whereKey($ids)->delete();
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+    
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     if(Session::get('admin_type') == "Mod"){
@@ -468,7 +468,7 @@ public function deleteCheckedBranoils($ids){
             'activity'=>"Delete",
             'afield'=>"AML Bran Oil",
             'time'=>$time,
-            'ip'=> $ip,
+           
         ]);
     }        
     $this->checkedBranoil = [];

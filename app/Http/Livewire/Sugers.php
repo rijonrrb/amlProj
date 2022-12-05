@@ -63,7 +63,7 @@ class Sugers extends Component
 //     public function save(){
 //         date_default_timezone_set('Asia/Dhaka');
 //         $time =  date('d F Y h:i:s A');
-//         $ip = file_get_contents('https://api.ipify.org/?format=text');
+//        
 //         $next_id = uniqid('Sugar', true);
 //         Session::put('id', $next_id);
 //         Session::put('b_area', 'Sugar');
@@ -102,7 +102,7 @@ class Sugers extends Component
 //             'activity'=>"Create",
 //             'afield'=>"AML Sugar Refinery",
 //             'time'=>$time,
-//             'ip'=> $ip,
+//             
 //         ]);
 //       }
 //       Invoice::insert([
@@ -274,7 +274,7 @@ public function update(){
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y');
     $timeLog =date('d F Y h:i:s A');
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+   
     $cid = $this->cid;
     $info = Suger::find($cid);
     if (empty($info->previous_user))
@@ -337,7 +337,7 @@ public function update(){
             'activity'=>"Return Product",
             'afield'=>"AML Sugar Refinery",
             'time'=>$time,
-            'ip'=> $ip,
+            
         ]);
     }
     $savex = Invoice::where('sid',$info->sid)->update([
@@ -389,7 +389,7 @@ public function OpenEditModal($id){
 
 public function updateRow(){
     $cid = $this->cid;
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+   
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     $update = Suger::find($cid)->update([
@@ -413,7 +413,7 @@ public function updateRow(){
             'activity'=>"Update",
             'afield'=>"AML Sugar Refinery",
             'time'=>$timeLog,
-            'ip'=> $ip,
+            
         ]);
     }
     if($update){
@@ -431,7 +431,7 @@ public function deleteConfirm($id){
 }
 public function delete($id){
     $del =  Suger::find($id)->delete();
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+   
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     if($del){
@@ -444,7 +444,7 @@ public function delete($id){
             'activity'=>"Delete",
             'afield'=>"AML Sugar Refinery",
             'time'=>$time,
-            'ip'=> $ip,
+            
         ]);
     }
     $this->checkedSuger = [];
@@ -458,7 +458,7 @@ public function deleteSugers(){
 }
 public function deleteCheckedSugers($ids){
     Suger::whereKey($ids)->delete();
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+   
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     if(Session::get('admin_type') == "Mod"){
@@ -468,7 +468,7 @@ public function deleteCheckedSugers($ids){
             'activity'=>"Delete",
             'afield'=>"AML Sugar Refinery",
             'time'=>$time,
-            'ip'=> $ip,
+            
         ]);
     }
     $this->checkedSuger = [];

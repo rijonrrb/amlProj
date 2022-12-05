@@ -47,7 +47,7 @@ class Ipaddress extends Component
         $this->dispatchBrowserEvent('OpenAddIPModal');
     }
     public function save(){
-            $ip = file_get_contents('https://api.ipify.org/?format=text');
+           
             date_default_timezone_set('Asia/Dhaka');
             $time =  date('d F Y h:i:s A');
             $ipadd =  $this->ip; 
@@ -72,7 +72,7 @@ class Ipaddress extends Component
                 'activity'=>"Create",
                 'afield'=>"IP List",
                 'time'=>$time,
-                'ip'=> $ip,
+                
                 ]);
                 }
                 if($save){
@@ -90,7 +90,7 @@ public function OpenAddIPsModal(){
     $this->dispatchBrowserEvent('OpenAddIPsModal');
 }
 public function saveips(){
-        $ip = file_get_contents('https://api.ipify.org/?format=text');
+       
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $ipadd =  $this->ips.'.'.'1'; 
@@ -117,7 +117,7 @@ public function saveips(){
             'activity'=>"Create",
             'afield'=>"IP List",
             'time'=>$time,
-            'ip'=> $ip,
+            
             ]);
             }
 
@@ -152,7 +152,7 @@ public function OpenEditModal($id){
 
 public function updateRow(){
     $cid = $this->cid;
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+   
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     $userinfo = Userslist::where('userid',$this->U_user)->first();
@@ -210,7 +210,7 @@ public function updateRow(){
                         'activity'=>"Update",
                         'afield'=>"IP List",
                         'time'=>$time,
-                        'ip'=> $ip,
+                        
                     ]);
                 }
                 if($update){
@@ -243,7 +243,7 @@ public function updateRow(){
                     'activity'=>"Update",
                     'afield'=>"IP List",
                     'time'=>$time,
-                    'ip'=> $ip,
+                    
                 ]);
             }
             if($update){
@@ -266,7 +266,7 @@ public function deleteConfirm($id){
 }
 public function delete($id){
     $del =  Ip::find($id)->delete();
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+   
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     if($del){
@@ -279,7 +279,7 @@ public function delete($id){
             'activity'=>"Delete",
             'afield'=>"IP List",
             'time'=>$time,
-            'ip'=> $ip,
+            
         ]);
     }
     $this->checkedIp = [];
@@ -293,7 +293,7 @@ public function deleteIps(){
 }
 public function deleteCheckedIps($ids){
     Ip::whereKey($ids)->delete();
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+   
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     if(Session::get('admin_type') == "Mod"){
@@ -303,7 +303,7 @@ public function deleteCheckedIps($ids){
             'activity'=>"Delete",
             'afield'=>"IP List",
             'time'=>$time,
-            'ip'=> $ip,
+            
         ]);
     }
     $this->checkedIp = [];

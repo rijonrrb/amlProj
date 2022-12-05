@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('activity');
             $table->string('afield')->nullable();
             $table->string('time');
-            $table->string('ip');
         });
     }
 

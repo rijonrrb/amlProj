@@ -43,7 +43,7 @@ class Vpn extends Component
         $this->dispatchBrowserEvent('OpenAddVpnModal');
     }
     public function save(){
-        $ip = file_get_contents('https://api.ipify.org/?format=text');
+        
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $name =  $this->name; 
@@ -81,8 +81,7 @@ class Vpn extends Component
                     'email'=>Session::get('email'),
                     'activity'=>"Create",
                     'afield'=>"VPN List",
-                    'time'=>$time,
-                    'ip'=> $ip,
+                    'time'=>$time,                 
                 ]);
             }
             if($save){
@@ -112,7 +111,7 @@ class Vpn extends Component
                     'activity'=>"Create",
                     'afield'=>"VPN List",
                     'time'=>$time,
-                    'ip'=> $ip,
+                    
                 ]);
             }
             if($save){
@@ -147,7 +146,7 @@ public function OpenEditModal($id){
 
 public function updateRow(){
     $cid = $this->cid;
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+    
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     $uname =  $this->U_name; 
@@ -173,7 +172,7 @@ public function updateRow(){
     'activity'=>"Update",
     'afield'=>"Vpn List",
     'time'=>$time,
-    'ip'=> $ip,
+    
     ]);
     }
     if($update){
@@ -200,7 +199,7 @@ public function updateRow(){
                 'activity'=>"Update",
                 'afield'=>"VPN List",
                 'time'=>$time,
-                'ip'=> $ip,
+                
             ]);
         }
         if($update){
@@ -233,7 +232,7 @@ public function updateRow(){
                 'activity'=>"Update",
                 'afield'=>"VPN List",
                 'time'=>$time,
-                'ip'=> $ip,
+                
             ]);
         }
         if($update){
@@ -263,7 +262,7 @@ public function delete($id){
         'vpn'=>Null,
     ]);
     $del =  Vpns::find($id)->delete();
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+    
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     if($del){
@@ -277,7 +276,7 @@ public function delete($id){
             'activity'=>"Delete",
             'afield'=>"Vpn List",
             'time'=>$time,
-            'ip'=> $ip,
+            
         ]);
     }
     $this->checkedVpn = [];
@@ -291,7 +290,7 @@ public function deleteVpns(){
 }
 public function deleteCheckedVpns($ids){
     Vpns::whereKey($ids)->delete();
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+    
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     if(Session::get('admin_type') == "Mod"){
@@ -301,7 +300,7 @@ public function deleteCheckedVpns($ids){
             'activity'=>"Delete",
             'afield'=>"Vpn List",
             'time'=>$time,
-            'ip'=> $ip,
+            
         ]);
     }
     $this->checkedVpn = [];

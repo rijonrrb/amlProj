@@ -92,7 +92,7 @@ class Custudys extends Component
         }
         $asst = substr($this->item, 0,3)."-".rand(100,1000)."-".rand(10000,1000000);
         $next_id = uniqid('CUSTUDY', true);
-        $ip = file_get_contents('https://api.ipify.org/?format=text');
+       
         Session::put('id', $next_id);
         Session::put('b_area', 'CUSTUDY');
         $this->validate([
@@ -137,7 +137,7 @@ class Custudys extends Component
             'activity'=>"Create",
             'afield'=>"IT Store",
             'time'=>$time,
-            'ip'=> $ip,
+           
         ]);
       }
       if($save){
@@ -181,7 +181,7 @@ class Custudys extends Component
 
     public function updateItem(){
         $cid = $this->cid;
-        $ip = file_get_contents('https://api.ipify.org/?format=text');
+       
         date_default_timezone_set('Asia/Dhaka');
         $time =  date('d F Y h:i:s A');
         $update = Itcus::find($cid)->update([
@@ -206,7 +206,7 @@ class Custudys extends Component
                 'activity'=>"Update",
                 'afield'=>"IT Store",
                 'time'=>$time,
-                'ip'=> $ip,
+               
             ]);
         }
         if($update){
@@ -245,7 +245,7 @@ public function reuseProd(){
     $time =  date('d F Y');
     $user = $this->r_user;
     $timeLog =date('d F Y h:i:s A');
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+   
     $rid = $this->rid;
     $info = Itcus::find($rid);
     $userinfo = Userslist::where('userid',$this->r_user)->first();
@@ -540,7 +540,7 @@ public function reuseProd(){
             'activity'=>"Issue",
             'afield'=>"IT Store",
             'time'=>$timeLog,
-            'ip'=> $ip,
+           
         ]);
     }
 
@@ -560,7 +560,7 @@ public function deleteConfirm($id){
 }
 public function delete($id){
     $del =  Itcus::find($id)->delete();
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+   
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     if($del){
@@ -573,7 +573,7 @@ public function delete($id){
             'activity'=>"Delete",
             'afield'=>"IT Store",
             'time'=>$time,
-            'ip'=> $ip,
+           
         ]);
     }
     $this->checkedItcus = [];
@@ -587,7 +587,7 @@ public function deleteItcuss(){
 }
 public function deleteCheckedItcuss($ids){
     Itcus::whereKey($ids)->delete();
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+   
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     if(Session::get('admin_type') == "Mod"){
@@ -597,7 +597,7 @@ public function deleteCheckedItcuss($ids){
             'activity'=>"Delete",
             'afield'=>"IT Store",
             'time'=>$time,
-            'ip'=> $ip,
+           
         ]);
     }
     $this->checkedItcus = [];

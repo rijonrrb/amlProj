@@ -96,7 +96,7 @@ class Userlist extends Component
          }
 
         $time =  date('d F Y h:i:s A');
-        $ip = file_get_contents('https://api.ipify.org/?format=text');     
+            
         $this->validate([
             "name"=>"required",
             "desigation"=>"required",
@@ -128,7 +128,7 @@ class Userlist extends Component
               'activity'=>"Create",
               'afield'=>"User List",
               'time'=>$time,
-              'ip'=> $ip,
+              
           ]);
         }
   
@@ -160,7 +160,7 @@ public function OpenEditModal($id){
 
 public function updateRow(){
     $cid = $this->cid;
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+   
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     $update = Userslist::find($cid)->update([
@@ -181,7 +181,7 @@ public function updateRow(){
             'activity'=>"Update",
             'afield'=>"User List",
             'time'=>$time,
-            'ip'=> $ip,
+            
         ]);
     }
     if($update){
@@ -199,7 +199,7 @@ public function deleteConfirm($id){
 }
 public function delete($id){
     $del =  Userslist::find($id)->delete();
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+   
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     if($del){
@@ -212,7 +212,7 @@ public function delete($id){
             'activity'=>"Delete",
             'afield'=>"User List",
             'time'=>$time,
-            'ip'=> $ip,
+            
         ]);
     }
     $this->checkedUser = [];
@@ -226,7 +226,7 @@ public function deleteUsers(){
 }
 public function deleteCheckedUsers($ids){
     Userslist::whereKey($ids)->delete();
-    $ip = file_get_contents('https://api.ipify.org/?format=text');
+   
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     if(Session::get('admin_type') == "Mod"){
@@ -236,7 +236,7 @@ public function deleteCheckedUsers($ids){
             'activity'=>"Delete",
             'afield'=>"User List",
             'time'=>$time,
-            'ip'=> $ip,
+            
         ]);
     }
     $this->checkedUser = [];
