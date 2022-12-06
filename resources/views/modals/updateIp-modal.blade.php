@@ -6,17 +6,17 @@
                  <h3 align ="center">User Info Update</h3>           
                 <div class="form-group">
                 <label for="">User</label>
-                <select id="select-state" wire:model ="U_user" class="form-control" >
+                <select wire:model.debounce.0ms ="U_user" class="form-control" data-live-search="true" data-size="5" id="select_page" data-live-search-placeholder="Search your user"  data-style="btn btn-outline-secondary">
                 <option value="" disabled selected hidden>Select User</option>
-                <option value="">No User</option>
+                <option value="">&nbsp No User</option>
                 @foreach ($Userlists as $Userlist)
-                <option value="{{ $Userlist->userid }}">{{$Userlist->name}}#{{$Userlist->userid}} ({{$Userlist->desigation}})</option> 
+                <option value="{{ $Userlist->userid }}" data-subtext="({{$Userlist->desigation}})">&nbsp {{$Userlist->name}}#{{$Userlist->userid}}</option> 
                 @endforeach
                 </select>
                 </div>
                 <div class="form-group">
                 <label for="">Physical Address</label>
-                <input type="text" class="form-control" placeholder="Physical IP Address" wire:model="U_padd">   
+                <input type="text" class="form-control" placeholder="Physical IP Address" wire:model.debounce.0ms="U_padd">   
                 </div>   
                 <div class="form-group">
                 <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>

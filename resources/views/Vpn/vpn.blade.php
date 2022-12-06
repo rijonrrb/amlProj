@@ -14,11 +14,10 @@
     <link rel="stylesheet" href="{{asset('css/modal.css')}}">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script> -->
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
     #Vpn tr:nth-child(even){background-color: #b2b2b2;}
@@ -135,6 +134,7 @@ window.addEventListener('ClosefailedEditModal', function(){
          }
      });
  });
+
 </script>
 
 <script>
@@ -150,15 +150,29 @@ window.addEventListener('ClosefailedEditModal', function(){
         html_table_to_excel('xlsx');
     });
 </script>
-<!-- <script>
-function initiateSelect2() {
-    $('select').select2();
-}
-initiateSelect2();
-// when modal is open
-$('.modal').on('shown.bs.modal', function () {
-  initiateSelect2();
+<script>
+document.addEventListener('livewire:load', function () {
+ $('#select_page').selectpicker();
 })
-</script> -->
+document.addEventListener('DOMContentLoaded', () => {
+    Livewire.hook('element.updating', (fromEl, toEl, component) => {
+        console.log('being update'); $('#select_page').selectpicker('destroy'); })
+        Livewire.hook('message.processed', (message, component) => {
+            $('#select_page').selectpicker();
+    }) 
+});
+</script>
+<script>
+document.addEventListener('livewire:load', function () {
+ $('#upVpn').selectpicker();
+})
+document.addEventListener('DOMContentLoaded', () => {
+    Livewire.hook('element.updating', (fromEl, toEl, component) => {
+        console.log('being update'); $('#upVpn').selectpicker('destroy'); })
+        Livewire.hook('message.processed', (message, component) => {
+            $('#upVpn').selectpicker();
+    }) 
+});
+</script>
 </body>
 </html>

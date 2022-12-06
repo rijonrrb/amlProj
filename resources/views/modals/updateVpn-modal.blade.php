@@ -7,11 +7,11 @@
 
                 <div class="form-group">
                 <label for="">User</label>
-                <select id="select-state" wire:model ="U_userid" class="form-control" >
+                <select wire:model.debounce.0ms="U_userid" class="form-control" data-live-search="true" data-size="5" id="upVpn" data-live-search-placeholder="Search your user" data-style="btn btn-outline-secondary">
                 <option value="" disabled selected hidden>Select User</option>
-                <option value="">No User</option>
+                <option value="">&nbsp No User</option>
                 @foreach ($Userlists as $Userlist)
-                <option value="{{ $Userlist->userid }}">{{$Userlist->name}}#{{$Userlist->userid}} ({{$Userlist->desigation}})</option> 
+                <option value="{{ $Userlist->userid }}"  data-subtext="({{$Userlist->desigation}})">&nbsp {{$Userlist->name}}#{{$Userlist->userid}}</option> 
                 @endforeach
                 </select>
                 </div>
