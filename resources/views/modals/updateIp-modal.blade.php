@@ -10,7 +10,7 @@
                 <option value="" disabled selected hidden>Select User</option>
                 <option value="">&nbsp No User</option>
                 @foreach ($Userlists as $Userlist)
-                <option value="{{ $Userlist->userid }}" data-subtext="({{$Userlist->desigation}})">&nbsp {{$Userlist->name}}#{{$Userlist->userid}}</option> 
+                <option value="{{ $Userlist->userid }}" data-subtext="({{$Userlist->desigation}})">&nbsp {{$Userlist->name}} &nbsp#{{$Userlist->userid}}</option> 
                 @endforeach
                 </select>
                 </div>
