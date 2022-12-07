@@ -8,12 +8,13 @@
                        <h3 align ="center">User Info</h3>
                        <div class="form-group">
                            <label for="">User</label>
-                           <select id="select-state" wire:model ="r_user" class="form-control" >
+                            <select wire:model.debounce.0ms ="r_user" class="form-control" data-live-search="true" data-size="5" id="reAsset" data-live-search-placeholder="Search your user"  data-style="btn btn-outline-secondary">
                             <option value="" disabled selected hidden>Select User</option>
+                            <option value="">&nbsp No User</option>
                             @foreach ($Userlists as $Userlist)
-                            <option value="{{ $Userlist->userid }}">{{$Userlist->name}}#{{$Userlist->userid}} ({{$Userlist->desigation}})</option> 
+                            <option value="{{ $Userlist->userid }}" data-subtext="({{$Userlist->desigation}})">&nbsp {{$Userlist->name}} &nbsp#{{$Userlist->userid}}</option> 
                             @endforeach
-                            </select>
+                            </select>                          
                            <span class="text-danger"> @error('r_user') {{ $message }}@enderror</span>
                        </div>
                     </div>
