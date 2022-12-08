@@ -26,6 +26,7 @@ class Userlist extends Component
     public $byPid =null;
     public $byIp =null;
     public $byVpn =null;
+    public $byCategory =null;
 
     public $perPage =20;
     public $orderBy = "userid";
@@ -64,6 +65,8 @@ class Userlist extends Component
                 $query->where('ip',$this->byIp);
             })->when($this->byVpn,function($query){
                 $query->where('vpn',$this->byVpn);
+            })->when($this->byCategory,function($query){
+                $query->where('category',$this->byCategory);
             })
             ->search(trim($this->search))
             ->orderBy($this->orderBy,$this->sortBy)
@@ -94,9 +97,13 @@ class Userlist extends Component
             $increment_uid = $uid->userid;
             $userid = ++$increment_uid;
          }
-
         $time =  date('d F Y h:i:s A');
-            
+        if ($this->dept="No Department") {
+            $dept="";
+        }
+        else {
+            $dept= $this->dept;
+        }    
         $this->validate([
             "name"=>"required",
             "desigation"=>"required",
@@ -109,7 +116,7 @@ class Userlist extends Component
         'dept.required'=>"The Department field is required.",
         'wstation.required'=>"The Work Station field is required.",
         'unit.required'=>"The Working Unit field is required."]
-    );
+        );
 
         $save = Userslist::insert([
             'userid'=>$userid,
@@ -117,9 +124,10 @@ class Userlist extends Component
             'email'=>$this->email,
             'phone'=>$this->phone,
             'desigation'=>$this->desigation,
-            'dept'=>$this->dept,
+            'dept'=>$dept,
             'wstation'=>$this->wstation,
             'unit'=> $this->unit,
+            'category'=> "Active",
         ]);
           if(Session::get('admin_type') == "Mod"){
             Log::insert([
@@ -152,6 +160,7 @@ public function OpenEditModal($id){
     $this->U_wstation = $info->wstation;
     $this->U_ip = $info->ip;
     $this->U_vpn = $info->vpn;
+    $this->U_categories = $info->category;
     $this->cid = $info->id;
     $this->dispatchBrowserEvent('OpenEditModal',[
         'id'=>$id
@@ -170,6 +179,7 @@ public function updateRow(){
         'desigation'=>$this->U_desigation,
         'dept'=>$this->U_dept,
         'unit'=>$this->U_unit,
+        'category'=>$this->U_categories,
         'wstation'=>$this->U_wstation,
         'ip'=>$this->U_ip,
         'vpn'=>$this->U_vpn

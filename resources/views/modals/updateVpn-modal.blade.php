@@ -15,10 +15,6 @@
                 @endforeach
                 </select>
                 </div>
-                <div class="form-group">
-                     <label for="">Username</label>
-                     <input type="text" class="form-control" placeholder="Username" wire:model="U_name">
-                 </div>
                  <div class="form-group">
                      <label for="">Password</label>
                      <input type="text" class="form-control" placeholder="Password" wire:model="U_password">

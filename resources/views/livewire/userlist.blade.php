@@ -13,9 +13,13 @@
             </div>
         </div>
         <div class="row p-2" style= "margin-right: 0px; margin-left: 0px;">
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
-                <label for="" style="color:#c94c4c"><b>Search</b></label>
-                <input type="text" class="form-control" wire:model.debounce.350ms="search">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
+                <label for="" style="color:#c94c4c"><b>User Category</b></label>
+                <select class="form-control" wire:model="byCategory">
+                    <option value="">Select Category</option>
+                    <option value="Active">Active User</option>
+                    <option value="Deactivate">Deactivated User</option>
+                </select>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-1 mt-1 mb-4">
                 <label for="" style="color:#c94c4c"><b>Data Limit</b></label>
@@ -93,28 +97,34 @@
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-1 mt-1 mb-4">
                 <label for="" style="color:#c94c4c"><b>Sort By</b></label>
                 <select class="form-control" wire:model="sortBy">
-                    <option value="asc">ASC</option><option value="desc">DESC</option>
+                    <option value="asc">ASC</option>
+                    <option value="desc">DESC</option>
                 </select>
             </div>
         </div>
         <div class="row mb-3 p-2 card-header" style= "margin-right: 0px; margin-left: 0px;">
-
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 mt-1 mb-4">
+         
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
+                <label for="" style="color:#c94c4c"><b>Search</b></label>
+                <input type="text" class="form-control" wire:model.debounce.350ms="search">
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
                 <label for="" style="color:#c94c4c"><b>User ID</b></label>
                 <input type="text" class="form-control" wire:model.debounce.350ms="byUid">
             </div>
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 mt-1 mb-4">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mt-1 mb-4">
                 <label for="" style="color:#c94c4c"><b>Product Asset No</b></label>
                 <input type="text" class="form-control" wire:model.debounce.350ms="byPid">
-            </div>
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 mt-1 mb-4">
-                <label for="" style="color:#c94c4c"><b>IP Address</b></label>
-                <input type="text" class="form-control" wire:model.debounce.350ms="byIp">
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 mt-1 mb-4">
                 <label for="" style="color:#c94c4c"><b>VPN</b></label>
                 <input type="text" class="form-control" wire:model.debounce.350ms="byVpn">
             </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3 mt-1 mb-4">
+                <label for="" style="color:#c94c4c"><b>IP Address</b></label>
+                <input type="text" class="form-control" wire:model.debounce.350ms="byIp">
+            </div>
+
         </div>
         <div style="overflow-x:auto;" class="card-body">
             <table class="table table-hover table-bordered" id="User">
@@ -137,6 +147,7 @@
                     <th>Product Asset No</th>
                     <th>IP Address</th>
                     <th>VPN</th>
+                    <th>User Category</th>
                     @if(Session::get('admin_type') == "SAdmin")
                     <th>Delete</th>
                     <th>Update</th>
@@ -174,6 +185,11 @@
                         <td  data-id="{{ $User->id }}" data-column="asset_no" style="white-space: nowrap;">{{ $User->asset_no }}</td>
                         <td  data-id="{{ $User->id }}" data-column="ip" style="white-space: nowrap;">{{ $User->ip }}</td>
                         <td  data-id="{{ $User->id }}" data-column="vpn" style="white-space: nowrap;">{{ $User->vpn }}</td>
+                        @if( $User->category == "Active")
+                        <td  data-id="{{ $User->id }}" class="text-white bg-success" data-column="category" >{{ $User->category }}</td>
+                        @elseif( $User->category == "Deactivated")
+                        <td  data-id="{{ $User->id }}" class="text-white bg-danger" data-column="category" >{{ $User->category }}</td>
+                        @endif
                         @if(Session::get('admin_type') == "SAdmin")                
                         <td>
                             <div class="btn-group container">

@@ -62,7 +62,7 @@ window.addEventListener('ClosefailedVpnModal', function(){
     Swal.fire({
                 icon: 'error',
                 title: 'Oops..',
-                text: 'This User have already a VPN',
+                text: 'This User-Name is already inserted',
                 showCloseButton:true,
                 showConfirmButton: false,
             });
@@ -90,7 +90,7 @@ window.addEventListener('ClosefailedEditModal', function(){
     Swal.fire({
                 icon: 'error',
                 title: 'Oops..',
-                text: 'This User have already a VPN',
+                text: 'This User-Name is already inserted',
                 showCloseButton:true,
                 showConfirmButton: false,
             });

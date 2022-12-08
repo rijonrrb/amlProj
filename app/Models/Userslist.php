@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Userslist extends Model
 {
     use HasFactory;
-    protected $fillable = ['userid','name','email','phone','desigation','dept','wstation','unit','asset_id','asset_no','ip_id','ip','vpn_id','vpn'];
+    protected $fillable = ['userid','name','email','phone','desigation','dept','wstation','unit','asset_id','asset_no','ip_id','ip','vpn_id','vpn','category'];
     public function scopeSearch($query, $term){
         $term = "%$term%";
         $query->where(function($query) use ($term){
@@ -23,7 +23,8 @@ class Userslist extends Model
            ->orWhere('unit','like',$term)
            ->orWhere('asset_no','like',$term)
            ->orWhere('ip','like',$term)
-           ->orWhere('vpn','like',$term);
+           ->orWhere('vpn','like',$term)
+           ->orWhere('category','like',$term);
         });
     }
     public $timestamps = false;

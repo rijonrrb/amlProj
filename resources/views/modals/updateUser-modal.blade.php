@@ -54,6 +54,13 @@
              <div class="form-group">
                  <label for="">VPN</label>
                  <input type="text" class="form-control" placeholder="User VPN" wire:model="U_vpn" >
+             </div>
+             <div class="form-group">
+                 <label for="">User Category</label>
+                 <select wire:model ="U_categories" class="form-control">
+                    <option value="Active">Active User</option>
+                    <option value="Deactivated">Deactivated User</option>
+                 </select>
              </div>         
              <div class="form-group">
                  <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>

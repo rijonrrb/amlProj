@@ -49,7 +49,14 @@ class Vpn extends Component
         $name =  $this->name; 
         $info = Vpns::where('name',$name)->first();
         $userinfo = Userslist::where('userid',$this->userid)->first();
-
+        if (empty($userinfo->vpn))
+        {
+            $vpn = $this->name;
+        }
+        else
+        {
+            $vpn = $userinfo->vpn."  ||  ".$this->name;
+        }
         $this->validate([
         "userid"=>"required",
         "name"=>"required",
@@ -63,8 +70,8 @@ class Vpn extends Component
         'ip.regex'=>"Invalid IP format"]
         );
 
-        // if(empty($info))
-        // {
+        if(empty($info))
+        {
         if($this->userid == "No")
         {
 
@@ -91,10 +98,9 @@ class Vpn extends Component
         }
         else 
         {
-            if(empty($userinfo->vpn))
-            {
+
             Userslist::where('userid',$userinfo->userid)->update([
-                'vpn'=>$this->name,
+                'vpn'=>$vpn,
 
             ]);
             $save = Vpns::insert([
@@ -118,16 +124,12 @@ class Vpn extends Component
                 $this->dispatchBrowserEvent('CloseAddVpnModal');
                 $this->checkedVpn = [];
             }     
-          } 
-         else {
-            $this->dispatchBrowserEvent('ClosefailedVpnModal');
-         }
         }
-        // }
-        // else 
-        // {
-        // $this->dispatchBrowserEvent('ClosefailedVpnModal');
-        // }
+        }
+        else 
+        {
+        $this->dispatchBrowserEvent('ClosefailedVpnModal');
+        }
 
 }
 
@@ -145,17 +147,32 @@ public function OpenEditModal($id){
 }
 
 public function updateRow(){
-    $cid = $this->cid;
-    
+    $cid = $this->cid;  
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
     $uname =  $this->U_name; 
     $chkUser = Vpns::where('id',$cid)->first();
     $info = Vpns::where('name',$uname)->first();
     $userinfo = Userslist::where('userid',$this->U_userid)->first();
+    if($chkUser->userid == $this->U_userid && $chkUser->name == $this->U_name)
+    {
+       $vpn = $userinfo->vpn;
+    }
+    else {
+        if (empty($userinfo->vpn))
+        {
+            $vpn = $this->U_name;
+        }
+        else
+        {
+            $vpn = $userinfo->vpn."  ||  ".$this->U_name;
+        }
+    }
+
+    // if (empty($info)) {
     if($this->U_userid == "No")
     {
-        Userslist::where('userid',$chkUser->userid)->update([
+        Userslist::where('userid',$chkUser->userid)->where('vpn',$this->U_name)->update([
             'vpn'=>Null,
         ]);
     $update = Vpns::find($cid)->update([
@@ -180,9 +197,9 @@ public function updateRow(){
     $this->checkedVpn = [];
     } 
     }
-    elseif ($chkUser->userid == $this->U_userid) {
+    else{
         Userslist::where('userid',$this->U_userid)->update([
-            'vpn'=>$this->U_name,
+            'vpn'=>$vpn,
 
         ]);
         $update = Vpns::find($cid)->update([
@@ -207,44 +224,11 @@ public function updateRow(){
             $this->checkedVpn = [];
         }  
     }
-    else 
-    {
-        if(empty($userinfo->vpn))
-        {
-        Userslist::where('userid',$chkUser->userid)->update([
-            'vpn'=>Null,
-        ]);
-        Userslist::where('userid',$this->U_userid)->update([
-            'vpn'=>$this->U_name,
-
-        ]);
-        $update = Vpns::find($cid)->update([
-            'userid'=>$this->U_userid,
-            'name'=>$this->U_name,
-            'password'=>$this->U_password,
-            'ip'=>$this->U_ip,
-            'remark'=>$this->U_remark,
-            ]);
-        if(Session::get('admin_type') == "Mod"){
-            Log::insert([
-                'name'=>Session::get('name'),
-                'email'=>Session::get('email'),
-                'activity'=>"Update",
-                'afield'=>"VPN List",
-                'time'=>$time,
-                
-            ]);
-        }
-        if($update){
-            $this->dispatchBrowserEvent('CloseEditModal');
-            $this->checkedVpn = [];
-        }     
-      } 
-     else {
-        $this->dispatchBrowserEvent('ClosefailedEditModal');
-     }
-    }
-
+    // }
+    // else 
+    // {
+    //     $this->dispatchBrowserEvent('ClosefailedEditModal');
+    // }
 
 }
 

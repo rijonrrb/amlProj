@@ -58,6 +58,7 @@
                             <input type="text" class="form-control col-8 mr-3" placeholder="User Department" wire:model="dept"  style="display: block;" id="idept">
                             <select wire:model ="dept" class="form-control col-9 mr-3"  style="display: none;" id="sdept">
                                 <option value="" disabled selected hidden>Select Department</option>
+                                <option value="No Department">No Department</option>
                                 <option value="HR">HR</option>
                                 <option value="IT">IT</option>
                                 <option value="MIS">MIS</option>

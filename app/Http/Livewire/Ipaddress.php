@@ -155,8 +155,34 @@ public function updateRow(){
    
     date_default_timezone_set('Asia/Dhaka');
     $time =  date('d F Y h:i:s A');
+    $chkUser = Ip::where('id',$cid)->first();
     $userinfo = Userslist::where('userid',$this->U_user)->first();
     $userip =  Userslist::where('ip',$this->U_ip)->first();
+
+
+    if($chkUser->userid == $this->U_user)
+    {
+       $ip = $userinfo->ip;
+       $ipid = $userinfo->ip_id;
+    }
+    else {
+        if (empty($userinfo->ip))
+        {
+            $ip = $this->U_ip;
+        }
+        else
+        {
+            $ip = $userinfo->ip."  ||  ".$this->U_ip;
+        }
+        if (empty($userinfo->ip_id))
+        {
+            $ipid = $this->U_ipid;
+        }
+        else
+        {
+            $ipid = $userinfo->ip_id."  ||  ".$this->U_ipid;
+        }
+    }
     if(empty($this->U_user))
     {
         Userslist::where('ip',$this->U_ip)->update([
@@ -189,8 +215,8 @@ public function updateRow(){
             if($upUser)
             {
                 Userslist::where('userid',$userinfo->userid)->update([
-                    'ip_id'=> $this->U_ipid,
-                    'ip'=>$this->U_ip,
+                    'ip_id'=> $ipid,
+                    'ip'=>$ip,
             
                 ]);
                 $update = Ip::find($cid)->update([
@@ -222,8 +248,8 @@ public function updateRow(){
         else 
         {
             Userslist::where('userid',$this->U_user)->update([
-                'ip_id'=> $this->U_ipid,
-                'ip'=>$this->U_ip,
+                'ip_id'=> $ipid,
+                'ip'=>$ip,
         
             ]);
             $update = Ip::find($cid)->update([

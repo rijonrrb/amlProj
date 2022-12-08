@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('desigation');
-            $table->string('dept');
+            $table->string('dept')->nullable();
             $table->string('wstation'); 	
             $table->string('unit');
             $table->string('asset_id')->nullable();
@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('ip_id')->nullable();
             $table->string('ip')->nullable();
             $table->string('vpn')->nullable();
+            $table->string('category')->nullable();
         });
     }
 
