@@ -22,6 +22,7 @@
 					<th>Issue/Re-Issue Privilege</th>
 					<th>Return Privilege</th>
 					<th>Delete</th>
+					<th>Update</th>	
 				</tr>
 			</thead>
 			<tbody>
@@ -64,11 +65,17 @@
 							&nbsp;&nbsp;&nbsp;<a href="#" wire:click="deleteConfirm({{$Admin->id}})"><i class="material-icons" style="color:red" title="Delete">&#xE872;</i></a>
 						</div>
 					</td>
-			</tr>
+					<td>
+						<div class="btn-group container">
+							&nbsp;&nbsp;&nbsp;<a href="#" wire:click="OpenEditModal({{$Admin->id}})"><img src="https://cdn-icons-png.flaticon.com/512/5278/5278663.png" style="width: 30px;" title="Update Row"></img></a>
+						</div>
+					</td>
+				</tr>
 			@empty
 			<code>No DataSet found!</code>
 			@endforelse
 		</tbody>
 	</table>
 </div>
+@include('modals.updateAdmin-modal')
 </div>
