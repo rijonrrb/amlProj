@@ -1,6 +1,6 @@
 ## Inventory Management System using Laravel
 
-__𝙊𝙫𝙚𝙧𝙫𝙞𝙚𝙬__ The purpose of this project is to develop an inventory management system that allows the admin and super admin of a company to easily manage their electronic stuff, IP addresses, VPN, and user list. The system will provide a user-friendly interface that allows authorized users to manage and monitor inventory levels, generate reports, and perform other administrative tasks.
+__𝙊𝙫𝙚𝙧𝙫𝙞𝙚𝙬:__ The purpose of this project is to develop an inventory management system that allows the admin and super admin of a company to easily manage their electronic stuff, IP addresses, VPN, and user list. The system will provide a user-friendly interface that allows authorized users to manage and monitor inventory levels, generate reports, and perform other administrative tasks.
 - - - - -
 ## Features
 
@@ -26,9 +26,8 @@ __𝙊𝙫𝙚𝙧𝙫𝙞𝙚𝙬__ The purpose of this project is to develop a
 - `Frontend` Livewire for real-time frontend development, HTML, CSS, Bootstrap, JavaScript, and AJAX
 - `Database` MySQL for data storage
 
----
+- - - - -
 ## Conclusion
-
 
 This Inventory Management System will provide an efficient way for companies to manage their inventory levels and related data. The user-friendly interface and advanced features will make it easy for the admin and super admin to perform their tasks efficiently. The use of Laravel, Livewire, HTML, CSS, Bootstrap, JavaScript, and AJAX will ensure a high-performance system that is easily scalable and maintainable.
 
