@@ -1,64 +1,43 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Inventory Management System using Laravel
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+__ Overview __ The purpose of this project is to develop an inventory management system that allows the admin and super admin of a company to easily manage their electronic stuff, IP addresses, VPN, and user list. The system will provide a user-friendly interface that allows authorized users to manage and monitor inventory levels, generate reports, and perform other administrative tasks.
+- - - - -
+## Features
 
-## About Laravel
+- `Login and user management` The system will allow multiple users to log in with different roles, such as admin and super admin, and will provide authentication and authorization features.
+- `Dashboard` The dashboard will provide an overview of the inventory levels, activity log, admin create, admin list, change password, logout, and other relevant information.
+- `Privilege management` The super admin can give privilege of the database to the normal admin. The normal admin can manage the database with the privilege given by the super admin. The delete option is only available for super admin.
+- `Activity log` There is an activity log for super admin to track and monitor user activity.
+- `Inventory management` The system will allow the admin and super admin to manage their electronic stuff, IP addresses, VPN, and user list. They can add, update, issue, and reissue products, and can also view details of each item, such as Product Serial No, Warranty Expire Date, Vendor etc.
+- `Search functionality` The system will allow the user to search for specific items based on various criteria, such as name, category, or Vendor. Every data table has its own filtering option so that admin and SuperAdmin can easily find their desired data.
+- `Reports` The system will generate excel reports based on various parameters, such as inventory levels, ip address, vpn list, and user list.
+- `Condition and Warranty Expire Date` In Assets table, there are two columns named Condition and Warranty Expire Date which changes color according to the data for user's advantage.
+- `Connection between tables` Every table is connected to each other like user list table connects with VPN table and assets table. Also, the IP address table connects with the user list table.
+- `IP address management` In the IP address table, admin and super admin can add single IP addresses and also they can add a block of IP addresses.
+- `Other features` There are many other features for admin, such as generating pdf of invoices for products, changing password, and managing admin creation.
+- - - - -
+## Demo
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- - - - -
+## Technology
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- `Backend` Laravel PHP framework
+- `Frontend` Livewire for real-time frontend development, HTML, CSS, Bootstrap, JavaScript, and AJAX
+- `Database` MySQL for data storage
 
-## Learning Laravel
+---
+## Conclusion
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+This Inventory Management System will provide an efficient way for companies to manage their inventory levels and related data. The user-friendly interface and advanced features will make it easy for the admin and super admin to perform their tasks efficiently. The use of Laravel, Livewire, HTML, CSS, Bootstrap, JavaScript, and AJAX will ensure a high-performance system that is easily scalable and maintainable.
+---
+## Usage
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+This is not a package - it's a full Laravel project that you should use as a starter boilerplate, and then add your own custom functionality.
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Clone the repository with `git clone`
+- Copy `.env.example` file to `.env` and edit database credentials there
+- Run `composer install`
+- Run `php artisan keygenerate`
+- Run `php artisan migrate --seed` (it has some seeded data - see below)
+- That's it launch the main URL and login with default credentials `admin@admin.com` - `password`
