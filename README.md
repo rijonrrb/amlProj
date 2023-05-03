@@ -44,4 +44,5 @@ This is not a package - it's a full Laravel project that you should use as a sta
 - Run `composer install`
 - Run `php artisan keygenerate`
 - Run `php artisan migrate --seed` (it has some seeded data - see below)
-- That's it launch the main URL and login with default credentials `admin@admin.com` - `password`
+- That's it launch the main URL and login with default credentials `superadmin2022@amlbd.com` - `Abc@123`
+- Run `php artisan serve`
